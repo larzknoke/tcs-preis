@@ -3,8 +3,20 @@ import "@/styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
 import { Open_Sans } from "next/font/google";
+import { StepsTheme as Steps } from "chakra-ui-steps";
 
 const opensans = Open_Sans({ subsets: ["latin"] });
+
+const formStyles = {
+  baseStyle: {
+    container: {
+      label: {
+        color: "gray.400",
+      },
+    },
+  },
+};
+
 const theme = extendTheme({
   initialColorMode: "light",
   useSystemColorMode: false,
@@ -30,6 +42,7 @@ const theme = extendTheme({
       },
     },
   },
+  components: { Steps, Form: formStyles },
 });
 
 export default function App({ Component, pageProps }) {

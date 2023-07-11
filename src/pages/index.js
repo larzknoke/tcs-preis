@@ -1,7 +1,8 @@
-import NewLetter from "@/components/newLetter";
 import TeaserText from "@/components/teaser-text";
-import { Container, VStack, Heading, Divider } from "@chakra-ui/react";
+import { Container, VStack, Heading, Button } from "@chakra-ui/react";
 import Image from "next/image";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import NextLink from "next/link";
 
 export default function Home() {
   return (
@@ -19,7 +20,17 @@ export default function Home() {
             11. Town & Country Stiftungspreis
           </Heading>
           <TeaserText />
-          <NewLetter />
+          <Button
+            href="/formular"
+            as={NextLink}
+            rightIcon={<ArrowForwardIcon />}
+            colorScheme="green"
+            form="new-angebot-form"
+            type="submit"
+            width={"30%"}
+          >
+            Zum Formular
+          </Button>
         </VStack>
       </Container>
     </main>
