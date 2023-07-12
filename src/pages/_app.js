@@ -22,6 +22,7 @@ const theme = extendTheme({
   useSystemColorMode: false,
   colors: {
     brand: {
+      800: "#c3d551",
       900: "#b2c243",
     },
     brand2: {

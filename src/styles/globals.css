@@ -5,3 +5,7 @@
 .cui-steps__step-icon-container span {
   color: white;
 }
+
+.cui-steps__step-icon-container[aria-current="step"] {
+  background: var(--chakra-colors-brand-900) !important;
+}

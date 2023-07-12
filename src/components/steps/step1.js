@@ -146,6 +146,7 @@ function Step1() {
               {...register("bundeslandTraeger", {
                 required: "Pflichtfeld",
               })}
+              placeholder="Bitte auswählen..."
             >
               <option value="Baden-Wuerttemberg">Baden-Württemberg</option>
               <option value="Bayern">Bayern</option>
@@ -193,31 +194,28 @@ function Step1() {
         </GridItem>
 
         <GridItem colSpan={1}>
-          <Input
-            type="file"
-            // multiple
-            {...register("mietvertrag")}
-            sx={{
-              "::file-selector-button": {
-                height: 10,
-                padding: 0,
-                mr: 4,
-                background: "none",
-                border: "none",
-                fontWeight: "bold",
-              },
-            }}
-          />
-        </GridItem>
-        <GridItem colSpan={"3"}>
-          <Button
-            colorScheme="green"
-            form="new-angebot-form"
-            type="submit"
-            w={"100%"}
-          >
-            Bewerbung abschicken
-          </Button>
+          <FormControl isInvalid={errors.freistellungsbescheidTraeger}>
+            <FormLabel>Freistellungsbescheid</FormLabel>
+            <Input
+              type="file"
+              // multiple
+              {...register("freistellungsbescheidTraeger")}
+              sx={{
+                "::file-selector-button": {
+                  height: 10,
+                  padding: 0,
+                  mr: 4,
+                  background: "none",
+                  border: "none",
+                  fontWeight: "bold",
+                },
+              }}
+            />
+            <FormErrorMessage>
+              {errors.freistellungsbescheidTraeger &&
+                errors.freistellungsbescheidTraeger.message}
+            </FormErrorMessage>
+          </FormControl>
         </GridItem>
       </SimpleGrid>
     </VStack>

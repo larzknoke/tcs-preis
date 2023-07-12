@@ -22,7 +22,7 @@ function TeaserText() {
           >
             Hinweise zur Bewerbung
           </Heading>
-          <OrderedList spacing={6}>
+          <OrderedList spacing={6} color={"gray.500"}>
             <ListItem>
               Das Bewerbungsverfahren beginnt am 01. Februar 2022 und endet am
               03. April 2022 um 24:00 Uhr.
@@ -75,7 +75,7 @@ function TeaserText() {
               die Stiftung.
             </ListItem>
           </OrderedList>
-          <Text mt={"8"}>
+          <Text color={"gray.500"} mt={"8"}>
             Gern steht Ihnen das Team der Town & Country Stiftung für weitere
             Fragen unter der Rufnummer 0361 / 644 789 14 oder per E-Mail:{" "}
             <a href="mailto:stiftungspreis@tc-stiftung.de">
@@ -83,10 +83,12 @@ function TeaserText() {
             </a>{" "}
             zur Verfügung.
           </Text>
-          <Text as={"b"} mt={"8"}>
+          <Text color={"gray.500"} as={"b"} mt={"8"}>
             Wir freuen uns auf Ihre Bewerbung und wünschen Ihnen viel Erfolg!
           </Text>
-          <Text as={"b"}>Ihr Team der Town & Country Stiftung</Text>
+          <Text as={"b"} color={"gray.500"}>
+            Ihr Team der Town & Country Stiftung
+          </Text>
         </VStack>
       </CardBody>{" "}
     </Card>

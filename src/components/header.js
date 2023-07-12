@@ -40,7 +40,12 @@ function Header() {
                 </Avatar>
               </MenuButton>
               <MenuList>
-                <MenuItem>Admin</MenuItem>
+                <MenuItem as={Link} href="/">
+                  Formular
+                </MenuItem>
+                <MenuItem as={Link} href="/admin">
+                  Admin
+                </MenuItem>
                 <MenuItem>Logout</MenuItem>
               </MenuList>
             </Menu>
