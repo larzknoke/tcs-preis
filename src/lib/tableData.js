@@ -1,0 +1,38 @@
+export const tableData = [
+  {
+    id: "1",
+    name: "Max Mustermann",
+    projekt: "Ev.-luth. Kindertagesstätte 'Arche Noah'",
+    bundesland: "Niedersachsen",
+    plz: 37603,
+    ort: "Holzminden",
+    status: "offen",
+  },
+  {
+    id: "2",
+    name: "Anja Tollhausen",
+    projekt: "BürgerStiftung Erfurt",
+    bundesland: "Thüringen",
+    plz: 99102,
+    ort: "Erfurt",
+    status: "angenommen",
+  },
+  {
+    id: "3",
+    name: "Yvonne Bauer",
+    projekt: "Kinderschutzbund Schweinfurt",
+    bundesland: "Bayern",
+    plz: 80687,
+    ort: "München",
+    status: "abgelehnt",
+  },
+  {
+    id: "4",
+    name: "Ulrike Herkner",
+    projekt: "Kinderhospiz Bärenherz",
+    bundesland: "Sachsen",
+    plz: 4207,
+    ort: "Leipzig",
+    status: "offen",
+  },
+];

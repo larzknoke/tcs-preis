@@ -25,10 +25,10 @@ function Header() {
     <Flex alignItems={"end"} minWidth="max-content" p={8}>
       <Spacer />
       <HStack gap={4} color={"gray.500"}>
-        <Button color={"gray.500"} fontWeight={"400"}>
+        <Button color={"gray.500"} fontWeight={"400"} variant={"ghost"}>
           Impressum
         </Button>
-        <Button color={"gray.500"} fontWeight={"400"}>
+        <Button color={"gray.500"} fontWeight={"400"} variant={"ghost"}>
           Datenschutz
         </Button>
         {true ? (

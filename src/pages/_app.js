@@ -36,7 +36,7 @@ const theme = extendTheme({
   styles: {
     global: {
       "html, body": {
-        background: "gray.100",
+        background: "gray.50",
       },
       a: {
         color: "brand.900",
