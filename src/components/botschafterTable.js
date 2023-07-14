@@ -135,13 +135,13 @@ function BotschafterTable() {
           w={"100%"}
           ml={"auto"}
         />
-        <Button
-          variant={"outline"}
-          leftIcon={<HiUserPlus />}
-          colorScheme="green"
-        >
-          Botschafter hinzufügen
-        </Button>
+        <Tooltip label="Botschafter hinzufügen" placement="top">
+          <IconButton
+            icon={<HiUserPlus />}
+            colorScheme="green"
+            variant={"outline"}
+          />
+        </Tooltip>
       </HStack>
       <TableContainer>
         <Table>
