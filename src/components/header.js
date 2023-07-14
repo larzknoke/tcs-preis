@@ -43,6 +43,9 @@ function Header() {
                 <MenuItem as={Link} href="/">
                   Formular
                 </MenuItem>
+                <MenuItem as={Link} href="/botschafter">
+                  Botschafter
+                </MenuItem>
                 <MenuItem as={Link} href="/admin">
                   Admin
                 </MenuItem>

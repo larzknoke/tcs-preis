@@ -14,14 +14,25 @@ import {
   Stack,
   StackDivider,
   Icon,
+  useDisclosure,
+  Tooltip,
+  HStack,
 } from "@chakra-ui/react";
 import {
   HiOutlineCheckCircle,
   HiOutlineDocumentText,
   HiOutlineDocumentMagnifyingGlass,
+  HiOutlineCloudArrowDown,
 } from "react-icons/hi2";
+import BotschafterModal from "./botschafterModal";
 
 function LetterDetail() {
+  const {
+    isOpen: botschafterIsOpen,
+    onOpen: botschafterOnOpen,
+    onClose: botschafterOnClose,
+  } = useDisclosure();
+
   return (
     <SimpleGrid
       spacing={6}
@@ -32,7 +43,7 @@ function LetterDetail() {
         <CardHeader>
           <Heading
             size="sm"
-            color="gray.400"
+            color="gray.500"
             fontWeight={"600"}
             textTransform={"uppercase"}
           >
@@ -69,7 +80,7 @@ function LetterDetail() {
         <CardHeader>
           <Heading
             size="sm"
-            color="gray.400"
+            color="gray.500"
             fontWeight={"600"}
             textTransform={"uppercase"}
           >
@@ -79,12 +90,32 @@ function LetterDetail() {
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
             <Stat>
-              <StatLabel>Name</StatLabel>
+              <StatLabel>Name der Organisation/Einrichtung</StatLabel>
               <StatNumber>Ev.-luth. Kindertagesstätte 'Arche Noah' </StatNumber>
             </Stat>
             <Stat>
-              <StatLabel>Projekt</StatLabel>
+              <StatLabel>Ansprechpartner</StatLabel>
+              <StatNumber>Yvonne Bauer </StatNumber>
             </Stat>
+            <HStack>
+              <Stat>
+                <StatLabel>Botschafter</StatLabel>
+                <StatNumber>Max Mustermann</StatNumber>
+                <StatHelpText>37603 Holzminden, Niedersachsen</StatHelpText>
+              </Stat>
+              <Button
+                size={"sm"}
+                variant={"outline"}
+                onClick={botschafterOnOpen}
+              >
+                Botschafter bearbeiten
+              </Button>
+              <BotschafterModal
+                botschafterOnOpen={botschafterOnOpen}
+                botschafterOnClose={botschafterOnClose}
+                botschafterIsOpen={botschafterIsOpen}
+              />
+            </HStack>
           </Stack>
         </CardBody>
         <CardFooter>
@@ -95,7 +126,7 @@ function LetterDetail() {
         <CardHeader>
           <Heading
             size="sm"
-            color="gray.400"
+            color="gray.500"
             fontWeight={"600"}
             textTransform={"uppercase"}
           >
@@ -130,7 +161,7 @@ function LetterDetail() {
         <CardHeader>
           <Heading
             size="sm"
-            color="gray.400"
+            color="gray.500"
             fontWeight={"600"}
             textTransform={"uppercase"}
           >
@@ -142,20 +173,34 @@ function LetterDetail() {
             <Stat>
               <StatLabel>Freistellungsbescheid</StatLabel>
               <StatNumber>
-                <Icon as={HiOutlineDocumentText} boxSize={8} color="gray.600" />
+                <Button
+                  size={"sm"}
+                  leftIcon={<HiOutlineCloudArrowDown />}
+                  colorScheme="gray"
+                  variant="outline"
+                  mt={2}
+                >
+                  Download
+                </Button>{" "}
               </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>ProjektNoah.pdf</StatLabel>
               <StatNumber>
-                <Icon as={HiOutlineDocumentText} boxSize={8} color="gray.600" />
+                <Button
+                  size={"sm"}
+                  leftIcon={<HiOutlineCloudArrowDown />}
+                  colorScheme="gray"
+                  variant="outline"
+                  mt={2}
+                >
+                  Download
+                </Button>
               </StatNumber>
             </Stat>
           </Stack>{" "}
         </CardBody>
-        <CardFooter>
-          <Button size={"sm"}>weitere Details</Button>
-        </CardFooter>
+        <CardFooter></CardFooter>
       </Card>
     </SimpleGrid>
   );

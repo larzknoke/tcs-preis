@@ -12,6 +12,8 @@ import {
   Button,
   Badge,
   Tooltip,
+  useDisclosure,
+  Text,
 } from "@chakra-ui/react";
 import {
   HiBars3,
@@ -23,21 +25,43 @@ import {
 } from "react-icons/hi2";
 import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import LetterDetail from "@/components/letterDetail";
+import StatusModal from "@/components/statusModal";
 
 function Bewerbung() {
   const router = useRouter();
   const { id } = router.query;
+  const {
+    isOpen: statusIsOpen,
+    onOpen: statusOnOpen,
+    onClose: statusOnClose,
+  } = useDisclosure();
 
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
       <HStack justify={"space-between"}>
-        <Heading size={"md"}>Ev.-luth. Kindertagesstätte 'Arche Noah'</Heading>
+        <Heading fontSize={"24"}>
+          Ev.-luth. Kindertagesstätte 'Arche Noah'
+        </Heading>
         <HStack>
+          <Text fontSize={"sm"} color={"gray.400"} mr={3}>
+            Eingang: 14.07.2023 | 15.23 Uhr
+          </Text>
           <Tooltip label="Status" placement="top">
-            <Badge variant="outline" colorScheme="yellow" fontSize={"md"}>
+            <Badge
+              variant="outline"
+              colorScheme="yellow"
+              fontSize={"md"}
+              _hover={{ cursor: "pointer" }}
+              onClick={statusOnOpen}
+            >
               Offen
             </Badge>
           </Tooltip>
+          <StatusModal
+            statusOnOpen={statusOnOpen}
+            statusOnClose={statusOnClose}
+            statusIsOpen={statusIsOpen}
+          />
           <Menu>
             <MenuButton
               as={IconButton}

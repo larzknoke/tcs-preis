@@ -14,12 +14,15 @@ import {
   chakra,
   HStack,
   Heading,
+  Button,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
   HiOutlineCheck,
   HiOutlineNoSymbol,
   HiOutlineQuestionMarkCircle,
+  HiUserPlus,
+  HiOutlineTrash,
 } from "react-icons/hi2";
 import {
   useReactTable,
@@ -52,10 +55,6 @@ const columns = [
     cell: (info) => info.getValue(),
     header: "Name",
   }),
-  columnHelper.accessor("projekt", {
-    cell: (info) => info.getValue(),
-    header: "Projekt",
-  }),
   columnHelper.accessor("bundesland", {
     cell: (info) => info.getValue(),
     header: "Bundesland",
@@ -64,41 +63,33 @@ const columns = [
     cell: ({ row, info }) => row.original.plz + " " + row.original.ort,
     header: "PLZ / Ort",
   }),
-  columnHelper.accessor("status", {
-    header: "Status",
-    cell: (info) => (
-      <Tooltip label={info.getValue()} placement="top">
-        <span>
-          {info.getValue() == "offen" && (
-            <Icon as={HiOutlineQuestionMarkCircle} color={"yellow.500"} />
-          )}
-          {info.getValue() == "abgelehnt" && (
-            <Icon as={HiOutlineNoSymbol} color={"red.500"} />
-          )}
-          {info.getValue() == "angenommen" && (
-            <Icon as={HiOutlineCheck} color={"green.900"} />
-          )}
-        </span>
-      </Tooltip>
-    ),
-  }),
   columnHelper.accessor("controls", {
     cell: ({ row, info }) => (
-      <Tooltip label="Bewerbung einsehen" placement="top">
-        <IconButton
-          as={Link}
-          variant={"ghost"}
-          aria-label="Bewerbung zeigen"
-          icon={<HiOutlineFolderOpen />}
-          href={`/bewerbung/${row.original.id}`}
-        />
-      </Tooltip>
+      <>
+        <Tooltip label="Botschafter einsehen" placement="top">
+          <IconButton
+            as={Link}
+            variant={"ghost"}
+            aria-label="Botschafter zeigen"
+            icon={<HiOutlineFolderOpen />}
+            href={`/botschafter/${row.original.id}`}
+          />
+        </Tooltip>
+        <Tooltip label="Botschafter löschen" placement="top">
+          <IconButton
+            variant={"ghost"}
+            aria-label="Botschafter löschen"
+            icon={<HiOutlineTrash />}
+            colorScheme="red"
+          />
+        </Tooltip>
+      </>
     ),
     header: "",
   }),
 ];
 
-function LetterTable() {
+function BotschafterTable() {
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
@@ -131,7 +122,7 @@ function LetterTable() {
     <>
       <HStack my={10}>
         <Heading color={"gray.700"} size={"md"} textAlign={"left"}>
-          Bewerbungen{" "}
+          Botschafter{" "}
           <chakra.span color={"gray.400"}>
             ({Object.keys(tableData).length})
           </chakra.span>
@@ -144,11 +135,18 @@ function LetterTable() {
           w={"100%"}
           ml={"auto"}
         />
+        <Button
+          variant={"outline"}
+          leftIcon={<HiUserPlus />}
+          colorScheme="green"
+        >
+          Botschafter hinzufügen
+        </Button>
       </HStack>
       <TableContainer>
         <Table>
           <TableCaption color={"gray.400"}>
-            letzte Bewerbung 12.07.2023 | 16.53 Uhr
+            {/* letzte Bewerbung 12.07.2023 | 16.53 Uhr */}
           </TableCaption>
           <Thead>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -204,4 +202,4 @@ function LetterTable() {
   );
 }
 
-export default LetterTable;
+export default BotschafterTable;
