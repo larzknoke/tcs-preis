@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import {
+  VStack,
   Container,
   Divider,
   HStack,
@@ -39,9 +40,14 @@ function Bewerbung() {
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
       <HStack justify={"space-between"}>
-        <Heading fontSize={"24"}>
-          Ev.-luth. Kindertagesstätte 'Arche Noah'
-        </Heading>
+        <VStack alignItems={"start"}>
+          <Heading fontSize={"22"} color={"gray.300"} fontWeight={"500"}>
+            Bewerbung
+          </Heading>
+          <Heading fontSize={"24"}>
+            Ev.-luth. Kindertagesstätte 'Arche Noah'
+          </Heading>
+        </VStack>
         <HStack>
           <Text fontSize={"sm"} color={"gray.400"} mr={3}>
             Eingang: 14.07.2023 | 15.23 Uhr

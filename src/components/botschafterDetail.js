@@ -25,9 +25,11 @@ import {
   HiOutlineDocumentMagnifyingGlass,
   HiOutlineCloudArrowDown,
   HiMiniArrowSmallRight,
+  HiOutlinePrinter,
 } from "react-icons/hi2";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import BotschafterModal from "./botschafterModal";
+import Link from "next/link";
 
 function BotschafterDetail() {
   const {
@@ -101,10 +103,6 @@ function BotschafterDetail() {
               <StatNumber>yvonne.bauer@stiftugn.de</StatNumber>
             </Stat>
             <Stat>
-              <StatLabel>Ansprechpartner</StatLabel>
-              <StatNumber>Yvonne Bauer </StatNumber>
-            </Stat>
-            <Stat>
               <StatLabel>Telefon</StatLabel>
               <StatNumber>05531 / 9320-18</StatNumber>
             </Stat>
@@ -140,6 +138,8 @@ function BotschafterDetail() {
                   </StatNumber>
                 </Stat>
                 <Button
+                  as={Link}
+                  href={"/bewerbung/1"}
                   size={"sm"}
                   variant={"outline"}
                   leftIcon={<HiOutlineDocumentText />}
@@ -176,7 +176,13 @@ function BotschafterDetail() {
             </Stack>
           </CardBody>
           <CardFooter>
-            {/* <Button size={"sm"}>weitere Details</Button> */}
+            <Button
+              size={"sm"}
+              variant={"outline"}
+              leftIcon={<HiOutlinePrinter />}
+            >
+              PDF Export
+            </Button>
           </CardFooter>
         </Card>
       </GridItem>

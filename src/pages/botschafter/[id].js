@@ -14,6 +14,7 @@ import {
   Tooltip,
   useDisclosure,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import {
   HiBars3,
@@ -40,7 +41,12 @@ function Botschafter() {
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
       <HStack justify={"space-between"}>
-        <Heading fontSize={"24"}>Yvonne Bauer</Heading>
+        <VStack alignItems={"start"}>
+          <Heading fontSize={"22"} color={"gray.300"} fontWeight={"500"}>
+            Botschafter
+          </Heading>
+          <Heading fontSize={"24"}>Yvonne Bauer</Heading>
+        </VStack>
         <HStack>
           <Text fontSize={"sm"} color={"gray.400"} mr={3}>
             Erstellt: 14.07.2023 | 15.23 Uhr

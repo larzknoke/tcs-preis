@@ -17,6 +17,7 @@ import {
   useDisclosure,
   Tooltip,
   HStack,
+  VStack,
 } from "@chakra-ui/react";
 import {
   HiOutlineCheckCircle,
@@ -25,6 +26,7 @@ import {
   HiOutlineCloudArrowDown,
 } from "react-icons/hi2";
 import BotschafterModal from "./botschafterModal";
+import Link from "next/link";
 
 function LetterDetail() {
   const {
@@ -97,12 +99,16 @@ function LetterDetail() {
               <StatLabel>Ansprechpartner</StatLabel>
               <StatNumber>Yvonne Bauer </StatNumber>
             </Stat>
-            <HStack>
-              <Stat>
-                <StatLabel>Botschafter</StatLabel>
-                <StatNumber>Max Mustermann</StatNumber>
-                <StatHelpText>37603 Holzminden, Niedersachsen</StatHelpText>
-              </Stat>
+            <HStack justify={"space-between"}>
+              <Link href={"/botschafter/1"}>
+                <Stat>
+                  <StatLabel>Botschafter</StatLabel>
+                  <StatNumber color={"gray.700"}>Max Mustermann</StatNumber>
+                  <StatHelpText color={"gray.700"}>
+                    37603 Holzminden, Niedersachsen
+                  </StatHelpText>
+                </Stat>
+              </Link>
               <Button
                 size={"sm"}
                 variant={"outline"}
