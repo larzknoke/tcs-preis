@@ -14,6 +14,8 @@ import {
   chakra,
   HStack,
   Heading,
+  Card,
+  CardBody,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
@@ -129,7 +131,7 @@ function LetterTable() {
 
   return (
     <>
-      <HStack my={10}>
+      <HStack mt={10} mb={6}>
         <Heading color={"gray.700"} size={"md"} textAlign={"left"}>
           Bewerbungen{" "}
           <chakra.span color={"gray.400"}>
@@ -145,61 +147,65 @@ function LetterTable() {
           ml={"auto"}
         />
       </HStack>
-      <TableContainer>
-        <Table>
-          <TableCaption color={"gray.400"}>
-            letzte Bewerbung 12.07.2023 | 16.53 Uhr
-          </TableCaption>
-          <Thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <Tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  const meta = header.column.columnDef.meta;
-                  return (
-                    <Th
-                      key={header.id}
-                      onClick={header.column.getToggleSortingHandler()}
-                      isNumeric={meta?.isNumeric}
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+      <Card>
+        <CardBody>
+          <TableContainer>
+            <Table>
+              <TableCaption color={"gray.400"}>
+                letzte Bewerbung 12.07.2023 | 16.53 Uhr
+              </TableCaption>
+              <Thead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <Tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
+                      const meta = header.column.columnDef.meta;
+                      return (
+                        <Th
+                          key={header.id}
+                          onClick={header.column.getToggleSortingHandler()}
+                          isNumeric={meta?.isNumeric}
+                        >
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
 
-                      <chakra.span pl="4">
-                        {header.column.getIsSorted() ? (
-                          header.column.getIsSorted() === "desc" ? (
-                            <TriangleDownIcon aria-label="sorted descending" />
-                          ) : (
-                            <TriangleUpIcon aria-label="sorted ascending" />
-                          )
-                        ) : null}
-                      </chakra.span>
-                    </Th>
-                  );
-                })}
-              </Tr>
-            ))}
-          </Thead>
-          <Tbody>
-            {table.getRowModel().rows.map((row) => (
-              <Tr key={row.id}>
-                {row.getVisibleCells().map((cell) => {
-                  const meta = cell.column.columnDef.meta;
-                  return (
-                    <Td key={cell.id} isNumeric={meta?.isNumeric}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </Td>
-                  );
-                })}
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+                          <chakra.span pl="4">
+                            {header.column.getIsSorted() ? (
+                              header.column.getIsSorted() === "desc" ? (
+                                <TriangleDownIcon aria-label="sorted descending" />
+                              ) : (
+                                <TriangleUpIcon aria-label="sorted ascending" />
+                              )
+                            ) : null}
+                          </chakra.span>
+                        </Th>
+                      );
+                    })}
+                  </Tr>
+                ))}
+              </Thead>
+              <Tbody>
+                {table.getRowModel().rows.map((row) => (
+                  <Tr key={row.id}>
+                    {row.getVisibleCells().map((cell) => {
+                      const meta = cell.column.columnDef.meta;
+                      return (
+                        <Td key={cell.id} isNumeric={meta?.isNumeric}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </Td>
+                      );
+                    })}
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </CardBody>
+      </Card>
     </>
   );
 }

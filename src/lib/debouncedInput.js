@@ -26,7 +26,8 @@ export default function DebouncedInput({
       {...props}
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      backgroundColor={"gray.100"}
+      backgroundColor={"gray.50"}
+      _focus={{ backgroundColor: "gray.100" }}
     />
   );
 }

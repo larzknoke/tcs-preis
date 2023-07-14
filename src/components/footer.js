@@ -5,7 +5,7 @@ function Footer() {
   return (
     <Flex mt={12} py={12} gap={6} px={"8%"} direction={"column"}>
       <Divider />
-      <Flex gap={16}>
+      <Flex gap={20} justifyContent={"center"}>
         <Image
           src="/tcs_logo.svg"
           alt="TCS Logo"
