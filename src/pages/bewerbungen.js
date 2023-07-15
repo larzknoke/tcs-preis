@@ -1,7 +1,7 @@
 import LetterTable from "@/components/letterTable";
 import { Container, Heading } from "@chakra-ui/react";
 
-function Admin() {
+function Bewerbungen() {
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"8xl"}>
       <LetterTable />
@@ -9,4 +9,4 @@ function Admin() {
   );
 }
 
-export default Admin;
+export default Bewerbungen;

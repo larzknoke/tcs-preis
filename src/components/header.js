@@ -12,11 +12,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  Text,
+  MenuDivider,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -40,15 +36,17 @@ function Header() {
                 </Avatar>
               </MenuButton>
               <MenuList>
-                <MenuItem as={Link} href="/">
-                  Formular
+                <MenuItem as={Link} href="/bewerbungen">
+                  Bewerbungen
                 </MenuItem>
                 <MenuItem as={Link} href="/botschafter">
                   Botschafter
                 </MenuItem>
-                <MenuItem as={Link} href="/admin">
-                  Admin
+                <MenuItem as={Link} href="/">
+                  Formular
                 </MenuItem>
+                <MenuDivider />
+
                 <MenuItem>Logout</MenuItem>
               </MenuList>
             </Menu>
