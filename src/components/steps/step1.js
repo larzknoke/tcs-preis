@@ -7,21 +7,21 @@ import {
   VStack,
   SimpleGrid,
   GridItem,
-  Select,
   Heading,
   RadioGroup,
   HStack,
   Radio,
 } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
+import { Select } from "chakra-react-select";
+import { bundeslaender } from "@/lib/data";
+import { useFormContext, Controller } from "react-hook-form";
 
 function Step1() {
   const {
-    handleSubmit,
     register,
-    reset: resetForm,
     formState: { errors, isSubmitting },
-  } = useForm();
+    control,
+  } = useFormContext();
 
   return (
     <VStack gap={10}>
@@ -40,9 +40,7 @@ function Step1() {
             <Input
               name="andereLizenzpartner"
               type="text"
-              {...register("andereLizenzpartner", {
-                required: "Pflichtfeld",
-              })}
+              {...register("andereLizenzpartner")}
             />
             <FormErrorMessage>
               {errors.andereLizenzpartner && errors.andereLizenzpartner.message}
@@ -62,11 +60,8 @@ function Step1() {
             </FormLabel>
             <Input
               name="nameTraeger"
-              // onChange={handleMiet}
-              type="number"
-              {...register("nameTraeger", {
-                required: "Pflichtfeld",
-              })}
+              type="text"
+              {...register("nameTraeger")}
             />
             <FormErrorMessage>
               {errors.nameTraeger && errors.nameTraeger.message}
@@ -78,11 +73,8 @@ function Step1() {
             <FormLabel>Name des Vorstands/Geschäftsführers</FormLabel>
             <Input
               name="vorstandTraeger"
-              // onChange={handleMiet}
-              type="string"
-              {...register("vorstandTraeger", {
-                required: "Pflichtfeld",
-              })}
+              type="text"
+              {...register("vorstandTraeger")}
             />
             <FormErrorMessage>
               {errors.vorstandTraeger && errors.vorstandTraeger.message}
@@ -94,11 +86,8 @@ function Step1() {
             <FormLabel>Straße und Hausnummer</FormLabel>
             <Input
               name="strasseTraeger"
-              // onChange={handleMiet}
               type="string"
-              {...register("strasseTraeger", {
-                required: "Pflichtfeld",
-              })}
+              {...register("strasseTraeger")}
             />
             <FormErrorMessage>
               {errors.strasseTraeger && errors.strasseTraeger.message}
@@ -110,10 +99,9 @@ function Step1() {
             <FormLabel>PLZ</FormLabel>
             <Input
               name="plzTraeger"
-              // onChange={handleMiet}
-              type="string"
+              type="number"
               {...register("plzTraeger", {
-                required: "Pflichtfeld",
+                valueAsNumber: true,
               })}
             />
             <FormErrorMessage>
@@ -126,11 +114,8 @@ function Step1() {
             <FormLabel>Ort</FormLabel>
             <Input
               name="ortTraeger"
-              // onChange={handleMiet}
               type="string"
-              {...register("ortTraeger", {
-                required: "Pflichtfeld",
-              })}
+              {...register("ortTraeger")}
             />
             <FormErrorMessage>
               {errors.ortTraeger && errors.ortTraeger.message}
@@ -138,61 +123,55 @@ function Step1() {
           </FormControl>
         </GridItem>
         <GridItem colSpan={3}>
-          <FormControl isInvalid={errors.bundeslandTraeger}>
-            <FormLabel>Bundesland</FormLabel>
-            <Select
-              name="bundeslandTraeger"
-              type="string"
-              {...register("bundeslandTraeger", {
-                required: "Pflichtfeld",
-              })}
-              placeholder="Bitte auswählen..."
-            >
-              <option value="Baden-Wuerttemberg">Baden-Württemberg</option>
-              <option value="Bayern">Bayern</option>
-              <option value="Berlin">Berlin</option>
-              <option value="Brandenburg">Brandenburg</option>
-              <option value="Bremen">Bremen</option>
-              <option value="Hamburg">Hamburg</option>
-              <option value="Hessen">Hessen</option>
-              <option value="Mecklenburg-Vorpommern">
-                Mecklenburg-Vorpommern
-              </option>
-              <option value="Niedersachsen">Niedersachsen</option>
-              <option value="Nordrhein-Westfalen">Nordrhein-Westfalen</option>
-              <option value="Rheinland-Pfalz">Rheinland-Pfalz</option>
-              <option value="Saarland">Saarland</option>
-              <option value="Sachsen">Sachsen</option>
-              <option value="Sachsen-Anhalt">Sachsen-Anhalt</option>
-              <option value="Schleswig-Holstein">Schleswig-Holstein</option>
-              <option value="Thüringen">Thüringen</option>
-            </Select>
-            <FormErrorMessage>
-              {errors.bundeslandTraeger && errors.bundeslandTraeger.message}
-            </FormErrorMessage>
-          </FormControl>
+          <Controller
+            control={control}
+            name="bundeslandTraeger"
+            render={({
+              field: { onChange, onBlur, value, name, ref },
+              fieldState: { error },
+            }) => {
+              return (
+                <FormControl py={4} isInvalid={!!error} id="food">
+                  <FormLabel>Name des Vorstands/Geschäftsführers</FormLabel>
+                  <Select
+                    name={name}
+                    ref={ref}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    options={bundeslaender}
+                    placeholder="Bitte auswählen..."
+                  />
+                  <FormErrorMessage>
+                    {errors.bundeslandTraeger &&
+                      errors.bundeslandTraeger.message}
+                  </FormErrorMessage>
+                </FormControl>
+              );
+            }}
+          />
         </GridItem>
         <GridItem colSpan={"3"}>
           <FormControl isInvalid={errors.vereinTraeger}>
             <FormLabel>Als gemeinnützig anerkannt</FormLabel>
-            <RadioGroup
-              defaultValue=""
+            <Controller
+              control={control}
               name="vereinTraeger"
-              {...register("vereinTraeger", {
-                required: "Pflichtfeld",
-              })}
-            >
-              <HStack spacing="32px">
-                <Radio value="ja">Ja</Radio>
-                <Radio value="nein">Nein</Radio>
-              </HStack>
-            </RadioGroup>
+              render={({ field }) => (
+                <RadioGroup ref={register()} defaultValue="" {...field}>
+                  <HStack spacing="32px">
+                    <Radio value="ja">Ja</Radio>
+                    <Radio value="nein">Nein</Radio>
+                  </HStack>
+                </RadioGroup>
+              )}
+            />
             <FormErrorMessage>
               {errors.vereinTraeger && errors.vereinTraeger.message}
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-
+        {/*
         <GridItem colSpan={1}>
           <FormControl isInvalid={errors.freistellungsbescheidTraeger}>
             <FormLabel>Freistellungsbescheid</FormLabel>
@@ -216,7 +195,7 @@ function Step1() {
                 errors.freistellungsbescheidTraeger.message}
             </FormErrorMessage>
           </FormControl>
-        </GridItem>
+        </GridItem> */}
       </SimpleGrid>
     </VStack>
   );

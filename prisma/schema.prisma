@@ -15,13 +15,14 @@ model Letter {
   id                Int       @id @default(autoincrement())
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt @map(name: "updated_at")
+  andereLizenzpartner String?
   nameTraeger       String?
   vorstandTraeger   String?
   strasseTraeger    String?
   plzTraeger        Int?
   ortTraeger        String?
   bundeslandTraeger String?
-  vereinTraeger     Boolean?
+  vereinTraeger     String?
   organisationProjekt     String?
   ansprechpartnerProjekt  String?
   telefonnummerProjekt    String?
@@ -34,6 +35,7 @@ model Letter {
   oeffentlicheZuwendungen Float?
   privateSpenden          Float?
   bisherigeFoerderung     Float?
+  zuwendungAndere         Float?
   checkBeitrag            Boolean?
   checkVeroeffentlich     Boolean?
   checkScheck             Boolean?

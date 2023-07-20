@@ -1,0 +1,18 @@
+export const bundeslaender = [
+  { value: "Baden-Wuerttemberg", label: "Baden-Württemberg" },
+  { value: "Bayern", label: "Bayern" },
+  { value: "Berlin", label: "Berlin" },
+  { value: "Brandenburg", label: "Brandenburg" },
+  { value: "Bremen", label: "Bremen" },
+  { value: "Hamburg", label: "Hamburg" },
+  { value: "Hessen", label: "Hessen" },
+  { value: "Mecklenburg-Vorpommern", label: "Mecklenburg-Vorpommern" },
+  { value: "Niedersachsen", label: "Niedersachsen" },
+  { value: "Nordrhein-Westfalen", label: "Nordrhein-Westfalen" },
+  { value: "Rheinland-Pfalz", label: "Rheinland-Pfalz" },
+  { value: "Saarland", label: "Saarland" },
+  { value: "Sachsen", label: "Sachsen" },
+  { value: "Sachsen-Anhalt", label: "Sachsen-Anhalt" },
+  { value: "Schleswig-Holstein", label: "Schleswig-Holstein" },
+  { value: "Thüringen", label: "Thüringen" },
+];

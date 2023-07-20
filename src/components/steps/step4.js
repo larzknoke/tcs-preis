@@ -20,15 +20,14 @@ import {
 } from "@chakra-ui/react";
 import { FaFilePdf } from "react-icons/fa";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 function Step4() {
   const {
-    handleSubmit,
     register,
-    reset: resetForm,
     formState: { errors, isSubmitting },
-  } = useForm();
+    control,
+  } = useFormContext();
 
   return (
     <VStack gap={10}>
@@ -42,7 +41,7 @@ function Step4() {
           <FormControl isInvalid={errors.checkBeitrag}>
             <Checkbox
               name="checkBeitrag"
-              type="number"
+              type="checkbox"
               {...register("checkBeitrag", {
                 required: "Pflichtfeld",
               })}
@@ -68,7 +67,7 @@ function Step4() {
           <FormControl isInvalid={errors.checkVeroeffentlich}>
             <Checkbox
               name="checkVeroeffentlich"
-              type="number"
+              type="checkbox"
               {...register("checkVeroeffentlich", {
                 required: "Pflichtfeld",
               })}
@@ -90,7 +89,7 @@ function Step4() {
           <FormControl isInvalid={errors.checkScheck}>
             <Checkbox
               name="checkScheck"
-              type="number"
+              type="checkbox"
               {...register("checkScheck", {
                 required: "Pflichtfeld",
               })}
@@ -111,7 +110,7 @@ function Step4() {
           <FormControl isInvalid={errors.checkDatenschutzBilder}>
             <Checkbox
               name="checkDatenschutzBilder"
-              type="number"
+              type="checkbox"
               {...register("checkDatenschutzBilder", {
                 required: "Pflichtfeld",
               })}
@@ -154,7 +153,7 @@ function Step4() {
           <FormControl isInvalid={errors.checkPersonenbezogen}>
             <Checkbox
               name="checkPersonenbezogen"
-              type="number"
+              type="checkbox"
               {...register("checkPersonenbezogen", {
                 required: "Pflichtfeld",
               })}
@@ -188,7 +187,7 @@ function Step4() {
           <FormControl isInvalid={errors.checkDatenschutzerklaerung}>
             <Checkbox
               name="checkDatenschutzerklaerung"
-              type="number"
+              type="checkbox"
               {...register("checkDatenschutzerklaerung", {
                 required: "Pflichtfeld",
               })}
@@ -210,7 +209,7 @@ function Step4() {
           <FormControl isInvalid={errors.checkTeilnahmebedingungen}>
             <Checkbox
               name="checkTeilnahmebedingungen"
-              type="number"
+              type="checkbox"
               {...register("checkTeilnahmebedingungen", {
                 required: "Pflichtfeld",
               })}
@@ -233,7 +232,7 @@ function Step4() {
           <FormControl isInvalid={errors.checkWahrheit}>
             <Checkbox
               name="checkWahrheit"
-              type="number"
+              type="checkbox"
               {...register("checkWahrheit", {
                 required: "Pflichtfeld",
               })}

@@ -13,15 +13,14 @@ import {
   HStack,
   Radio,
 } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 function Step3() {
   const {
-    handleSubmit,
     register,
-    reset: resetForm,
     formState: { errors, isSubmitting },
-  } = useForm();
+    control,
+  } = useFormContext();
 
   return (
     <VStack gap={10}>
@@ -38,6 +37,7 @@ function Step3() {
               name="eigenmittel"
               type="number"
               {...register("eigenmittel", {
+                valueAsNumber: true,
                 required: "Pflichtfeld",
               })}
             />
@@ -53,8 +53,10 @@ function Step3() {
             </FormLabel>
             <Input
               name="oeffentlicheZuwendungen"
-              type="string"
+              type="number"
               {...register("oeffentlicheZuwendungen", {
+                valueAsNumber: true,
+
                 required: "Pflichtfeld",
               })}
             />
@@ -71,8 +73,10 @@ function Step3() {
             </FormLabel>
             <Input
               name="privateSpenden"
-              type="string"
+              type="number"
               {...register("privateSpenden", {
+                valueAsNumber: true,
+
                 required: "Pflichtfeld",
               })}
             />
@@ -89,8 +93,10 @@ function Step3() {
             </FormLabel>
             <Input
               name="zuwendungAndere"
-              type="string"
+              type="number"
               {...register("zuwendungAndere", {
+                valueAsNumber: true,
+
                 required: "Pflichtfeld",
               })}
             />
@@ -109,8 +115,10 @@ function Step3() {
             </FormLabel>
             <Input
               name="bisherigeFoerderung"
-              type="string"
+              type="number"
               {...register("bisherigeFoerderung", {
+                valueAsNumber: true,
+
                 required: "Pflichtfeld",
               })}
             />
@@ -119,7 +127,7 @@ function Step3() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
+        {/* <GridItem colSpan={2}>
           <FormControl isInvalid={errors.weitereDateien}>
             <FormLabel>weitere Dateien</FormLabel>
             <Input
@@ -164,7 +172,7 @@ function Step3() {
               {errors.weitereDateien2 && errors.weitereDateien2.message}
             </FormErrorMessage>
           </FormControl>
-        </GridItem>
+        </GridItem> */}
       </SimpleGrid>
     </VStack>
   );

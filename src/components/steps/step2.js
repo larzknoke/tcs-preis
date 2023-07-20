@@ -13,15 +13,13 @@ import {
   HStack,
   Radio,
 } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 function Step2() {
   const {
-    handleSubmit,
     register,
-    reset: resetForm,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useFormContext();
 
   return (
     <VStack gap={10}>
@@ -38,10 +36,8 @@ function Step2() {
             </FormLabel>
             <Input
               name="organisationProjekt"
-              type="number"
-              {...register("organisationProjekt", {
-                required: "Pflichtfeld",
-              })}
+              type="text"
+              {...register("organisationProjekt")}
             />
             <FormErrorMessage>
               {errors.organisationProjekt && errors.organisationProjekt.message}
@@ -54,9 +50,7 @@ function Step2() {
             <Input
               name="ansprechpartnerProjekt"
               type="string"
-              {...register("ansprechpartnerProjekt", {
-                required: "Pflichtfeld",
-              })}
+              {...register("ansprechpartnerProjekt")}
             />
             <FormErrorMessage>
               {errors.ansprechpartnerProjekt &&
@@ -70,9 +64,7 @@ function Step2() {
             <Input
               name="telefonnummerProjekt"
               type="string"
-              {...register("telefonnummerProjekt", {
-                required: "Pflichtfeld",
-              })}
+              {...register("telefonnummerProjekt")}
             />
             <FormErrorMessage>
               {errors.telefonnummerProjekt &&
@@ -86,9 +78,7 @@ function Step2() {
             <Input
               name="mobilProjekt"
               type="string"
-              {...register("mobilProjekt", {
-                required: "Pflichtfeld",
-              })}
+              {...register("mobilProjekt")}
             />
             <FormErrorMessage>
               {errors.mobilProjekt && errors.mobilProjekt.message}
@@ -100,10 +90,8 @@ function Step2() {
             <FormLabel>E-Mail</FormLabel>
             <Input
               name="emailProjekt"
-              type="string"
-              {...register("emailProjekt", {
-                required: "Pflichtfeld",
-              })}
+              type="email"
+              {...register("emailProjekt")}
             />
             <FormErrorMessage>
               {errors.emailProjekt && errors.emailProjekt.message}
@@ -115,10 +103,8 @@ function Step2() {
             <FormLabel>E-Mail Bestätigung</FormLabel>
             <Input
               name="emailBestaetigungProjekt"
-              type="string"
-              {...register("emailBestaetigungProjekt", {
-                required: "Pflichtfeld",
-              })}
+              type="email"
+              {...register("emailBestaetigungProjekt")}
             />
             <FormErrorMessage>
               {errors.emailBestaetigungProjekt &&
@@ -132,9 +118,7 @@ function Step2() {
             <Input
               name="wwwProjekt"
               type="string"
-              {...register("wwwProjekt", {
-                required: "Pflichtfeld",
-              })}
+              {...register("wwwProjekt")}
             />
             <FormErrorMessage>
               {errors.wwwProjekt && errors.wwwProjekt.message}
@@ -147,9 +131,7 @@ function Step2() {
             <Input
               name="ibanProjekt"
               type="string"
-              {...register("ibanProjekt", {
-                required: "Pflichtfeld",
-              })}
+              {...register("ibanProjekt")}
               onChange={(e) => console.log(e.target.value)}
             />
             <FormErrorMessage>
@@ -163,9 +145,7 @@ function Step2() {
             <Input
               name="kontoNameProjekt"
               type="string"
-              {...register("kontoNameProjekt", {
-                required: "Pflichtfeld",
-              })}
+              {...register("kontoNameProjekt")}
             />
             <FormErrorMessage>
               {errors.kontoNameProjekt && errors.kontoNameProjekt.message}
