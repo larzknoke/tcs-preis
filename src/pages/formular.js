@@ -1,4 +1,4 @@
-import NewLetter from "@/components/newLetter";
+import NewLetter from "@/components/letter/newLetter";
 import { Heading, HStack, Container, VStack, Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";

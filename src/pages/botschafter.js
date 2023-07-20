@@ -1,5 +1,5 @@
 import { Container, Heading } from "@chakra-ui/react";
-import BotschafterTable from "@/components/botschafterTable";
+import BotschafterTable from "@/components/botschafter/botschafterTable";
 
 function Botschafter() {
   return (

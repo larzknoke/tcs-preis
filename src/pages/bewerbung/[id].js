@@ -25,12 +25,12 @@ import {
   HiOutlineCog6Tooth,
 } from "react-icons/hi2";
 import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
-import LetterDetail from "@/components/letterDetail";
-import StatusModal from "@/components/statusModal";
+import LetterDetail from "@/components/letter/letterDetail";
+import StatusModal from "@/components/letter/statusModal";
+import { dateFormatter } from "@/lib/utils";
 
-function Bewerbung() {
-  const router = useRouter();
-  const { id } = router.query;
+function Bewerbung({ letter }) {
+  console.log("letter: ", letter);
   const {
     isOpen: statusIsOpen,
     onOpen: statusOnOpen,
@@ -44,13 +44,11 @@ function Bewerbung() {
           <Heading fontSize={"22"} color={"gray.300"} fontWeight={"500"}>
             Bewerbung
           </Heading>
-          <Heading fontSize={"24"}>
-            Ev.-luth. Kindertagesstätte 'Arche Noah'
-          </Heading>
+          <Heading fontSize={"24"}>{letter.organisationProjekt}</Heading>
         </VStack>
         <HStack>
           <Text fontSize={"sm"} color={"gray.400"} mr={3}>
-            Eingang: 14.07.2023 | 15.23 Uhr
+            Eingang: {dateFormatter(letter.createdAt)}
           </Text>
           <Tooltip label="Status" placement="top">
             <Badge
@@ -60,7 +58,7 @@ function Bewerbung() {
               _hover={{ cursor: "pointer" }}
               onClick={statusOnOpen}
             >
-              Offen
+              {letter.status}
             </Badge>
           </Tooltip>
           <StatusModal
@@ -84,9 +82,19 @@ function Bewerbung() {
         </HStack>
       </HStack>
       <Divider my={4} />
-      <LetterDetail />
+      <LetterDetail letter={letter} />
     </Container>
   );
 }
+
+export const getServerSideProps = async (ctx) => {
+  const { id } = ctx.params;
+  const letter = await prisma.letter.findFirstOrThrow({
+    where: {
+      id: parseInt(id),
+    },
+  });
+  return { props: { letter } };
+};
 
 export default Bewerbung;

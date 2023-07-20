@@ -2,13 +2,10 @@ import { useColorModeValue } from "@chakra-ui/color-mode";
 import {
   Button,
   Flex,
-  Heading,
-  useToast,
   Card,
   CardBody,
   Box,
   Text,
-  Spacer,
   Alert,
   AlertTitle,
   AlertDescription,
@@ -56,12 +53,6 @@ function NewLetter() {
   const [formSuccess, setFormSuccess] = useState(false);
   const [formError, setFormError] = useState(false);
 
-  // const {
-  //   handleSubmit,
-  //   register,
-  //   reset: resetForm,
-  //   formState: { errors, isSubmitting },
-  // } = useForm();
   const methods = useForm({
     mode: "onChange",
     resolver: yupResolver(formSchema),

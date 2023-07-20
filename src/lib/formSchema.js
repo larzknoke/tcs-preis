@@ -20,7 +20,6 @@ export const formSchema = yup
     bundeslandTraeger: yup
       .string()
       .transform((value) => {
-        console.log("value: ", value);
         return value.value;
       })
       .required(),
@@ -36,7 +35,10 @@ export const formSchema = yup
       .oneOf([yup.ref("emailProjekt"), null], "E-Mail stimmt nicht überein")
       .required("Bitte Email wiederholen"),
     wwwProjekt: yup.string().required(),
-    ibanProjekt: yup.string().required(),
+    ibanProjekt: yup
+      .string()
+      //   .required()
+      .matches(/^DE[0-9]{20}$/gm, "Bitte eine gültige IBAN eingeben"),
     kontoNameProjekt: yup.string().required(),
   })
   .required();

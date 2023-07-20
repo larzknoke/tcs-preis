@@ -25,9 +25,9 @@ import {
   HiOutlineCog6Tooth,
 } from "react-icons/hi2";
 import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
-import LetterDetail from "@/components/letterDetail";
-import StatusModal from "@/components/statusModal";
-import BotschafterDetail from "@/components/botschafterDetail";
+import LetterDetail from "@/components/letter/letterDetail";
+import StatusModal from "@/components/letter/statusModal";
+import BotschafterDetail from "@/components/botschafter/botschafterDetail";
 
 function Botschafter() {
   const router = useRouter();

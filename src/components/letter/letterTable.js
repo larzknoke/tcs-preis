@@ -43,70 +43,71 @@ import { tableData } from "@/lib/tableData";
 import DebouncedInput from "@/lib/debouncedInput";
 import fuzzyFilter from "@/lib/fuzzyFilter";
 
-const columnHelper = createColumnHelper();
-
-const columns = [
-  columnHelper.accessor("id", {
-    cell: (info) => info.getValue(),
-    header: "ID",
-  }),
-  columnHelper.accessor("name", {
-    cell: (info) => info.getValue(),
-    header: "Name",
-  }),
-  columnHelper.accessor("projekt", {
-    cell: (info) => info.getValue(),
-    header: "Projekt",
-  }),
-  columnHelper.accessor("bundesland", {
-    cell: (info) => info.getValue(),
-    header: "Bundesland",
-  }),
-  columnHelper.accessor("plz", {
-    cell: ({ row, info }) => row.original.plz + " " + row.original.ort,
-    header: "PLZ / Ort",
-  }),
-  columnHelper.accessor("status", {
-    header: "Status",
-    cell: (info) => (
-      <Tooltip label={info.getValue()} placement="top">
-        <span>
-          {info.getValue() == "offen" && (
-            <Icon as={HiOutlineQuestionMarkCircle} color={"yellow.500"} />
-          )}
-          {info.getValue() == "abgelehnt" && (
-            <Icon as={HiOutlineNoSymbol} color={"red.500"} />
-          )}
-          {info.getValue() == "angenommen" && (
-            <Icon as={HiOutlineCheck} color={"green.900"} />
-          )}
-        </span>
-      </Tooltip>
-    ),
-  }),
-  columnHelper.accessor("controls", {
-    cell: ({ row, info }) => (
-      <Tooltip label="Bewerbung einsehen" placement="top">
-        <IconButton
-          as={Link}
-          variant={"ghost"}
-          aria-label="Bewerbung zeigen"
-          icon={<HiOutlineFolderOpen />}
-          href={`/bewerbung/${row.original.id}`}
-        />
-      </Tooltip>
-    ),
-    header: "",
-  }),
-];
-
-function LetterTable() {
+function LetterTable({ letters }) {
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
+  const columnHelper = createColumnHelper();
+
+  const columns = [
+    columnHelper.accessor("id", {
+      cell: (info) => info.getValue(),
+      header: "ID",
+    }),
+    columnHelper.accessor("nameTraeger", {
+      cell: (info) => info.getValue(),
+      header: "Name",
+    }),
+    columnHelper.accessor("organisationProjekt", {
+      cell: (info) => info.getValue(),
+      header: "Projekt",
+    }),
+    columnHelper.accessor("bundeslandTraeger", {
+      cell: (info) => info.getValue(),
+      header: "Bundesland",
+    }),
+    columnHelper.accessor("plzTraeger", {
+      cell: ({ row, info }) =>
+        row.original.plzTraeger + " " + row.original.ortTraeger,
+      header: "PLZ / Ort",
+    }),
+    columnHelper.accessor("status", {
+      header: "Status",
+      cell: (info) => (
+        <Tooltip label={info.getValue()} placement="top">
+          <span>
+            {info.getValue() == "offen" && (
+              <Icon as={HiOutlineQuestionMarkCircle} color={"yellow.500"} />
+            )}
+            {info.getValue() == "abgelehnt" && (
+              <Icon as={HiOutlineNoSymbol} color={"red.500"} />
+            )}
+            {info.getValue() == "angenommen" && (
+              <Icon as={HiOutlineCheck} color={"green.900"} />
+            )}
+          </span>
+        </Tooltip>
+      ),
+    }),
+    columnHelper.accessor("controls", {
+      cell: ({ row, info }) => (
+        <Tooltip label="Bewerbung einsehen" placement="top">
+          <IconButton
+            as={Link}
+            variant={"ghost"}
+            aria-label="Bewerbung zeigen"
+            icon={<HiOutlineFolderOpen />}
+            href={`/bewerbung/${row.original.id}`}
+          />
+        </Tooltip>
+      ),
+      header: "",
+    }),
+  ];
+
   const table = useReactTable({
     columns,
-    data: tableData,
+    data: letters,
     filterFns: {
       fuzzy: fuzzyFilter,
     },

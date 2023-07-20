@@ -48,6 +48,7 @@ model Letter {
   botschafterId                 Int?
   kampagne                      Kampagne? @relation(fields: [kampagneId], references: [id])
   kampagneId                    Int?
+  status                        String? @default("offen")
 }
 
 

@@ -132,7 +132,6 @@ function Step2() {
               name="ibanProjekt"
               type="string"
               {...register("ibanProjekt")}
-              onChange={(e) => console.log(e.target.value)}
             />
             <FormErrorMessage>
               {errors.ibanProjekt && errors.ibanProjekt.message}
