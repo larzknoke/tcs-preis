@@ -45,6 +45,8 @@ import { tableData } from "@/lib/tableData";
 
 import DebouncedInput from "@/lib/debouncedInput";
 import fuzzyFilter from "@/lib/fuzzyFilter";
+import { useDisclosure } from "@chakra-ui/react";
+import NewBotschafterModal from "./newBotschafterModal";
 
 const columnHelper = createColumnHelper();
 
@@ -92,6 +94,7 @@ const columns = [
 ];
 
 function BotschafterTable() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
@@ -139,11 +142,17 @@ function BotschafterTable() {
         />
         <Tooltip label="Botschafter hinzufügen" placement="top">
           <IconButton
+            onClick={onOpen}
             icon={<HiUserPlus />}
             colorScheme="green"
             variant={"outline"}
           />
         </Tooltip>
+        <NewBotschafterModal
+          onOpen={onOpen}
+          onClose={onClose}
+          isOpen={isOpen}
+        />
       </HStack>
       <Card>
         <CardBody>

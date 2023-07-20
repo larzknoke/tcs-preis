@@ -42,3 +42,24 @@ export const formSchema = yup
     kontoNameProjekt: yup.string().required(),
   })
   .required();
+
+export const botschafterSchema = yup
+  .object({
+    name: yup.string().required(),
+    strasse: yup.string().required(),
+    plz: yup
+      .number()
+      .integer()
+      .typeError("Dieses Feld muss eine Zahl sein")
+      .moreThan(0, "Bitte eine gültige PLZ eingeben")
+      .lessThan(100000, "Bitte eine gültige PLZ eingeben")
+      .required(),
+    ort: yup.string().required(),
+    bundesland: yup
+      .string()
+      .transform((value) => {
+        return value.value;
+      })
+      .required(),
+  })
+  .required();

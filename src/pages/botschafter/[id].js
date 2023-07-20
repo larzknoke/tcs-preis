@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import {
   Container,
   Divider,
@@ -16,22 +15,12 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import {
-  HiBars3,
-  HiEllipsisVertical,
-  HiOutlineCog8Tooth,
-  HiMiniBars3,
-  HiMiniCog8Tooth,
-  HiOutlineCog6Tooth,
-} from "react-icons/hi2";
-import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
-import LetterDetail from "@/components/letter/letterDetail";
+import { HiOutlineCog6Tooth } from "react-icons/hi2";
 import StatusModal from "@/components/letter/statusModal";
 import BotschafterDetail from "@/components/botschafter/botschafterDetail";
+import { dateFormatter } from "@/lib/utils";
 
-function Botschafter() {
-  const router = useRouter();
-  const { id } = router.query;
+function Botschafter({ botschafter }) {
   const {
     isOpen: statusIsOpen,
     onOpen: statusOnOpen,
@@ -45,11 +34,11 @@ function Botschafter() {
           <Heading fontSize={"22"} color={"gray.300"} fontWeight={"500"}>
             Botschafter
           </Heading>
-          <Heading fontSize={"24"}>Yvonne Bauer</Heading>
+          <Heading fontSize={"24"}>{botschafter.name}</Heading>
         </VStack>
         <HStack>
           <Text fontSize={"sm"} color={"gray.400"} mr={3}>
-            Erstellt: 14.07.2023 | 15.23 Uhr
+            Erstellt: {dateFormatter(botschafter.createdAt)}
           </Text>
           <StatusModal
             statusOnOpen={statusOnOpen}
@@ -76,5 +65,15 @@ function Botschafter() {
     </Container>
   );
 }
+
+export const getServerSideProps = async (ctx) => {
+  const { id } = ctx.params;
+  const botschafter = await prisma.botschafter.findFirstOrThrow({
+    where: {
+      id: parseInt(id),
+    },
+  });
+  return { props: { botschafter } };
+};
 
 export default Botschafter;

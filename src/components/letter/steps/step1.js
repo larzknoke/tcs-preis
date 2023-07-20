@@ -131,8 +131,8 @@ function Step1() {
               fieldState: { error },
             }) => {
               return (
-                <FormControl py={4} isInvalid={!!error} id="food">
-                  <FormLabel>Name des Vorstands/Geschäftsführers</FormLabel>
+                <FormControl py={4} isInvalid={!!error} id="bundesland">
+                  <FormLabel>Bundesland</FormLabel>
                   <Select
                     name={name}
                     ref={ref}
