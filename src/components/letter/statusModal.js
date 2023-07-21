@@ -13,9 +13,44 @@ import {
   FormLabel,
   Switch,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
-function StatusModal({ statusOnClose, statusIsOpen }) {
+function StatusModal({ statusOnClose, statusIsOpen, letter }) {
+  const router = useRouter();
+  const toast = useToast();
+  const [status, setStatus] = useState(letter.status);
+
+  async function onSubmit() {
+    console.log("submit: ", status);
+    const res = await fetch("/api/letter/updateStatus", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: letter.id, status: status }),
+    });
+    if (res.status != 200) {
+      toast({
+        title: "Ein Fehler ist aufgetreten",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    } else {
+      const resData = await res.json();
+      console.log("resData: ", resData);
+      toast({
+        title: `Status geändert`,
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      statusOnClose();
+      router.replace(router.asPath);
+    }
+  }
+
   return (
     <Modal isOpen={statusIsOpen} onClose={statusOnClose}>
       <ModalOverlay />
@@ -28,10 +63,14 @@ function StatusModal({ statusOnClose, statusIsOpen }) {
               <FormLabel htmlFor="email-alerts" mb="0">
                 Status
               </FormLabel>
-              <Select placeholder="Status wählen...">
-                <option value="option1">Angenommen</option>
-                <option value="option2">Offen</option>
-                <option value="option3">Abgelehnt</option>
+              <Select
+                placeholder="Status wählen..."
+                value={status || letter.status}
+                onChange={(event) => setStatus(event.target.value)}
+              >
+                <option value="angenommen">Angenommen</option>
+                <option value="offen">Offen</option>
+                <option value="abgelehnt">Abgelehnt</option>
               </Select>
             </FormControl>
             <FormControl display="flex" alignItems="center">
@@ -53,7 +92,12 @@ function StatusModal({ statusOnClose, statusIsOpen }) {
           >
             Schliessen
           </Button>
-          <Button size={"md"} variant="outline" colorScheme="green">
+          <Button
+            size={"md"}
+            variant="outline"
+            colorScheme="green"
+            onClick={onSubmit}
+          >
             Speichern
           </Button>
         </ModalFooter>

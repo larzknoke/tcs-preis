@@ -37,6 +37,17 @@ function Bewerbung({ letter }) {
     onClose: statusOnClose,
   } = useDisclosure();
 
+  function statusBadge(status) {
+    switch (status) {
+      case "offen":
+        return "yellow";
+      case "angenommen":
+        return "green";
+      case "abgelehnt":
+        return "red";
+    }
+  }
+
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
       <HStack justify={"space-between"}>
@@ -53,7 +64,7 @@ function Bewerbung({ letter }) {
           <Tooltip label="Status" placement="top">
             <Badge
               variant="outline"
-              colorScheme="yellow"
+              colorScheme={statusBadge(letter.status)}
               fontSize={"md"}
               _hover={{ cursor: "pointer" }}
               onClick={statusOnOpen}
@@ -65,6 +76,7 @@ function Bewerbung({ letter }) {
             statusOnOpen={statusOnOpen}
             statusOnClose={statusOnClose}
             statusIsOpen={statusIsOpen}
+            letter={letter}
           />
           <Menu>
             <MenuButton
@@ -92,6 +104,9 @@ export const getServerSideProps = async (ctx) => {
   const letter = await prisma.letter.findFirstOrThrow({
     where: {
       id: parseInt(id),
+    },
+    include: {
+      botschafter: true,
     },
   });
   return { props: { letter } };

@@ -102,6 +102,31 @@ function LetterDetail({ letter }) {
         </CardHeader>
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
+            <HStack justify={"space-between"}>
+              <Link href={`/botschafter/${letter.botschafter.id}`}>
+                <Stat>
+                  <StatLabel>Botschafter</StatLabel>
+                  <StatNumber color={"gray.700"}>
+                    {letter.botschafter.name}
+                  </StatNumber>
+                  <StatHelpText color={"gray.700"}>
+                    {`${letter.botschafter.plz} ${letter.botschafter.ort}, ${letter.botschafter.bundesland}`}
+                  </StatHelpText>
+                </Stat>
+              </Link>
+              <Button
+                size={"sm"}
+                variant={"outline"}
+                onClick={botschafterOnOpen}
+              >
+                Botschafter bearbeiten
+              </Button>
+              <BotschafterModal
+                botschafterOnOpen={botschafterOnOpen}
+                botschafterOnClose={botschafterOnClose}
+                botschafterIsOpen={botschafterIsOpen}
+              />
+            </HStack>
             <Stat>
               <StatLabel>Name der Organisation/Einrichtung</StatLabel>
               <StatNumber>{letter.organisationProjekt} </StatNumber>
@@ -141,29 +166,6 @@ function LetterDetail({ letter }) {
               <StatLabel>Konto Name</StatLabel>
               <StatNumber>{letter.kontoNameProjekt}</StatNumber>
             </Stat>
-            <HStack justify={"space-between"}>
-              <Link href={"/botschafter/1"}>
-                <Stat>
-                  <StatLabel>Botschafter</StatLabel>
-                  <StatNumber color={"gray.700"}>Max Mustermann</StatNumber>
-                  <StatHelpText color={"gray.700"}>
-                    37603 Holzminden, Niedersachsen
-                  </StatHelpText>
-                </Stat>
-              </Link>
-              <Button
-                size={"sm"}
-                variant={"outline"}
-                onClick={botschafterOnOpen}
-              >
-                Botschafter bearbeiten
-              </Button>
-              <BotschafterModal
-                botschafterOnOpen={botschafterOnOpen}
-                botschafterOnClose={botschafterOnClose}
-                botschafterIsOpen={botschafterIsOpen}
-              />
-            </HStack>
           </Stack>
         </CardBody>
         <CardFooter>

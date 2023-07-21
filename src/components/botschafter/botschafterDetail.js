@@ -18,6 +18,10 @@ import {
   Tooltip,
   HStack,
   GridItem,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import {
   HiOutlineCheckCircle,
@@ -132,49 +136,36 @@ function BotschafterDetail({ botschafter }) {
           </CardHeader>
           <CardBody>
             <Stack divider={<StackDivider />} spacing="4">
-              <HStack>
-                <Stat>
-                  <StatLabel> 37603 Holzminden</StatLabel>
-                  <StatNumber>
-                    Ev.-luth. Kindertagesstätte 'Arche Noah'{" "}
-                  </StatNumber>
-                </Stat>
-                <Button
-                  as={Link}
-                  href={"/bewerbung/1"}
-                  size={"sm"}
-                  variant={"outline"}
-                  leftIcon={<HiOutlineDocumentText />}
-                >
-                  Details
-                </Button>
-              </HStack>
-              <HStack>
-                <Stat>
-                  <StatLabel>99102 Erfurt</StatLabel>
-                  <StatNumber>BürgerStiftung Erfurt </StatNumber>
-                </Stat>
-                <Button
-                  size={"sm"}
-                  variant={"outline"}
-                  leftIcon={<HiOutlineDocumentText />}
-                >
-                  Details
-                </Button>
-              </HStack>
-              <HStack>
-                <Stat>
-                  <StatLabel>80687 München</StatLabel>
-                  <StatNumber>Kinderschutzbund Schweinfurt </StatNumber>
-                </Stat>
-                <Button
-                  size={"sm"}
-                  variant={"outline"}
-                  leftIcon={<HiOutlineDocumentText />}
-                >
-                  Details
-                </Button>
-              </HStack>
+              {botschafter.letters.length > 0 ? (
+                botschafter.letters.map((letter) => {
+                  return (
+                    <HStack>
+                      <Stat>
+                        <StatLabel>
+                          {letter.plzTraeger} {letter.ortTraeger}
+                        </StatLabel>
+                        <StatNumber>{letter.nameTraeger}</StatNumber>
+                      </Stat>
+                      <Button
+                        as={Link}
+                        href={"/bewerbung/1"}
+                        size={"sm"}
+                        variant={"outline"}
+                        leftIcon={<HiOutlineDocumentText />}
+                      >
+                        Details
+                      </Button>
+                    </HStack>
+                  );
+                })
+              ) : (
+                <Alert status="warning">
+                  <AlertIcon />
+                  <AlertDescription>
+                    Keine verknüpften Projekte vorhanden
+                  </AlertDescription>
+                </Alert>
+              )}
             </Stack>
           </CardBody>
           <CardFooter>

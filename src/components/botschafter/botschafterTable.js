@@ -93,14 +93,14 @@ const columns = [
   }),
 ];
 
-function BotschafterTable() {
+function BotschafterTable({ botschafters }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
   const table = useReactTable({
     columns,
-    data: tableData,
+    data: botschafters,
     filterFns: {
       fuzzy: fuzzyFilter,
     },
