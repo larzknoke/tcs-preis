@@ -1,3 +1,4 @@
+import prisma from "@/lib/prisma";
 import {
   Container,
   Divider,
@@ -61,7 +62,7 @@ function Botschafter({ botschafter }) {
         </HStack>
       </HStack>
       <Divider my={4} />
-      <BotschafterDetail />
+      <BotschafterDetail botschafter={botschafter} />
     </Container>
   );
 }

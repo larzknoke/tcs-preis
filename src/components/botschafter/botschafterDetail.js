@@ -31,7 +31,7 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import BotschafterModal from "./botschafterModal";
 import Link from "next/link";
 
-function BotschafterDetail() {
+function BotschafterDetail({ botschafter }) {
   const {
     isOpen: botschafterIsOpen,
     onOpen: botschafterOnOpen,
@@ -59,19 +59,21 @@ function BotschafterDetail() {
           <Stack divider={<StackDivider />} spacing="4">
             <Stat>
               <StatLabel>Name</StatLabel>
-              <StatNumber>Anja Tollhausen </StatNumber>
+              <StatNumber>{botschafter.name}</StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Straße</StatLabel>
-              <StatNumber>Lindenalee 19</StatNumber>
+              <StatNumber>{botschafter.strasse}</StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Adresse</StatLabel>
-              <StatNumber>99102 Erfurt</StatNumber>
+              <StatNumber>
+                {botschafter.plz} {botschafter.ort}
+              </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Bundesland</StatLabel>
-              <StatNumber>Niedersachsen </StatNumber>
+              <StatNumber>{botschafter.bundesland}</StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Verifiziert</StatLabel>
