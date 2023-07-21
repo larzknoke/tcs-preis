@@ -17,7 +17,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
-import StatusModal from "@/components/letter/statusModal";
 import BotschafterDetail from "@/components/botschafter/botschafterDetail";
 import { dateFormatter } from "@/lib/utils";
 
@@ -41,11 +40,6 @@ function Botschafter({ botschafter }) {
           <Text fontSize={"sm"} color={"gray.400"} mr={3}>
             Erstellt: {dateFormatter(botschafter.createdAt)}
           </Text>
-          <StatusModal
-            statusOnOpen={statusOnOpen}
-            statusOnClose={statusOnClose}
-            statusIsOpen={statusIsOpen}
-          />
           <Menu>
             <MenuButton
               as={IconButton}

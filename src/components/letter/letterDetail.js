@@ -21,6 +21,9 @@ import {
   VStack,
   IconButton,
   useClipboard,
+  Alert,
+  AlertIcon,
+  AlertDescription,
 } from "@chakra-ui/react";
 import {
   HiOutlineCheckCircle,
@@ -103,17 +106,27 @@ function LetterDetail({ letter }) {
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
             <HStack justify={"space-between"}>
-              <Link href={`/botschafter/${letter.botschafter.id}`}>
-                <Stat>
-                  <StatLabel>Botschafter</StatLabel>
-                  <StatNumber color={"gray.700"}>
-                    {letter.botschafter.name}
-                  </StatNumber>
-                  <StatHelpText color={"gray.700"}>
-                    {`${letter.botschafter.plz} ${letter.botschafter.ort}, ${letter.botschafter.bundesland}`}
-                  </StatHelpText>
-                </Stat>
-              </Link>
+              {letter.botschafter ? (
+                <Link href={`/botschafter/${letter.botschafter.id}`}>
+                  <Stat>
+                    <StatLabel>Botschafter</StatLabel>
+                    <StatNumber color={"gray.700"}>
+                      {letter.botschafter.name}
+                    </StatNumber>
+                    <StatHelpText color={"gray.700"}>
+                      {`${letter.botschafter.plz} ${letter.botschafter.ort}, ${letter.botschafter.bundesland}`}
+                    </StatHelpText>
+                  </Stat>
+                </Link>
+              ) : (
+                <Alert status="warning" w={"60%"}>
+                  {" "}
+                  <AlertIcon />
+                  <AlertDescription>
+                    kein Botschafter verknüpft
+                  </AlertDescription>
+                </Alert>
+              )}
               <Button
                 size={"sm"}
                 variant={"outline"}
