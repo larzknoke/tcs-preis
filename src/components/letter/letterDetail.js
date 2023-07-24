@@ -31,7 +31,7 @@ import {
   HiOutlineClipboard,
   HiCheck,
 } from "react-icons/hi2";
-import BotschafterModal from "../botschafter/botschafterModal";
+import BotschafterModal from "../botschafter/botschafterStatusModal";
 import Link from "next/link";
 import { Checker, currencyFormatter } from "@/lib/utils";
 
@@ -132,12 +132,16 @@ function LetterDetail({ letter }) {
                 variant={"outline"}
                 onClick={botschafterOnOpen}
               >
-                Botschafter bearbeiten
+                {letter.botschafter
+                  ? "Botschafter bearbeiten"
+                  : "Botschafter verknüpfen"}
               </Button>
               <BotschafterModal
                 botschafterOnOpen={botschafterOnOpen}
                 botschafterOnClose={botschafterOnClose}
                 botschafterIsOpen={botschafterIsOpen}
+                botschafter={letter.botschafter}
+                letter={letter}
               />
             </HStack>
             <Stat>

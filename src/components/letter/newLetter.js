@@ -54,7 +54,7 @@ function NewLetter() {
   const [formError, setFormError] = useState(false);
 
   const methods = useForm({
-    mode: "onChange",
+    mode: "onBlur",
     resolver: yupResolver(formSchema),
     criteriaMode: "all",
   });

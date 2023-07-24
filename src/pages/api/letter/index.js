@@ -6,6 +6,12 @@ export default async function handle(req, res) {
     try {
       const data = req.body;
       console.log("data: ", data);
+      const kampagne = await prisma.kampagne.findFirst({
+        where: {
+          abgeschlossen: false,
+        },
+      });
+      data.kampagneId = kampagne.id;
       const result = await prisma.letter.create({ data: data });
       return res.status(200).json({ success: true, result });
     } catch (error) {

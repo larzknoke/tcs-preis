@@ -1,3 +1,4 @@
+import prisma from "@/lib/prisma";
 import { Container, Heading } from "@chakra-ui/react";
 import BotschafterTable from "@/components/botschafter/botschafterTable";
 

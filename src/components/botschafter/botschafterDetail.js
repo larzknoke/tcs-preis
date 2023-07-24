@@ -32,7 +32,7 @@ import {
   HiOutlinePrinter,
 } from "react-icons/hi2";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import BotschafterModal from "./botschafterModal";
+import BotschafterModal from "./botschafterStatusModal";
 import Link from "next/link";
 
 function BotschafterDetail({ botschafter }) {

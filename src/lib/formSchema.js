@@ -5,7 +5,6 @@ yup.setLocale(localeDE);
 
 export const formSchema = yup
   .object({
-    andereLizenzpartner: yup.string().required(),
     nameTraeger: yup.string().required(),
     vorstandTraeger: yup.string().required(),
     strasseTraeger: yup.string().required(),
@@ -61,5 +60,11 @@ export const botschafterSchema = yup
         return value.value;
       })
       .required(),
+  })
+  .required();
+
+export const kampagneSchema = yup
+  .object({
+    name: yup.string().required(),
   })
   .required();

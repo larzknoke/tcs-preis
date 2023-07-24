@@ -1,6 +1,5 @@
 import prisma from "@/lib/prisma";
 import {
-  VStack,
   Container,
   Divider,
   HStack,
@@ -15,75 +14,54 @@ import {
   Tooltip,
   useDisclosure,
   Text,
+  VStack,
 } from "@chakra-ui/react";
-import {
-  HiBars3,
-  HiEllipsisVertical,
-  HiOutlineCog8Tooth,
-  HiMiniBars3,
-  HiMiniCog8Tooth,
-  HiOutlineCog6Tooth,
-} from "react-icons/hi2";
-import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
-import LetterDetail from "@/components/letter/letterDetail";
-import StatusModal from "@/components/letter/statusModal";
+import { HiOutlineCog6Tooth } from "react-icons/hi2";
+// import kampagneDetail from "@/components/kampagne/kampagneDetail";
 import { dateFormatter } from "@/lib/utils";
-import Link from "next/link";
+import LetterTable from "@/components/letter/letterTable";
+import EditKampagneModal from "@/components/kampagne/editKampagneModal";
 
-function Bewerbung({ letter }) {
-  console.log("letter: ", letter);
+function Kampagne({ kampagne }) {
   const {
     isOpen: statusIsOpen,
     onOpen: statusOnOpen,
     onClose: statusOnClose,
   } = useDisclosure();
+  const {
+    isOpen: editIsOpen,
+    onOpen: editOnOpen,
+    onClose: editOnClose,
+  } = useDisclosure();
 
   function statusBadge(status) {
-    switch (status) {
-      case "offen":
-        return "yellow";
-      case "angenommen":
-        return "green";
-      case "abgelehnt":
-        return "red";
-    }
+    return status ? "green" : "yellow";
   }
 
   return (
-    <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
+    <Container display={"flex"} flexDirection={"column"} maxWidth={"8xl"}>
       <HStack justify={"space-between"}>
         <VStack alignItems={"start"}>
           <Heading fontSize={"22"} color={"gray.300"} fontWeight={"500"}>
-            Bewerbung
+            Kampagne
           </Heading>
-          <Heading fontSize={"24"}>{letter.organisationProjekt}</Heading>
+          <Heading fontSize={"24"}>{kampagne.name}</Heading>
         </VStack>
         <HStack>
           <Text fontSize={"sm"} color={"gray.400"} mr={3}>
-            Eingang: {dateFormatter(letter.createdAt)}
+            Erstellt: {dateFormatter(kampagne.createdAt)}
           </Text>
-          <Link href={"/kampagne/" + letter.kampagne.id}>
-            <Text fontSize={"sm"} color={"gray.400"} mr={3}>
-              Kampagne: {letter.kampagne.name}
-            </Text>
-          </Link>
           <Tooltip label="Status" placement="top">
             <Badge
               variant="outline"
-              colorScheme={statusBadge(letter.status)}
+              colorScheme={statusBadge(kampagne.abgeschlossen)}
               fontSize={"md"}
               _hover={{ cursor: "pointer" }}
               onClick={statusOnOpen}
             >
-              {letter.status}
+              {kampagne.abgeschlossen ? "Abgeschlossen" : "Offen"}
             </Badge>
           </Tooltip>
-          <StatusModal
-            statusOnOpen={statusOnOpen}
-            statusOnClose={statusOnClose}
-            statusIsOpen={statusIsOpen}
-            letter={letter}
-          />
           <Menu>
             <MenuButton
               as={IconButton}
@@ -93,30 +71,35 @@ function Bewerbung({ letter }) {
               size={"lg"}
             />
             <MenuList>
-              <MenuItem>Bearbeiten</MenuItem>
+              <MenuItem onClick={editOnOpen}>Bearbeiten</MenuItem>
+              <EditKampagneModal
+                kampagne={kampagne}
+                editIsOpen={editIsOpen}
+                editOnClose={editOnClose}
+              />
               <MenuItem>Löschen</MenuItem>
             </MenuList>
           </Menu>
         </HStack>
       </HStack>
       <Divider my={4} />
-      <LetterDetail letter={letter} />
+      <LetterTable letters={kampagne.letters} />
     </Container>
   );
 }
 
 export const getServerSideProps = async (ctx) => {
   const { id } = ctx.params;
-  const letter = await prisma.letter.findFirstOrThrow({
+  const kampagne = await prisma.kampagne.findFirstOrThrow({
     where: {
       id: parseInt(id),
     },
     include: {
-      botschafter: true,
-      kampagne: true,
+      letters: true,
     },
   });
-  return { props: { letter } };
+  console.log("kampagne: ", kampagne);
+  return { props: { kampagne } };
 };
 
-export default Bewerbung;
+export default Kampagne;
