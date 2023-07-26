@@ -14,9 +14,12 @@ import {
   MenuItem,
   MenuDivider,
 } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 function Header() {
+  const { data: session } = useSession();
+
   return (
     <Flex alignItems={"end"} minWidth="max-content" p={8}>
       <Spacer />
@@ -27,7 +30,7 @@ function Header() {
         <Button color={"gray.500"} fontWeight={"400"} variant={"ghost"}>
           Datenschutz
         </Button>
-        {true ? (
+        {session ? (
           <HStack spacing={"6"}>
             <Menu>
               <MenuButton>

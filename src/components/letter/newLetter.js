@@ -55,6 +55,7 @@ function NewLetter() {
 
   const methods = useForm({
     mode: "onBlur",
+    reValidateMode: "onBlur",
     resolver: yupResolver(formSchema),
     criteriaMode: "all",
   });

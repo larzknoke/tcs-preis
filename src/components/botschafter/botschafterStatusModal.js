@@ -92,8 +92,8 @@ function BotschafterModal({ botschafterOnClose, botschafterIsOpen, letter }) {
                 closeMenuOnSelect={true}
                 onChange={(e) => setBotschafterSelected(e.value)}
                 defaultValue={{
-                  label: letter.botschafter.name,
-                  value: letter.botschafter.id,
+                  label: letter.botschafter?.name || "",
+                  value: letter.botschafter?.id || "",
                 }}
               />
             </FormControl>
