@@ -1,5 +1,6 @@
 import { Container } from "@chakra-ui/react";
 import KampagnenTable from "@/components/kampagne/kampagneTable";
+import prisma from "@/lib/prisma";
 
 function Kampagne({ kampagnes }) {
   return (
