@@ -110,7 +110,7 @@ function BotschafterDetail({ botschafter }) {
             </Stat>
             <Stat>
               <StatLabel>Telefon</StatLabel>
-              <StatNumber>05531 / 9320-18</StatNumber>
+              <StatNumber>05531 / 9320-13</StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Mobil</StatLabel>
