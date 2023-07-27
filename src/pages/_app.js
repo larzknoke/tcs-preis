@@ -5,8 +5,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
 import { Open_Sans } from "next/font/google";
 import { StepsTheme as Steps } from "chakra-ui-steps";
-import { statTheme } from "@/lib/statTheme";
-import { alertTheme } from "@/lib/alertTheme";
+import { statTheme } from "@/lib/themeStat";
+import { alertTheme } from "@/lib/themeAlert";
 
 const opensans = Open_Sans({ subsets: ["latin"] });
 
