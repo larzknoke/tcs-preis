@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 function Header() {
   const { data: session } = useSession();
@@ -39,13 +40,13 @@ function Header() {
                 </Avatar>
               </MenuButton>
               <MenuList>
-                <MenuItem as={Link} href="/bewerbungen">
+                <MenuItem as={Link} href="/admin/bewerbungen">
                   Bewerbungen
                 </MenuItem>
-                <MenuItem as={Link} href="/botschafter">
+                <MenuItem as={Link} href="/admin/botschafter">
                   Botschafter
                 </MenuItem>
-                <MenuItem as={Link} href="/kampagne">
+                <MenuItem as={Link} href="/admin/kampagne">
                   Kampagnen
                 </MenuItem>
                 <MenuItem as={Link} href="/">
@@ -53,7 +54,7 @@ function Header() {
                 </MenuItem>
                 <MenuDivider />
 
-                <MenuItem>Logout</MenuItem>
+                <MenuItem onClick={() => signOut()}>Logout</MenuItem>
               </MenuList>
             </Menu>
           </HStack>

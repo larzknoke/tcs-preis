@@ -64,7 +64,7 @@ function NewBotschafterModal({ isOpen, onClose }) {
         });
         onClose();
         reset();
-        router.push(`/botschafter/${resData.result.id}`);
+        router.push(`/admin/botschafter/${resData.result.id}`);
       }
     } catch (error) {
       console.log("api fetch error");

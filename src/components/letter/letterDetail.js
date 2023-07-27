@@ -107,7 +107,7 @@ function LetterDetail({ letter }) {
           <Stack divider={<StackDivider />} spacing="4">
             <HStack justify={"space-between"}>
               {letter.botschafter ? (
-                <Link href={`/botschafter/${letter.botschafter.id}`}>
+                <Link href={`/admin/botschafter/${letter.botschafter.id}`}>
                   <Stat>
                     <StatLabel>Botschafter</StatLabel>
                     <StatNumber color={"gray.700"}>

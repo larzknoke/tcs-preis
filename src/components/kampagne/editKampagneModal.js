@@ -61,7 +61,7 @@ function EditKampagneModal({ editIsOpen, editOnClose, kampagne }) {
           duration: 9000,
           isClosable: true,
         });
-        router.push(`/kampagne/${resData.result.id}`);
+        router.push(`/admin/kampagne/${resData.result.id}`);
       }
     } catch (error) {
       console.log("api fetch error");

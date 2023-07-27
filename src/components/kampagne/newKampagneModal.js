@@ -60,7 +60,7 @@ function NewKampagneModal({ isOpen, onClose }) {
         });
         onClose();
         reset();
-        router.push(`/kampagne/${resData.result.id}`);
+        router.push(`/admin/kampagne/${resData.result.id}`);
       }
     } catch (error) {
       console.log("api fetch error");

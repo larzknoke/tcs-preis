@@ -148,7 +148,7 @@ function BotschafterDetail({ botschafter }) {
                       </Stat>
                       <Button
                         as={Link}
-                        href={"/bewerbung/1"}
+                        href={`/admin/bewerbung/${letter.id}`}
                         size={"sm"}
                         variant={"outline"}
                         leftIcon={<HiOutlineDocumentText />}

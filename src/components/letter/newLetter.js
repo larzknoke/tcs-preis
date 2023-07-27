@@ -69,6 +69,9 @@ function NewLetter() {
   });
 
   async function onSubmit(values) {
+    setFormError(false);
+    setFormSuccess(false);
+
     delete values.emailBestaetigungProjekt;
     try {
       console.log("values: ", values);

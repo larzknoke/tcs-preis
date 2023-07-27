@@ -101,6 +101,13 @@ export default function SimpleCard() {
             {/* <FormPasswordlessEmail /> */}
             <Button
               w="full"
+              leftIcon={<BiLockAlt />}
+              onClick={onToggleCollapse}
+            >
+              Email & Password
+            </Button>
+            <Button
+              w="full"
               leftIcon={<AiFillGithub />}
               onClick={() =>
                 signIn("github", {
@@ -109,13 +116,6 @@ export default function SimpleCard() {
               }
             >
               Github
-            </Button>
-            <Button
-              w="full"
-              leftIcon={<BiLockAlt />}
-              onClick={onToggleCollapse}
-            >
-              Email & Password
             </Button>
           </VStack>
           <Collapse in={isOpenCollapse}>

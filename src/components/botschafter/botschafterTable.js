@@ -76,7 +76,7 @@ const columns = [
             variant={"ghost"}
             aria-label="Botschafter zeigen"
             icon={<HiOutlineFolderOpen />}
-            href={`/botschafter/${row.original.id}`}
+            href={`/admin/botschafter/${row.original.id}`}
           />
         </Tooltip>
         <Tooltip label="Botschafter löschen" placement="top">
@@ -128,9 +128,7 @@ function BotschafterTable({ botschafters }) {
       <HStack mt={10} mb={6}>
         <Heading color={"gray.700"} size={"md"} textAlign={"left"}>
           Botschafter{" "}
-          <chakra.span color={"gray.400"}>
-            ({Object.keys(tableData).length})
-          </chakra.span>
+          <chakra.span color={"gray.400"}>({botschafters.length})</chakra.span>
         </Heading>
         <DebouncedInput
           value={globalFilter ?? ""}

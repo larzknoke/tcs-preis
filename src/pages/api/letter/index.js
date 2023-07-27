@@ -11,7 +11,7 @@ export default async function handle(req, res) {
           abgeschlossen: false,
         },
       });
-      data.kampagneId = kampagne.id;
+      data.kampagneId = kampagne ? kampagne.id : null;
       const result = await prisma.letter.create({ data: data });
       return res.status(200).json({ success: true, result });
     } catch (error) {

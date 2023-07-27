@@ -24,11 +24,6 @@ import EditKampagneModal from "@/components/kampagne/editKampagneModal";
 
 function Kampagne({ kampagne }) {
   const {
-    isOpen: statusIsOpen,
-    onOpen: statusOnOpen,
-    onClose: statusOnClose,
-  } = useDisclosure();
-  const {
     isOpen: editIsOpen,
     onOpen: editOnOpen,
     onClose: editOnClose,
@@ -56,8 +51,6 @@ function Kampagne({ kampagne }) {
               variant="outline"
               colorScheme={statusBadge(kampagne.abgeschlossen)}
               fontSize={"md"}
-              _hover={{ cursor: "pointer" }}
-              onClick={statusOnOpen}
             >
               {kampagne.abgeschlossen ? "Abgeschlossen" : "Offen"}
             </Badge>

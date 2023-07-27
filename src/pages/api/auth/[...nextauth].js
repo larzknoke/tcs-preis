@@ -25,6 +25,7 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials, req) => {
+        console.log("credentials: ", credentials);
         const user = await fetch(
           `${process.env.NEXTAUTH_URL}/api/user/check-credentials`,
           {
@@ -44,8 +45,10 @@ export const authOptions = {
           });
 
         if (user) {
+          console.log("user: ", user);
           return user;
         } else {
+          console.log("no user");
           return null;
         }
       },

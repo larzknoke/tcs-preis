@@ -82,7 +82,7 @@ const columns = [
             variant={"ghost"}
             aria-label="kampagne zeigen"
             icon={<HiOutlineFolderOpen />}
-            href={`/kampagne/${row.original.id}`}
+            href={`/admin/kampagne/${row.original.id}`}
           />
         </Tooltip>
         <Tooltip label="kampagne löschen" placement="top">
@@ -134,9 +134,7 @@ function KampagneTable({ kampagnes }) {
       <HStack mt={10} mb={6}>
         <Heading color={"gray.700"} size={"md"} textAlign={"left"}>
           Kampagnen{" "}
-          <chakra.span color={"gray.400"}>
-            ({Object.keys(tableData).length})
-          </chakra.span>
+          <chakra.span color={"gray.400"}>({kampagnes.length})</chakra.span>
         </Heading>
         <DebouncedInput
           value={globalFilter ?? ""}

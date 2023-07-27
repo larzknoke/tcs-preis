@@ -6,6 +6,7 @@ import { extendTheme } from "@chakra-ui/react";
 import { Open_Sans } from "next/font/google";
 import { StepsTheme as Steps } from "chakra-ui-steps";
 import { statTheme } from "@/lib/statTheme";
+import { alertTheme } from "@/lib/alertTheme";
 
 const opensans = Open_Sans({ subsets: ["latin"] });
 
@@ -49,6 +50,7 @@ const theme = extendTheme({
     Steps,
     Form: formStyles,
     Stat: statTheme,
+    Alert: alertTheme,
   },
 });
 
