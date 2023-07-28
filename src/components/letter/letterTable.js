@@ -210,9 +210,7 @@ function LetterTable({ letters }) {
           ) : (
             <Alert status="warning">
               <AlertIcon />
-              <AlertDescription>
-                Keine verknüpften Bewerbungen mit diesem Botschafter
-              </AlertDescription>
+              <AlertDescription>keine Bewerbungen vorhanden</AlertDescription>
             </Alert>
           )}
         </CardBody>

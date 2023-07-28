@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "prisma generate && prisma migrate deploy && next build"
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
+    "preview-email": "email dev"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
@@ -22,6 +23,7 @@
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.1.1",
     "@prisma/client": "^5.0.0",
+    "@react-email/components": "^0.0.7",
     "@tanstack/match-sorter-utils": "^8.8.4",
     "@tanstack/react-table": "^8.9.3",
     "autoprefixer": "10.4.14",
@@ -33,9 +35,11 @@
     "next": "13.4.9",
     "next-auth": "^4.22.3",
     "next-superjson-plugin": "^0.5.9",
+    "nodemailer": "^6.9.4",
     "postcss": "8.4.25",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-email": "1.9.4",
     "react-hook-form": "^7.45.1",
     "react-hook-form-persist": "^3.0.0",
     "react-icons": "^4.10.1",
