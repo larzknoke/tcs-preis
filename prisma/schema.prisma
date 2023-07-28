@@ -49,7 +49,7 @@ model Letter {
   kampagne                      Kampagne? @relation(fields: [kampagneId], references: [id])
   kampagneId                    Int?
   status                        String? @default("offen")
-  verifyId                      String?  @default(cuid())
+  verifyId                      String?  @default(cuid()) @unique
   verified                      Boolean? @default(false)
 }
 
