@@ -57,7 +57,7 @@ export default async function handle(req, res) {
 
   if (req.method == "POST") {
     const form = formidable({
-      uploadDir: "./.tmp",
+      uploadDir: "./tmp",
       keepExtensions: true,
       multiples: false,
       maxFileSize: 500 * 1024 * 1024,
