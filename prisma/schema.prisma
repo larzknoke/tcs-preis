@@ -51,6 +51,30 @@ model Letter {
   status                        String? @default("offen")
   verifyId                      String?  @default(cuid()) @unique
   verified                      Boolean? @default(false)
+  notes                         Note[]
+  files                         File[]
+}
+
+model Note {
+  id                Int       @id @default(autoincrement())
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
+  title             String?
+  content           String?
+  letter            Letter? @relation(fields: [letterId], references: [id])
+  letterId          Int?
+}
+
+
+model File {
+  id                Int       @id @default(autoincrement())
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
+  title             String?
+  note              String?
+  file              String
+  letter            Letter? @relation(fields: [letterId], references: [id])
+  letterId          Int?
 }
 
 

@@ -68,3 +68,17 @@ export const kampagneSchema = yup
     name: yup.string().required(),
   })
   .required();
+
+export const noteSchema = yup
+  .object({
+    title: yup.string().required(),
+    content: yup.string().required(),
+  })
+  .required();
+
+export const fileSchema = yup
+  .object({
+    title: yup.string().required(),
+    note: yup.string().required(),
+  })
+  .required();

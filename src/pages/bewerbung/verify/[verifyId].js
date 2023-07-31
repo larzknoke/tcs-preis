@@ -5,30 +5,12 @@ import {
   Divider,
   HStack,
   Heading,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Button,
-  Badge,
-  Tooltip,
-  useDisclosure,
   Text,
 } from "@chakra-ui/react";
-import {
-  HiBars3,
-  HiEllipsisVertical,
-  HiOutlineCog8Tooth,
-  HiMiniBars3,
-  HiMiniCog8Tooth,
-  HiOutlineCog6Tooth,
-} from "react-icons/hi2";
-import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
-import LetterDetail from "@/components/letter/letterDetail";
-import StatusModal from "@/components/letter/statusModal";
 import { dateFormatter } from "@/lib/utils";
-import Link from "next/link";
+import { sendEmail } from "@/lib/email";
+import { render } from "@react-email/render";
+import ConfirmEmail from "@/email/ConfirmEmail";
 
 function VerifyLetter({ letter }) {
   console.log("letter: ", letter);
@@ -50,6 +32,7 @@ function VerifyLetter({ letter }) {
         </HStack>
       </HStack>
       <Divider my={4} />
+      <Text>Sie erhalten zusätzlich eine Bestätigungs-Email.</Text>
     </Container>
   );
 }
@@ -65,6 +48,13 @@ export const getServerSideProps = async (ctx) => {
       verified: true,
     },
   });
+  if (letter && letter.verified) {
+    await sendEmail({
+      to: "info@larsknoke.com",
+      subject: "TC-Stiftung - Stiftungspreis 2023 - Bestätigung 2",
+      html: render(<ConfirmEmail letter={letter} />),
+    });
+  }
   return { props: { letter } };
 };
 

@@ -11,7 +11,7 @@ import {
   Text,
 } from "@react-email/components";
 
-export default function VerifyEmail({ letter }) {
+export default function ConfirmEmail({ letter }) {
   return (
     <Html>
       <Head />
@@ -32,20 +32,8 @@ export default function VerifyEmail({ letter }) {
 
           <Section style={section}>
             <Text style={text}>Hallo {letter.ansprechpartnerProjekt}</Text>
-            <Text style={text}>
-              Bitte bestätigen Sie Ihre Bewerbung mit diesem Link:
-            </Text>
-
-            <Button
-              style={button}
-              href={
-                process.env.NEXTAUTH_URL +
-                "/bewerbung/verify/" +
-                letter.verifyId
-              }
-            >
-              <Text style={buttonText}>Bewerbung bestätigen</Text>
-            </Button>
+            <Text style={text}>Ihre Bewerbung wurde hiermit bestätigt.</Text>
+            <Text style={text}>Vielen Dank.</Text>
           </Section>
           <Text style={links}>
             <Link style={link}>Datenschutz</Link> ・{" "}

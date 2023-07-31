@@ -25,7 +25,9 @@ import {
   HiOutlineQuestionMarkCircle,
   HiUserPlus,
   HiOutlineTrash,
+  HiOutlinePlus,
 } from "react-icons/hi2";
+
 import {
   useReactTable,
   getCoreRowModel,
@@ -147,7 +149,7 @@ function KampagneTable({ kampagnes }) {
         <Tooltip label="Kampagne hinzufügen" placement="top">
           <IconButton
             onClick={onOpen}
-            icon={<HiUserPlus />}
+            icon={<HiOutlinePlus />}
             colorScheme="green"
             variant={"outline"}
           />

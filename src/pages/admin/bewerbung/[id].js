@@ -16,22 +16,15 @@ import {
   useDisclosure,
   Text,
 } from "@chakra-ui/react";
-import {
-  HiBars3,
-  HiEllipsisVertical,
-  HiOutlineCog8Tooth,
-  HiMiniBars3,
-  HiMiniCog8Tooth,
-  HiOutlineCog6Tooth,
-} from "react-icons/hi2";
+import { HiOutlineCog6Tooth } from "react-icons/hi2";
 import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import LetterDetail from "@/components/letter/letterDetail";
 import StatusModal from "@/components/letter/statusModal";
 import { dateFormatter } from "@/lib/utils";
 import Link from "next/link";
+import NoteTable from "@/components/notes/noteTable";
 
 function Bewerbung({ letter }) {
-  console.log("letter: ", letter);
   const {
     isOpen: statusIsOpen,
     onOpen: statusOnOpen,
@@ -123,6 +116,8 @@ export const getServerSideProps = async (ctx) => {
     include: {
       botschafter: true,
       kampagne: true,
+      notes: true,
+      files: true,
     },
   });
   return { props: { letter } };

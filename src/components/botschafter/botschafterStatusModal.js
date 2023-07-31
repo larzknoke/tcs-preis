@@ -24,8 +24,6 @@ function BotschafterModal({ botschafterOnClose, botschafterIsOpen, letter }) {
   const [botschafterSelect, setBotschafterSelect] = useState([]);
   const [botschafterSelected, setBotschafterSelected] = useState(null);
 
-  console.log("letter", letter);
-
   async function botschafterForSelect() {
     const res = await fetch("/api/botschafter", {
       method: "GET",

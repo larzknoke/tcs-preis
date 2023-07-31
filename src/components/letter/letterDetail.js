@@ -24,22 +24,26 @@ import {
   Alert,
   AlertIcon,
   AlertDescription,
+  Flex,
 } from "@chakra-ui/react";
-import {
-  HiOutlineCheckCircle,
-  HiOutlineCloudArrowDown,
-  HiOutlineClipboard,
-  HiCheck,
-} from "react-icons/hi2";
+import { HiOutlineClipboard, HiCheck, HiOutlinePlus } from "react-icons/hi2";
 import BotschafterModal from "../botschafter/botschafterStatusModal";
 import Link from "next/link";
 import { Checker, currencyFormatter } from "@/lib/utils";
+import NoteTable from "../notes/noteTable";
+import FileTable from "./fileTable";
+import NewFileModal from "./newFileModal";
 
 function LetterDetail({ letter }) {
   const {
     isOpen: botschafterIsOpen,
     onOpen: botschafterOnOpen,
     onClose: botschafterOnClose,
+  } = useDisclosure();
+  const {
+    isOpen: fileIsOpen,
+    onOpen: fileOnOpen,
+    onClose: fileOnClose,
   } = useDisclosure();
   const { onCopy, setValue, hasCopied } = useClipboard();
 
@@ -239,49 +243,37 @@ function LetterDetail({ letter }) {
       </Card>
       <Card>
         <CardHeader>
-          <Heading
-            size="sm"
-            color="gray.500"
-            fontWeight={"600"}
-            textTransform={"uppercase"}
-          >
-            Dateien
-          </Heading>
+          <Flex justify={"space-between"}>
+            <Heading
+              size="sm"
+              color="gray.500"
+              fontWeight={"600"}
+              textTransform={"uppercase"}
+            >
+              Dateien
+            </Heading>
+            <Tooltip label="Neue Datei" placement="top">
+              <IconButton
+                size={"sm"}
+                variant="outline"
+                colorScheme="green"
+                aria-label="See menu"
+                icon={<HiOutlinePlus />}
+                onClick={() => fileOnOpen()}
+              />
+            </Tooltip>
+            <NewFileModal
+              letter={letter}
+              isOpen={fileIsOpen}
+              onClose={fileOnClose}
+            />
+          </Flex>
         </CardHeader>
         <CardBody>
-          <Stack divider={<StackDivider />} spacing="4">
-            <Stat>
-              <StatLabel>Freistellungsbescheid</StatLabel>
-              <StatNumber>
-                <Button
-                  size={"sm"}
-                  leftIcon={<HiOutlineCloudArrowDown />}
-                  colorScheme="gray"
-                  variant="outline"
-                  mt={2}
-                >
-                  Download
-                </Button>{" "}
-              </StatNumber>
-            </Stat>
-            <Stat>
-              <StatLabel>ProjektNoah.pdf</StatLabel>
-              <StatNumber>
-                <Button
-                  size={"sm"}
-                  leftIcon={<HiOutlineCloudArrowDown />}
-                  colorScheme="gray"
-                  variant="outline"
-                  mt={2}
-                >
-                  Download
-                </Button>
-              </StatNumber>
-            </Stat>
-          </Stack>{" "}
+          <FileTable letter={letter} />
         </CardBody>
-        <CardFooter></CardFooter>
       </Card>
+      <NoteTable letter={letter} />
     </SimpleGrid>
   );
 }
