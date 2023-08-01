@@ -22,6 +22,7 @@ import { Select } from "chakra-react-select";
 import { bundeslaender } from "@/lib/data";
 import { botschafterSchema } from "@/lib/formSchema";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 function NewBotschafterModal({ isOpen, onClose }) {
   const router = useRouter();
@@ -38,8 +39,11 @@ function NewBotschafterModal({ isOpen, onClose }) {
 
   const toast = useToast();
 
+  const [loading, setLoading] = useState(false);
+
   async function onSubmit(values) {
     try {
+      setLoading(true);
       console.log("values: ", values);
       const res = await fetch("/api/botschafter", {
         method: "POST",
@@ -53,6 +57,7 @@ function NewBotschafterModal({ isOpen, onClose }) {
           duration: 9000,
           isClosable: true,
         });
+        setLoading(false);
       } else {
         const resData = await res.json();
         console.log("resData: ", resData);
@@ -65,6 +70,7 @@ function NewBotschafterModal({ isOpen, onClose }) {
         onClose();
         reset();
         router.push(`/admin/botschafter/${resData.result.id}`);
+        setLoading(false);
       }
     } catch (error) {
       console.log("api fetch error");
@@ -168,6 +174,7 @@ function NewBotschafterModal({ isOpen, onClose }) {
               mr={3}
               onClick={onClose}
               variant={"outline"}
+              isDisabled={loading}
             >
               Schliessen
             </Button>
@@ -177,6 +184,7 @@ function NewBotschafterModal({ isOpen, onClose }) {
               colorScheme="green"
               form="new-botschafter-form"
               type="submit"
+              isLoading={loading}
             >
               Speichern
             </Button>

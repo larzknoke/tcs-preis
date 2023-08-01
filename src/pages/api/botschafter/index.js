@@ -6,7 +6,7 @@ export default async function handle(req, res) {
     try {
       const data = req.body;
       console.log("data: ", data);
-      const result = await prisma.kampagne.create({ data: data });
+      const result = await prisma.botschafter.create({ data: data });
       console.log("result: ", result);
       return res.status(200).json({ success: true, result });
     } catch (error) {
@@ -17,7 +17,7 @@ export default async function handle(req, res) {
 
   if (req.method == "GET") {
     try {
-      const result = await prisma.kampagne.findMany();
+      const result = await prisma.botschafter.findMany();
       console.log("result: ", result);
       return res.status(200).json(result);
     } catch (error) {

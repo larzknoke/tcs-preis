@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { fileSchema } from "@/lib/formSchema";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 function NewFileModal({ letter, isOpen, onClose }) {
   const router = useRouter();
@@ -31,11 +32,12 @@ function NewFileModal({ letter, isOpen, onClose }) {
   } = useForm({
     resolver: yupResolver(fileSchema),
   });
-
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
 
   async function onSubmit(values) {
     try {
+      setLoading(true);
       console.log("values: ", values);
 
       // ***********
@@ -90,6 +92,7 @@ function NewFileModal({ letter, isOpen, onClose }) {
           onClose();
           reset();
           router.push(`/admin/bewerbung/${letter.id}`);
+          setLoading(false);
         }
       }
     } catch (error) {
@@ -167,6 +170,7 @@ function NewFileModal({ letter, isOpen, onClose }) {
               mr={3}
               onClick={onClose}
               variant={"outline"}
+              isDisabled={loading}
             >
               Schliessen
             </Button>
@@ -176,6 +180,7 @@ function NewFileModal({ letter, isOpen, onClose }) {
               colorScheme="green"
               form="new-file-form"
               type="submit"
+              isLoading={loading}
             >
               Speichern
             </Button>

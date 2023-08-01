@@ -23,6 +23,7 @@ function BotschafterModal({ botschafterOnClose, botschafterIsOpen, letter }) {
   const toast = useToast();
   const [botschafterSelect, setBotschafterSelect] = useState([]);
   const [botschafterSelected, setBotschafterSelected] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   async function botschafterForSelect() {
     const res = await fetch("/api/botschafter", {
@@ -41,6 +42,7 @@ function BotschafterModal({ botschafterOnClose, botschafterIsOpen, letter }) {
   }, [botschafterIsOpen]);
 
   async function onSubmit() {
+    setLoading(true);
     const res = await fetch("/api/letter/updateBotschafter", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -56,6 +58,7 @@ function BotschafterModal({ botschafterOnClose, botschafterIsOpen, letter }) {
         duration: 9000,
         isClosable: true,
       });
+      setLoading(false);
     } else {
       // const resData = await res.json();
       toast({
@@ -66,6 +69,7 @@ function BotschafterModal({ botschafterOnClose, botschafterIsOpen, letter }) {
       });
       botschafterOnClose();
       router.replace(router.asPath);
+      setLoading(false);
     }
   }
 
@@ -105,6 +109,7 @@ function BotschafterModal({ botschafterOnClose, botschafterIsOpen, letter }) {
             mr={3}
             onClick={botschafterOnClose}
             variant={"outline"}
+            isDisabled={loading}
           >
             Schliessen
           </Button>
@@ -113,6 +118,7 @@ function BotschafterModal({ botschafterOnClose, botschafterIsOpen, letter }) {
             variant="outline"
             colorScheme="green"
             onClick={onSubmit}
+            isLoading={loading}
           >
             Speichern
           </Button>
