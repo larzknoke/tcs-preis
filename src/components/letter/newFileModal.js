@@ -37,39 +37,60 @@ function NewFileModal({ letter, isOpen, onClose }) {
   async function onSubmit(values) {
     try {
       console.log("values: ", values);
-      const formData = new FormData();
-      formData.append("letterId", letter.id);
-      Object.keys(values).forEach((fieldName) => {
-        if (fieldName === "file") {
-          formData.append(fieldName, values[fieldName][0]);
-        } else {
-          formData.append(fieldName, values[fieldName]);
+
+      // ***********
+      // UPLOAD FILE
+      // ***********
+      const res = await fetch(`/api/file/s3url?file=${values.file[0].name}`);
+      const { url, fields } = await res.json();
+
+      const formDataFile = new FormData();
+
+      Object.entries({ ...fields, file: values.file[0] }).forEach(
+        ([key, value]) => {
+          formDataFile.append(key, value);
         }
-      });
-      const res = await fetch("/api/file", {
+      );
+
+      const upload = await fetch(url, {
         method: "POST",
-        // headers: { "Content-Type": "application/json" },
-        body: formData,
+        body: formDataFile,
       });
-      if (res.status != 200) {
-        toast({
-          title: "Ein Fehler ist aufgetreten",
-          status: "error",
-          duration: 9000,
-          isClosable: true,
+
+      // ***********
+      // CREATE UPLOAD IN DB
+      // ***********
+      if (upload.ok) {
+        const formData = {
+          letterId: letter.id,
+          title: values.title,
+          note: values.note,
+          file: fields.key,
+        };
+        const res = await fetch("/api/file", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
         });
-      } else {
-        const resData = await res.json();
-        console.log("resData: ", resData);
-        toast({
-          title: `Datei erstellt.`,
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
-        onClose();
-        reset();
-        router.push(`/admin/bewerbung/${letter.id}`);
+        if (res.status != 200) {
+          toast({
+            title: "Ein Fehler ist aufgetreten",
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+          });
+        } else {
+          const resData = await res.json();
+          toast({
+            title: `Datei erstellt.`,
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
+          onClose();
+          reset();
+          router.push(`/admin/bewerbung/${letter.id}`);
+        }
       }
     } catch (error) {
       console.log("api fetch error");
