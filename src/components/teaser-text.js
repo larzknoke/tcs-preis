@@ -24,27 +24,26 @@ function TeaserText() {
           </Heading>
           <OrderedList spacing={6} color={"gray.500"}>
             <ListItem>
-              Das Bewerbungsverfahren beginnt am 01. Februar 2022 und endet am
-              03. April 2022 um 24:00 Uhr.
+              Das Bewerbungsverfahren beginnt am 02. Oktober 2023 und endet am
+              30. November 2023 um 24:00 Uhr.
             </ListItem>
             <ListItem>
-              Es ist maximal eine Bewerbung pro gemeinnütziger
-              Organisation/Einrichtung zulässig. Sofern mehrere Bewerbungen ein-
-              und derselben (bspw. unter einem Dachverband tätigen)
+              Es ist lediglich eine Bewerbung pro gemeinnützige
+              Organisation/Einrichtung zulässig. Sofern mehrere Bewerbungen von
+              ein- und derselben (bspw. unter einem Dachverband tätigen)
               Organisation/Vereinigung eingereicht werden, wird die zeitlich
               zuerst eingegangene Bewerbung gewertet. Vereine/Organisationen,
-              die in den letzten drei aufeinanderfolgenden Jahren
-              (2019,2020,2021) von der Stiftung eine Zuwendung erhalten haben,
-              werden von einer Förderung ausgeschlossen.
+              die in den letzten drei aufeinanderfolgenden Jahren (2020, 2021,
+              2022) von der Stiftung jeweils eine Zuwendung erhalten haben,
+              werden von einer Förderung in 2023 ausgeschlossen.
             </ListItem>
             <ListItem>
               Bitte verwenden Sie einen aktuellen Browser, anderenfalls besteht
               die Möglichkeit, dass Ihre Bewerbung nicht zugestellt werden kann.
             </ListItem>
             <ListItem>
-              Das Zwischenspeichern Ihrer Angaben ist nicht möglich; bitte
-              füllen Sie die Bewerbungsmaske daher vollständig aus und senden
-              Sie diese ab.
+              Das Zwischenspeichern Ihrer Angaben ist lediglich bei Benutzung
+              desselben Geräts und Browsers möglich.
             </ListItem>
             <ListItem>
               Der gültige Freistellungsbescheid des für Sie zuständigen
@@ -69,9 +68,9 @@ function TeaserText() {
               Weitere Eingangsbestätigungen erhalten Sie nicht.
             </ListItem>
             <ListItem>
-              Aus allen eingehenden Bewerbungen werden 500 Bewerbungen, die die
+              Aus allen eingehenden Bewerbungen werden 333 Bewerbungen, die die
               Bewerbungskriterien erfüllen, ausgewählt und erhalten eine
-              Förderung in Höhe von EUR 1.000. Die Auswahlentscheidungen trifft
+              Förderung in Höhe von EUR 1.111. Die Auswahlentscheidung trifft
               die Stiftung.
             </ListItem>
           </OrderedList>
@@ -87,7 +86,7 @@ function TeaserText() {
             Wir freuen uns auf Ihre Bewerbung und wünschen Ihnen viel Erfolg!
           </Text>
           <Text as={"b"} color={"gray.500"}>
-            Ihr Team der Town & Country Stiftung
+            Ihre Town &amp; Country Stiftung
           </Text>
         </VStack>
       </CardBody>{" "}

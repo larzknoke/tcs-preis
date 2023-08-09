@@ -24,6 +24,7 @@ model Letter {
   bundeslandTraeger String?
   vereinTraeger     String?
   organisationProjekt     String?
+  nameProjekt             String?
   ansprechpartnerProjekt  String?
   telefonnummerProjekt    String?
   mobilProjekt            String?
@@ -31,6 +32,21 @@ model Letter {
   wwwProjekt              String?
   ibanProjekt             String?
   kontoNameProjekt        String?
+  bankNameProjekt         String?
+  strasseProjekt          String?
+  plzOrtProjekt           String?
+  bundeslandProjekt       String?
+  wannProjekt             String?
+  mitarbeiterProjekt      String?
+  hauptamtlichAnzahl      String?
+  hauptamtlichStunden     String?
+  ehrenamtlichAnzahl      String?
+  ehrenamtlichStunden     String?
+  beschreibungProjekt     String?
+  zielsetzungProjekt      String?
+  benachteiligungProjekt  String?
+  umsetzungProjekt        String?
+  bisherigeErgebnisse     String?
   eigenmittel             Float?
   oeffentlicheZuwendungen Float?
   privateSpenden          Float?
@@ -75,6 +91,7 @@ model File {
   file              String
   letter            Letter? @relation(fields: [letterId], references: [id])
   letterId          Int?
+  typ               String? @default("")
 }
 
 

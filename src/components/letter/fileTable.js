@@ -53,7 +53,9 @@ function FileTable({ letter }) {
           return (
             <HStack key={file.id} justify={"space-between"}>
               <Stat>
-                <StatLabel>{dateFormatter(file.createdAt)}</StatLabel>
+                <StatLabel>
+                  {dateFormatter(file.createdAt)} | {file.typ}
+                </StatLabel>
                 <StatNumber> {file.file.split("/")[1]}</StatNumber>
                 <StatLabel>
                   Name: {file.title} | Notiz: {file.note}

@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { FaFilePdf } from "react-icons/fa";
 import Link from "next/link";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 
 function Step4() {
   const {
@@ -42,10 +42,9 @@ function Step4() {
             <Checkbox
               name="checkBeitrag"
               type="checkbox"
-              {...register("checkBeitrag", {
-                required: "Pflichtfeld",
-              })}
+              {...register("checkBeitrag")}
               spacing={6}
+              isInvalid={errors.checkBeitrag}
             >
               Wir sind damit einverstanden, dass unsere Bewerbung oder Teile
               davon, insbesondere Fotos zum Zwecke der Öffentlichkeitsarbeit der
@@ -57,10 +56,10 @@ function Step4() {
               <Tooltip label="Die hiermit eingeräumten Nutzungsrechte gelten zeitlich, inhaltlich und medial unbeschränkt und sind unbefristet. Davon ausgenommen sind sämtliche Angaben zur Finanzierung.">
                 <Text as="sup">1</Text>
               </Tooltip>
+              <FormErrorMessage>
+                {errors.checkBeitrag && errors.checkBeitrag.message}
+              </FormErrorMessage>
             </Checkbox>
-            <FormErrorMessage>
-              {errors.checkBeitrag && errors.checkBeitrag.message}
-            </FormErrorMessage>
           </FormControl>
         </GridItem>
         <GridItem colSpan={4}>
@@ -68,9 +67,7 @@ function Step4() {
             <Checkbox
               name="checkVeroeffentlich"
               type="checkbox"
-              {...register("checkVeroeffentlich", {
-                required: "Pflichtfeld",
-              })}
+              {...register("checkVeroeffentlich")}
               spacing={6}
             >
               Vor diesem Hintergrund stimmen wir der Veröffentlichung der
@@ -79,10 +76,11 @@ function Step4() {
               im Rahmen des Town & Country Stiftungspreises sowie eventuellen
               Fotos und Videoaufnahmen im Rahmen der Town & Country
               Stiftungsgala zu.
+              <FormErrorMessage>
+                {errors.checkVeroeffentlich &&
+                  errors.checkVeroeffentlich.message}
+              </FormErrorMessage>
             </Checkbox>
-            <FormErrorMessage>
-              {errors.checkVeroeffentlich && errors.checkVeroeffentlich.message}
-            </FormErrorMessage>
           </FormControl>
         </GridItem>
         <GridItem colSpan={4}>
@@ -100,10 +98,10 @@ function Step4() {
               datenschutzrechtlichen Vorschriften erstellt und der Town &
               Country Stiftung sowie deren mit der Öffentlichkeitsarbeit
               betrauten Vertragspartnern zur Verfügung gestellt werden.
+              <FormErrorMessage>
+                {errors.checkScheck && errors.checkScheck.message}
+              </FormErrorMessage>
             </Checkbox>
-            <FormErrorMessage>
-              {errors.checkScheck && errors.checkScheck.message}
-            </FormErrorMessage>
           </FormControl>
         </GridItem>
         <GridItem colSpan={4}>
@@ -122,11 +120,11 @@ function Step4() {
               den Widerruf bzw. den Widerspruch eines auf den Lichtbildern
               abgebildeten Betroffenen werden wir die Town & Country Stiftung
               unverzüglich informieren.
+              <FormErrorMessage>
+                {errors.checkDatenschutzBilder &&
+                  errors.checkDatenschutzBilder.message}
+              </FormErrorMessage>
             </Checkbox>
-            <FormErrorMessage>
-              {errors.checkDatenschutzBilder &&
-                errors.checkDatenschutzBilder.message}
-            </FormErrorMessage>
           </FormControl>
         </GridItem>
         <GridItem colSpan={4}>
@@ -160,27 +158,24 @@ function Step4() {
               spacing={6}
             >
               Wir willigen ein, dass die von uns im Rahmen der Bewerbung sowie
-              Teilnahme am 10. Town & Country Stiftungspreis übermittelten
-              personenbezogenen Daten im Rahmen des Town & Country
+              Teilnahme am 11. Town &amp; Country Stiftungspreis übermittelten
+              personenbezogenen Daten im Rahmen des Town &amp; Country
               Stiftungspreises verarbeitet werden. Die Daten werden von der Town
-              & Country Stiftung (Hauptstraße 90E, 99820 Hörselberg-Hainich OT
-              Behringen), den Botschaftern der Town & Country Stiftung, der Town
-              & Country Haus Lizenzgeber GmbH (Hauptstraße 90E, 99820
-              Hörselberg-Hainich OT Behringen), den Lizenz- und
-              Franchise-Partnern der Town & Country Haus Lizenzgeber GmbH sowie
-              den von der Town & Country Stiftung mit der Durchführung des Town
-              & Country Stiftungspreises beauftragten Dritten ausschließlich im
-              Zusammenhang mit dem 10. Town & Country Stiftungspreis,
+              &amp; Country Stiftung (Hauptstraße 90E, 99820 Hörselberg-Hainich
+              OT Behringen), den Botschaftern der Town &amp; Country Stiftung,
+              der Town &amp; Country Haus Lizenzgeber GmbH (Hauptstraße 90E,
+              99820 Hörselberg-Hainich OT Behringen), den Lizenz- und Franchise-
+              Partnern der Town &amp; Country Haus Lizenzgeber GmbH sowie den
+              von der Town &amp; Country Stiftung mit der Durchführung des Town
+              &amp; Country Stiftungspreises beauftragten Dritten ausschließlich
+              im Zusammenhang mit dem 11. Town &amp; Country Stiftungspreis,
               insbesondere jedoch für die Öffentlichkeitsarbeit im Zusammenhang
-              mit dem 10. Town & Country Stiftungspreis verwendet. Eine darüber
-              hinausgehende Nutzung der personenbezogenen Daten zu Werbezwecken
-              findet nicht statt. Wir sind für die Verarbeitung von
-              personenbezogenen Daten im eigenen Bereich selbst verantwortlich.
+              mit dem 11. Town &amp; Country Stiftungspreis verwendet.
+              <FormErrorMessage>
+                {errors.checkPersonenbezogen &&
+                  errors.checkPersonenbezogen.message}
+              </FormErrorMessage>
             </Checkbox>
-            <FormErrorMessage>
-              {errors.checkPersonenbezogen &&
-                errors.checkPersonenbezogen.message}
-            </FormErrorMessage>
           </FormControl>
         </GridItem>
         <GridItem colSpan={4}>
@@ -198,11 +193,11 @@ function Step4() {
                 hier abrufbare Datenschutzerklärung
               </Link>{" "}
               gelesen und erkennen sie als verbindlich an.
+              <FormErrorMessage>
+                {errors.checkDatenschutzerklaerung &&
+                  errors.checkDatenschutzerklaerung.message}
+              </FormErrorMessage>
             </Checkbox>
-            <FormErrorMessage>
-              {errors.checkDatenschutzerklaerung &&
-                errors.checkDatenschutzerklaerung.message}
-            </FormErrorMessage>
           </FormControl>
         </GridItem>
         <GridItem colSpan={4}>
@@ -219,13 +214,13 @@ function Step4() {
               <Link href="https://www.tc-stiftung.de/wp-content/uploads/2021/01/Allg.Teilnahmebedingungen.pdf">
                 hier abrufbaren Teilnahmebedingungen
               </Link>{" "}
-              des 10. Town & Country Stiftungspreises gelesen und erkennen sie
+              des 11. Town & Country Stiftungspreises gelesen und erkennen sie
               als verbindlich an.
+              <FormErrorMessage>
+                {errors.checkTeilnahmebedingungen &&
+                  errors.checkTeilnahmebedingungen.message}
+              </FormErrorMessage>
             </Checkbox>
-            <FormErrorMessage>
-              {errors.checkTeilnahmebedingungen &&
-                errors.checkTeilnahmebedingungen.message}
-            </FormErrorMessage>
           </FormControl>
         </GridItem>
         <GridItem colSpan={4}>
@@ -240,10 +235,10 @@ function Step4() {
             >
               Ich bestätige, die vorstehenden Angaben wahrheitsgemäß und
               vollständig getätigt zu haben.
+              <FormErrorMessage>
+                {errors.checkWahrheit && errors.checkWahrheit.message}
+              </FormErrorMessage>
             </Checkbox>
-            <FormErrorMessage>
-              {errors.checkWahrheit && errors.checkWahrheit.message}
-            </FormErrorMessage>
           </FormControl>
         </GridItem>
       </SimpleGrid>

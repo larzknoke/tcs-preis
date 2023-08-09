@@ -7,6 +7,7 @@ const contentTypes = {
   jpg: "image/jpeg",
   png: "image/x-png",
   zip: "application/zip",
+  pdf: "application/pdf",
 };
 
 function getContentType(filename) {

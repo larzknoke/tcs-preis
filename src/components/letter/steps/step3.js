@@ -38,7 +38,6 @@ function Step3() {
               type="number"
               {...register("eigenmittel", {
                 valueAsNumber: true,
-                required: "Pflichtfeld",
               })}
             />
             <FormErrorMessage>
@@ -56,8 +55,6 @@ function Step3() {
               type="number"
               {...register("oeffentlicheZuwendungen", {
                 valueAsNumber: true,
-
-                required: "Pflichtfeld",
               })}
             />
             <FormErrorMessage>
@@ -76,8 +73,6 @@ function Step3() {
               type="number"
               {...register("privateSpenden", {
                 valueAsNumber: true,
-
-                required: "Pflichtfeld",
               })}
             />
             <FormErrorMessage>
@@ -96,8 +91,6 @@ function Step3() {
               type="number"
               {...register("zuwendungAndere", {
                 valueAsNumber: true,
-
-                required: "Pflichtfeld",
               })}
             />
             <FormErrorMessage>
@@ -118,8 +111,6 @@ function Step3() {
               type="number"
               {...register("bisherigeFoerderung", {
                 valueAsNumber: true,
-
-                required: "Pflichtfeld",
               })}
             />
             <FormErrorMessage>

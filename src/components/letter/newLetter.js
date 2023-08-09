@@ -62,7 +62,7 @@ function NewLetter() {
 
   const { watch, setValue } = methods;
 
-  useFormPersist("storageKey", {
+  useFormPersist("bewerbungs-daten", {
     watch,
     setValue,
     storage: typeof window !== "undefined" ? window.localStorage : "",
@@ -75,51 +75,88 @@ function NewLetter() {
     delete values.emailBestaetigungProjekt;
     try {
       console.log("values: ", values);
-      if (activeStep === steps.length - 1) {
-        const res = await fetch("/api/letter", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values),
-        });
-        if (res.status != 200) {
-          setFormError(true);
-        } else {
-          methods.reset();
-          setFormSuccess(true);
-        }
-      }
-      nextStep();
-      //   const formData = new FormData();
-      //   Object.keys(values).forEach((fieldName) => {
-      //     if (fieldName === "mietvertrag") {
-      //       formData.append(fieldName, values[fieldName][0]);
-      //     } else {
-      //       formData.append(fieldName, values[fieldName]);
-      //     }
-      //   });
-      //   const res = await fetch("/api/miet", {
+
+      // if (activeStep === steps.length - 1) {
+      //   const fileFreitstellung = values.freistellungsbescheidTraeger[0];
+      //   delete values.freistellungsbescheidTraeger;
+
+      //   const resLetter = await fetch("/api/letter", {
       //     method: "POST",
-      //     // headers: { "Content-Type": "application/json" },
-      //     body: formData,
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify(values),
       //   });
-      //   console.log("api fetch done", await res.json());
-      //   if (res.status != 200) {
-      //     return toast({
-      //       title: "Ein Fehler ist aufgetreten.",
-      //       status: "error",
-      //       duration: 9000,
-      //       isClosable: true,
-      //     });
+      //   if (resLetter.status != 200) {
+      //     setFormError(true);
+      //   } else {
+      //     const resLetterData = await resLetter.json();
+      //     const letterId = resLetterData.result.id;
+
+      //     // ***********
+      //     // START UPLOAD FILE
+      //     // ***********
+
+      //     // GENERATE URL
+      //     // ***********
+      //     if (fileFreitstellung) {
+      //       const resUpload = await fetch(
+      //         `/api/file/s3url?file=${fileFreitstellung.name}`
+      //       );
+      //       const { url, fields } = await resUpload.json();
+      //       const formDataFile = new FormData();
+
+      //       Object.entries({
+      //         ...fields,
+      //         file: fileFreitstellung,
+      //       }).forEach(([key, value]) => {
+      //         formDataFile.append(key, value);
+      //       });
+
+      //       // UPLOAD TO S3
+      //       // ***********
+      //       const upload = await fetch(url, {
+      //         method: "POST",
+      //         body: formDataFile,
+      //       });
+
+      //       if (upload.ok) {
+      //         // CREATE FILE IN DB
+      //         // ***********
+      //         const formData = {
+      //           letterId: letterId,
+      //           title: "Freistellungsbescheid1",
+      //           note: "-",
+      //           file: fields.key,
+      //           typ: "freistellungsbescheid",
+      //         };
+      //         const res = await fetch("/api/file", {
+      //           method: "POST",
+      //           headers: { "Content-Type": "application/json" },
+      //           body: JSON.stringify(formData),
+      //         });
+      //         if (res.status != 200) {
+      //           toast({
+      //             title: "Ein Fehler ist beim Upload aufgetreten",
+      //             status: "error",
+      //             duration: 9000,
+      //             isClosable: true,
+      //           });
+      //         } else {
+      //           const resFile = await res.json();
+      //         }
+      //       }
+      //       // ***********
+      //       // END UPLOAD FILE
+      //       // ***********
+      //     }
+
+      //     if (typeof window !== "undefined") {
+      //       window.localStorage.removeItem("bewerbungs-daten");
+      //     }
+      //     methods.reset();
+      //     setFormSuccess(true);
       //   }
-      //   toast({
-      //     title: "Angebot erstellt.",
-      //     status: "success",
-      //     isClosable: true,
-      //     duration: 2000,
-      //   });
-      //   onClose();
-      //   resetForm();
-      //   router.replace(router.asPath);
+      // }
+      nextStep();
     } catch (error) {
       console.log("api fetch error");
       console.error("Err", error);
@@ -266,7 +303,7 @@ function NewLetter() {
                   <AlertIcon />
                   <AlertTitle>Formular unvollständig!</AlertTitle>
                   <AlertDescription>
-                    Eigene Felder sind nicht korrekt ausgefüllt. Bitte
+                    Einige Felder sind nicht korrekt ausgefüllt. Bitte
                     überprüfen das Formular.
                   </AlertDescription>
                 </Alert>
