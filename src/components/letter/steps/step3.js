@@ -12,15 +12,37 @@ import {
   RadioGroup,
   HStack,
   Radio,
+  IconButton,
+  Text,
 } from "@chakra-ui/react";
 import { useFormContext } from "react-hook-form";
+import { useState, useEffect } from "react";
+import { HiOutlineTrash } from "react-icons/hi2";
 
 function Step3() {
   const {
     register,
     formState: { errors, isSubmitting },
     control,
+    getValues,
+    resetField,
   } = useFormContext();
+
+  const [customFile, setCustomFile] = useState("");
+  const [customFile2, setCustomFile2] = useState("");
+
+  useEffect(() => {
+    ["customFile", "customFile2"].forEach((typ) => {
+      const files = getValues(typ);
+      if (files && files.length > 0 && files[0] && files[0].name) {
+        if (typ == "customFile") {
+          setCustomFile(files[0].name);
+        } else if (typ == "customFile2") {
+          setCustomFile2(files[0].name);
+        }
+      }
+    });
+  }, []);
 
   return (
     <VStack gap={10}>
@@ -118,52 +140,94 @@ function Step3() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        {/* <GridItem colSpan={2}>
-          <FormControl isInvalid={errors.weitereDateien}>
-            <FormLabel>weitere Dateien</FormLabel>
-            <Input
-              type="file"
-              // multiple
-              {...register("weitereDateien")}
-              sx={{
-                "::file-selector-button": {
-                  height: 10,
-                  padding: 0,
-                  mr: 4,
-                  background: "none",
-                  border: "none",
-                  fontWeight: "bold",
-                },
-              }}
-            />
+        <GridItem colSpan={3} maxW={"50%"}>
+          <FormControl isInvalid={errors.customFile}>
+            <FormLabel>weitere Dateien (max 10MB)</FormLabel>
+            {customFile == "" ? (
+              <Input
+                name="customFile"
+                type="file"
+                {...register("customFile", {
+                  onChange: (e) => {
+                    setCustomFile(e.target.files[0].name);
+                  },
+                })}
+                sx={{
+                  "::file-selector-button": {
+                    height: 10,
+                    padding: 0,
+                    mr: 4,
+                    background: "none",
+                    border: "none",
+                    fontWeight: "bold",
+                  },
+                }}
+              />
+            ) : (
+              <HStack spacing={8}>
+                <Text>Datei: {customFile}</Text>
+                <IconButton
+                  variant={"ghost"}
+                  colorScheme="red"
+                  icon={<HiOutlineTrash />}
+                  onClick={() => {
+                    resetField("customFile", {
+                      defaultValue: null,
+                    });
+                    setCustomFile("");
+                  }}
+                />
+              </HStack>
+            )}
             <FormErrorMessage>
-              {errors.weitereDateien && errors.weitereDateien.message}
+              {errors.customFile && errors.customFile.message}
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
-          <FormControl isInvalid={errors.weitereDateien2}>
-            <FormLabel>weitere Dateien</FormLabel>
-            <Input
-              type="file"
-              // multiple
-              {...register("weitereDateien2")}
-              sx={{
-                "::file-selector-button": {
-                  height: 10,
-                  padding: 0,
-                  mr: 4,
-                  background: "none",
-                  border: "none",
-                  fontWeight: "bold",
-                },
-              }}
-            />
+        <GridItem colSpan={3} maxW={"50%"}>
+          <FormControl isInvalid={errors.customFile2}>
+            <FormLabel>weitere Dateien (max 10MB)</FormLabel>
+            {customFile2 == "" ? (
+              <Input
+                name="customFile2"
+                type="file"
+                {...register("customFile2", {
+                  onChange: (e) => {
+                    setCustomFile2(e.target.files[0].name);
+                  },
+                })}
+                sx={{
+                  "::file-selector-button": {
+                    height: 10,
+                    padding: 0,
+                    mr: 4,
+                    background: "none",
+                    border: "none",
+                    fontWeight: "bold",
+                  },
+                }}
+              />
+            ) : (
+              <HStack spacing={8}>
+                <Text>Datei: {customFile2}</Text>
+                <IconButton
+                  variant={"ghost"}
+                  colorScheme="red"
+                  icon={<HiOutlineTrash />}
+                  onClick={() => {
+                    resetField("customFile2", {
+                      defaultValue: null,
+                    });
+                    setCustomFile2("");
+                  }}
+                />
+              </HStack>
+            )}
             <FormErrorMessage>
-              {errors.weitereDateien2 && errors.weitereDateien2.message}
+              {errors.customFile2 && errors.customFile2.message}
             </FormErrorMessage>
           </FormControl>
-        </GridItem> */}
+        </GridItem>
       </SimpleGrid>
     </VStack>
   );

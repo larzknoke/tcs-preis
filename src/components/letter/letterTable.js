@@ -16,12 +16,17 @@ import {
   Heading,
   Card,
   CardBody,
+  Flex,
+  Text,
+  Button,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
   HiOutlineCheck,
   HiOutlineNoSymbol,
   HiOutlineQuestionMarkCircle,
+  HiMiniLanguage,
+  HiMiniStar,
 } from "react-icons/hi2";
 import {
   useReactTable,
@@ -35,15 +40,18 @@ import {
   flexRender,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import Link from "next/link";
-import { tableData } from "@/lib/tableData";
+import { useRouter } from "next/router";
 
 import DebouncedInput from "@/lib/debouncedInput";
 import fuzzyFilter from "@/lib/fuzzyFilter";
 
+import { Capatilizer } from "@/lib/utils";
+
 function LetterTable({ letters }) {
+  const router = useRouter();
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
@@ -51,30 +59,12 @@ function LetterTable({ letters }) {
 
   const columns = [
     columnHelper.accessor("id", {
-      cell: (info) => info.getValue(),
       header: "ID",
-    }),
-    columnHelper.accessor("nameTraeger", {
-      cell: (info) => info.getValue(),
-      header: "Name",
-    }),
-    columnHelper.accessor("organisationProjekt", {
-      cell: (info) => info.getValue(),
-      header: "Projekt",
-    }),
-    columnHelper.accessor("bundeslandTraeger", {
-      cell: (info) => info.getValue(),
-      header: "Bundesland",
-    }),
-    columnHelper.accessor("plzTraeger", {
-      cell: ({ row, info }) =>
-        row.original.plzTraeger + " " + row.original.ortTraeger,
-      header: "PLZ / Ort",
     }),
     columnHelper.accessor("status", {
       header: "Status",
       cell: (info) => (
-        <Tooltip label={info.getValue()} placement="top">
+        <Tooltip label={Capatilizer(info.getValue())} placement="top">
           <span>
             {info.getValue() == "offen" && (
               <Icon as={HiOutlineQuestionMarkCircle} color={"yellow.500"} />
@@ -82,12 +72,66 @@ function LetterTable({ letters }) {
             {info.getValue() == "abgelehnt" && (
               <Icon as={HiOutlineNoSymbol} color={"red.500"} />
             )}
-            {info.getValue() == "angenommen" && (
+            {info.getValue() == "1000" && (
               <Icon as={HiOutlineCheck} color={"green.900"} />
+            )}
+            {info.getValue() == "5000" && (
+              <Flex>
+                <Icon as={HiOutlineCheck} color={"green.900"} />
+                <Icon as={HiMiniStar} color={"yellow.400"} />
+              </Flex>
+            )}
+            {info.getValue() == "ausland" && (
+              <Icon as={HiMiniLanguage} color={"yellow.900"} />
             )}
           </span>
         </Tooltip>
       ),
+    }),
+    columnHelper.accessor("bundeslandTraeger", {
+      header: "Bundesland",
+    }),
+    columnHelper.accessor("botschafter", {
+      cell: ({ row, info }) => {
+        return (
+          (
+            <Button
+              variant={"link"}
+              color="gray.600"
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(
+                  "/admin/botschafter/" + row.original.botschafter?.id
+                );
+              }}
+            >
+              {row.original.botschafter?.name}
+            </Button>
+          ) || "-"
+        );
+      },
+      header: "Botschafter",
+    }),
+    columnHelper.accessor("nameTraeger", {
+      cell: ({ row, info }) => {
+        return (
+          <Text>
+            <chakra.span>{row.original.nameTraeger}</chakra.span>{" "}
+            {/* {row.original.wwwProjekt && (
+              <chakra.a color="gray.500">({row.original.wwwProjekt})</chakra.a>
+            )} */}
+          </Text>
+        );
+      },
+      header: "Träger",
+    }),
+    columnHelper.accessor("organisationProjekt", {
+      header: "Projekt",
+    }),
+    columnHelper.accessor("plzTraeger", {
+      cell: ({ row, info }) =>
+        row.original.plzTraeger + " " + row.original.ortTraeger,
+      header: "PLZ / Ort",
     }),
     columnHelper.accessor("controls", {
       cell: ({ row, info }) => (
@@ -129,6 +173,25 @@ function LetterTable({ letters }) {
     debugHeaders: false,
     debugColumns: false,
   });
+
+  useEffect(() => {
+    table.setPageSize(999999999);
+  }, []);
+
+  function rowColor(status) {
+    switch (status) {
+      case "offen":
+        return "";
+      case "1000":
+        return "green.50";
+      case "5000":
+        return "green.50";
+      case "ausland":
+        return "yellow.50";
+      case "abgelehnt":
+        return "red.50";
+    }
+  }
 
   return (
     <>
@@ -186,7 +249,18 @@ function LetterTable({ letters }) {
               </Thead>
               <Tbody>
                 {table.getRowModel().rows.map((row) => (
-                  <Tr key={row.id}>
+                  <Tr
+                    key={row.id}
+                    onClick={() =>
+                      router.push(`/admin/bewerbung/${row.getValue("id")}`)
+                    }
+                    bg={rowColor(row.getValue("status"))}
+                    _hover={{
+                      cursor: "pointer",
+                      backgroundColor: "gray.50",
+                      transitionDuration: "200ms",
+                    }}
+                  >
                     {row.getVisibleCells().map((cell) => {
                       const meta = cell.column.columnDef.meta;
                       return (

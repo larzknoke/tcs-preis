@@ -30,12 +30,21 @@ function Step1() {
   } = useFormContext();
 
   const [freistellungFile, setFreistellungFile] = useState("");
+  const [freistellungFile2, setFreistellungFile2] = useState("");
 
   useEffect(() => {
-    const files = getValues("freistellungsbescheidTraeger");
-    if (files && files.length > 0 && files[0] && files[0].name) {
-      setFreistellungFile(files[0].name);
-    }
+    ["freistellungsbescheidTraeger", "freistellungsbescheidTraeger2"].forEach(
+      (typ) => {
+        const files = getValues(typ);
+        if (files && files.length > 0 && files[0] && files[0].name) {
+          if (typ == "freistellungsbescheidTraeger") {
+            setFreistellungFile(files[0].name);
+          } else if (typ == "freistellungsbescheidTraeger2") {
+            setFreistellungFile2(files[0].name);
+          }
+        }
+      }
+    );
   }, []);
 
   return (
@@ -197,7 +206,6 @@ function Step1() {
                 {...register("freistellungsbescheidTraeger", {
                   onChange: (e) => {
                     setFreistellungFile(e.target.files[0].name);
-                    console.log("getValues", getValues());
                   },
                 })}
                 sx={{
@@ -223,7 +231,6 @@ function Step1() {
                       defaultValue: null,
                     });
                     setFreistellungFile("");
-                    console.log("form values:", getValues());
                   }}
                 />
               </HStack>
@@ -239,22 +246,42 @@ function Step1() {
             <FormLabel>
               Freistellungsbescheid (optional zweite Datei, max 10MB)
             </FormLabel>
-            <Input
-              name="freistellungsbescheidTraeger2"
-              type="file"
-              // multiple
-              {...register("freistellungsbescheidTraeger2")}
-              sx={{
-                "::file-selector-button": {
-                  height: 10,
-                  padding: 0,
-                  mr: 4,
-                  background: "none",
-                  border: "none",
-                  fontWeight: "bold",
-                },
-              }}
-            />
+            {freistellungFile2 == "" ? (
+              <Input
+                name="freistellungsbescheidTraeger2"
+                type="file"
+                {...register("freistellungsbescheidTraeger2", {
+                  onChange: (e) => {
+                    setFreistellungFile2(e.target.files[0].name);
+                  },
+                })}
+                sx={{
+                  "::file-selector-button": {
+                    height: 10,
+                    padding: 0,
+                    mr: 4,
+                    background: "none",
+                    border: "none",
+                    fontWeight: "bold",
+                  },
+                }}
+              />
+            ) : (
+              <HStack spacing={8}>
+                <Text>Datei: {freistellungFile2}</Text>
+                <IconButton
+                  variant={"ghost"}
+                  colorScheme="red"
+                  icon={<HiOutlineTrash />}
+                  onClick={() => {
+                    resetField("freistellungsbescheidTraeger2", {
+                      defaultValue: null,
+                    });
+                    setFreistellungFile2("");
+                  }}
+                />
+              </HStack>
+            )}
             <FormErrorMessage>
               {errors.freistellungsbescheidTraeger2 &&
                 errors.freistellungsbescheidTraeger2.message}

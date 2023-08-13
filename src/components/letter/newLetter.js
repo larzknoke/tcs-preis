@@ -58,6 +58,10 @@ function NewLetter() {
     reValidateMode: "onBlur",
     resolver: yupResolver(formSchema),
     criteriaMode: "all",
+    defaultValues: {
+      freistellungsbescheidTraeger: null,
+      freistellungsbescheidTraeger2: null,
+    },
   });
 
   const { watch, setValue } = methods;
@@ -76,86 +80,219 @@ function NewLetter() {
     try {
       console.log("values: ", values);
 
-      // if (activeStep === steps.length - 1) {
-      //   const fileFreitstellung = values.freistellungsbescheidTraeger[0];
-      //   delete values.freistellungsbescheidTraeger;
+      // ***********
+      // COLLECT ALL FILES FROM FORM AND PREPARE FOR UPLOAD
+      // ***********
+      const files = [];
+      const fileFreitstellung = values.freistellungsbescheidTraeger;
+      const fileFreitstellung2 = values.freistellungsbescheidTraeger2;
+      const customFile = values.customFile;
+      const customFile2 = values.customFile2;
+      if (fileFreitstellung) {
+        fileFreitstellung.typ = "freistellungsbescheid";
+        fileFreitstellung.uploadName = "Freistellungsbescheid";
+        files.push(fileFreitstellung);
+      }
+      if (fileFreitstellung2 && fileFreitstellung2 instanceof File) {
+        fileFreitstellung2.typ = "freistellungsbescheid";
+        fileFreitstellung2.uploadName = "Freistellungsbescheid 2";
+        files.push(fileFreitstellung2);
+      }
+      if (customFile && customFile instanceof File) {
+        customFile.typ = "user-upload";
+        customFile.uploadName = "User Upload";
+        files.push(customFile);
+      }
+      if (customFile2 && customFile2 instanceof File) {
+        customFile2.typ = "user-upload";
+        customFile2.uploadName = "User Upload";
+        files.push(customFile2);
+      }
 
-      //   const resLetter = await fetch("/api/letter", {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify(values),
-      //   });
-      //   if (resLetter.status != 200) {
-      //     setFormError(true);
-      //   } else {
-      //     const resLetterData = await resLetter.json();
-      //     const letterId = resLetterData.result.id;
+      console.log("files:", files);
+      if (activeStep === steps.length - 1) {
+        delete values.freistellungsbescheidTraeger;
+        delete values.freistellungsbescheidTraeger2;
+        delete values.customFile;
+        delete values.customFile2;
 
-      //     // ***********
-      //     // START UPLOAD FILE
-      //     // ***********
+        const resLetter = await fetch("/api/letter", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        });
+        if (resLetter.status != 200) {
+          setFormError(true);
+        } else {
+          const resLetterData = await resLetter.json();
+          const letterId = resLetterData.result.id;
 
-      //     // GENERATE URL
-      //     // ***********
-      //     if (fileFreitstellung) {
-      //       const resUpload = await fetch(
-      //         `/api/file/s3url?file=${fileFreitstellung.name}`
-      //       );
-      //       const { url, fields } = await resUpload.json();
-      //       const formDataFile = new FormData();
+          // ***********
+          // START UPLOAD FILES
+          // ***********
+          files.forEach(async (file) => {
+            // GENERATE URL
+            // ***********
+            const resUpload = await fetch(`/api/file/s3url?file=${file.name}`);
+            const { url, fields } = await resUpload.json();
+            const formDataFile = new FormData();
 
-      //       Object.entries({
-      //         ...fields,
-      //         file: fileFreitstellung,
-      //       }).forEach(([key, value]) => {
-      //         formDataFile.append(key, value);
-      //       });
+            Object.entries({
+              ...fields,
+              file: file,
+            }).forEach(([key, value]) => {
+              formDataFile.append(key, value);
+            });
 
-      //       // UPLOAD TO S3
-      //       // ***********
-      //       const upload = await fetch(url, {
-      //         method: "POST",
-      //         body: formDataFile,
-      //       });
+            // UPLOAD TO S3
+            // ***********
+            const upload = await fetch(url, {
+              method: "POST",
+              body: formDataFile,
+            });
 
-      //       if (upload.ok) {
-      //         // CREATE FILE IN DB
-      //         // ***********
-      //         const formData = {
-      //           letterId: letterId,
-      //           title: "Freistellungsbescheid1",
-      //           note: "-",
-      //           file: fields.key,
-      //           typ: "freistellungsbescheid",
-      //         };
-      //         const res = await fetch("/api/file", {
-      //           method: "POST",
-      //           headers: { "Content-Type": "application/json" },
-      //           body: JSON.stringify(formData),
-      //         });
-      //         if (res.status != 200) {
-      //           toast({
-      //             title: "Ein Fehler ist beim Upload aufgetreten",
-      //             status: "error",
-      //             duration: 9000,
-      //             isClosable: true,
-      //           });
-      //         } else {
-      //           const resFile = await res.json();
-      //         }
-      //       }
-      //       // ***********
-      //       // END UPLOAD FILE
-      //       // ***********
-      //     }
+            if (upload.ok) {
+              // CREATE FILE IN DB
+              // ***********
+              const formData = {
+                letterId: letterId,
+                title: file.uploadName,
+                note: "-",
+                file: fields.key,
+                typ: file.typ,
+              };
+              const res = await fetch("/api/file", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+              });
+              if (res.status != 200) {
+                toast({
+                  title: "Ein Fehler ist beim Upload aufgetreten",
+                  status: "error",
+                  duration: 9000,
+                  isClosable: true,
+                });
+              } else {
+                const resFile = await res.json();
+              }
+            }
+            // ***********
+            // END UPLOAD FILE
+            // ***********
+          });
 
-      //     if (typeof window !== "undefined") {
-      //       window.localStorage.removeItem("bewerbungs-daten");
-      //     }
-      //     methods.reset();
-      //     setFormSuccess(true);
-      //   }
-      // }
+          // if (fileFreitstellung) {
+          //   const resUpload = await fetch(
+          //     `/api/file/s3url?file=${fileFreitstellung.name}`
+          //   );
+          //   const { url, fields } = await resUpload.json();
+          //   const formDataFile = new FormData();
+
+          //   Object.entries({
+          //     ...fields,
+          //     file: fileFreitstellung,
+          //   }).forEach(([key, value]) => {
+          //     formDataFile.append(key, value);
+          //   });
+
+          //   // UPLOAD TO S3
+          //   // ***********
+          //   const upload = await fetch(url, {
+          //     method: "POST",
+          //     body: formDataFile,
+          //   });
+
+          //   if (upload.ok) {
+          //     // CREATE FILE IN DB
+          //     // ***********
+          //     const formData = {
+          //       letterId: letterId,
+          //       title: "Freistellungsbescheid1",
+          //       note: "-",
+          //       file: fields.key,
+          //       typ: "freistellungsbescheid",
+          //     };
+          //     const res = await fetch("/api/file", {
+          //       method: "POST",
+          //       headers: { "Content-Type": "application/json" },
+          //       body: JSON.stringify(formData),
+          //     });
+          //     if (res.status != 200) {
+          //       toast({
+          //         title: "Ein Fehler ist beim Upload aufgetreten",
+          //         status: "error",
+          //         duration: 9000,
+          //         isClosable: true,
+          //       });
+          //     } else {
+          //       const resFile = await res.json();
+          //     }
+          //   }
+          //   // ***********
+          //   // END UPLOAD FILE
+          //   // ***********
+          // }
+
+          // if (fileFreitstellung2) {
+          //   const resUpload = await fetch(
+          //     `/api/file/s3url?file=${fileFreitstellung2.name}`
+          //   );
+          //   const { url, fields } = await resUpload.json();
+          //   const formDataFile = new FormData();
+
+          //   Object.entries({
+          //     ...fields,
+          //     file: fileFreitstellung2,
+          //   }).forEach(([key, value]) => {
+          //     formDataFile.append(key, value);
+          //   });
+
+          //   // UPLOAD TO S3
+          //   // ***********
+          //   const upload = await fetch(url, {
+          //     method: "POST",
+          //     body: formDataFile,
+          //   });
+
+          //   if (upload.ok) {
+          //     // CREATE FILE IN DB
+          //     // ***********
+          //     const formData = {
+          //       letterId: letterId,
+          //       title: "Freistellungsbescheid2",
+          //       note: "-",
+          //       file: fields.key,
+          //       typ: "freistellungsbescheid",
+          //     };
+          //     const res = await fetch("/api/file", {
+          //       method: "POST",
+          //       headers: { "Content-Type": "application/json" },
+          //       body: JSON.stringify(formData),
+          //     });
+          //     if (res.status != 200) {
+          //       toast({
+          //         title: "Ein Fehler ist beim Upload aufgetreten",
+          //         status: "error",
+          //         duration: 9000,
+          //         isClosable: true,
+          //       });
+          //     } else {
+          //       const resFile = await res.json();
+          //     }
+          //   }
+          //   // ***********
+          //   // END UPLOAD FILE
+          //   // ***********
+          // }
+
+          if (typeof window !== "undefined") {
+            window.localStorage.removeItem("bewerbungs-daten");
+          }
+          methods.reset();
+          setFormSuccess(true);
+        }
+      }
       nextStep();
     } catch (error) {
       console.log("api fetch error");

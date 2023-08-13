@@ -68,8 +68,10 @@ function StatusModal({ statusOnClose, statusIsOpen, letter }) {
                 value={status || letter.status}
                 onChange={(event) => setStatus(event.target.value)}
               >
-                <option value="angenommen">Angenommen</option>
                 <option value="offen">Offen</option>
+                <option value="1000">1000,- Förderung</option>
+                <option value="5000">5000,- Förderung</option>
+                <option value="ausland">Auslandsprojekt</option>
                 <option value="abgelehnt">Abgelehnt</option>
               </Select>
             </FormControl>

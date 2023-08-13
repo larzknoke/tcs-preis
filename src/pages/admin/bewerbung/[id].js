@@ -35,7 +35,9 @@ function Bewerbung({ letter }) {
     switch (status) {
       case "offen":
         return "yellow";
-      case "angenommen":
+      case "1000":
+        return "green";
+      case "5000":
         return "green";
       case "abgelehnt":
         return "red";

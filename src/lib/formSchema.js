@@ -32,18 +32,35 @@ export const formSchema = yup.object().shape({
       return checkFileExist(file);
     })
     .test("fileSize", "Datei muss unter 10 MB sein.", (file) => {
-      console.log("fileSize File:", file);
-      // if (!value) return true;
       return isFileSizeValid(file, 10000000);
     }),
-  // freistellungsbescheidTraeger2: yup.mixed().transform((fileList) => {
-  //   return fileList[0];
-  // }),
-  // .test("fileSize", "Datei muss unter 10 MB sein.", (fileList) => {
-  //   console.log("value", fileList);
-  //   // if (!value) return true;
-  //   return isFileSizeValid([fileList], 1000000);
-  // }),
+  freistellungsbescheidTraeger2: yup
+    .mixed()
+    .transform((fileList) => {
+      if (fileList == null) return {};
+      return fileList[0];
+    })
+    .test("fileSize", "Datei muss unter 10 MB sein.", (file) => {
+      return isFileSizeValid(file, 1000000);
+    }),
+  customFile: yup
+    .mixed()
+    .transform((fileList) => {
+      if (fileList == null) return {};
+      return fileList[0];
+    })
+    .test("fileSize", "Datei muss unter 10 MB sein.", (file) => {
+      return isFileSizeValid(file, 1000000);
+    }),
+  customFile2: yup
+    .mixed()
+    .transform((fileList) => {
+      if (fileList == null) return {};
+      return fileList[0];
+    })
+    .test("fileSize", "Datei muss unter 10 MB sein.", (file) => {
+      return isFileSizeValid(file, 1000000);
+    }),
   // organisationProjekt: yup.string().required(),
   // nameProjekt: yup.string().required(),
   // ansprechpartnerProjekt: yup.string().required(),

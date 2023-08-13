@@ -68,7 +68,7 @@ function NewFileModal({ letter, isOpen, onClose }) {
           title: values.title,
           note: values.note,
           file: fields.key,
-          typ: "file-upload",
+          typ: "admin-upload",
         };
         const res = await fetch("/api/file", {
           method: "POST",
