@@ -14,7 +14,7 @@ const formStyles = {
   baseStyle: {
     container: {
       label: {
-        color: "gray.400",
+        color: "gray.500",
       },
     },
   },

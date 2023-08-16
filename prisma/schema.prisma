@@ -67,6 +67,21 @@ model Letter {
   status                        String? @default("offen")
   verifyId                      String?  @default(cuid()) @unique
   verified                      Boolean? @default(false)
+  checkFreistellung             Boolean? @default(false)
+  terminGeld                    DateTime?
+  terminUebergabe               DateTime?
+  bildmaterial                  DateTime?
+  socialTCS                     DateTime?
+  socialFremd                   DateTime?
+  socialNotiz                   String?
+  presseErlaubt                 Boolean?
+  presseEinladung               DateTime?
+  presseMitteilung              DateTime?
+  presseFreigabe                DateTime?
+  presseVersendet               DateTime?
+  presseErledigt                DateTime?
+  zwb1000                       DateTime?
+  zwb5000                       DateTime?
   notes                         Note[]
   files                         File[]
 }
