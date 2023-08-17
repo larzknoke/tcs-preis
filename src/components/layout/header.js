@@ -23,6 +23,46 @@ function Header() {
 
   return (
     <Flex alignItems={"end"} minWidth="max-content" p={8}>
+      {session && (
+        <HStack gap={4} color={"gray.500"}>
+          <Button
+            as={Link}
+            href="/admin/bewerbungen"
+            color={"gray.500"}
+            fontWeight={"400"}
+            variant={"ghost"}
+          >
+            Bewerbungen
+          </Button>
+          <Button
+            as={Link}
+            href="/admin/botschafter"
+            color={"gray.500"}
+            fontWeight={"400"}
+            variant={"ghost"}
+          >
+            Botschafter
+          </Button>
+          <Button
+            as={Link}
+            href="/admin/kampagne"
+            color={"gray.500"}
+            fontWeight={"400"}
+            variant={"ghost"}
+          >
+            Kampagnen
+          </Button>
+          <Button
+            as={Link}
+            href="/"
+            color={"gray.500"}
+            fontWeight={"400"}
+            variant={"ghost"}
+          >
+            Formular
+          </Button>
+        </HStack>
+      )}
       <Spacer />
       <HStack gap={4} color={"gray.500"}>
         <Button color={"gray.500"} fontWeight={"400"} variant={"ghost"}>

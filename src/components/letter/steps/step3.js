@@ -49,7 +49,7 @@ function Step3() {
       <SimpleGrid spacing={6} columns={4} w={"full"}>
         <GridItem colSpan={3}>
           <Heading size={"md"} color={"gray.500"}>
-            Finanzierungskonzept
+            Angaben zur Finanzierung (in Euro)
           </Heading>
         </GridItem>
         <GridItem colSpan={4}>
@@ -110,10 +110,8 @@ function Step3() {
             </FormLabel>
             <Input
               name="zuwendungAndere"
-              type="number"
-              {...register("zuwendungAndere", {
-                valueAsNumber: true,
-              })}
+              type="text"
+              {...register("zuwendungAndere")}
             />
             <FormErrorMessage>
               {errors.zuwendungAndere && errors.zuwendungAndere.message}
@@ -130,10 +128,8 @@ function Step3() {
             </FormLabel>
             <Input
               name="bisherigeFoerderung"
-              type="number"
-              {...register("bisherigeFoerderung", {
-                valueAsNumber: true,
-              })}
+              type="text"
+              {...register("bisherigeFoerderung")}
             />
             <FormErrorMessage>
               {errors.bisherigeFoerderung && errors.bisherigeFoerderung.message}
@@ -142,7 +138,7 @@ function Step3() {
         </GridItem>
         <GridItem colSpan={3} maxW={"50%"}>
           <FormControl isInvalid={errors.customFile}>
-            <FormLabel>weitere Dateien (max 10MB)</FormLabel>
+            <FormLabel>weitere Dateien (max 5MB)</FormLabel>
             {customFile == "" ? (
               <Input
                 name="customFile"
@@ -186,7 +182,7 @@ function Step3() {
         </GridItem>
         <GridItem colSpan={3} maxW={"50%"}>
           <FormControl isInvalid={errors.customFile2}>
-            <FormLabel>weitere Dateien (max 10MB)</FormLabel>
+            <FormLabel>weitere Dateien (max 5MB)</FormLabel>
             {customFile2 == "" ? (
               <Input
                 name="customFile2"

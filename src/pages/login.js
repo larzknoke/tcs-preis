@@ -1,12 +1,8 @@
 import TeaserText from "@/components/teaser-text";
 import {
-  Text,
   Container,
   VStack,
-  Heading,
   Button,
-  Card,
-  CardBody,
   FormControl,
   FormLabel,
   Input,
@@ -14,11 +10,8 @@ import {
   Box,
   Stack,
   Checkbox,
-  Divider,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import NextLink from "next/link";
 import { PasswordField } from "@/components/passwordField";
 
 export default function Login() {

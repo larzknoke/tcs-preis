@@ -141,21 +141,6 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={4}>
-          <FormControl isInvalid={errors.bankNameProjekt}>
-            <FormLabel>
-              Name der Bank / des Kreditinstituts (Verein/Organisation)*
-            </FormLabel>
-            <Input
-              name="bankNameProjekt"
-              type="string"
-              {...register("bankNameProjekt")}
-            />
-            <FormErrorMessage>
-              {errors.bankNameProjekt && errors.bankNameProjekt.message}
-            </FormErrorMessage>
-          </FormControl>
-        </GridItem>
         <GridItem colSpan={2}>
           <FormControl isInvalid={errors.kontoNameProjekt}>
             <FormLabel>Name des Kontoinhabers (Verein/Organisation)</FormLabel>
@@ -170,6 +155,19 @@ function Step2() {
           </FormControl>
         </GridItem>
         <GridItem colSpan={2}>
+          <FormControl isInvalid={errors.bankNameProjekt}>
+            <FormLabel>Name der Bank / des Kreditinstituts</FormLabel>
+            <Input
+              name="bankNameProjekt"
+              type="string"
+              {...register("bankNameProjekt")}
+            />
+            <FormErrorMessage>
+              {errors.bankNameProjekt && errors.bankNameProjekt.message}
+            </FormErrorMessage>
+          </FormControl>
+        </GridItem>
+        <GridItem colSpan={4}>
           <FormControl isInvalid={errors.ibanProjekt}>
             <FormLabel>Bankverbindung – IBAN des Vereinskontos</FormLabel>
             <Input
@@ -200,7 +198,7 @@ function Step2() {
                 – Sofern vom Sitz des Trägers abweichend –
               </Heading>
             </GridItem>
-            <GridItem colSpan={2}>
+            <GridItem colSpan={4}>
               <FormControl isInvalid={errors.strasseProjekt}>
                 <FormLabel>Straße und Hausnummer (Vereinsadresse)</FormLabel>
                 <Input
@@ -214,22 +212,35 @@ function Step2() {
               </FormControl>
             </GridItem>
             <GridItem colSpan={2}>
-              <FormControl isInvalid={errors.plzOrtProjekt}>
-                <FormLabel>Postleitzahl und Ort (Vereinsadresse)</FormLabel>
+              <FormControl isInvalid={errors.plzProjekt}>
+                <FormLabel>Postleitzahl (Vereinsadresse)</FormLabel>
                 <Input
-                  name="plzOrtProjekt"
+                  name="plzProjekt"
                   type="string"
-                  {...register("plzOrtProjekt")}
+                  {...register("plzProjekt")}
                 />
                 <FormErrorMessage>
-                  {errors.plzOrtProjekt && errors.plzOrtProjekt.message}
+                  {errors.plzProjekt && errors.plzProjekt.message}
                 </FormErrorMessage>
               </FormControl>
             </GridItem>
-            <GridItem colSpan={4}>
+            <GridItem colSpan={2}>
+              <FormControl isInvalid={errors.ortProjekt}>
+                <FormLabel>Ort (Vereinsadresse)</FormLabel>
+                <Input
+                  name="ortProjekt"
+                  type="string"
+                  {...register("ortProjekt")}
+                />
+                <FormErrorMessage>
+                  {errors.ortProjekt && errors.ortProjekt.message}
+                </FormErrorMessage>
+              </FormControl>
+            </GridItem>
+            <GridItem colSpan={4} mb={6}>
               <Controller
                 control={control}
-                name="bundeslandTraeger"
+                name="bundeslandProjekt"
                 render={({
                   field: { onChange, onBlur, value, name, ref },
                   fieldState: { error },
@@ -247,8 +258,8 @@ function Step2() {
                         placeholder="Bitte auswählen..."
                       />
                       <FormErrorMessage>
-                        {errors.bundeslandTraeger &&
-                          errors.bundeslandTraeger.message}
+                        {errors.bundeslandProjekt &&
+                          errors.bundeslandProjekt.message}
                       </FormErrorMessage>
                     </FormControl>
                   );

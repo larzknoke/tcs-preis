@@ -32,10 +32,13 @@ function TeaserText() {
               Organisation/Einrichtung zulässig. Sofern mehrere Bewerbungen von
               ein- und derselben (bspw. unter einem Dachverband tätigen)
               Organisation/Vereinigung eingereicht werden, wird die zeitlich
-              zuerst eingegangene Bewerbung gewertet. Vereine/Organisationen,
-              die in den letzten drei aufeinanderfolgenden Jahren (2020, 2021,
-              2022) von der Stiftung jeweils eine Zuwendung erhalten haben,
-              werden von einer Förderung in 2023 ausgeschlossen.
+              zuerst eingegangene Bewerbung gewertet.
+            </ListItem>
+            <ListItem>
+              Vereine/Organisationen, die in den letzten drei
+              aufeinanderfolgenden Jahren (2020, 2021, 2022) von der Stiftung
+              jeweils eine Zuwendung erhalten haben, werden von einer Förderung
+              in 2023 ausgeschlossen.
             </ListItem>
             <ListItem>
               Bitte verwenden Sie einen aktuellen Browser, anderenfalls besteht
@@ -63,12 +66,12 @@ function TeaserText() {
               Bestätigungs-E-Mail stellt noch keine Erklärung dar, dass die
               Bewerbung berücksichtigungsfähig ist, sie dient lediglich Ihrer
               Information über die technisch erfolgte Übermittlung der
-              Bewerbung. Ihre Bewerbung kann nur berücksichtigt werden, wenn
-              alle Unterlagen vollständig und ordnungsgemäß eingereicht werden.
-              Weitere Eingangsbestätigungen erhalten Sie nicht.
+              Bewerbung. <br /> Weitere Eingangsbestätigungen erhalten Sie
+              nicht. Ihre Bewerbung kann nur berücksichtigt werden, wenn alle
+              Unterlagen vollständig und ordnungsgemäß eingereicht werden.
             </ListItem>
             <ListItem>
-              Aus allen eingehenden Bewerbungen werden 333 Bewerbungen, die die
+              Aus allen eingehenden Bewerbungen werden 333 Anträge, die die
               Bewerbungskriterien erfüllen, ausgewählt und erhalten eine
               Förderung in Höhe von EUR 1.111. Die Auswahlentscheidung trifft
               die Stiftung.

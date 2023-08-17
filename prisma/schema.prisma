@@ -34,7 +34,8 @@ model Letter {
   kontoNameProjekt        String?
   bankNameProjekt         String?
   strasseProjekt          String?
-  plzOrtProjekt           String?
+  plzProjekt              Int?
+  ortProjekt              String?
   bundeslandProjekt       String?
   wannProjekt             String?
   mitarbeiterProjekt      String?
@@ -50,8 +51,8 @@ model Letter {
   eigenmittel             Float?
   oeffentlicheZuwendungen Float?
   privateSpenden          Float?
-  bisherigeFoerderung     Float?
-  zuwendungAndere         Float?
+  bisherigeFoerderung     String?
+  zuwendungAndere         String?
   checkBeitrag            Boolean?
   checkVeroeffentlich     Boolean?
   checkScheck             Boolean?

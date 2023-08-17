@@ -5,7 +5,6 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  HStack,
   InputRightElement,
   Stack,
   Button,
@@ -18,6 +17,7 @@ import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export default function SignupCard() {
   const router = useRouter();
@@ -68,9 +68,13 @@ export default function SignupCard() {
         px={6}
       >
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"} textAlign={"center"}>
-            Registrierung
-          </Heading>
+          <Image
+            src="/tcs_logo.svg"
+            alt="TCS Logo"
+            width={180}
+            height={24}
+            priority
+          />
           <Text fontSize={"lg"} color={"gray.600"}>
             TC-Stiftung WebApp
           </Text>

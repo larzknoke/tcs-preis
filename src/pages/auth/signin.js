@@ -5,26 +5,23 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Stack,
   Link,
   Button,
-  Heading,
   Text,
   useColorModeValue,
   InputGroup,
   InputRightElement,
   VStack,
   FormErrorMessage,
-  Divider,
   Collapse,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { signIn, useSession } from "next-auth/react";
-import { each, forOwn, join } from "lodash";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 //icons
 import { AiFillGithub, AiFillGoogleCircle } from "react-icons/ai";
@@ -80,13 +77,19 @@ export default function SimpleCard() {
   return (
     <Flex
       minH={"100vh"}
-      align={"center"}
+      // align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
     >
       <Stack spacing={8} mx={"auto"} w={"lg"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Login</Heading>
+          <Image
+            src="/tcs_logo.svg"
+            alt="TCS Logo"
+            width={180}
+            height={24}
+            priority
+          />
           <Text fontSize={"lg"} color={"gray.600"}>
             TC-Stiftung WebApp
           </Text>
@@ -104,7 +107,7 @@ export default function SimpleCard() {
               leftIcon={<BiLockAlt />}
               onClick={onToggleCollapse}
             >
-              Email & Password
+              Email & Passwort
             </Button>
             <Button
               w="full"

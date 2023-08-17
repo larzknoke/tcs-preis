@@ -49,8 +49,8 @@ export const formSchema = yup.object().shape({
       if (fileList == null) return {};
       return fileList[0];
     })
-    .test("fileSize", "Datei muss unter 10 MB sein.", (file) => {
-      return isFileSizeValid(file, 1000000);
+    .test("fileSize", "Datei muss unter 5 MB sein.", (file) => {
+      return isFileSizeValid(file, 500000);
     }),
   customFile2: yup
     .mixed()
@@ -58,14 +58,14 @@ export const formSchema = yup.object().shape({
       if (fileList == null) return {};
       return fileList[0];
     })
-    .test("fileSize", "Datei muss unter 10 MB sein.", (file) => {
-      return isFileSizeValid(file, 1000000);
+    .test("fileSize", "Datei muss unter 5 MB sein.", (file) => {
+      return isFileSizeValid(file, 500000);
     }),
   // organisationProjekt: yup.string().required(),
   // nameProjekt: yup.string().required(),
   // ansprechpartnerProjekt: yup.string().required(),
   // telefonnummerProjekt: yup.string(),
-  // mobilProjekt: yup.string(),
+  // mobilProjekt: yup.string().required(),
   // emailProjekt: yup.string().email().required(),
   // emailBestaetigungProjekt: yup
   //   .string()
@@ -79,7 +79,14 @@ export const formSchema = yup.object().shape({
   // kontoNameProjekt: yup.string().required(),
   // bankNameProjekt: yup.string().required(),
   // strasseProjekt: yup.string(),
-  // plzOrtProjekt: yup.string(),
+  plzProjekt: yup
+    .number()
+    .integer()
+    .typeError("Dieses Feld muss eine Zahl sein")
+    .moreThan(0, "Bitte eine gültige PLZ eingeben")
+    .lessThan(100000, "Bitte eine gültige PLZ eingeben")
+    .required(),
+  // ortProjekt: yup.string(),
   // bundeslandProjekt: yup.string(),
   // wannProjekt: yup.string().required(),
   // mitarbeiterProjekt: yup.string().required(),
@@ -111,10 +118,7 @@ export const formSchema = yup.object().shape({
   //   .moreThan(0, "Bitte eine gültige PLZ eingeben")
   //   .required(),
   // zuwendungAndere: yup
-  //   .number()
-  //   .integer()
-  //   .typeError("Dieses Feld muss eine Zahl sein")
-  //   .moreThan(0, "Bitte eine gültige PLZ eingeben")
+  //   .string()
   //   .required(),
   // bisherigeFoerderung: yup
   //   .number()
