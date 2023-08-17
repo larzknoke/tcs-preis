@@ -7,6 +7,7 @@ import { Open_Sans } from "next/font/google";
 import { StepsTheme as Steps } from "chakra-ui-steps";
 import { statTheme } from "@/lib/themeStat";
 import { alertTheme } from "@/lib/themeAlert";
+import ProgressBar from "@/components/ProgressBar";
 
 const opensans = Open_Sans({ subsets: ["latin"] });
 
@@ -59,6 +60,7 @@ export default function App({ Component, pageProps }) {
     <SessionProvider session={pageProps.session}>
       <ChakraProvider theme={theme}>
         <Layout>
+          <ProgressBar />
           <Component {...pageProps} />
         </Layout>
       </ChakraProvider>

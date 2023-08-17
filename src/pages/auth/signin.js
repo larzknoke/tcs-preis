@@ -171,7 +171,7 @@ export default function SimpleCard() {
                   </Stack>
                   <Button
                     isLoading={isSubmitting}
-                    loadingText="Signing in..."
+                    loadingText="bitte warten..."
                     bg={"brand.800"}
                     color={"white"}
                     type="submit"
