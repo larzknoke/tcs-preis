@@ -30,7 +30,14 @@ function StatusModal({ statusOnClose, statusIsOpen, letter }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: letter.id, status: status }),
     });
-    if (res.status != 200) {
+    if (res.status == 401) {
+      toast({
+        title: "Sie sind nicht berechtigt diese Funktion auszuführen.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    } else if (res.status != 200) {
       toast({
         title: "Ein Fehler ist aufgetreten",
         status: "error",

@@ -1,7 +1,15 @@
 import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handle(req, res) {
   console.log("api call");
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!session) {
+    return res.status(401).json({ message: "not authorzied" });
+  }
+
   if (req.method == "POST") {
     try {
       const data = req.body;

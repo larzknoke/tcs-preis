@@ -135,8 +135,13 @@ function LetterTable({ letters }) {
           <PopoverContent width={"auto"}>
             <PopoverArrow />
             <PopoverCloseButton />
-            <PopoverHeader>Status ändern</PopoverHeader>
+            <PopoverHeader>
+              <Text as={"b"}>
+                Aktueller Status: {Capatilizer(info.getValue())}
+              </Text>
+            </PopoverHeader>
             <PopoverBody>
+              <Text mb={2}>Status ändern:</Text>
               <ButtonGroup size="sm">
                 <Button colorScheme="blue">Ausland</Button>
                 <Button colorScheme="red">Abgelehnt</Button>
@@ -166,16 +171,43 @@ function LetterTable({ letters }) {
             />
           </Tooltip>
         ) : (
-          <Button
-            variant={"link"}
-            color="gray.600"
-            onClick={(e) => {
-              e.stopPropagation();
-              router.push("/admin/botschafter/" + row.original.botschafter?.id);
-            }}
-          >
-            {row.original.botschafter?.name}
-          </Button>
+          <Popover trigger="hover">
+            <PopoverTrigger>
+              <Button
+                variant={"link"}
+                color="gray.600"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  router.push(
+                    "/admin/botschafter/" + row.original.botschafter?.id
+                  );
+                }}
+              >
+                {row.original.botschafter?.name}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader>Kontaktdaten</PopoverHeader>
+              <PopoverBody>
+                <Flex direction={"column"} gap={4}>
+                  <div>
+                    <Text as={"b"}>Bundesland:</Text> <br />
+                    <Text>{row.original.botschafter?.bundesland || "-"}</Text>
+                  </div>
+                  <div>
+                    <Text as={"b"}>Kontakt:</Text> <br />
+                    <Text>{row.original.botschafter.strasse || "-"}</Text>
+                    <Text>
+                      {row.original.botschafter.plz || "-"}{" "}
+                      {row.original.botschafter.ort || "-"}
+                    </Text>
+                  </div>
+                </Flex>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
         );
       },
       header: "Botschafter",
@@ -703,7 +735,7 @@ function LetterTable({ letters }) {
       case "5000":
         return "green.50";
       case "ausland":
-        return "yellow.50";
+        return "blue.50";
       case "abgelehnt":
         return "red.50";
     }

@@ -20,11 +20,9 @@ import {
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
-  HiOutlineCheck,
-  HiOutlineNoSymbol,
-  HiOutlineQuestionMarkCircle,
   HiUserPlus,
   HiOutlineTrash,
+  HiOutlineCircleStack,
 } from "react-icons/hi2";
 import {
   useReactTable,
@@ -47,6 +45,7 @@ import DebouncedInput from "@/lib/debouncedInput";
 import fuzzyFilter from "@/lib/fuzzyFilter";
 import { useDisclosure } from "@chakra-ui/react";
 import NewBotschafterModal from "./newBotschafterModal";
+import ImportBotschafterModal from "./importBotschafterModal";
 
 const columnHelper = createColumnHelper();
 
@@ -95,6 +94,11 @@ const columns = [
 
 function BotschafterTable({ botschafters }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenImport,
+    onOpen: onOpenImport,
+    onClose: onCloseImport,
+  } = useDisclosure();
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
@@ -150,6 +154,19 @@ function BotschafterTable({ botschafters }) {
           onOpen={onOpen}
           onClose={onClose}
           isOpen={isOpen}
+        />
+        <Tooltip label="Botschafter importieren" placement="top">
+          <IconButton
+            onClick={onOpenImport}
+            icon={<HiOutlineCircleStack />}
+            colorScheme="green"
+            variant={"outline"}
+          />
+        </Tooltip>
+        <ImportBotschafterModal
+          onOpen={onOpenImport}
+          onClose={onCloseImport}
+          isOpen={isOpenImport}
         />
       </HStack>
       <Card>
