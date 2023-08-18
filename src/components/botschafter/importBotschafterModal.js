@@ -12,60 +12,66 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Papa from "papaparse";
 
 function ImportBotschafterModal({ isOpen, onClose }) {
   const router = useRouter();
   const toast = useToast();
   const [loading, setLoading] = useState(false);
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
   const [parsedData, setParsedData] = useState([]);
+  const fileInput = useRef(null);
 
-  async function onSubmit(values) {
+  async function onSubmit() {
     try {
-      setLoading(true);
-      Papa.parse(file, {
+      // console.log("file: ", file);
+      // setLoading(true);
+      console.log("file: ", fileInput.current?.files[0]);
+      Papa.parse(fileInput.current?.files[0], {
         header: true,
         skipEmptyLines: true,
-        complete: function (results) {
-          console.log(results.data);
+        complete: async function (results) {
+          console.log("results.data", results.data);
           setParsedData(results.data);
+          console.log("parsedData: ", parsedData);
+          if (parsedData.length > 0) {
+            const res = await fetch("/api/botschafter/import", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(parsedData),
+            });
+            if (res.status == 401) {
+              toast({
+                title: "Sie sind nicht berechtigt diese Funktion auszuführen.",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+              });
+            } else if (res.status != 200) {
+              toast({
+                title: "Ein Fehler ist aufgetreten",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+              });
+              setLoading(false);
+            } else {
+              const resData = await res.json();
+              console.log("resData: ", resData);
+              toast({
+                title: `Botschafter erfolgreich importiert.`,
+                status: "success",
+                duration: 9000,
+                isClosable: true,
+              });
+              onClose();
+              router.push(`/admin/botschafter`);
+              setLoading(false);
+            }
+          }
         },
       });
-      const res = await fetch("/api/botschafter/import", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(parsedData),
-      });
-      if (res.status == 401) {
-        toast({
-          title: "Sie sind nicht berechtigt diese Funktion auszuführen.",
-          status: "error",
-          duration: 9000,
-          isClosable: true,
-        });
-      } else if (res.status != 200) {
-        toast({
-          title: "Ein Fehler ist aufgetreten",
-          status: "error",
-          duration: 9000,
-          isClosable: true,
-        });
-        setLoading(false);
-      } else {
-        const resData = await res.json();
-        console.log("resData: ", resData);
-        toast({
-          title: `Botschafter erfolgreich importiert.`,
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
-        onClose();
-        router.push(`/admin/botschafter`);
-        setLoading(false);
-      }
     } catch (error) {
       console.log("api fetch error");
       console.error("Err", error);
@@ -89,7 +95,7 @@ function ImportBotschafterModal({ isOpen, onClose }) {
           <ModalBody>
             <Text mb={4}>Bitte CSV Datei auswählen:</Text>
             <Input
-              onChange={(e) => setFile(e.target.files[0])}
+              ref={fileInput}
               name="importBotschafterFile"
               type="file"
               sx={{

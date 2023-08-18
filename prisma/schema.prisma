@@ -116,10 +116,19 @@ model Botschafter {
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt @map(name: "updated_at")
   name              String?
+  vorname           String?
   strasse           String?
   plz               Int?
   ort               String?
   bundesland        String?
+  primaryId         String?
+  typ               String?
+  anrede            String?
+  firma             String?
+  telefon           String?
+  mobil             String?
+  region            String?
+  email             String?
   letters           Letter[]
 }
 

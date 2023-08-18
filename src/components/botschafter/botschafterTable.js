@@ -36,10 +36,9 @@ import {
   flexRender,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import Link from "next/link";
-import { tableData } from "@/lib/tableData";
 
 import DebouncedInput from "@/lib/debouncedInput";
 import fuzzyFilter from "@/lib/fuzzyFilter";
@@ -99,7 +98,7 @@ function BotschafterTable({ botschafters }) {
     onOpen: onOpenImport,
     onClose: onCloseImport,
   } = useDisclosure();
-  const [sorting, setSorting] = useState([]);
+  const [sorting, setSorting] = useState([{ id: "id", desc: false }]);
   const [globalFilter, setGlobalFilter] = useState("");
 
   const table = useReactTable({
@@ -126,6 +125,10 @@ function BotschafterTable({ botschafters }) {
     debugHeaders: false,
     debugColumns: false,
   });
+
+  useEffect(() => {
+    table.setPageSize(999999999);
+  }, []);
 
   return (
     <>

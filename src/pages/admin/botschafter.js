@@ -12,7 +12,6 @@ function Botschafter({ botschafters }) {
 
 export const getServerSideProps = async () => {
   const botschafters = await prisma.botschafter.findMany();
-  console.log("botschafters: ", botschafters);
   return { props: { botschafters } };
 };
 
