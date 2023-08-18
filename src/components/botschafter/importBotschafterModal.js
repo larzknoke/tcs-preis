@@ -60,7 +60,7 @@ function ImportBotschafterModal({ isOpen, onClose }) {
               const resData = await res.json();
               console.log("resData: ", resData);
               toast({
-                title: `Botschafter erfolgreich importiert.`,
+                title: `${resData.botschafter?.count} Botschafter erfolgreich importiert.`,
                 status: "success",
                 duration: 9000,
                 isClosable: true,

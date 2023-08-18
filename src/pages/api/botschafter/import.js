@@ -14,14 +14,9 @@ export default async function handle(req, res) {
     try {
       const csv = req.body;
       console.log("csv: ", csv);
-      const createManyBotschafters = csv.map(async (botschafter) => {
-        await prisma.botschafter.create({
-          data: botschafter,
-        });
-      });
-      Promise.all(createManyBotschafters);
-
-      return res.status(200).json({ success: true });
+      const botschafter = await prisma.botschafter.createMany({ data: csv });
+      console.log("botschafter", botschafter);
+      return res.status(200).json({ success: true, botschafter: botschafter });
     } catch (error) {
       console.log("api error: ", error);
       return res.status(500).json(error);
