@@ -65,6 +65,9 @@ const columns = [
     cell: ({ row, info }) => row.original.plz + " " + row.original.ort,
     header: "PLZ / Ort",
   }),
+  columnHelper.accessor("primaryId", {
+    header: "primary-ID",
+  }),
   columnHelper.accessor("controls", {
     cell: ({ row, info }) => (
       <>
@@ -98,7 +101,7 @@ function BotschafterTable({ botschafters }) {
     onOpen: onOpenImport,
     onClose: onCloseImport,
   } = useDisclosure();
-  const [sorting, setSorting] = useState([{ id: "id", desc: false }]);
+  const [sorting, setSorting] = useState([{ id: "plz", desc: false }]);
   const [globalFilter, setGlobalFilter] = useState("");
 
   const table = useReactTable({

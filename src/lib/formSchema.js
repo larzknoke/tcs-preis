@@ -7,13 +7,7 @@ export const formSchema = yup.object().shape({
   // nameTraeger: yup.string().required(),
   // vorstandTraeger: yup.string().required(),
   // strasseTraeger: yup.string().required(),
-  // plzTraeger: yup
-  //   .number()
-  //   .integer()
-  //   .typeError("Dieses Feld muss eine Zahl sein")
-  //   .moreThan(0, "Bitte eine gültige PLZ eingeben")
-  //   .lessThan(100000, "Bitte eine gültige PLZ eingeben")
-  //   .required(),
+  plzTraeger: yup.string().required(),
   ortTraeger: yup.string().required(),
   bundeslandTraeger: yup
     .string()
@@ -79,13 +73,7 @@ export const formSchema = yup.object().shape({
   // kontoNameProjekt: yup.string().required(),
   // bankNameProjekt: yup.string().required(),
   // strasseProjekt: yup.string(),
-  plzProjekt: yup
-    .number()
-    .integer()
-    .typeError("Dieses Feld muss eine Zahl sein")
-    .moreThan(0, "Bitte eine gültige PLZ eingeben")
-    .lessThan(100000, "Bitte eine gültige PLZ eingeben")
-    .required(),
+  // plzProjekt: yup.string().required(),
   // ortProjekt: yup.string(),
   // bundeslandProjekt: yup.string(),
   // wannProjekt: yup.string().required(),
@@ -184,13 +172,7 @@ export const formSchema = yup.object().shape({
 export const botschafterSchema = yup.object().shape({
   name: yup.string().required(),
   strasse: yup.string().required(),
-  plz: yup
-    .number()
-    .integer()
-    .typeError("Dieses Feld muss eine Zahl sein")
-    .moreThan(0, "Bitte eine gültige PLZ eingeben")
-    .lessThan(100000, "Bitte eine gültige PLZ eingeben")
-    .required(),
+  plz: yup.string().required(),
   ort: yup.string().required(),
   bundesland: yup
     .string()

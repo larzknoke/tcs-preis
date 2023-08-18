@@ -19,7 +19,7 @@ model Letter {
   nameTraeger       String?
   vorstandTraeger   String?
   strasseTraeger    String?
-  plzTraeger        Int?
+  plzTraeger        String?
   ortTraeger        String?
   bundeslandTraeger String?
   vereinTraeger     String?
@@ -34,7 +34,7 @@ model Letter {
   kontoNameProjekt        String?
   bankNameProjekt         String?
   strasseProjekt          String?
-  plzProjekt              Int?
+  plzProjekt              String?
   ortProjekt              String?
   bundeslandProjekt       String?
   wannProjekt             String?
@@ -118,7 +118,7 @@ model Botschafter {
   name              String?
   vorname           String?
   strasse           String?
-  plz               Int?
+  plz               String?
   ort               String?
   bundesland        String?
   primaryId         String?

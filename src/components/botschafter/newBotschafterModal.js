@@ -120,7 +120,7 @@ function NewBotschafterModal({ isOpen, onClose }) {
                 <GridItem colSpan={1}>
                   <FormControl isInvalid={errors.plz}>
                     <FormLabel>PLZ</FormLabel>
-                    <Input name="plz" type="number" {...register("plz")} />
+                    <Input name="plz" type="text" {...register("plz")} />
                     <FormErrorMessage>
                       {errors.plz && errors.plz.message}
                     </FormErrorMessage>

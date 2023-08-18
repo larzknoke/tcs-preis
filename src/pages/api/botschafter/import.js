@@ -13,12 +13,10 @@ export default async function handle(req, res) {
   if (req.method == "POST") {
     try {
       const csv = req.body;
-      console.log("Time: ", Date.now());
       console.log("csv: ", csv);
       const createManyBotschafters = csv.map(async (botschafter) => {
-        const plz = botschafter.plz ? parseInt(botschafter.plz) : null;
         await prisma.botschafter.create({
-          data: { ...botschafter, plz: plz },
+          data: botschafter,
         });
       });
       Promise.all(createManyBotschafters);

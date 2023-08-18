@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "Botschafter" ALTER COLUMN "plz" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "Letter" ALTER COLUMN "plzTraeger" SET DATA TYPE TEXT,
+ALTER COLUMN "plzProjekt" SET DATA TYPE TEXT;
