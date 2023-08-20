@@ -32,7 +32,10 @@ function BotschafterModal({ botschafterOnClose, botschafterIsOpen, letter }) {
     });
     const data = await res.json();
     const selectData = await data.map((bot) => {
-      return { value: bot.id, label: bot.name };
+      return {
+        value: bot.id,
+        label: `${bot.vorname} ${bot.name} / ${bot.bundesland}`,
+      };
     });
     setBotschafterSelect(selectData);
   }
@@ -94,7 +97,10 @@ function BotschafterModal({ botschafterOnClose, botschafterIsOpen, letter }) {
                 closeMenuOnSelect={true}
                 onChange={(e) => setBotschafterSelected(e.value)}
                 defaultValue={{
-                  label: letter.botschafter?.name || "",
+                  label:
+                    letter.botschafter?.vorname +
+                      " " +
+                      letter.botschafter?.name || "",
                   value: letter.botschafter?.id || "",
                 }}
               />
