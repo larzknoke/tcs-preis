@@ -45,8 +45,12 @@ function Bewerbung({ letter }) {
   }
 
   return (
-    <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
-      <HStack justify={"space-between"}>
+    <Container display={"flex"} flexDirection={"column"} maxWidth={"7xl"}>
+      <HStack
+        justify={"space-between"}
+        flexDirection={{ sm: "column", md: "row" }}
+        alignItems={"start"}
+      >
         <VStack alignItems={"start"}>
           <Heading fontSize={"22"} color={"gray.300"} fontWeight={"500"}>
             Bewerbung
