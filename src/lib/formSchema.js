@@ -106,12 +106,7 @@ export const formSchema = yup.object().shape({
     .moreThan(0, "Bitte eine gültige Zahl eingeben")
     .required(),
   zuwendungAndere: yup.string().required(),
-  bisherigeFoerderung: yup
-    .number()
-    .integer()
-    .typeError("Dieses Feld muss eine Zahl sein")
-    .moreThan(0, "Bitte eine gültige Zahl eingeben")
-    .required(),
+  bisherigeFoerderung: yup.string().required(),
   checkBeitrag: yup.boolean().required(),
   checkBeitrag: yup
     .boolean()
