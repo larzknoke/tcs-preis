@@ -23,7 +23,7 @@ import BotschafterModal from "@/components/botschafter/botschafterStatusModal";
 import { HiOutlineClipboard, HiCheck, HiOutlinePlus } from "react-icons/hi2";
 import { useEffect } from "react";
 
-function ProjektDetail({ letter }) {
+function BeschreibungDetail({ letter }) {
   const {
     isOpen: botschafterIsOpen,
     onOpen: botschafterOnOpen,
@@ -49,49 +49,30 @@ function ProjektDetail({ letter }) {
             fontWeight={"600"}
             textTransform={"uppercase"}
           >
-            Projekt
+            Projektdetails
           </Heading>
         </CardHeader>
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
             <Stat>
-              <StatLabel>Name der Organisation/Einrichtung</StatLabel>
-              <StatNumber>{letter.organisationProjekt} </StatNumber>
+              <StatLabel>Seit wann besteht das Projekt</StatLabel>
+              <StatNumber>{letter.wannProjekt} </StatNumber>
             </Stat>
             <Stat>
-              <StatLabel>Name des Projekts</StatLabel>
-              <StatNumber>{letter.nameProjekt} </StatNumber>
+              <StatLabel>Mitarbeiter</StatLabel>
+              <StatNumber>{letter.mitarbeiterProjekt} </StatNumber>
             </Stat>
             <Stat>
-              <StatLabel>Ansprechpartner</StatLabel>
-              <StatNumber>{letter.ansprechpartnerProjekt}</StatNumber>
-            </Stat>
-            <HStack justify={"space-between"}>
-              <Stat>
-                <StatLabel>Email</StatLabel>
-                <StatNumber>{letter.emailProjekt}</StatNumber>
-              </Stat>
-              <Tooltip label="In Zwischenablage kopieren" placement={"top"}>
-                <IconButton
-                  size={"sm"}
-                  onClick={onCopy}
-                  icon={hasCopied ? <HiCheck /> : <HiOutlineClipboard />}
-                  variant={"outline"}
-                  colorScheme={hasCopied ? "green" : "gray"}
-                />
-              </Tooltip>
-            </HStack>
-            <Stat>
-              <StatLabel>Website, Facebook, Instagram</StatLabel>
-              <StatNumber>{letter.wwwProjekt}</StatNumber>
+              <StatLabel>Hauptamtlich Anzahl / Stunden</StatLabel>
+              <StatNumber>
+                {letter.hauptamtlichAnzahl} / {letter.hauptamtlichStunden}
+              </StatNumber>
             </Stat>
             <Stat>
-              <StatLabel>Telefon</StatLabel>
-              <StatNumber>{letter.telefonnummerProjekt}</StatNumber>
-            </Stat>
-            <Stat>
-              <StatLabel>Mobil</StatLabel>
-              <StatNumber>{letter.mobilProjekt}</StatNumber>
+              <StatLabel>Ehrenamtlich Anzahl / Stunden</StatLabel>
+              <StatNumber>
+                {letter.hauptamtlichAnzahl} / {letter.ehrenamtlichStunden}
+              </StatNumber>
             </Stat>
           </Stack>
         </CardBody>
@@ -104,22 +85,36 @@ function ProjektDetail({ letter }) {
             fontWeight={"600"}
             textTransform={"uppercase"}
           >
-            Adresse (abweichend vom Träger)
+            Beschreibung
           </Heading>
         </CardHeader>
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
             <Stat>
-              <StatLabel>Strasse</StatLabel>
-              <StatNumber>{letter.strasseProjekt || "-"}</StatNumber>
+              <StatLabel>Projektbeschreibung</StatLabel>
+              <StatNumber fontSize={15}>
+                {letter.beschreibungProjekt}
+              </StatNumber>
             </Stat>
             <Stat>
-              <StatLabel>PLZ</StatLabel>
-              <StatNumber>{letter.plzProjekt || "-"}</StatNumber>
+              <StatLabel>Zielsetzung des Projektes</StatLabel>
+              <StatNumber fontSize={15}>{letter.zielsetzungProjekt}</StatNumber>
             </Stat>
             <Stat>
-              <StatLabel>Ort</StatLabel>
-              <StatNumber>{letter.ortProjekt || "-"}</StatNumber>
+              <StatLabel>Benachteiligung</StatLabel>
+              <StatNumber fontSize={15}>
+                {letter.benachteiligungProjekt}
+              </StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Projektumsetzung / Projektrealisierung</StatLabel>
+              <StatNumber fontSize={15}>{letter.umsetzungProjekt}</StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Bisherige Ergebnisse</StatLabel>
+              <StatNumber fontSize={15}>
+                {letter.bisherigeErgebnisse}
+              </StatNumber>
             </Stat>
           </Stack>
         </CardBody>
@@ -128,4 +123,4 @@ function ProjektDetail({ letter }) {
   );
 }
 
-export default ProjektDetail;
+export default BeschreibungDetail;

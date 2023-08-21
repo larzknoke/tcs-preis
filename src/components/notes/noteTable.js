@@ -1,4 +1,5 @@
 import {
+  SimpleGrid,
   useToast,
   Card,
   CardBody,
@@ -70,79 +71,83 @@ function NoteTable({ letter }) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <Flex justify={"space-between"}>
-          <Heading
-            size="sm"
-            color="gray.500"
-            fontWeight={"600"}
-            textTransform={"uppercase"}
-          >
-            Notizen
-          </Heading>
-          <Tooltip label="Neue Notiz" placement="top">
-            <IconButton
-              size={"sm"}
-              variant="outline"
-              colorScheme="green"
-              aria-label="See menu"
-              icon={<HiOutlinePlus />}
-              onClick={() => noteOnOpen()}
+    <SimpleGrid
+      spacing={6}
+      columns={{ sm: 1, md: 2 }}
+      // minChildWidth={"500px"}
+      //   templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+    >
+      <Card>
+        <CardHeader>
+          <Flex justify={"space-between"}>
+            <Heading
+              size="sm"
+              color="gray.500"
+              fontWeight={"600"}
+              textTransform={"uppercase"}
+            >
+              Notizen
+            </Heading>
+            <Tooltip label="Neue Notiz" placement="top">
+              <IconButton
+                size={"sm"}
+                variant="outline"
+                colorScheme="green"
+                aria-label="See menu"
+                icon={<HiOutlinePlus />}
+                onClick={() => noteOnOpen()}
+              />
+            </Tooltip>
+            <NewNoteModal
+              letter={letter}
+              isOpen={noteIsOpen}
+              onClose={noteOnClose}
             />
-          </Tooltip>
-          <NewNoteModal
-            letter={letter}
-            isOpen={noteIsOpen}
-            onClose={noteOnClose}
-          />
-        </Flex>
-      </CardHeader>
-      <CardBody>
-        <Stack divider={<StackDivider />} spacing="4">
-          {letter.notes.length > 0
-            ? letter.notes.map((note) => {
-                return (
-                  <HStack key={note.id} justify={"space-between"}>
-                    <Stat>
-                      <StatLabel>{dateFormatter(note.createdAt)}</StatLabel>
-                      <StatNumber>{note.title}</StatNumber>
-                    </Stat>
-                    <Tooltip label="Notiz löschen" placement="top">
-                      <IconButton
-                        variant={"ghost"}
-                        aria-label="Notiz löschen"
-                        icon={<HiOutlineTrash />}
-                        onClick={() => deleteNote(note.id)}
-                        colorScheme="red"
+          </Flex>
+        </CardHeader>
+        <CardBody>
+          <Stack divider={<StackDivider />} spacing="4">
+            {letter.notes.length > 0
+              ? letter.notes.map((note) => {
+                  return (
+                    <HStack key={note.id} justify={"space-between"}>
+                      <Stat>
+                        <StatLabel>{dateFormatter(note.createdAt)}</StatLabel>
+                        <StatNumber>{note.title}</StatNumber>
+                      </Stat>
+                      <Tooltip label="Notiz löschen" placement="top">
+                        <IconButton
+                          variant={"ghost"}
+                          aria-label="Notiz löschen"
+                          icon={<HiOutlineTrash />}
+                          onClick={() => deleteNote(note.id)}
+                          colorScheme="red"
+                        />
+                      </Tooltip>
+                      <Tooltip label="Notiz öffnen" placement="top">
+                        <IconButton
+                          variant={"ghost"}
+                          aria-label="Notiz öffnen"
+                          icon={<HiOutlineFolderOpen />}
+                          onClick={() => {
+                            setSelectedNote(note);
+                            showNoteOnOpen();
+                          }}
+                        />
+                      </Tooltip>
+                      <ShowNoteModal
+                        note={selectedNote}
+                        isOpen={showNoteIsOpen}
+                        onClose={showNoteOnClose}
                       />
-                    </Tooltip>
-                    <Tooltip label="Notiz öffnen" placement="top">
-                      <IconButton
-                        variant={"ghost"}
-                        aria-label="Notiz öffnen"
-                        icon={<HiOutlineFolderOpen />}
-                        onClick={() => {
-                          setSelectedNote(note);
-                          showNoteOnOpen();
-                        }}
-                      />
-                    </Tooltip>
-                    <ShowNoteModal
-                      note={selectedNote}
-                      isOpen={showNoteIsOpen}
-                      onClose={showNoteOnClose}
-                    />
-                  </HStack>
-                );
-              })
-            : "no notes"}
-        </Stack>
-      </CardBody>
-      <CardFooter>
-        <Button size={"sm"}>weitere Details</Button>
-      </CardFooter>
-    </Card>
+                    </HStack>
+                  );
+                })
+              : "no notes"}
+          </Stack>
+        </CardBody>
+      </Card>
+    </SimpleGrid>
   );
 }
 

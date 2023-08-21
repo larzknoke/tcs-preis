@@ -1,24 +1,57 @@
-import { SimpleGrid, useClipboard } from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  useClipboard,
+  Tabs,
+  Tab,
+  TabPanels,
+  TabPanel,
+  TabList,
+} from "@chakra-ui/react";
 import NoteTable from "../notes/noteTable";
 import TraegerDetail from "./details/traeger";
 import ProjektDetail from "./details/projekt";
 import FinanzierungDetail from "./details/finanzierung";
 import DateienDetail from "./details/dateien";
+import BeschreibungDetail from "./details/beschreibung";
+import InternDetail from "./details/intern";
 
 function LetterDetail({ letter }) {
   return (
-    <SimpleGrid
-      spacing={6}
-      columns={{ sm: 1, md: 2 }}
-      // minChildWidth={"500px"}
-      //   templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-    >
-      <TraegerDetail letter={letter} />
-      <ProjektDetail letter={letter} />
-      <FinanzierungDetail letter={letter} />
-      <DateienDetail letter={letter} />
-      <NoteTable letter={letter} />
-    </SimpleGrid>
+    <Tabs>
+      <TabList>
+        <Tab>Träger</Tab>
+        <Tab>Projekt</Tab>
+        <Tab>Beschreibung</Tab>
+        <Tab>Finanizerung</Tab>
+        <Tab>Intern</Tab>
+        <Tab>Dateien</Tab>
+        <Tab>Notizen</Tab>
+      </TabList>
+
+      <TabPanels>
+        <TabPanel px={0} py={6}>
+          <TraegerDetail letter={letter} />
+        </TabPanel>
+        <TabPanel px={0} py={6}>
+          <ProjektDetail letter={letter} />
+        </TabPanel>
+        <TabPanel px={0} py={6}>
+          <BeschreibungDetail letter={letter} />
+        </TabPanel>
+        <TabPanel px={0} py={6}>
+          <FinanzierungDetail letter={letter} />
+        </TabPanel>
+        <TabPanel px={0} py={6}>
+          <InternDetail letter={letter} />
+        </TabPanel>
+        <TabPanel px={0} py={6}>
+          <DateienDetail letter={letter} />
+        </TabPanel>
+        <TabPanel px={0} py={6}>
+          <NoteTable letter={letter} />
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
   );
 }
 

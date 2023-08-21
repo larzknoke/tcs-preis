@@ -87,9 +87,6 @@ function BotschafterDetail({ botschafter }) {
             </Stat>
           </Stack>
         </CardBody>
-        <CardFooter>
-          {/* <Button size={"sm"}>weitere Details</Button> */}
-        </CardFooter>
       </Card>
       <Card>
         <CardHeader>

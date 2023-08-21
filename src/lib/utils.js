@@ -39,8 +39,9 @@ export function currencyFormatter(value) {
   }).format(value);
 }
 
-export function Checker(bool) {
-  if (bool == "nein" || bool === false) {
+export function Checker({ bool }) {
+  console.log("bool", typeof bool);
+  if (!bool) {
     return <Icon as={HiXMark} color={"red.500"} />;
   } else {
     return <Icon as={HiOutlineCheckCircle} color={"green.500"} />;
