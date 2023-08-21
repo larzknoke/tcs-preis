@@ -34,7 +34,12 @@ function Botschafter({ botschafter }) {
           <Heading fontSize={"22"} color={"gray.300"} fontWeight={"500"}>
             Botschafter
           </Heading>
-          <Heading fontSize={"24"}>{botschafter.name}</Heading>
+          <Heading fontSize={"24"}>
+            {botschafter.vorname} {botschafter.name}
+            <Badge variant="outline" colorScheme="green" ml={4}>
+              {botschafter.typ}
+            </Badge>
+          </Heading>
         </VStack>
         <HStack>
           <Text fontSize={"sm"} color={"gray.400"} mr={3}>

@@ -62,8 +62,15 @@ function BotschafterDetail({ botschafter }) {
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
             <Stat>
+              <StatLabel>Firma</StatLabel>
+              <StatNumber>{botschafter.firma}</StatNumber>
+            </Stat>
+            <Stat>
               <StatLabel>Name</StatLabel>
-              <StatNumber>{botschafter.name}</StatNumber>
+              <StatNumber>
+                {botschafter.vorname}
+                {botschafter.name}
+              </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Straße</StatLabel>
@@ -79,12 +86,12 @@ function BotschafterDetail({ botschafter }) {
               <StatLabel>Bundesland</StatLabel>
               <StatNumber>{botschafter.bundesland}</StatNumber>
             </Stat>
-            <Stat>
+            {/* <Stat>
               <StatLabel>Verifiziert</StatLabel>
               <StatNumber>
                 <Icon as={HiOutlineCheckCircle} color={"green.500"} />
               </StatNumber>
-            </Stat>
+            </Stat> */}
           </Stack>
         </CardBody>
       </Card>
@@ -103,21 +110,22 @@ function BotschafterDetail({ botschafter }) {
           <Stack divider={<StackDivider />} spacing="4">
             <Stat>
               <StatLabel>Email</StatLabel>
-              <StatNumber>yvonne.bauer@stiftugn.de</StatNumber>
+              <StatNumber>{botschafter.email}</StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Telefon</StatLabel>
-              <StatNumber>05531 / 9320-13</StatNumber>
+              <StatNumber>{botschafter.telefon}</StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Mobil</StatLabel>
-              <StatNumber>0152 / 123 456 789</StatNumber>
+              <StatNumber>{botschafter.mobil}</StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Region</StatLabel>
+              <StatNumber fontSize={15}>{botschafter.region}</StatNumber>
             </Stat>
           </Stack>
         </CardBody>
-        <CardFooter>
-          {/* <Button size={"sm"}>weitere Details</Button> */}
-        </CardFooter>
       </Card>
       <GridItem colSpan={2}>
         <Card>

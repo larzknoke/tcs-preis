@@ -17,6 +17,7 @@ import {
   Button,
   Card,
   CardBody,
+  Text,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
@@ -50,15 +51,30 @@ const columnHelper = createColumnHelper();
 
 const columns = [
   columnHelper.accessor("id", {
-    cell: (info) => info.getValue(),
+    cell: ({ row }) => (
+      <HStack>
+        <Tooltip label="Botschafter einsehen" placement="top">
+          <IconButton
+            as={Link}
+            variant={"ghost"}
+            aria-label="Botschafter zeigen"
+            icon={<HiOutlineFolderOpen />}
+            href={`/admin/botschafter/${row.original.id}`}
+          />
+        </Tooltip>
+        <Text>{row.original?.id}</Text>
+      </HStack>
+    ),
     header: "ID",
+    meta: {
+      isNumeric: true,
+    },
   }),
   columnHelper.accessor("name", {
-    cell: (info) => info.getValue(),
+    cell: ({ row, info }) => row.original.vorname + " " + row.original.name,
     header: "Name",
   }),
   columnHelper.accessor("bundesland", {
-    cell: (info) => info.getValue(),
     header: "Bundesland",
   }),
   columnHelper.accessor("plz", {
