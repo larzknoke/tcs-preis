@@ -18,12 +18,18 @@ import {
   Card,
   CardBody,
   Text,
+  Flex,
+  useToast,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
   HiUserPlus,
   HiOutlineTrash,
   HiOutlineCircleStack,
+  HiChevronDoubleLeft,
+  HiChevronDoubleRight,
+  HiChevronLeft,
+  HiChevronRight,
 } from "react-icons/hi2";
 import {
   useReactTable,
@@ -37,7 +43,7 @@ import {
   flexRender,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 
@@ -49,6 +55,9 @@ import ImportBotschafterModal from "./importBotschafterModal";
 import BotschafterDeleteModal from "./botschafterDeleteModal";
 
 function BotschafterTable({ botschafters }) {
+  const toast = useToast();
+  const [loading, setLoading] = useState(false);
+  const [tableData, setTableData] = useState([...botschafters]);
   const [selectedBot, setSelectedBot] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -63,74 +72,79 @@ function BotschafterTable({ botschafters }) {
   } = useDisclosure();
   const [sorting, setSorting] = useState([{ id: "plz", desc: false }]);
   const [globalFilter, setGlobalFilter] = useState("");
-
   const columnHelper = createColumnHelper();
 
-  const columns = [
-    columnHelper.accessor("id", {
-      cell: ({ row }) => (
-        <HStack>
-          <Tooltip label="Botschafter einsehen" placement="top">
-            <IconButton
-              as={Link}
-              variant={"ghost"}
-              aria-label="Botschafter zeigen"
-              icon={<HiOutlineFolderOpen />}
-              href={`/admin/botschafter/${row.original.id}`}
-            />
-          </Tooltip>
-          <Text>{row.original?.id}</Text>
-        </HStack>
-      ),
-      header: "ID",
-      meta: {
-        isNumeric: true,
-      },
-    }),
-    columnHelper.accessor("name", {
-      cell: ({ row, info }) => row.original.vorname + " " + row.original.name,
-      header: "Name",
-    }),
-    columnHelper.accessor("bundesland", {
-      header: "Bundesland",
-    }),
-    columnHelper.accessor("plz", {
-      cell: ({ row, info }) => row.original.plz + " " + row.original.ort,
-      header: "PLZ / Ort",
-    }),
-    columnHelper.accessor("primaryId", {
-      header: "primary-ID",
-    }),
-    columnHelper.accessor("controls", {
-      cell: ({ row, info }) => (
-        <>
-          <Tooltip label="Botschafter einsehen" placement="top">
-            <IconButton
-              as={Link}
-              variant={"ghost"}
-              aria-label="Botschafter zeigen"
-              icon={<HiOutlineFolderOpen />}
-              href={`/admin/botschafter/${row.original.id}`}
-            />
-          </Tooltip>
-          <Tooltip label="Botschafter löschen" placement="top">
-            <IconButton
-              variant={"ghost"}
-              aria-label="Botschafter löschen"
-              icon={<HiOutlineTrash />}
-              colorScheme="red"
-              onClick={onOpenDelete}
-            />
-          </Tooltip>
-        </>
-      ),
-      header: "",
-    }),
-  ];
+  const columns = useMemo(
+    () => [
+      columnHelper.accessor("id", {
+        cell: ({ row }) => (
+          <HStack>
+            <Tooltip label="Botschafter einsehen" placement="top">
+              <IconButton
+                as={Link}
+                variant={"ghost"}
+                aria-label="Botschafter zeigen"
+                icon={<HiOutlineFolderOpen />}
+                href={`/admin/botschafter/${row.original.id}`}
+              />
+            </Tooltip>
+            <Text>{row.original?.id}</Text>
+          </HStack>
+        ),
+        header: "ID",
+        meta: {
+          isNumeric: true,
+        },
+      }),
+      columnHelper.accessor("name", {
+        cell: ({ row, info }) => row.original.vorname + " " + row.original.name,
+        header: "Name",
+      }),
+      columnHelper.accessor("bundesland", {
+        header: "Bundesland",
+      }),
+      columnHelper.accessor("plz", {
+        cell: ({ row, info }) => row.original.plz + " " + row.original.ort,
+        header: "PLZ / Ort",
+      }),
+      columnHelper.accessor("primaryId", {
+        header: "primary-ID",
+      }),
+      columnHelper.accessor("controls", {
+        cell: ({ row, info }) => (
+          <>
+            <Tooltip label="Botschafter einsehen" placement="top">
+              <IconButton
+                as={Link}
+                variant={"ghost"}
+                aria-label="Botschafter zeigen"
+                icon={<HiOutlineFolderOpen />}
+                href={`/admin/botschafter/${row.original.id}`}
+              />
+            </Tooltip>
+            <Tooltip label="Botschafter löschen" placement="top">
+              <IconButton
+                variant={"ghost"}
+                aria-label="Botschafter löschen"
+                icon={<HiOutlineTrash />}
+                colorScheme="red"
+                onClick={() => {
+                  setSelectedBot(row.original);
+                  onOpenDelete();
+                }}
+              />
+            </Tooltip>
+          </>
+        ),
+        header: "Test ",
+      }),
+    ],
+    [tableData]
+  );
 
   const table = useReactTable({
     columns,
-    data: botschafters,
+    data: tableData,
     filterFns: {
       fuzzy: fuzzyFilter,
     },
@@ -148,13 +162,42 @@ function BotschafterTable({ botschafters }) {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    debugTable: false,
-    debugHeaders: false,
-    debugColumns: false,
+    // manualPagination: true,
   });
 
+  async function onSubmitDelete(id) {
+    setLoading(true);
+    const res = await fetch("/api/botschafter", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        botschafterId: id,
+      }),
+    });
+    if (res.status != 200) {
+      toast({
+        title: "Ein Fehler ist aufgetreten",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+      setLoading(false);
+    } else {
+      toast({
+        title: `Botschafter gelöscht`,
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      const newTableData = tableData.filter((data) => data.id !== id);
+      setTableData(newTableData);
+      onCloseDelete();
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
-    table.setPageSize(100);
+    // table.setPageSize(999999);
   }, []);
 
   return (
@@ -162,7 +205,7 @@ function BotschafterTable({ botschafters }) {
       <HStack mt={10} mb={6}>
         <Heading color={"gray.700"} size={"md"} textAlign={"left"}>
           Botschafter{" "}
-          <chakra.span color={"gray.400"}>({botschafters.length})</chakra.span>
+          <chakra.span color={"gray.400"}>({tableData.length})</chakra.span>
         </Heading>
         <DebouncedInput
           value={globalFilter ?? ""}
@@ -256,6 +299,71 @@ function BotschafterTable({ botschafters }) {
               </Tbody>
             </Table>
           </TableContainer>
+          <Flex gap={2}>
+            <IconButton
+              variant={"ghost"}
+              aria-label="Zur ersten Seite"
+              icon={<HiChevronDoubleLeft />}
+              onClick={() => table.setPageIndex(0)}
+              disabled={!table.getCanPreviousPage()}
+              // colorScheme="red"
+            />
+            <IconButton
+              variant={"ghost"}
+              aria-label="Zur ersten Seite"
+              icon={<HiChevronLeft />}
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+              // colorScheme="red"
+            />
+            <IconButton
+              variant={"ghost"}
+              aria-label="Zur ersten Seite"
+              icon={<HiChevronRight />}
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+              // colorScheme="red"
+            />
+            <IconButton
+              variant={"ghost"}
+              aria-label="Zur ersten Seite"
+              icon={<HiChevronDoubleRight />}
+              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+              disabled={!table.getCanNextPage()}
+              // colorScheme="red"
+            />
+            <span className="flex items-center gap-1">
+              <div>Seite</div>
+              <strong>
+                {table.getState().pagination.pageIndex + 1} von{" "}
+                {table.getPageCount()}
+              </strong>
+            </span>
+            <span className="flex items-center gap-1">
+              | Seite:
+              <input
+                type="number"
+                defaultValue={table.getState().pagination.pageIndex + 1}
+                onChange={(e) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                  table.setPageIndex(page);
+                }}
+                className="border p-1 rounded w-16"
+              />
+            </span>
+            <select
+              value={table.getState().pagination.pageSize}
+              onChange={(e) => {
+                table.setPageSize(Number(e.target.value));
+              }}
+            >
+              {[10, 20, 30, 40, 50, 100, 1000].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Zeige {pageSize}
+                </option>
+              ))}
+            </select>
+          </Flex>
         </CardBody>
       </Card>
       <BotschafterDeleteModal
@@ -263,6 +371,8 @@ function BotschafterTable({ botschafters }) {
         onOpen={onOpenDelete}
         onClose={onCloseDelete}
         isOpen={isOpenDelete}
+        onSubmitDelete={onSubmitDelete}
+        loading={loading}
       />
     </>
   );

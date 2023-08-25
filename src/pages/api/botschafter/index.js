@@ -25,4 +25,18 @@ export default async function handle(req, res) {
       return res.status(500).json(error);
     }
   }
+
+  if (req.method == "DELETE") {
+    try {
+      const { botschafterId } = req.body;
+      const result = await prisma.botschafter.delete({
+        where: { id: parseInt(botschafterId) },
+      });
+      console.log("result: ", result);
+      return res.status(200).json(result);
+    } catch (error) {
+      console.log("api error: ", error);
+      return res.status(500).json(error);
+    }
+  }
 }
