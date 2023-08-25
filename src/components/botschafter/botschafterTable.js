@@ -46,79 +46,87 @@ import fuzzyFilter from "@/lib/fuzzyFilter";
 import { useDisclosure } from "@chakra-ui/react";
 import NewBotschafterModal from "./newBotschafterModal";
 import ImportBotschafterModal from "./importBotschafterModal";
-
-const columnHelper = createColumnHelper();
-
-const columns = [
-  columnHelper.accessor("id", {
-    cell: ({ row }) => (
-      <HStack>
-        <Tooltip label="Botschafter einsehen" placement="top">
-          <IconButton
-            as={Link}
-            variant={"ghost"}
-            aria-label="Botschafter zeigen"
-            icon={<HiOutlineFolderOpen />}
-            href={`/admin/botschafter/${row.original.id}`}
-          />
-        </Tooltip>
-        <Text>{row.original?.id}</Text>
-      </HStack>
-    ),
-    header: "ID",
-    meta: {
-      isNumeric: true,
-    },
-  }),
-  columnHelper.accessor("name", {
-    cell: ({ row, info }) => row.original.vorname + " " + row.original.name,
-    header: "Name",
-  }),
-  columnHelper.accessor("bundesland", {
-    header: "Bundesland",
-  }),
-  columnHelper.accessor("plz", {
-    cell: ({ row, info }) => row.original.plz + " " + row.original.ort,
-    header: "PLZ / Ort",
-  }),
-  columnHelper.accessor("primaryId", {
-    header: "primary-ID",
-  }),
-  columnHelper.accessor("controls", {
-    cell: ({ row, info }) => (
-      <>
-        <Tooltip label="Botschafter einsehen" placement="top">
-          <IconButton
-            as={Link}
-            variant={"ghost"}
-            aria-label="Botschafter zeigen"
-            icon={<HiOutlineFolderOpen />}
-            href={`/admin/botschafter/${row.original.id}`}
-          />
-        </Tooltip>
-        <Tooltip label="Botschafter löschen" placement="top">
-          <IconButton
-            variant={"ghost"}
-            aria-label="Botschafter löschen"
-            icon={<HiOutlineTrash />}
-            colorScheme="red"
-          />
-        </Tooltip>
-      </>
-    ),
-    header: "",
-  }),
-];
+import BotschafterDeleteModal from "./botschafterDeleteModal";
 
 function BotschafterTable({ botschafters }) {
+  const [selectedBot, setSelectedBot] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenImport,
     onOpen: onOpenImport,
     onClose: onCloseImport,
   } = useDisclosure();
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
   const [sorting, setSorting] = useState([{ id: "plz", desc: false }]);
   const [globalFilter, setGlobalFilter] = useState("");
+
+  const columnHelper = createColumnHelper();
+
+  const columns = [
+    columnHelper.accessor("id", {
+      cell: ({ row }) => (
+        <HStack>
+          <Tooltip label="Botschafter einsehen" placement="top">
+            <IconButton
+              as={Link}
+              variant={"ghost"}
+              aria-label="Botschafter zeigen"
+              icon={<HiOutlineFolderOpen />}
+              href={`/admin/botschafter/${row.original.id}`}
+            />
+          </Tooltip>
+          <Text>{row.original?.id}</Text>
+        </HStack>
+      ),
+      header: "ID",
+      meta: {
+        isNumeric: true,
+      },
+    }),
+    columnHelper.accessor("name", {
+      cell: ({ row, info }) => row.original.vorname + " " + row.original.name,
+      header: "Name",
+    }),
+    columnHelper.accessor("bundesland", {
+      header: "Bundesland",
+    }),
+    columnHelper.accessor("plz", {
+      cell: ({ row, info }) => row.original.plz + " " + row.original.ort,
+      header: "PLZ / Ort",
+    }),
+    columnHelper.accessor("primaryId", {
+      header: "primary-ID",
+    }),
+    columnHelper.accessor("controls", {
+      cell: ({ row, info }) => (
+        <>
+          <Tooltip label="Botschafter einsehen" placement="top">
+            <IconButton
+              as={Link}
+              variant={"ghost"}
+              aria-label="Botschafter zeigen"
+              icon={<HiOutlineFolderOpen />}
+              href={`/admin/botschafter/${row.original.id}`}
+            />
+          </Tooltip>
+          <Tooltip label="Botschafter löschen" placement="top">
+            <IconButton
+              variant={"ghost"}
+              aria-label="Botschafter löschen"
+              icon={<HiOutlineTrash />}
+              colorScheme="red"
+              onClick={onOpenDelete}
+            />
+          </Tooltip>
+        </>
+      ),
+      header: "",
+    }),
+  ];
 
   const table = useReactTable({
     columns,
@@ -146,7 +154,7 @@ function BotschafterTable({ botschafters }) {
   });
 
   useEffect(() => {
-    table.setPageSize(999999999);
+    table.setPageSize(100);
   }, []);
 
   return (
@@ -250,6 +258,12 @@ function BotschafterTable({ botschafters }) {
           </TableContainer>
         </CardBody>
       </Card>
+      <BotschafterDeleteModal
+        botschafter={selectedBot}
+        onOpen={onOpenDelete}
+        onClose={onCloseDelete}
+        isOpen={isOpenDelete}
+      />
     </>
   );
 }
