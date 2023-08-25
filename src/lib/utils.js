@@ -55,3 +55,9 @@ export function Capatilizer(text) {
     return text;
   }
 }
+
+export function topScroller() {
+  if (typeof window !== "undefined") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}

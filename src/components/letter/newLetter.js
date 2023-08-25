@@ -22,7 +22,7 @@ import Step4 from "./steps/step4";
 import { useState } from "react";
 import { formSchema } from "@/lib/formSchema";
 import { ErrorMessage } from "@hookform/error-message";
-import { isObjEmpty, getInternalValue } from "@/lib/utils";
+import { isObjEmpty, getInternalValue, topScroller } from "@/lib/utils";
 
 const steps = [
   {
@@ -402,7 +402,10 @@ function NewLetter() {
                   <>
                     <Button
                       isDisabled={activeStep === 0}
-                      onClick={prevStep}
+                      onClick={() => {
+                        topScroller();
+                        prevStep();
+                      }}
                       size="md"
                       variant="ghost"
                       color={"gray.500"}
@@ -412,6 +415,7 @@ function NewLetter() {
                     {!isLastStep && (
                       <Button
                         onClick={() => {
+                          topScroller();
                           nextStep();
                         }}
                       >
