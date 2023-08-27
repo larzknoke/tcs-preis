@@ -82,12 +82,12 @@ function StatusModal({ statusOnClose, statusIsOpen, letter }) {
                 <option value="abgelehnt">Abgelehnt</option>
               </Select>
             </FormControl>
-            <FormControl display="flex" alignItems="center">
+            {/* <FormControl display="flex" alignItems="center">
               <FormLabel htmlFor="email-alerts" mb="0">
                 Email Benachrichtigung?
               </FormLabel>
               <Switch id="email-alerts" colorScheme="green" />
-            </FormControl>
+            </FormControl> */}
           </VStack>
         </ModalBody>
 

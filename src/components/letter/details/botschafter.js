@@ -1,9 +1,7 @@
 import {
-  SimpleGrid,
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Heading,
   Stack,
   StackDivider,
@@ -14,8 +12,6 @@ import {
   HStack,
   StatHelpText,
   useDisclosure,
-  Tooltip,
-  IconButton,
   useClipboard,
   Alert,
   AlertDescription,
@@ -23,7 +19,6 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import BotschafterModal from "@/components/botschafter/botschafterStatusModal";
-import { HiOutlineClipboard, HiCheck, HiOutlinePlus } from "react-icons/hi2";
 import { useEffect } from "react";
 
 function BotschafterDetail({ letter }) {
@@ -57,7 +52,7 @@ function BotschafterDetail({ letter }) {
                 <Stat>
                   <StatLabel>Botschafter</StatLabel>
                   <StatNumber color={"gray.700"}>
-                    {letter.botschafter.name}
+                    {letter.botschafter.vorname} {letter.botschafter.name}
                   </StatNumber>
                   <StatHelpText color={"gray.700"}>
                     {`${letter.botschafter.plz} ${letter.botschafter.ort}, ${letter.botschafter.bundesland}`}
