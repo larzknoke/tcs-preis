@@ -163,15 +163,29 @@ export const formSchema = yup.object().shape({
 });
 
 export const botschafterSchema = yup.object().shape({
+  primaryId: yup.string().required(),
+  firma: yup.string().required(),
+  vorname: yup.string().required(),
   name: yup.string().required(),
   strasse: yup.string().required(),
   plz: yup.string().required(),
   ort: yup.string().required(),
+  mobil: yup.string(),
+  telefon: yup.string(),
+  region: yup.string(),
+  typ: yup.string(),
+  email: yup.string().email(),
   bundesland: yup
     .string()
-    .transform((value) => {
-      return value.value;
-    })
+    // .transform((value) => {
+    //   return value.value;
+    // })
+    .required(),
+  anrede: yup
+    .string()
+    // .transform((value) => {
+    //   return value.value;
+    // })
     .required(),
 });
 

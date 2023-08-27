@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+import { useState } from "react";
 import prisma from "@/lib/prisma";
 import {
   Container,
@@ -15,17 +17,60 @@ import {
   useDisclosure,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
 import BotschafterDetail from "@/components/botschafter/botschafterDetail";
 import { dateFormatter } from "@/lib/utils";
+import BotschafterDeleteModal from "@/components/botschafter/botschafterDeleteModal";
+import FormBotschafterModal from "@/components/botschafter/formBotschafterModal";
 
 function Botschafter({ botschafter }) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
+
   const {
-    isOpen: statusIsOpen,
-    onOpen: statusOnOpen,
-    onClose: statusOnClose,
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
   } = useDisclosure();
+
+  const {
+    isOpen: isOpenEdit,
+    onOpen: onOpenEdit,
+    onClose: onCloseEdit,
+  } = useDisclosure();
+
+  async function onSubmitDelete(id) {
+    setLoading(true);
+    const res = await fetch("/api/botschafter", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        botschafterId: id,
+      }),
+    });
+    if (res.status != 200) {
+      toast({
+        title: "Ein Fehler ist aufgetreten",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+      setLoading(false);
+    } else {
+      toast({
+        title: `Botschafter gelöscht`,
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      onCloseDelete();
+      setLoading(false);
+      router.push("/admin/botschafter");
+    }
+  }
 
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
@@ -54,14 +99,29 @@ function Botschafter({ botschafter }) {
               size={"lg"}
             />
             <MenuList>
-              <MenuItem>Bearbeiten</MenuItem>
-              <MenuItem>Löschen</MenuItem>
+              <MenuItem onClick={() => onOpenEdit()}>Bearbeiten</MenuItem>
+              <MenuItem onClick={() => onOpenDelete()}>Löschen</MenuItem>
             </MenuList>
           </Menu>
         </HStack>
       </HStack>
       <Divider my={4} />
       <BotschafterDetail botschafter={botschafter} />
+      <BotschafterDeleteModal
+        botschafter={botschafter}
+        onOpen={onOpenDelete}
+        onClose={onCloseDelete}
+        isOpen={isOpenDelete}
+        onSubmitDelete={onSubmitDelete}
+        loading={loading}
+      />
+      <FormBotschafterModal
+        onOpen={onOpenEdit}
+        onClose={onCloseEdit}
+        isOpen={isOpenEdit}
+        isNew={false}
+        botschafter={botschafter}
+      />
     </Container>
   );
 }

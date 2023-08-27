@@ -68,8 +68,7 @@ function BotschafterDetail({ botschafter }) {
             <Stat>
               <StatLabel>Name</StatLabel>
               <StatNumber>
-                {botschafter.vorname}
-                {botschafter.name}
+                {`${botschafter.anrede} ${botschafter.vorname} ${botschafter.name}`}
               </StatNumber>
             </Stat>
             <Stat>

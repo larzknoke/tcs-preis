@@ -50,7 +50,7 @@ import Link from "next/link";
 import DebouncedInput from "@/lib/debouncedInput";
 import fuzzyFilter from "@/lib/fuzzyFilter";
 import { useDisclosure } from "@chakra-ui/react";
-import NewBotschafterModal from "./newBotschafterModal";
+import FormBotschafterModal from "./formBotschafterModal";
 import ImportBotschafterModal from "./importBotschafterModal";
 import BotschafterDeleteModal from "./botschafterDeleteModal";
 
@@ -223,10 +223,11 @@ function BotschafterTable({ botschafters }) {
             variant={"outline"}
           />
         </Tooltip>
-        <NewBotschafterModal
+        <FormBotschafterModal
           onOpen={onOpen}
           onClose={onClose}
           isOpen={isOpen}
+          isNew={true}
         />
         <Tooltip label="Botschafter importieren" placement="top">
           <IconButton
