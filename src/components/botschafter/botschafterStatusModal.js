@@ -58,7 +58,7 @@ function BotschafterModal({ botschafterOnClose, botschafterIsOpen, letter }) {
       toast({
         title: "Ein Fehler ist aufgetreten",
         status: "error",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
       setLoading(false);
@@ -67,7 +67,7 @@ function BotschafterModal({ botschafterOnClose, botschafterIsOpen, letter }) {
       toast({
         title: `Botschafter geändert`,
         status: "success",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
       botschafterOnClose();

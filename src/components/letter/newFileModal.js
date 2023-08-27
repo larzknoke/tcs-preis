@@ -79,7 +79,7 @@ function NewFileModal({ letter, isOpen, onClose }) {
           toast({
             title: "Ein Fehler ist aufgetreten",
             status: "error",
-            duration: 9000,
+            duration: 4000,
             isClosable: true,
           });
         } else {
@@ -87,7 +87,7 @@ function NewFileModal({ letter, isOpen, onClose }) {
           toast({
             title: `Datei erstellt.`,
             status: "success",
-            duration: 9000,
+            duration: 4000,
             isClosable: true,
           });
           onClose();
@@ -103,7 +103,7 @@ function NewFileModal({ letter, isOpen, onClose }) {
         title: "Ein Fehler ist aufgetreten",
         description: JSON.stringify(error),
         status: "error",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
     }

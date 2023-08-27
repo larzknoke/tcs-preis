@@ -178,7 +178,7 @@ function BotschafterTable({ botschafters }) {
       toast({
         title: "Ein Fehler ist aufgetreten",
         status: "error",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
       setLoading(false);
@@ -186,7 +186,7 @@ function BotschafterTable({ botschafters }) {
       toast({
         title: `Botschafter gelöscht`,
         status: "success",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
       const newTableData = tableData.filter((data) => data.id !== id);

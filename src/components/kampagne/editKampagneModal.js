@@ -48,7 +48,7 @@ function EditKampagneModal({ editIsOpen, editOnClose, kampagne }) {
         toast({
           title: "Ein Fehler ist aufgetreten",
           status: "error",
-          duration: 9000,
+          duration: 4000,
           isClosable: true,
         });
       } else {
@@ -58,7 +58,7 @@ function EditKampagneModal({ editIsOpen, editOnClose, kampagne }) {
         toast({
           title: `Kampagne ${resData.result.name} gespeichert.`,
           status: "success",
-          duration: 9000,
+          duration: 4000,
           isClosable: true,
         });
         router.push(`/admin/kampagne/${resData.result.id}`);
@@ -70,7 +70,7 @@ function EditKampagneModal({ editIsOpen, editOnClose, kampagne }) {
         title: "Ein Fehler ist aufgetreten",
         description: JSON.stringify(error),
         status: "error",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
     }

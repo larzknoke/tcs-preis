@@ -55,7 +55,7 @@ function Botschafter({ botschafter }) {
       toast({
         title: "Ein Fehler ist aufgetreten",
         status: "error",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
       setLoading(false);
@@ -63,7 +63,7 @@ function Botschafter({ botschafter }) {
       toast({
         title: `Botschafter gelöscht`,
         status: "success",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
       onCloseDelete();

@@ -55,7 +55,7 @@ function NoteTable({ letter }) {
       toast({
         title: "Ein Fehler ist aufgetreten",
         status: "error",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
     } else {
@@ -63,7 +63,7 @@ function NoteTable({ letter }) {
       toast({
         title: `Notiz gelöscht.`,
         status: "success",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
       router.replace(router.asPath);

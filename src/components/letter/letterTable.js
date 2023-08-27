@@ -33,6 +33,7 @@ import {
   Input,
   useDisclosure,
   Divider,
+  useToast,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
@@ -45,6 +46,12 @@ import {
   HiOutlineBanknotes,
   HiCalendarDays,
   HiOutlineTrash,
+  HiUserPlus,
+  HiOutlineCircleStack,
+  HiChevronDoubleLeft,
+  HiChevronDoubleRight,
+  HiChevronLeft,
+  HiChevronRight,
 } from "react-icons/hi2";
 import {
   useReactTable,
@@ -58,7 +65,7 @@ import {
   flexRender,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -70,6 +77,8 @@ import { Capatilizer } from "@/lib/utils";
 
 function LetterTable({ letters }) {
   const router = useRouter();
+  const toast = useToast();
+  const [tableData, setTableData] = useState([...letters]);
   const [sorting, setSorting] = useState([{ id: "id", desc: false }]);
   const [globalFilter, setGlobalFilter] = useState("");
 
@@ -85,7 +94,91 @@ function LetterTable({ letters }) {
     }
   }
 
-  const columns = [
+  async function changeStatus(status, id) {
+    console.log("status", status);
+    const res = await fetch("/api/letter/updateStatus", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: id, status: status }),
+    });
+    if (res.status == 401) {
+      toast({
+        title: "Sie sind nicht berechtigt diese Funktion auszuführen.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else if (res.status != 200) {
+      toast({
+        title: "Ein Fehler ist aufgetreten",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else {
+      const resData = await res.json();
+      console.log("resData: ", resData);
+
+      setTableData(
+        tableData.map((l) =>
+          l.id == resData.result.id
+            ? { ...l, status: resData.result.status }
+            : l
+        )
+      );
+
+      toast({
+        title: `Status geändert`,
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  }
+
+  async function changeFbCheck(status, id) {
+    console.log("status", status);
+    const res = await fetch("/api/letter/updateFbCheck", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: id, checkFreistellung: status }),
+    });
+    if (res.status == 401) {
+      toast({
+        title: "Sie sind nicht berechtigt diese Funktion auszuführen.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else if (res.status != 200) {
+      toast({
+        title: "Ein Fehler ist aufgetreten",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else {
+      const resData = await res.json();
+      console.log("resData: ", resData);
+
+      setTableData(
+        tableData.map((l) =>
+          l.id == resData.result.id
+            ? { ...l, checkFreistellung: resData.result.checkFreistellung }
+            : l
+        )
+      );
+
+      toast({
+        title: `Status geändert`,
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  }
+
+  const columns = useMemo(() => [
     columnHelper.accessor("id", {
       header: "ID",
       meta: {
@@ -108,26 +201,26 @@ function LetterTable({ letters }) {
     }),
     columnHelper.accessor("status", {
       header: "Status",
-      cell: (info) => (
+      cell: ({ info, row }) => (
         <Popover trigger="hover" placement="left-start">
           <PopoverTrigger>
             <span>
-              {info.getValue() == "offen" && (
+              {row.original.status == "offen" && (
                 <Icon as={HiOutlineQuestionMarkCircle} color={"yellow.500"} />
               )}
-              {info.getValue() == "abgelehnt" && (
+              {row.original.status == "abgelehnt" && (
                 <Icon as={HiOutlineNoSymbol} color={"red.500"} />
               )}
-              {info.getValue() == "1000" && (
+              {row.original.status == "1000" && (
                 <Icon as={HiOutlineCheck} color={"green.700"} />
               )}
-              {info.getValue() == "5000" && (
+              {row.original.status == "5000" && (
                 <Flex>
                   <Icon as={HiOutlineCheck} color={"green.700"} />
                   <Icon as={HiMiniStar} color={"yellow.400"} />
                 </Flex>
               )}
-              {info.getValue() == "ausland" && (
+              {row.original.status == "ausland" && (
                 <Icon as={HiMiniLanguage} color={"blue.400"} />
               )}
             </span>
@@ -137,17 +230,41 @@ function LetterTable({ letters }) {
             <PopoverCloseButton />
             <PopoverHeader>
               <Text as={"b"}>
-                Aktueller Status: {Capatilizer(info.getValue())}
+                Aktueller Status: {Capatilizer(row.original.status)}
               </Text>
             </PopoverHeader>
             <PopoverBody>
               <Text mb={2}>Status ändern:</Text>
               <ButtonGroup size="sm">
-                <Button colorScheme="blue">Ausland</Button>
-                <Button colorScheme="red">Abgelehnt</Button>
-                <Button colorScheme="yellow">Offen</Button>
-                <Button colorScheme="green">1000,-</Button>
-                <Button colorScheme="green" bg={"green.600"}>
+                <Button
+                  onClick={() => changeStatus("ausland", row.original.id)}
+                  colorScheme="blue"
+                >
+                  Ausland
+                </Button>
+                <Button
+                  onClick={() => changeStatus("abgelehnt", row.original.id)}
+                  colorScheme="red"
+                >
+                  Abgelehnt
+                </Button>
+                <Button
+                  onClick={() => changeStatus("offen", row.original.id)}
+                  colorScheme="yellow"
+                >
+                  Offen
+                </Button>
+                <Button
+                  onClick={() => changeStatus("1000", row.original.id)}
+                  colorScheme="green"
+                >
+                  1000,-
+                </Button>
+                <Button
+                  onClick={() => changeStatus("5000", row.original.id)}
+                  colorScheme="green"
+                  bg={"green.600"}
+                >
                   5000,-
                 </Button>
               </ButtonGroup>
@@ -314,8 +431,18 @@ function LetterTable({ letters }) {
               <PopoverHeader>Freistellungsbescheid bestätigen?</PopoverHeader>
               <PopoverBody>
                 <ButtonGroup size="sm">
-                  <Button colorScheme="red">Abbrechen</Button>
-                  <Button colorScheme="green">Bestätigen</Button>
+                  <Button
+                    onClick={() => changeFbCheck(false, row.original.id)}
+                    colorScheme="red"
+                  >
+                    Abbrechen
+                  </Button>
+                  <Button
+                    onClick={() => changeFbCheck(true, row.original.id)}
+                    colorScheme="green"
+                  >
+                    Bestätigen
+                  </Button>
                 </ButtonGroup>
               </PopoverBody>
             </PopoverContent>
@@ -695,11 +822,11 @@ function LetterTable({ letters }) {
       ),
       header: "",
     }),
-  ];
+  ]);
 
   const table = useReactTable({
     columns,
-    data: letters,
+    data: tableData,
     filterFns: {
       fuzzy: fuzzyFilter,
     },
@@ -723,7 +850,7 @@ function LetterTable({ letters }) {
   });
 
   useEffect(() => {
-    table.setPageSize(999999999);
+    // table.setPageSize(999999999);
   }, []);
 
   function rowColor(status) {
@@ -825,6 +952,71 @@ function LetterTable({ letters }) {
               </Tbody>
             </Table>
           </TableContainer>
+          <Flex gap={2}>
+            <IconButton
+              variant={"ghost"}
+              aria-label="Zur ersten Seite"
+              icon={<HiChevronDoubleLeft />}
+              onClick={() => table.setPageIndex(0)}
+              disabled={!table.getCanPreviousPage()}
+              // colorScheme="red"
+            />
+            <IconButton
+              variant={"ghost"}
+              aria-label="Zur ersten Seite"
+              icon={<HiChevronLeft />}
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+              // colorScheme="red"
+            />
+            <IconButton
+              variant={"ghost"}
+              aria-label="Zur ersten Seite"
+              icon={<HiChevronRight />}
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+              // colorScheme="red"
+            />
+            <IconButton
+              variant={"ghost"}
+              aria-label="Zur ersten Seite"
+              icon={<HiChevronDoubleRight />}
+              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+              disabled={!table.getCanNextPage()}
+              // colorScheme="red"
+            />
+            <span className="flex items-center gap-1">
+              <div>Seite</div>
+              <strong>
+                {table.getState().pagination.pageIndex + 1} von{" "}
+                {table.getPageCount()}
+              </strong>
+            </span>
+            <span className="flex items-center gap-1">
+              | Seite:
+              <input
+                type="number"
+                defaultValue={table.getState().pagination.pageIndex + 1}
+                onChange={(e) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                  table.setPageIndex(page);
+                }}
+                className="border p-1 rounded w-16"
+              />
+            </span>
+            <select
+              value={table.getState().pagination.pageSize}
+              onChange={(e) => {
+                table.setPageSize(Number(e.target.value));
+              }}
+            >
+              {[10, 20, 30, 40, 50, 100, 1000].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Zeige {pageSize}
+                </option>
+              ))}
+            </select>
+          </Flex>
         </CardBody>
       </Card>
     </>

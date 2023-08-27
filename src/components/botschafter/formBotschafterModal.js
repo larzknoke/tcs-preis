@@ -72,7 +72,7 @@ function FormBotschafterModal({ isOpen, onClose, isNew, botschafter = null }) {
         toast({
           title: "Ein Fehler ist aufgetreten",
           status: "error",
-          duration: 9000,
+          duration: 4000,
           isClosable: true,
         });
         setLoading(false);
@@ -82,7 +82,7 @@ function FormBotschafterModal({ isOpen, onClose, isNew, botschafter = null }) {
         toast({
           title: `Botschafter ${resData.name} erstellt.`,
           status: "success",
-          duration: 9000,
+          duration: 4000,
           isClosable: true,
         });
         onClose();
@@ -97,7 +97,7 @@ function FormBotschafterModal({ isOpen, onClose, isNew, botschafter = null }) {
         title: "Ein Fehler ist aufgetreten",
         description: JSON.stringify(error),
         status: "error",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
     }

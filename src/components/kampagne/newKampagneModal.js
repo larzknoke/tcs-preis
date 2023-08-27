@@ -46,7 +46,7 @@ function NewKampagneModal({ isOpen, onClose }) {
         toast({
           title: "Ein Fehler ist aufgetreten",
           status: "error",
-          duration: 9000,
+          duration: 4000,
           isClosable: true,
         });
       } else {
@@ -55,7 +55,7 @@ function NewKampagneModal({ isOpen, onClose }) {
         toast({
           title: `Kampagne ${resData.result.name} erstellt.`,
           status: "success",
-          duration: 9000,
+          duration: 4000,
           isClosable: true,
         });
         onClose();
@@ -69,7 +69,7 @@ function NewKampagneModal({ isOpen, onClose }) {
         title: "Ein Fehler ist aufgetreten",
         description: JSON.stringify(error),
         status: "error",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
     }

@@ -45,14 +45,14 @@ function ImportBotschafterModal({ isOpen, onClose }) {
               toast({
                 title: "Sie sind nicht berechtigt diese Funktion auszuführen.",
                 status: "error",
-                duration: 9000,
+                duration: 4000,
                 isClosable: true,
               });
             } else if (res.status != 200) {
               toast({
                 title: "Ein Fehler ist aufgetreten",
                 status: "error",
-                duration: 9000,
+                duration: 4000,
                 isClosable: true,
               });
               setLoading(false);
@@ -62,7 +62,7 @@ function ImportBotschafterModal({ isOpen, onClose }) {
               toast({
                 title: `${resData.botschafter?.count} Botschafter erfolgreich importiert.`,
                 status: "success",
-                duration: 9000,
+                duration: 4000,
                 isClosable: true,
               });
               onClose();
@@ -79,7 +79,7 @@ function ImportBotschafterModal({ isOpen, onClose }) {
         title: "Ein Fehler ist aufgetreten",
         description: JSON.stringify(error),
         status: "error",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
     }

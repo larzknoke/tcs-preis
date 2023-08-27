@@ -48,7 +48,7 @@ function NewNoteModal({ letter, isOpen, onClose }) {
         toast({
           title: "Ein Fehler ist aufgetreten",
           status: "error",
-          duration: 9000,
+          duration: 4000,
           isClosable: true,
         });
       } else {
@@ -57,7 +57,7 @@ function NewNoteModal({ letter, isOpen, onClose }) {
         toast({
           title: `Notiz ${resData.result.title} erstellt.`,
           status: "success",
-          duration: 9000,
+          duration: 4000,
           isClosable: true,
         });
         onClose();
@@ -71,7 +71,7 @@ function NewNoteModal({ letter, isOpen, onClose }) {
         title: "Ein Fehler ist aufgetreten",
         description: JSON.stringify(error),
         status: "error",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
     }

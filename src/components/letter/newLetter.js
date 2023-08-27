@@ -170,7 +170,7 @@ function NewLetter() {
                 toast({
                   title: "Ein Fehler ist beim Upload aufgetreten",
                   status: "error",
-                  duration: 9000,
+                  duration: 4000,
                   isClosable: true,
                 });
               } else {
@@ -222,7 +222,7 @@ function NewLetter() {
           //       toast({
           //         title: "Ein Fehler ist beim Upload aufgetreten",
           //         status: "error",
-          //         duration: 9000,
+          //         duration: 4000,
           //         isClosable: true,
           //       });
           //     } else {
@@ -274,7 +274,7 @@ function NewLetter() {
           //       toast({
           //         title: "Ein Fehler ist beim Upload aufgetreten",
           //         status: "error",
-          //         duration: 9000,
+          //         duration: 4000,
           //         isClosable: true,
           //       });
           //     } else {

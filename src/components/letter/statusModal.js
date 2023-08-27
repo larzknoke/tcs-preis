@@ -34,14 +34,14 @@ function StatusModal({ statusOnClose, statusIsOpen, letter }) {
       toast({
         title: "Sie sind nicht berechtigt diese Funktion auszuführen.",
         status: "error",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
     } else if (res.status != 200) {
       toast({
         title: "Ein Fehler ist aufgetreten",
         status: "error",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
     } else {
@@ -50,7 +50,7 @@ function StatusModal({ statusOnClose, statusIsOpen, letter }) {
       toast({
         title: `Status geändert`,
         status: "success",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
       });
       statusOnClose();
