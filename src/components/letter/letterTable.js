@@ -74,6 +74,7 @@ import DebouncedInput from "@/lib/debouncedInput";
 import fuzzyFilter from "@/lib/fuzzyFilter";
 
 import { Capatilizer } from "@/lib/utils";
+import LetterDateModal from "./letterDateModal";
 
 function LetterTable({ letters }) {
   const router = useRouter();
@@ -81,8 +82,14 @@ function LetterTable({ letters }) {
   const [tableData, setTableData] = useState([...letters]);
   const [sorting, setSorting] = useState([{ id: "id", desc: false }]);
   const [globalFilter, setGlobalFilter] = useState("");
+  const [selectedLetter, setSelectedLetter] = useState();
 
   const { onOpen, onClose, isOpen } = useDisclosure();
+  const {
+    onOpen: onOpenDateModal,
+    onClose: onCloseDateModal,
+    isOpen: isOpenDateModal,
+  } = useDisclosure();
 
   const columnHelper = createColumnHelper();
 
@@ -176,6 +183,11 @@ function LetterTable({ letters }) {
         isClosable: true,
       });
     }
+  }
+
+  function handleDateModal(letter, typ) {
+    setSelectedLetter(letter);
+    onOpenDateModal();
   }
 
   const columns = useMemo(() => [
@@ -500,32 +512,40 @@ function LetterTable({ letters }) {
     columnHelper.accessor("terminGeld", {
       cell: ({ row, info }) => {
         return (
-          <Popover trigger="hover" onClose={onClose}>
-            <PopoverTrigger>
-              <HStack>
-                <Text>16.08.2023</Text>
-                <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
-              </HStack>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>Datum auswählen</PopoverHeader>
-              <PopoverBody>
-                <Stack spacing={4}>
-                  <Input placeholder="Datum..." />
-                  <ButtonGroup display="flex" justifyContent="flex-end">
-                    <Button variant="outline" onClick={onClose}>
-                      Abbrechen
-                    </Button>
-                    <Button isDisabled colorScheme="green">
-                      Speichern
-                    </Button>
-                  </ButtonGroup>
-                </Stack>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
+          <HStack>
+            <Text>{row.original.terminGeld || "-"}</Text>
+            <IconButton
+              onClick={() => handleDateModal(row.original, "terminGeld")}
+              variant={"ghost"}
+              icon={<HiCalendarDays />}
+            />
+          </HStack>
+          // <Popover trigger="hover" onClose={onClose}>
+          //   <PopoverTrigger>
+          //     <HStack>
+          //       <Text>16.08.2023</Text>
+          //       <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
+          //     </HStack>
+          //   </PopoverTrigger>
+          //   <PopoverContent>
+          //     <PopoverArrow />
+          //     <PopoverCloseButton />
+          //     <PopoverHeader>Datum auswählen</PopoverHeader>
+          //     <PopoverBody>
+          //       <Stack spacing={4}>
+          //         <Input placeholder="Datum..." />
+          //         <ButtonGroup display="flex" justifyContent="flex-end">
+          //           <Button variant="outline" onClick={onClose}>
+          //             Abbrechen
+          //           </Button>
+          //           <Button isDisabled colorScheme="green">
+          //             Speichern
+          //           </Button>
+          //         </ButtonGroup>
+          //       </Stack>
+          //     </PopoverBody>
+          //   </PopoverContent>
+          // </Popover>
         );
       },
       header: "Termin Überweisung",
@@ -849,10 +869,6 @@ function LetterTable({ letters }) {
     debugColumns: false,
   });
 
-  useEffect(() => {
-    // table.setPageSize(999999999);
-  }, []);
-
   function rowColor(status) {
     switch (status) {
       case "offen":
@@ -1012,6 +1028,12 @@ function LetterTable({ letters }) {
           </Flex>
         </CardBody>
       </Card>
+      <LetterDateModal
+        letter={selectedLetter}
+        onOpen={onOpenDateModal}
+        isOpen={isOpenDateModal}
+        onClose={onCloseDateModal}
+      />
     </>
   );
 }
