@@ -58,7 +58,7 @@ function InternDetail({ letter }) {
             <Stat>
               <StatLabel>Freistellungsbescheid geprüft</StatLabel>
               <StatNumber>
-                <Checker bool={letter.vereinTraeger} />
+                <Checker bool={letter.checkFreistellung} />
               </StatNumber>
             </Stat>
             <Stat>
