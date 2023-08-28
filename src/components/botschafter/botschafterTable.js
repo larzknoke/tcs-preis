@@ -247,9 +247,6 @@ function BotschafterTable({ botschafters }) {
         <CardBody>
           <TableContainer>
             <Table>
-              <TableCaption color={"gray.400"}>
-                {/* letzte Bewerbung 12.07.2023 | 16.53 Uhr */}
-              </TableCaption>
               <Thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <Tr key={headerGroup.id}>
@@ -300,14 +297,13 @@ function BotschafterTable({ botschafters }) {
               </Tbody>
             </Table>
           </TableContainer>
-          <Flex gap={2}>
+          <Flex gap={2} mt={6}>
             <IconButton
               variant={"ghost"}
               aria-label="Zur ersten Seite"
               icon={<HiChevronDoubleLeft />}
               onClick={() => table.setPageIndex(0)}
               disabled={!table.getCanPreviousPage()}
-              // colorScheme="red"
             />
             <IconButton
               variant={"ghost"}
@@ -315,7 +311,6 @@ function BotschafterTable({ botschafters }) {
               icon={<HiChevronLeft />}
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
-              // colorScheme="red"
             />
             <IconButton
               variant={"ghost"}
@@ -323,7 +318,6 @@ function BotschafterTable({ botschafters }) {
               icon={<HiChevronRight />}
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
-              // colorScheme="red"
             />
             <IconButton
               variant={"ghost"}
@@ -331,16 +325,15 @@ function BotschafterTable({ botschafters }) {
               icon={<HiChevronDoubleRight />}
               onClick={() => table.setPageIndex(table.getPageCount() - 1)}
               disabled={!table.getCanNextPage()}
-              // colorScheme="red"
             />
-            <span className="flex items-center gap-1">
-              <div>Seite</div>
+            <chakra.span className="flex items-center gap-1">
+              <Text>Seite</Text>
               <strong>
                 {table.getState().pagination.pageIndex + 1} von{" "}
                 {table.getPageCount()}
               </strong>
-            </span>
-            <span className="flex items-center gap-1">
+            </chakra.span>
+            <chakra.span className="flex items-center gap-1">
               | Seite:
               <input
                 type="number"
@@ -349,9 +342,9 @@ function BotschafterTable({ botschafters }) {
                   const page = e.target.value ? Number(e.target.value) - 1 : 0;
                   table.setPageIndex(page);
                 }}
-                className="border p-1 rounded w-16"
+                className="border p-1 rounded w-10"
               />
-            </span>
+            </chakra.span>
             <select
               value={table.getState().pagination.pageSize}
               onChange={(e) => {
