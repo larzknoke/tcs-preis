@@ -77,6 +77,7 @@ import { Capatilizer } from "@/lib/utils";
 import LetterDateModal from "./letterDateModal";
 
 function LetterTable({ letters }) {
+  console.log("LETTER TABLE");
   const router = useRouter();
   const toast = useToast();
   const [tableData, setTableData] = useState([...letters]);
@@ -172,6 +173,48 @@ function LetterTable({ letters }) {
         tableData.map((l) =>
           l.id == resData.result.id
             ? { ...l, checkFreistellung: resData.result.checkFreistellung }
+            : l
+        )
+      );
+
+      toast({
+        title: `Status geändert`,
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  }
+
+  async function changePresseErlaubt(status, id) {
+    console.log("status", status);
+    const res = await fetch("/api/letter/updatePresseErlaubt", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: id, presseErlaubt: status }),
+    });
+    if (res.status == 401) {
+      toast({
+        title: "Sie sind nicht berechtigt diese Funktion auszuführen.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else if (res.status != 200) {
+      toast({
+        title: "Ein Fehler ist aufgetreten",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else {
+      const resData = await res.json();
+      console.log("resData: ", resData);
+
+      setTableData(
+        tableData.map((l) =>
+          l.id == resData.result.id
+            ? { ...l, presseErlaubt: resData.result.presseErlaubt }
             : l
         )
       );
@@ -512,40 +555,41 @@ function LetterTable({ letters }) {
     columnHelper.accessor("terminGeld", {
       cell: ({ row, info }) => {
         return (
-          <HStack>
-            <Text>{row.original.terminGeld || "-"}</Text>
-            <IconButton
-              onClick={() => handleDateModal(row.original, "terminGeld")}
-              variant={"ghost"}
-              icon={<HiCalendarDays />}
-            />
-          </HStack>
-          // <Popover trigger="hover" onClose={onClose}>
-          //   <PopoverTrigger>
-          //     <HStack>
-          //       <Text>16.08.2023</Text>
-          //       <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
-          //     </HStack>
-          //   </PopoverTrigger>
-          //   <PopoverContent>
-          //     <PopoverArrow />
-          //     <PopoverCloseButton />
-          //     <PopoverHeader>Datum auswählen</PopoverHeader>
-          //     <PopoverBody>
-          //       <Stack spacing={4}>
-          //         <Input placeholder="Datum..." />
-          //         <ButtonGroup display="flex" justifyContent="flex-end">
-          //           <Button variant="outline" onClick={onClose}>
-          //             Abbrechen
-          //           </Button>
-          //           <Button isDisabled colorScheme="green">
-          //             Speichern
-          //           </Button>
-          //         </ButtonGroup>
-          //       </Stack>
-          //     </PopoverBody>
-          //   </PopoverContent>
-          // </Popover>
+          // <HStack>
+          //   <Text>{row.original.terminGeld || "-"}</Text>
+          //   <IconButton
+          //     onClick={() => handleDateModal(row.original, "terminGeld")}
+          //     variant={"ghost"}
+          //     icon={<HiCalendarDays />}
+          //   />
+          // </HStack>
+          <Popover trigger="hover" onClose={onClose}>
+            <PopoverTrigger>
+              <HStack>
+                <Text>16.08.2023</Text>
+                <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
+              </HStack>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader>Datum auswählen</PopoverHeader>
+              <PopoverBody>
+                <Stack spacing={4}>
+                  <Input
+                    placeholder="Datum..."
+                    onChange={(e) => console.log("value", e.target.value)}
+                  />
+                  <ButtonGroup display="flex" justifyContent="flex-end">
+                    <Button variant="outline" onClick={onClose}>
+                      Abbrechen
+                    </Button>
+                    <Button colorScheme="green">Speichern</Button>
+                  </ButtonGroup>
+                </Stack>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
         );
       },
       header: "Termin Überweisung",
@@ -708,8 +752,22 @@ function LetterTable({ letters }) {
               <PopoverHeader>Pressearbeit erwünscht?</PopoverHeader>
               <PopoverBody>
                 <ButtonGroup size="sm">
-                  <Button colorScheme="red">Nein</Button>
-                  <Button colorScheme="green">Ja</Button>
+                  <Button
+                    onClick={() => {
+                      changePresseErlaubt(false, row.original.id);
+                    }}
+                    colorScheme="red"
+                  >
+                    Nein
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      changePresseErlaubt(true, row.original.id);
+                    }}
+                    colorScheme="green"
+                  >
+                    Ja
+                  </Button>
                 </ButtonGroup>
                 <Divider my={4} />
                 <Flex direction={"column"} gap={4}>
