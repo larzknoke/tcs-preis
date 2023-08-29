@@ -12,8 +12,6 @@ export default async function handle(req, res) {
 
   try {
     const { id, typ, date } = req.body;
-    console.log("data: ", data);
-
     const parsedDate = new Date(date);
 
     const result = await prisma.letter.update({
@@ -21,7 +19,7 @@ export default async function handle(req, res) {
         id: id,
       },
       data: {
-        terminGeld: parsedDate,
+        [typ]: parsedDate,
       },
     });
     console.log("result: ", result);

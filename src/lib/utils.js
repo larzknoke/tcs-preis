@@ -25,11 +25,18 @@ export function getInternalValue({ allOptions, isMulti, value }) {
   return allOptions.find((option) => option.value === value) || null;
 }
 
-export function dateFormatter(date) {
-  return new Date(date).toLocaleString([], {
-    dateStyle: "short",
-    timeStyle: "short",
-  });
+export function dateFormatter(date, withTime = true) {
+  if (!date) return "-";
+  if (!withTime) {
+    return new Date(date).toLocaleString([], {
+      dateStyle: "medium",
+    });
+  } else {
+    return new Date(date).toLocaleString([], {
+      dateStyle: "short",
+      timeStyle: "short",
+    });
+  }
 }
 
 export function currencyFormatter(value) {
@@ -61,3 +68,35 @@ export function topScroller() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 }
+
+export const Month_Names_Full = [
+  "Januar",
+  "Februar",
+  "März",
+  "April",
+  "Mai",
+  "Juni",
+  "Juli",
+  "August",
+  "September",
+  "Oktober",
+  "November",
+  "Dezember",
+];
+
+export const Month_Names_Short = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "Mai",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Okt",
+  "Nov",
+  "Dez",
+];
+
+export const Weekday_Names_Short = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];

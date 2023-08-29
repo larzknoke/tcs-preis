@@ -22,7 +22,7 @@ import {
 } from "@chakra-ui/react";
 import { HiOutlineClipboard, HiCheck, HiOutlinePlus } from "react-icons/hi2";
 import { useEffect } from "react";
-import { Checker } from "@/lib/utils";
+import { Checker, dateFormatter } from "@/lib/utils";
 
 function InternDetail({ letter }) {
   const {
@@ -69,7 +69,9 @@ function InternDetail({ letter }) {
             </Stat>
             <Stat>
               <StatLabel>Termin Überweisung 1.000€</StatLabel>
-              <StatNumber>{letter.terminGeld || "01.02.2024"} </StatNumber>
+              <StatNumber>
+                {dateFormatter(letter.terminGeld, false) || "01.02.2024"}
+              </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Termin Übergabe</StatLabel>

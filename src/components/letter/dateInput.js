@@ -1,32 +1,42 @@
 import { Button, ButtonGroup, Input } from "@chakra-ui/react";
 import { useState } from "react";
+import { SingleDatepicker } from "chakra-dayzed-datepicker";
+import { Month_Names_Short, Weekday_Names_Short } from "@/lib/utils";
 
-function DateInput({ id, typ }) {
+function DateInput({ id, typ, submitDate }) {
   const [date, setDate] = useState();
-
-  async function submitDate() {
-    console.log("id: ", id);
-    console.log("typ: ", typ);
-    console.log("date: ", date);
-    const res = await fetch("/api/letter/updateDate", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, date, typ }),
-    });
-  }
 
   return (
     <>
-      <Input
-        placeholder="Datum..."
-        onChange={(e) => {
-          setDate(e.target.value);
-          console.log("date: ", date);
+      <SingleDatepicker
+        placeholder="Datum auswählen..."
+        name="date-input"
+        date={date}
+        onDateChange={setDate}
+        configs={{
+          dateFormat: "dd.MM.yyyy",
+          dayNames: Weekday_Names_Short, // length of 7
+          monthNames: Month_Names_Short, // length of 12
+          firstDayOfWeek: 1, // default is 0, the dayNames[0], which is Sunday if you don't specify your own dayNames,
+        }}
+        propsConfigs={{
+          inputProps: {
+            placeholder: "Datum auswählen...",
+          },
+          dayOfMonthBtnProps: {
+            defaultBtnProps: {
+              _hover: {
+                background: "brand.900",
+              },
+            },
+            todayBtnProps: {
+              background: "brand.900",
+            },
+          },
         }}
       />
       <ButtonGroup display="flex" justifyContent="flex-end">
-        {/* <Button variant="outline">Abbrechen</Button> */}
-        <Button colorScheme="green" onClick={submitDate}>
+        <Button colorScheme="green" onClick={() => submitDate(id, date, typ)}>
           Speichern
         </Button>
       </ButtonGroup>
