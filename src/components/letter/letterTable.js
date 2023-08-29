@@ -75,6 +75,7 @@ import fuzzyFilter from "@/lib/fuzzyFilter";
 
 import { Capatilizer } from "@/lib/utils";
 import LetterDateModal from "./letterDateModal";
+import DateInput from "./dateInput";
 
 function LetterTable({ letters }) {
   console.log("LETTER TABLE");
@@ -563,7 +564,7 @@ function LetterTable({ letters }) {
           //     icon={<HiCalendarDays />}
           //   />
           // </HStack>
-          <Popover trigger="hover" onClose={onClose}>
+          <Popover>
             <PopoverTrigger>
               <HStack>
                 <Text>16.08.2023</Text>
@@ -576,16 +577,7 @@ function LetterTable({ letters }) {
               <PopoverHeader>Datum auswählen</PopoverHeader>
               <PopoverBody>
                 <Stack spacing={4}>
-                  <Input
-                    placeholder="Datum..."
-                    onChange={(e) => console.log("value", e.target.value)}
-                  />
-                  <ButtonGroup display="flex" justifyContent="flex-end">
-                    <Button variant="outline" onClick={onClose}>
-                      Abbrechen
-                    </Button>
-                    <Button colorScheme="green">Speichern</Button>
-                  </ButtonGroup>
+                  <DateInput id={row.original.id} typ={"terminGeld"} />
                 </Stack>
               </PopoverBody>
             </PopoverContent>
@@ -597,7 +589,7 @@ function LetterTable({ letters }) {
     columnHelper.accessor("terminUebergabe", {
       cell: ({ row, info }) => {
         return (
-          <Popover trigger="hover" onClose={onClose}>
+          <Popover>
             <PopoverTrigger>
               <HStack>
                 <Text>03.09.2023</Text>
