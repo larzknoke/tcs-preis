@@ -22,7 +22,7 @@ function LetterDetail({ letter }) {
         <Tab>Träger</Tab>
         <Tab>Projekt</Tab>
         <Tab>Beschreibung</Tab>
-        <Tab>Finanizerung</Tab>
+        <Tab>Finanzierung</Tab>
         <Tab>Intern</Tab>
         <Tab>Dateien</Tab>
         <Tab>Notizen</Tab>
