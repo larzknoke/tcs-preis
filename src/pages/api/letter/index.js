@@ -29,4 +29,26 @@ export default async function handle(req, res) {
       return res.status(500).json(error);
     }
   }
+  if (req.method == "PUT") {
+    try {
+      const data = req.body;
+      [
+        "notes",
+        "files",
+        "botschafterId",
+        "kampagneId",
+        "botschafter",
+        "kampagne",
+      ].forEach((k) => delete data[k]);
+
+      const result = await prisma.letter.update({
+        where: { id: parseInt(data.id) },
+        data: { ...data, updatedAt: new Date() },
+      });
+      return res.status(200).json(result);
+    } catch (error) {
+      console.log("api error: ", error);
+      return res.status(500).json(error);
+    }
+  }
 }

@@ -23,7 +23,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { bundeslaender } from "@/lib/data";
 import { Select } from "chakra-react-select";
 
-function TraegerEditModal({ onClose, isOpen, letter }) {
+function ProjektEditModal({ onClose, isOpen, letter }) {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -70,7 +70,7 @@ function TraegerEditModal({ onClose, isOpen, letter }) {
         const resData = await res.json();
         console.log("resData: ", resData);
         toast({
-          title: `Träger ${resData.nameTraeger} aktualisiert.`,
+          title: `Projekt ${resData.nameTraeger} aktualisiert.`,
           status: "success",
           duration: 4000,
           isClosable: true,
@@ -103,99 +103,135 @@ function TraegerEditModal({ onClose, isOpen, letter }) {
           <form id="edit-letter-form" onSubmit={handleSubmit(onSubmit)}>
             <SimpleGrid spacing={6} columns={4} w={"full"}>
               <GridItem colSpan={4}>
-                <FormControl isInvalid={errors.nameTraeger}>
-                  <FormLabel>Name</FormLabel>
+                <FormControl isInvalid={errors.organisationProjekt}>
+                  <FormLabel>Organisation Name</FormLabel>
                   <Input
-                    name="nameTraeger"
+                    name="organisationProjekt"
                     type="text"
-                    {...register("nameTraeger")}
+                    {...register("organisationProjekt")}
                   />
                   <FormErrorMessage>
-                    {errors.nameTraeger && errors.nameTraeger.message}
+                    {errors.organisationProjekt &&
+                      errors.organisationProjekt.message}
                   </FormErrorMessage>
                 </FormControl>
               </GridItem>
               <GridItem colSpan={4}>
-                <Controller
-                  control={control}
-                  name="bundeslandTraeger"
-                  render={({
-                    field: { onChange, onBlur, value, name, ref },
-                    fieldState: { error },
-                  }) => {
-                    return (
-                      <FormControl isInvalid={!!error} id="bundesland">
-                        <FormLabel>Bundesland</FormLabel>
-                        <Select
-                          name={name}
-                          ref={ref}
-                          onChange={(e) => {
-                            setValue("bundesland", e.value);
-                            setSelectedBundesland(e);
-                          }}
-                          onBlur={onBlur}
-                          value={selectedBundesland}
-                          options={bundeslaender}
-                          placeholder="Bitte auswählen..."
-                        />
-                        <FormErrorMessage>
-                          {errors.bundeslandTraeger &&
-                            errors.bundeslandTraeger.message}
-                        </FormErrorMessage>
-                      </FormControl>
-                    );
-                  }}
-                />
-              </GridItem>
-              <GridItem colSpan={4}>
-                <FormControl isInvalid={errors.vorstandTraeger}>
-                  <FormLabel>Name Vorstand</FormLabel>
+                <FormControl isInvalid={errors.nameProjekt}>
+                  <FormLabel> Name</FormLabel>
                   <Input
-                    name="vorstandTraeger"
+                    name="nameProjekt"
                     type="text"
-                    {...register("vorstandTraeger")}
+                    {...register("nameProjekt")}
                   />
                   <FormErrorMessage>
-                    {errors.vorstandTraeger && errors.vorstandTraeger.message}
+                    {errors.nameProjekt && errors.nameProjekt.message}
                   </FormErrorMessage>
                 </FormControl>
               </GridItem>
               <GridItem colSpan={4}>
-                <FormControl isInvalid={errors.strasseTraeger}>
+                <FormControl isInvalid={errors.ansprechpartnerProjekt}>
+                  <FormLabel>Ansprechpartner</FormLabel>
+                  <Input
+                    name="ansprechpartnerProjekt"
+                    type="text"
+                    {...register("ansprechpartnerProjekt")}
+                  />
+                  <FormErrorMessage>
+                    {errors.ansprechpartnerProjekt &&
+                      errors.ansprechpartnerProjekt.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.emailProjekt}>
+                  <FormLabel>Email</FormLabel>
+                  <Input
+                    name="emailProjekt"
+                    type="text"
+                    {...register("emailProjekt")}
+                  />
+                  <FormErrorMessage>
+                    {errors.emailProjekt && errors.emailProjekt.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.wwwProjekt}>
+                  <FormLabel>Website</FormLabel>
+                  <Input
+                    name="wwwProjekt"
+                    type="text"
+                    {...register("wwwProjekt")}
+                  />
+                  <FormErrorMessage>
+                    {errors.wwwProjekt && errors.wwwProjekt.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.telefonnummerProjekt}>
+                  <FormLabel>Telefon</FormLabel>
+                  <Input
+                    name="telefonnummerProjekt"
+                    type="text"
+                    {...register("telefonnummerProjekt")}
+                  />
+                  <FormErrorMessage>
+                    {errors.telefonnummerProjekt &&
+                      errors.telefonnummerProjekt.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.mobilProjekt}>
+                  <FormLabel>Mobil</FormLabel>
+                  <Input
+                    name="mobilProjekt"
+                    type="text"
+                    {...register("mobilProjekt")}
+                  />
+                  <FormErrorMessage>
+                    {errors.mobilProjekt && errors.mobilProjekt.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.strasseProjekt}>
                   <FormLabel>Straße</FormLabel>
                   <Input
-                    name="strasseTraeger"
+                    name="strasseProjekt"
                     type="text"
-                    {...register("strasseTraeger")}
+                    {...register("strasseProjekt")}
                   />
                   <FormErrorMessage>
-                    {errors.strasseTraeger && errors.strasseTraeger.message}
+                    {errors.strasseProjekt && errors.strasseProjekt.message}
                   </FormErrorMessage>
                 </FormControl>
               </GridItem>
-              <GridItem colSpan={2}>
-                <FormControl isInvalid={errors.plzTraeger}>
-                  <FormLabel>PLZ</FormLabel>
+              <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.plzProjekt}>
+                  <FormLabel>Plz</FormLabel>
                   <Input
-                    name="plzTraeger"
+                    name="plzProjekt"
                     type="text"
-                    {...register("plzTraeger")}
+                    {...register("plzProjekt")}
                   />
                   <FormErrorMessage>
-                    {errors.plzTraeger && errors.plzTraeger.message}
+                    {errors.plzProjekt && errors.plzProjekt.message}
                   </FormErrorMessage>
                 </FormControl>
               </GridItem>
-              <GridItem colSpan={2}>
-                <FormControl isInvalid={errors.ortTraeger}>
-                  <FormLabel>Straße</FormLabel>
+              <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.ortProjekt}>
+                  <FormLabel>Ort</FormLabel>
                   <Input
-                    name="ortTraeger"
+                    name="ortProjekt"
                     type="text"
-                    {...register("ortTraeger")}
+                    {...register("ortProjekt")}
                   />
                   <FormErrorMessage>
-                    {errors.ortTraeger && errors.ortTraeger.message}
+                    {errors.ortProjekt && errors.ortProjekt.message}
                   </FormErrorMessage>
                 </FormControl>
               </GridItem>
@@ -229,4 +265,4 @@ function TraegerEditModal({ onClose, isOpen, letter }) {
   );
 }
 
-export default TraegerEditModal;
+export default ProjektEditModal;

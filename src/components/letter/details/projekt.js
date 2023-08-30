@@ -13,12 +13,19 @@ import {
   Tooltip,
   IconButton,
   useClipboard,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { HiOutlineClipboard, HiCheck, HiOutlinePlus } from "react-icons/hi2";
+import {
+  HiOutlineClipboard,
+  HiCheck,
+  HiOutlinePencilSquare,
+} from "react-icons/hi2";
 import { useEffect } from "react";
+import ProjektEditModal from "./projektEditModal";
 
 function ProjektDetail({ letter }) {
   const { onCopy, setValue, hasCopied } = useClipboard();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     setValue(letter.emailProjekt);
@@ -32,14 +39,31 @@ function ProjektDetail({ letter }) {
     >
       <Card>
         <CardHeader>
-          <Heading
-            size="sm"
-            color="gray.500"
-            fontWeight={"600"}
-            textTransform={"uppercase"}
-          >
-            Projekt
-          </Heading>
+          <HStack justifyContent={"space-between"}>
+            <Heading
+              size="sm"
+              color="gray.500"
+              fontWeight={"600"}
+              textTransform={"uppercase"}
+            >
+              Projekt
+            </Heading>
+            <Tooltip label="Bearbeiten">
+              <IconButton
+                onClick={onOpen}
+                variant="ghost"
+                colorScheme="gray"
+                aria-label="See menu"
+                color="gray.600"
+                icon={<HiOutlinePencilSquare size={20} />}
+              />
+            </Tooltip>
+            <ProjektEditModal
+              onClose={onClose}
+              isOpen={isOpen}
+              letter={letter}
+            />
+          </HStack>
         </CardHeader>
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
