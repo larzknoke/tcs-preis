@@ -73,8 +73,7 @@ import { useRouter } from "next/router";
 import DebouncedInput from "@/lib/debouncedInput";
 import fuzzyFilter from "@/lib/fuzzyFilter";
 
-import { Capatilizer } from "@/lib/utils";
-import LetterDateModal from "./letterDateModal";
+import { Capatilizer, dateFormatter } from "@/lib/utils";
 import DateInput from "./dateInput";
 
 function LetterTable({ letters }) {
@@ -84,14 +83,6 @@ function LetterTable({ letters }) {
   const [tableData, setTableData] = useState([...letters]);
   const [sorting, setSorting] = useState([{ id: "id", desc: false }]);
   const [globalFilter, setGlobalFilter] = useState("");
-  const [selectedLetter, setSelectedLetter] = useState();
-
-  const { onOpen, onClose, isOpen } = useDisclosure();
-  const {
-    onOpen: onOpenDateModal,
-    onClose: onCloseDateModal,
-    isOpen: isOpenDateModal,
-  } = useDisclosure();
 
   const columnHelper = createColumnHelper();
 
@@ -229,9 +220,43 @@ function LetterTable({ letters }) {
     }
   }
 
-  function handleDateModal(letter, typ) {
-    setSelectedLetter(letter);
-    onOpenDateModal();
+  async function submitDate(id, date, typ) {
+    const res = await fetch("/api/letter/updateDate", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, date, typ }),
+    });
+    if (res.status == 401) {
+      toast({
+        title: "Sie sind nicht berechtigt diese Funktion auszuführen.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else if (res.status != 200) {
+      toast({
+        title: "Ein Fehler ist aufgetreten",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else {
+      const resData = await res.json();
+      console.log("resData: ", resData);
+
+      setTableData(
+        tableData.map((l) =>
+          l.id == resData.result.id ? { ...l, [typ]: date } : l
+        )
+      );
+
+      toast({
+        title: `Datum geändert`,
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
   }
 
   const columns = useMemo(() => [
@@ -556,32 +581,30 @@ function LetterTable({ letters }) {
     columnHelper.accessor("terminGeld", {
       cell: ({ row, info }) => {
         return (
-          // <HStack>
-          //   <Text>{row.original.terminGeld || "-"}</Text>
-          //   <IconButton
-          //     onClick={() => handleDateModal(row.original, "terminGeld")}
-          //     variant={"ghost"}
-          //     icon={<HiCalendarDays />}
-          //   />
-          // </HStack>
-          <Popover>
-            <PopoverTrigger>
-              <HStack>
-                <Text>16.08.2023</Text>
-                <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
-              </HStack>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>Datum auswählen</PopoverHeader>
-              <PopoverBody>
-                <Stack spacing={4}>
-                  <DateInput id={row.original.id} typ={"terminGeld"} />
-                </Stack>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
+          <HStack>
+            <Text>{dateFormatter(row.original.terminGeld, false) || "-"}</Text>
+            <Popover>
+              <PopoverTrigger>
+                <HStack>
+                  <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
+                </HStack>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader>Datum auswählen</PopoverHeader>
+                <PopoverBody>
+                  <Stack spacing={4}>
+                    <DateInput
+                      id={row.original.id}
+                      typ={"terminGeld"}
+                      submitDate={submitDate}
+                    />
+                  </Stack>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+          </HStack>
         );
       },
       header: "Termin Überweisung",
@@ -589,32 +612,32 @@ function LetterTable({ letters }) {
     columnHelper.accessor("terminUebergabe", {
       cell: ({ row, info }) => {
         return (
-          <Popover>
-            <PopoverTrigger>
-              <HStack>
-                <Text>03.09.2023</Text>
-                <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
-              </HStack>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>Datum auswählen</PopoverHeader>
-              <PopoverBody>
-                <Stack spacing={4}>
-                  <Input placeholder="Datum..." />
-                  <ButtonGroup display="flex" justifyContent="flex-end">
-                    <Button variant="outline" onClick={onClose}>
-                      Abbrechen
-                    </Button>
-                    <Button isDisabled colorScheme="green">
-                      Speichern
-                    </Button>
-                  </ButtonGroup>
-                </Stack>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
+          <HStack>
+            <Text>
+              {dateFormatter(row.original.terminUebergabe, false) || "-"}
+            </Text>
+            <Popover>
+              <PopoverTrigger>
+                <HStack>
+                  <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
+                </HStack>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader>Datum auswählen</PopoverHeader>
+                <PopoverBody>
+                  <Stack spacing={4}>
+                    <DateInput
+                      id={row.original.id}
+                      typ={"terminUebergabe"}
+                      submitDate={submitDate}
+                    />
+                  </Stack>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+          </HStack>
         );
       },
       header: "Termin Übergabe",
@@ -622,32 +645,32 @@ function LetterTable({ letters }) {
     columnHelper.accessor("bildmaterial", {
       cell: ({ row, info }) => {
         return (
-          <Popover trigger="hover" onClose={onClose}>
-            <PopoverTrigger>
-              <HStack>
-                <Text>03.09.2023</Text>
-                <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
-              </HStack>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>Datum auswählen</PopoverHeader>
-              <PopoverBody>
-                <Stack spacing={4}>
-                  <Input placeholder="Datum..." />
-                  <ButtonGroup display="flex" justifyContent="flex-end">
-                    <Button variant="outline" onClick={onClose}>
-                      Abbrechen
-                    </Button>
-                    <Button isDisabled colorScheme="green">
-                      Speichern
-                    </Button>
-                  </ButtonGroup>
-                </Stack>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
+          <HStack>
+            <Text>
+              {dateFormatter(row.original.bildmaterial, false) || "-"}
+            </Text>
+            <Popover>
+              <PopoverTrigger>
+                <HStack>
+                  <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
+                </HStack>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader>Datum auswählen</PopoverHeader>
+                <PopoverBody>
+                  <Stack spacing={4}>
+                    <DateInput
+                      id={row.original.id}
+                      typ={"bildmaterial"}
+                      submitDate={submitDate}
+                    />
+                  </Stack>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+          </HStack>
         );
       },
       header: "Bildmaterial erhalten",
@@ -655,32 +678,30 @@ function LetterTable({ letters }) {
     columnHelper.accessor("socialTCS", {
       cell: ({ row, info }) => {
         return (
-          <Popover trigger="hover" onClose={onClose}>
-            <PopoverTrigger>
-              <HStack>
-                <Text>03.09.2023</Text>
-                <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
-              </HStack>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>Datum auswählen</PopoverHeader>
-              <PopoverBody>
-                <Stack spacing={4}>
-                  <Input placeholder="Datum..." />
-                  <ButtonGroup display="flex" justifyContent="flex-end">
-                    <Button variant="outline" onClick={onClose}>
-                      Abbrechen
-                    </Button>
-                    <Button isDisabled colorScheme="green">
-                      Speichern
-                    </Button>
-                  </ButtonGroup>
-                </Stack>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
+          <HStack>
+            <Text>{dateFormatter(row.original.socialTCS, false) || "-"}</Text>
+            <Popover>
+              <PopoverTrigger>
+                <HStack>
+                  <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
+                </HStack>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader>Datum auswählen</PopoverHeader>
+                <PopoverBody>
+                  <Stack spacing={4}>
+                    <DateInput
+                      id={row.original.id}
+                      typ={"socialTCS"}
+                      submitDate={submitDate}
+                    />
+                  </Stack>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+          </HStack>
         );
       },
       header: "Socialmedia TCS",
@@ -688,32 +709,30 @@ function LetterTable({ letters }) {
     columnHelper.accessor("socialFremd", {
       cell: ({ row, info }) => {
         return (
-          <Popover trigger="hover" onClose={onClose}>
-            <PopoverTrigger>
-              <HStack>
-                <Text>03.09.2023</Text>
-                <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
-              </HStack>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>Datum auswählen</PopoverHeader>
-              <PopoverBody>
-                <Stack spacing={4}>
-                  <Input placeholder="Datum..." />
-                  <ButtonGroup display="flex" justifyContent="flex-end">
-                    <Button variant="outline" onClick={onClose}>
-                      Abbrechen
-                    </Button>
-                    <Button isDisabled colorScheme="green">
-                      Speichern
-                    </Button>
-                  </ButtonGroup>
-                </Stack>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
+          <HStack>
+            <Text>{dateFormatter(row.original.socialFremd, false) || "-"}</Text>
+            <Popover>
+              <PopoverTrigger>
+                <HStack>
+                  <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
+                </HStack>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader>Datum auswählen</PopoverHeader>
+                <PopoverBody>
+                  <Stack spacing={4}>
+                    <DateInput
+                      id={row.original.id}
+                      typ={"socialFremd"}
+                      submitDate={submitDate}
+                    />
+                  </Stack>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+          </HStack>
         );
       },
       header: "Socialmedia Fremd",
@@ -805,32 +824,30 @@ function LetterTable({ letters }) {
     columnHelper.accessor("zwb1000", {
       cell: ({ row, info }) => {
         return (
-          <Popover trigger="hover" onClose={onClose}>
-            <PopoverTrigger>
-              <HStack>
-                <Text>03.09.2023</Text>
-                <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
-              </HStack>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>Datum auswählen</PopoverHeader>
-              <PopoverBody>
-                <Stack spacing={4}>
-                  <Input placeholder="Datum..." />
-                  <ButtonGroup display="flex" justifyContent="flex-end">
-                    <Button variant="outline" onClick={onClose}>
-                      Abbrechen
-                    </Button>
-                    <Button isDisabled colorScheme="green">
-                      Speichern
-                    </Button>
-                  </ButtonGroup>
-                </Stack>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
+          <HStack>
+            <Text>{dateFormatter(row.original.zwb1000, false) || "-"}</Text>
+            <Popover>
+              <PopoverTrigger>
+                <HStack>
+                  <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
+                </HStack>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader>Datum auswählen</PopoverHeader>
+                <PopoverBody>
+                  <Stack spacing={4}>
+                    <DateInput
+                      id={row.original.id}
+                      typ={"zwb1000"}
+                      submitDate={submitDate}
+                    />
+                  </Stack>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+          </HStack>
         );
       },
       header: "ZWB 1000,-",
@@ -838,32 +855,30 @@ function LetterTable({ letters }) {
     columnHelper.accessor("zwb5000", {
       cell: ({ row, info }) => {
         return (
-          <Popover trigger="hover" onClose={onClose}>
-            <PopoverTrigger>
-              <HStack>
-                <Text>03.09.2023</Text>
-                <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
-              </HStack>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>Datum auswählen</PopoverHeader>
-              <PopoverBody>
-                <Stack spacing={4}>
-                  <Input placeholder="Datum..." />
-                  <ButtonGroup display="flex" justifyContent="flex-end">
-                    <Button variant="outline" onClick={onClose}>
-                      Abbrechen
-                    </Button>
-                    <Button isDisabled colorScheme="green">
-                      Speichern
-                    </Button>
-                  </ButtonGroup>
-                </Stack>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
+          <HStack>
+            <Text>{dateFormatter(row.original.zwb5000, false) || "-"}</Text>
+            <Popover>
+              <PopoverTrigger>
+                <HStack>
+                  <IconButton variant={"ghost"} icon={<HiCalendarDays />} />
+                </HStack>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader>Datum auswählen</PopoverHeader>
+                <PopoverBody>
+                  <Stack spacing={4}>
+                    <DateInput
+                      id={row.original.id}
+                      typ={"zwb5000"}
+                      submitDate={submitDate}
+                    />
+                  </Stack>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+          </HStack>
         );
       },
       header: "ZWB 5000,-",
@@ -1078,12 +1093,6 @@ function LetterTable({ letters }) {
           </Flex>
         </CardBody>
       </Card>
-      <LetterDateModal
-        letter={selectedLetter}
-        onOpen={onOpenDateModal}
-        isOpen={isOpenDateModal}
-        onClose={onCloseDateModal}
-      />
     </>
   );
 }
