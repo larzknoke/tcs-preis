@@ -69,21 +69,21 @@ function InternDetail({ letter }) {
             </Stat>
             <Stat>
               <StatLabel>Termin Überweisung 1.000€</StatLabel>
-              <StatNumber>
-                {dateFormatter(letter.terminGeld, false) || "01.02.2024"}
-              </StatNumber>
+              <StatNumber>{dateFormatter(letter.terminGeld, false)}</StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Termin Übergabe</StatLabel>
-              <StatNumber>{letter.terminUebergabe || "08.09.2023"} </StatNumber>
+              <StatNumber>
+                {dateFormatter(letter.terminUebergabe, false)}
+              </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>ZWB 1000</StatLabel>
-              <StatNumber>{letter.zwb1000 || "08.09.2023"} </StatNumber>
+              <StatNumber>{dateFormatter(letter.zwb1000, false)}</StatNumber>
             </Stat>
             <Stat>
               <StatLabel>ZWB 5000</StatLabel>
-              <StatNumber>{letter.zwb5000 || "08.09.2023"} </StatNumber>
+              <StatNumber>{dateFormatter(letter.zwb5000, false)}</StatNumber>
             </Stat>
           </Stack>
         </CardBody>
@@ -105,21 +105,19 @@ function InternDetail({ letter }) {
               <StatLabel>
                 Social Media <Text as={"b"}>TCS</Text>
               </StatLabel>
-              <StatNumber>{letter.zwb1000 || "08.09.2023"} </StatNumber>
+              <StatNumber>{dateFormatter(letter.socialTCS, false)} </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>
                 Social Media <Text as={"b"}>Fremd</Text>
               </StatLabel>
-              <StatNumber>{letter.zwb1000 || "08.09.2023"} </StatNumber>
+              <StatNumber>
+                {dateFormatter(letter.socialFremd, false)}
+              </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Social Media Notiz</StatLabel>
-              <StatNumber fontSize={15}>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua.{" "}
-              </StatNumber>
+              <StatNumber fontSize={15}>{letter.socialNotiz}</StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Pressearbeit erwünscht</StatLabel>
@@ -131,31 +129,31 @@ function InternDetail({ letter }) {
                 <Stat>
                   <StatLabel>Presseeinladung versendet</StatLabel>
                   <StatNumber>
-                    {letter.presseEinladung || "08.09.2023"}{" "}
+                    {dateFormatter(letter.presseEinladung, false)}
                   </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Pressemitteilung erstellt</StatLabel>
                   <StatNumber>
-                    {letter.presseMitteilung || "08.09.2023"}{" "}
+                    {dateFormatter(letter.presseMitteilung, false)}
                   </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Pressemitteilung freigegeben</StatLabel>
                   <StatNumber>
-                    {letter.presseFreigabe || "09.09.2023"}{" "}
+                    {dateFormatter(letter.presseFreigabe, false)}
                   </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Pressemitteilung versendet</StatLabel>
                   <StatNumber>
-                    {letter.presseVersendet || "10.09.2023"}{" "}
+                    {dateFormatter(letter.presseVersendet, false)}
                   </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Pressearbeit erledigt</StatLabel>
                   <StatNumber>
-                    {letter.presseErledigt || "11.09.2023"}{" "}
+                    {dateFormatter(letter.presseErledigt, false)}
                   </StatNumber>
                 </Stat>
               </Flex>
