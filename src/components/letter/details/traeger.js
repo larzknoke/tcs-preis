@@ -3,19 +3,25 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Heading,
   Stack,
   StackDivider,
   Stat,
   StatLabel,
   StatNumber,
-  Button,
+  IconButton,
+  HStack,
+  Tooltip,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Checker } from "@/lib/utils";
 import BotschafterDetail from "./botschafter";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
+import TraegerEditModal from "./traegerEditModal";
 
 function TraegerDetail({ letter }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <SimpleGrid
       spacing={6}
@@ -25,14 +31,31 @@ function TraegerDetail({ letter }) {
     >
       <Card>
         <CardHeader>
-          <Heading
-            size="sm"
-            color="gray.500"
-            fontWeight={"600"}
-            textTransform={"uppercase"}
-          >
-            Träger
-          </Heading>
+          <HStack justifyContent={"space-between"}>
+            <Heading
+              size="sm"
+              color="gray.500"
+              fontWeight={"600"}
+              textTransform={"uppercase"}
+            >
+              Träger
+            </Heading>
+            <Tooltip label="Bearbeiten">
+              <IconButton
+                onClick={onOpen}
+                variant="ghost"
+                colorScheme="gray"
+                aria-label="See menu"
+                color="gray.600"
+                icon={<HiOutlinePencilSquare size={20} />}
+              />
+            </Tooltip>
+            <TraegerEditModal
+              onClose={onClose}
+              isOpen={isOpen}
+              letter={letter}
+            />
+          </HStack>
         </CardHeader>
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
