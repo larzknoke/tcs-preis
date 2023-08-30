@@ -82,28 +82,28 @@ export const formSchema = yup.object().shape({
   hauptamtlichStunden: yup.string(),
   ehrenamtlichAnzahl: yup.string(),
   ehrenamtlichStunden: yup.string(),
-  beschreibungProjekt: yup.string().required(),
-  zielsetzungProjekt: yup.string().required(),
-  benachteiligungProjekt: yup.string().required(),
-  umsetzungProjekt: yup.string().required(),
-  bisherigeErgebnisse: yup.string().required(),
+  beschreibungProjekt: yup.string().max(1500).required(),
+  zielsetzungProjekt: yup.string().max(1500).required(),
+  benachteiligungProjekt: yup.string().max(1500).required(),
+  umsetzungProjekt: yup.string().max(1500).required(),
+  bisherigeErgebnisse: yup.string().max(1500).required(),
   eigenmittel: yup
     .number()
     .integer()
     .typeError("Dieses Feld muss eine Zahl sein")
-    .moreThan(0, "Bitte eine gültige Zahl eingeben")
+    .moreThan(-1, "Bitte eine gültige Zahl eingeben")
     .required(),
   oeffentlicheZuwendungen: yup
     .number()
     .integer()
     .typeError("Dieses Feld muss eine Zahl sein")
-    .moreThan(0, "Bitte eine gültige Zahl eingeben")
+    .moreThan(-1, "Bitte eine gültige Zahl eingeben")
     .required(),
   privateSpenden: yup
     .number()
     .integer()
     .typeError("Dieses Feld muss eine Zahl sein")
-    .moreThan(0, "Bitte eine gültige Zahl eingeben")
+    .moreThan(-1, "Bitte eine gültige Zahl eingeben")
     .required(),
   zuwendungAndere: yup.string().required(),
   bisherigeFoerderung: yup.string().required(),

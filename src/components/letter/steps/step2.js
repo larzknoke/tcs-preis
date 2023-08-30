@@ -367,6 +367,7 @@ function Step2() {
               name="beschreibungProjekt"
               type="string"
               {...register("beschreibungProjekt")}
+              minH={48}
             />
             <FormErrorMessage>
               {errors.beschreibungProjekt && errors.beschreibungProjekt.message}
@@ -387,6 +388,7 @@ function Step2() {
               name="zielsetzungProjekt"
               type="string"
               {...register("zielsetzungProjekt")}
+              minH={48}
             />
             <FormErrorMessage>
               {errors.zielsetzungProjekt && errors.zielsetzungProjekt.message}
@@ -408,6 +410,7 @@ function Step2() {
               name="benachteiligungProjekt"
               type="string"
               {...register("benachteiligungProjekt")}
+              minH={48}
             />
             <FormErrorMessage>
               {errors.benachteiligungProjekt &&
@@ -428,6 +431,7 @@ function Step2() {
               name="umsetzungProjekt"
               type="string"
               {...register("umsetzungProjekt")}
+              minH={48}
             />
             <FormErrorMessage>
               {errors.umsetzungProjekt && errors.umsetzungProjekt.message}
@@ -446,6 +450,7 @@ function Step2() {
               name="bisherigeErgebnisse"
               type="string"
               {...register("bisherigeErgebnisse")}
+              minH={48}
             />
             <FormErrorMessage>
               {errors.bisherigeErgebnisse && errors.bisherigeErgebnisse.message}

@@ -18,7 +18,7 @@ export default async function handle(req, res) {
       const result = await prisma.letter.create({ data: data });
 
       await sendEmail({
-        to: "info@larsknoke.com",
+        to: ["stiftungspreis@tc-stiftung.de", "info@larsknoke.com"],
         subject: "TC-Stiftung - Stiftungspreis 2023 - Bestätigung",
         html: render(<VerifyEmail letter={result} />),
       });
