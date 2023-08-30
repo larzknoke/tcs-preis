@@ -47,7 +47,6 @@ export function currencyFormatter(value) {
 }
 
 export function Checker({ bool }) {
-  console.log("bool", typeof bool);
   if (!bool) {
     return <Icon as={HiXMark} color={"red.500"} />;
   } else {

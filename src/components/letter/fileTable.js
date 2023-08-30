@@ -30,9 +30,6 @@ function FileTable({ letter }) {
 
   const files = Object.entries(groupedFiles);
 
-  console.log(groupedFiles);
-  console.log(files);
-
   files.forEach((file) => {
     console.log(file[0]);
     console.log(file[1]);

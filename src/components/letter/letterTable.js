@@ -77,7 +77,6 @@ import { Capatilizer, dateFormatter } from "@/lib/utils";
 import DateInput from "./dateInput";
 
 function LetterTable({ letters }) {
-  console.log("LETTER TABLE");
   const router = useRouter();
   const toast = useToast();
   const [tableData, setTableData] = useState([...letters]);
