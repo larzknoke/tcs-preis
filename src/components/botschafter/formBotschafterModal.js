@@ -26,6 +26,9 @@ import { useState } from "react";
 
 function FormBotschafterModal({ isOpen, onClose, isNew, botschafter = null }) {
   const router = useRouter();
+  const toast = useToast();
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -39,9 +42,6 @@ function FormBotschafterModal({ isOpen, onClose, isNew, botschafter = null }) {
     defaultValues: botschafter,
   });
 
-  const toast = useToast();
-
-  const [loading, setLoading] = useState(false);
   const [selectedAnrede, setSelectedAnrede] = useState(
     botschafter
       ? {
@@ -84,9 +84,9 @@ function FormBotschafterModal({ isOpen, onClose, isNew, botschafter = null }) {
           isClosable: true,
         });
         onClose();
-        reset();
         router.push(`/admin/botschafter/${resData.id}`);
         setLoading(false);
+        reset(resData);
       }
     } catch (error) {
       console.log("api fetch error");
