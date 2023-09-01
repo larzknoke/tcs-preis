@@ -55,7 +55,6 @@ function SocialEditModal({ onClose, isOpen, letter }) {
   async function onSubmit(values) {
     try {
       setLoading(true);
-      console.log("values: ", values);
       const res = await fetch("/api/letter", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -71,7 +70,6 @@ function SocialEditModal({ onClose, isOpen, letter }) {
         setLoading(false);
       } else {
         const resData = await res.json();
-        console.log("resData: ", resData);
         toast({
           title: `Projekt ${resData.nameTraeger} aktualisiert.`,
           status: "success",

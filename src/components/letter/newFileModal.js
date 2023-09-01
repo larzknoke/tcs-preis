@@ -38,7 +38,6 @@ function NewFileModal({ letter, isOpen, onClose }) {
   async function onSubmit(values) {
     try {
       setLoading(true);
-      console.log("values: ", values);
 
       // ***********
       // UPLOAD FILE
@@ -97,7 +96,6 @@ function NewFileModal({ letter, isOpen, onClose }) {
         }
       }
     } catch (error) {
-      console.log("api fetch error");
       console.error("Err", error);
       toast({
         title: "Ein Fehler ist aufgetreten",

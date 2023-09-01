@@ -24,7 +24,6 @@ function StatusModal({ statusOnClose, statusIsOpen, letter }) {
   const [status, setStatus] = useState(letter.status);
 
   async function onSubmit() {
-    console.log("submit: ", status);
     const res = await fetch("/api/letter/updateStatus", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -46,7 +45,6 @@ function StatusModal({ statusOnClose, statusIsOpen, letter }) {
       });
     } else {
       const resData = await res.json();
-      console.log("resData: ", resData);
       toast({
         title: `Status geändert`,
         status: "success",

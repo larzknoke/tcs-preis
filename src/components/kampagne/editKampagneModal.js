@@ -38,7 +38,6 @@ function EditKampagneModal({ editIsOpen, editOnClose, kampagne }) {
 
   async function onSubmit(values) {
     try {
-      console.log("submit values: ", values);
       const res = await fetch(`/api/kampagne/updateKampagne`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -53,7 +52,6 @@ function EditKampagneModal({ editIsOpen, editOnClose, kampagne }) {
         });
       } else {
         const resData = await res.json();
-        console.log("resData: ", resData);
         editOnClose();
         toast({
           title: `Kampagne ${resData.result.name} gespeichert.`,

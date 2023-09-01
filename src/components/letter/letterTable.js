@@ -94,7 +94,6 @@ function LetterTable({ letters }) {
   }
 
   async function changeStatus(status, id) {
-    console.log("status", status);
     const res = await fetch("/api/letter/updateStatus", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -116,8 +115,6 @@ function LetterTable({ letters }) {
       });
     } else {
       const resData = await res.json();
-      console.log("resData: ", resData);
-
       setTableData(
         tableData.map((l) =>
           l.id == resData.result.id
@@ -136,7 +133,6 @@ function LetterTable({ letters }) {
   }
 
   async function changeFbCheck(status, id) {
-    console.log("status", status);
     const res = await fetch("/api/letter/updateFbCheck", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -158,8 +154,6 @@ function LetterTable({ letters }) {
       });
     } else {
       const resData = await res.json();
-      console.log("resData: ", resData);
-
       setTableData(
         tableData.map((l) =>
           l.id == resData.result.id
@@ -178,7 +172,6 @@ function LetterTable({ letters }) {
   }
 
   async function changePresseErlaubt(status, id) {
-    console.log("status", status);
     const res = await fetch("/api/letter/updatePresseErlaubt", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -200,8 +193,6 @@ function LetterTable({ letters }) {
       });
     } else {
       const resData = await res.json();
-      console.log("resData: ", resData);
-
       setTableData(
         tableData.map((l) =>
           l.id == resData.result.id
@@ -241,8 +232,6 @@ function LetterTable({ letters }) {
       });
     } else {
       const resData = await res.json();
-      console.log("resData: ", resData);
-
       setTableData(
         tableData.map((l) =>
           l.id == resData.result.id ? { ...l, [typ]: date } : l

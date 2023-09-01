@@ -38,7 +38,6 @@ function NewNoteModal({ letter, isOpen, onClose }) {
   async function onSubmit(values) {
     try {
       values.letterId = letter.id;
-      console.log("values: ", values);
       const res = await fetch("/api/note", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -53,7 +52,6 @@ function NewNoteModal({ letter, isOpen, onClose }) {
         });
       } else {
         const resData = await res.json();
-        console.log("resData: ", resData);
         toast({
           title: `Notiz ${resData.result.title} erstellt.`,
           status: "success",

@@ -27,14 +27,12 @@ function ImportBotschafterModal({ isOpen, onClose }) {
     try {
       // console.log("file: ", file);
       // setLoading(true);
-      console.log("file: ", fileInput.current?.files[0]);
+      // console.log("file: ", fileInput.current?.files[0]);
       Papa.parse(fileInput.current?.files[0], {
         header: true,
         skipEmptyLines: true,
         complete: async function (results) {
-          console.log("results.data", results.data);
           setParsedData(results.data);
-          console.log("parsedData: ", parsedData);
           if (parsedData.length > 0) {
             const res = await fetch("/api/botschafter/import", {
               method: "POST",
@@ -58,7 +56,6 @@ function ImportBotschafterModal({ isOpen, onClose }) {
               setLoading(false);
             } else {
               const resData = await res.json();
-              console.log("resData: ", resData);
               toast({
                 title: `${resData.botschafter?.count} Botschafter erfolgreich importiert.`,
                 status: "success",

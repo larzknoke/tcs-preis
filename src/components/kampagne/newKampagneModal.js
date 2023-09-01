@@ -51,7 +51,6 @@ function NewKampagneModal({ isOpen, onClose }) {
         });
       } else {
         const resData = await res.json();
-        console.log("resData: ", resData);
         toast({
           title: `Kampagne ${resData.result.name} erstellt.`,
           status: "success",
@@ -63,7 +62,6 @@ function NewKampagneModal({ isOpen, onClose }) {
         router.push(`/admin/kampagne/${resData.result.id}`);
       }
     } catch (error) {
-      console.log("api fetch error");
       console.error("Err", error);
       toast({
         title: "Ein Fehler ist aufgetreten",

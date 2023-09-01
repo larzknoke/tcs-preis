@@ -62,7 +62,6 @@ function FormBotschafterModal({ isOpen, onClose, isNew, botschafter = null }) {
   async function onSubmit(values) {
     try {
       setLoading(true);
-      console.log("values: ", values);
       const res = await fetch("/api/botschafter", {
         method: isNew ? "POST" : "PUT",
         headers: { "Content-Type": "application/json" },
@@ -78,7 +77,6 @@ function FormBotschafterModal({ isOpen, onClose, isNew, botschafter = null }) {
         setLoading(false);
       } else {
         const resData = await res.json();
-        console.log("resData: ", resData);
         toast({
           title: `Botschafter ${resData.name} erstellt.`,
           status: "success",

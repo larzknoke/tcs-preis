@@ -78,8 +78,6 @@ function NewLetter() {
 
     delete values.emailBestaetigungProjekt;
     try {
-      console.log("values: ", values);
-
       // ***********
       // COLLECT ALL FILES FROM FORM AND PREPARE FOR UPLOAD
       // ***********
@@ -109,7 +107,6 @@ function NewLetter() {
         files.push(customFile2);
       }
 
-      console.log("files:", files);
       if (activeStep === steps.length - 1) {
         delete values.freistellungsbescheidTraeger;
         delete values.freistellungsbescheidTraeger2;
