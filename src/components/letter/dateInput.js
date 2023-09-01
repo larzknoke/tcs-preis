@@ -27,10 +27,16 @@ function DateInput({ id, typ, submitDate }) {
             defaultBtnProps: {
               _hover: {
                 background: "brand.900",
+                color: "white",
               },
             },
             todayBtnProps: {
+              background: "brand2.900",
+              color: "white",
+            },
+            selectedBtnProps: {
               background: "brand.900",
+              color: "white",
             },
           },
         }}

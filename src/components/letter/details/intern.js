@@ -20,15 +20,22 @@ import {
   useClipboard,
   Flex,
 } from "@chakra-ui/react";
-import { HiOutlineClipboard, HiCheck, HiOutlinePlus } from "react-icons/hi2";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { useEffect } from "react";
 import { Checker, dateFormatter } from "@/lib/utils";
+import InternEditModal from "./internEditModal";
+import SocialEditModal from "./socialEditModal";
 
 function InternDetail({ letter }) {
   const {
-    isOpen: botschafterIsOpen,
-    onOpen: botschafterOnOpen,
-    onClose: botschafterOnClose,
+    isOpen: internIsOpen,
+    onOpen: internOnOpen,
+    onClose: internOnClose,
+  } = useDisclosure();
+  const {
+    isOpen: socialIsOpen,
+    onOpen: socialOnOpen,
+    onClose: socialOnClose,
   } = useDisclosure();
   const { onCopy, setValue, hasCopied } = useClipboard();
 
@@ -44,14 +51,31 @@ function InternDetail({ letter }) {
     >
       <Card>
         <CardHeader>
-          <Heading
-            size="sm"
-            color="gray.500"
-            fontWeight={"600"}
-            textTransform={"uppercase"}
-          >
-            Interne Daten
-          </Heading>
+          <HStack justifyContent={"space-between"}>
+            <Heading
+              size="sm"
+              color="gray.500"
+              fontWeight={"600"}
+              textTransform={"uppercase"}
+            >
+              Interne Daten
+            </Heading>
+            <Tooltip label="Bearbeiten">
+              <IconButton
+                onClick={internOnOpen}
+                variant="ghost"
+                colorScheme="gray"
+                aria-label="See menu"
+                color="gray.600"
+                icon={<HiOutlinePencilSquare size={20} />}
+              />
+            </Tooltip>
+            <InternEditModal
+              onClose={internOnClose}
+              isOpen={internIsOpen}
+              letter={letter}
+            />
+          </HStack>
         </CardHeader>
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
@@ -64,7 +88,9 @@ function InternDetail({ letter }) {
             <Stat>
               <StatLabel>Bildmaterial/Medien erhalten</StatLabel>
               <StatNumber>
-                <Checker bool={letter.bildmaterial} />
+                <Checker bool={letter.bildmaterial} />{" "}
+                {letter.bildmaterial &&
+                  dateFormatter(letter.bildmaterial, false)}
               </StatNumber>
             </Stat>
             <Stat>
@@ -90,14 +116,31 @@ function InternDetail({ letter }) {
       </Card>
       <Card>
         <CardHeader>
-          <Heading
-            size="sm"
-            color="gray.500"
-            fontWeight={"600"}
-            textTransform={"uppercase"}
-          >
-            Social Media & Presse
-          </Heading>
+          <HStack justifyContent={"space-between"}>
+            <Heading
+              size="sm"
+              color="gray.500"
+              fontWeight={"600"}
+              textTransform={"uppercase"}
+            >
+              Social Media & Presse
+            </Heading>
+            <Tooltip label="Bearbeiten">
+              <IconButton
+                onClick={socialOnOpen}
+                variant="ghost"
+                colorScheme="gray"
+                aria-label="See menu"
+                color="gray.600"
+                icon={<HiOutlinePencilSquare size={20} />}
+              />
+            </Tooltip>
+            <SocialEditModal
+              onClose={socialOnClose}
+              isOpen={socialIsOpen}
+              letter={letter}
+            />
+          </HStack>
         </CardHeader>
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
