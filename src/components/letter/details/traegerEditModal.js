@@ -74,7 +74,7 @@ function TraegerEditModal({ onClose, isOpen, letter }) {
           isClosable: true,
         });
         onClose();
-        // reset();
+        reset(resData);
         router.push(`/admin/bewerbung/${resData.id}`);
         setLoading(false);
       }

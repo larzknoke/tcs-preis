@@ -82,6 +82,7 @@ function InternEditModal({ onClose, isOpen, letter }) {
         onClose();
         router.push(`/admin/bewerbung/${resData.id}`);
         setLoading(false);
+        reset(resData);
       }
     } catch (error) {
       console.log("api fetch error");

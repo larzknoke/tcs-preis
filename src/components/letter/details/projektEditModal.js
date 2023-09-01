@@ -72,9 +72,9 @@ function ProjektEditModal({ onClose, isOpen, letter }) {
           isClosable: true,
         });
         onClose();
-        // reset();
         router.push(`/admin/bewerbung/${resData.id}`);
         setLoading(false);
+        reset(resData);
       }
     } catch (error) {
       console.log("api fetch error");
