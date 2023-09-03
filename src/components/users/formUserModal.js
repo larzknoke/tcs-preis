@@ -18,8 +18,6 @@ import {
 } from "@chakra-ui/react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Select } from "chakra-react-select";
-import { bundeslaender } from "@/lib/data";
 import { userSchema } from "@/lib/formSchema";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
