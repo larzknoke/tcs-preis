@@ -203,6 +203,16 @@ export const fileSchema = yup.object().shape({
   note: yup.string().required(),
 });
 
+export const userSchema = yup.object().shape({
+  name: yup.string().required(),
+  email: yup.string().email().required(),
+  password: yup.string().min(8).required(),
+  password_confirm: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwort stimmt nicht überein")
+    .required("Bitte Passwort wiederholen"),
+});
+
 export function isFileSizeValid(file, maxSize) {
   let valid = true;
   if (file) {

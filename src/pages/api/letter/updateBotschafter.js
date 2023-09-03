@@ -20,6 +20,7 @@ export default async function handle(req, res) {
       },
       data: {
         botschafterId: data.botschafterId,
+        updatedAt: new Date(),
       },
     });
     console.log("result: ", result);

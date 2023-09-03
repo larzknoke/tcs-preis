@@ -182,21 +182,6 @@ export default function SimpleCard() {
                     Login
                   </Button>
                 </Stack>
-                <Stack pt={6}>
-                  <Text align={"center"}>
-                    Noch nicht registriert?{" "}
-                    <Link
-                      color={"brnad.800"}
-                      href={`signup${
-                        router.query.callbackUrl
-                          ? `?callbackUrl=${router.query.callbackUrl}`
-                          : ""
-                      }`}
-                    >
-                      Registrieren
-                    </Link>
-                  </Text>
-                </Stack>
               </Stack>
             </form>
           </Collapse>

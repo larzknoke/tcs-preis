@@ -19,6 +19,7 @@ export default async function handle(req, res) {
       },
       data: {
         checkFreistellung: data.checkFreistellung,
+        updatedAt: new Date(),
       },
     });
     console.log("result: ", result);

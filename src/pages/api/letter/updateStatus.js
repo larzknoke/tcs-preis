@@ -19,6 +19,7 @@ export default async function handle(req, res) {
       },
       data: {
         status: data.status,
+        updatedAt: new Date(),
       },
     });
     console.log("result: ", result);

@@ -61,6 +61,9 @@ function Bewerbung({ letter }) {
           <Text fontSize={"sm"} color={"gray.400"} mr={3}>
             Eingang: {dateFormatter(letter.createdAt)}
           </Text>
+          <Text fontSize={"sm"} color={"gray.400"} mr={3}>
+            Aktualisiert: {dateFormatter(letter.updatedAt)}
+          </Text>
           <Link
             href={
               letter.kampagne
@@ -69,10 +72,7 @@ function Bewerbung({ letter }) {
             }
           >
             <Text fontSize={"sm"} color={"gray.400"} mr={3}>
-              Kampagne:{" "}
-              {letter.kampagne
-                ? letter.kampagne.name
-                : "keine Kampagne zugeordnet"}
+              Kampagne: {letter.kampagne ? letter.kampagne.name : "-"}
             </Text>
           </Link>
           <Tooltip label="Status" placement="top">

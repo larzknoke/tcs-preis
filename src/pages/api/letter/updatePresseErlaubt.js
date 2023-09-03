@@ -19,6 +19,7 @@ export default async function handle(req, res) {
       },
       data: {
         presseErlaubt: data.presseErlaubt,
+        updatedAt: new Date(),
       },
     });
     console.log("result: ", result);

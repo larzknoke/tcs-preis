@@ -20,6 +20,7 @@ export default async function handle(req, res) {
       },
       data: {
         [typ]: parsedDate,
+        updatedAt: new Date(),
       },
     });
     console.log("result: ", result);
