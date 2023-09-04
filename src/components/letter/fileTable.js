@@ -65,7 +65,7 @@ function FileTable({ letter }) {
     <div>
       {files.map((file) => {
         return (
-          <Stack mb={10} spacing={0}>
+          <Stack mb={10} spacing={0} key={file[1][0].id}>
             <Heading
               size={"sm"}
               color={"gray.300"}
