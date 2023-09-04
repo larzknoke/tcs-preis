@@ -22,7 +22,7 @@ import { userSchema } from "@/lib/formSchema";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-function FormUserModal({ isOpen, onClose, isNew, user = {} }) {
+function FormUserModalNew({ isOpen, onClose }) {
   const router = useRouter();
   const toast = useToast();
   const [loading, setLoading] = useState(false);
@@ -36,20 +36,15 @@ function FormUserModal({ isOpen, onClose, isNew, user = {} }) {
     getValues,
     formState: { errors },
   } = useForm({
-    // resolver: yupResolver(userSchema),
-    defaultValues: user,
+    resolver: yupResolver(userSchema),
   });
-
-  useEffect(() => {
-    reset(user);
-  }, [user]);
 
   async function onSubmit(values) {
     console.log("values", values);
     try {
       setLoading(true);
       const res = await fetch("/api/user", {
-        method: isNew ? "POST" : "PUT",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
@@ -92,9 +87,7 @@ function FormUserModal({ isOpen, onClose, isNew, user = {} }) {
       <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
-            {isNew ? "Neuer Benutzer" : "Benutzer bearbeiten"}
-          </ModalHeader>
+          <ModalHeader>Neuer Benutzer</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <form id="new-user-form" onSubmit={handleSubmit(onSubmit)}>
@@ -117,37 +110,33 @@ function FormUserModal({ isOpen, onClose, isNew, user = {} }) {
                     </FormErrorMessage>
                   </FormControl>
                 </GridItem>
-                {isNew && (
-                  <GridItem colSpan={4}>
-                    <FormControl isInvalid={errors.password}>
-                      <FormLabel>Password</FormLabel>
-                      <Input
-                        name="password"
-                        type="password"
-                        {...register("password")}
-                      />
-                      <FormErrorMessage>
-                        {errors.password && errors.password.message}
-                      </FormErrorMessage>
-                    </FormControl>
-                  </GridItem>
-                )}
-                {isNew && (
-                  <GridItem colSpan={4}>
-                    <FormControl isInvalid={errors.password_confirm}>
-                      <FormLabel>Passwort wiederholen</FormLabel>
-                      <Input
-                        name="password_confirm"
-                        type="password"
-                        {...register("password_confirm")}
-                      />
-                      <FormErrorMessage>
-                        {errors.password_confirm &&
-                          errors.password_confirm.message}
-                      </FormErrorMessage>
-                    </FormControl>
-                  </GridItem>
-                )}
+                <GridItem colSpan={4}>
+                  <FormControl isInvalid={errors.password}>
+                    <FormLabel>Password</FormLabel>
+                    <Input
+                      name="password"
+                      type="password"
+                      {...register("password")}
+                    />
+                    <FormErrorMessage>
+                      {errors.password && errors.password.message}
+                    </FormErrorMessage>
+                  </FormControl>
+                </GridItem>
+                <GridItem colSpan={4}>
+                  <FormControl isInvalid={errors.password_confirm}>
+                    <FormLabel>Passwort wiederholen</FormLabel>
+                    <Input
+                      name="password_confirm"
+                      type="password"
+                      {...register("password_confirm")}
+                    />
+                    <FormErrorMessage>
+                      {errors.password_confirm &&
+                        errors.password_confirm.message}
+                    </FormErrorMessage>
+                  </FormControl>
+                </GridItem>
               </SimpleGrid>
             </form>
           </ModalBody>
@@ -180,4 +169,4 @@ function FormUserModal({ isOpen, onClose, isNew, user = {} }) {
   );
 }
 
-export default FormUserModal;
+export default FormUserModalNew;

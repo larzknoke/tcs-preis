@@ -50,16 +50,20 @@ import Link from "next/link";
 import DebouncedInput from "@/lib/debouncedInput";
 import fuzzyFilter from "@/lib/fuzzyFilter";
 import { useDisclosure } from "@chakra-ui/react";
-import FormUserModal from "./formUserModal";
+import FormUserModalEdit from "./formUserModalEdit";
+import FormUserModalNew from "./formUserModalNew";
 import UserDeleteModal from "./userDeleteModal";
 
 function UserTable({ users }) {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const [tableData, setTableData] = useState([...users]);
-  const [userData, setUserData] = useState({});
-  const [isNew, setIsNew] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenNew,
+    onOpen: onOpenNew,
+    onClose: onCloseNew,
+  } = useDisclosure();
   const {
     isOpen: isOpenDelete,
     onOpen: onOpenDelete,
@@ -68,11 +72,10 @@ function UserTable({ users }) {
   const [sorting, setSorting] = useState([{ id: "email", desc: false }]);
   const [globalFilter, setGlobalFilter] = useState("");
   const columnHelper = createColumnHelper();
-  const [selectedUser, setSelectedUser] = useState();
+  const [selectedUser, setSelectedUser] = useState({});
 
-  function handleUserForm(newStatus, user = {}) {
-    setIsNew(newStatus);
-    setUserData(user);
+  function handleUserForm(user) {
+    setSelectedUser(user);
     onOpen();
   }
 
@@ -92,7 +95,7 @@ function UserTable({ users }) {
           <>
             <Tooltip label="Benutzer zeigen" placement="top">
               <IconButton
-                onClick={() => handleUserForm(false, row.original)}
+                onClick={() => handleUserForm(row.original)}
                 variant={"ghost"}
                 aria-label="Benutzer zeigen"
                 icon={<HiOutlineFolderOpen />}
@@ -194,19 +197,12 @@ function UserTable({ users }) {
         />
         <Tooltip label="Benutzer hinzufügen" placement="top">
           <IconButton
-            onClick={() => handleUserForm(true)}
+            onClick={onOpenNew}
             icon={<HiUserPlus />}
             colorScheme="green"
             variant={"outline"}
           />
         </Tooltip>
-        <FormUserModal
-          onOpen={onOpen}
-          onClose={onClose}
-          isOpen={isOpen}
-          isNew={isNew}
-          user={userData}
-        />
       </HStack>
       <Card>
         <CardBody>
@@ -332,6 +328,17 @@ function UserTable({ users }) {
         isOpen={isOpenDelete}
         onSubmitDelete={onSubmitDelete}
         loading={loading}
+      />
+      <FormUserModalEdit
+        onOpen={onOpen}
+        onClose={onClose}
+        isOpen={isOpen}
+        user={selectedUser}
+      />
+      <FormUserModalNew
+        onOpen={onOpenNew}
+        onClose={onCloseNew}
+        isOpen={isOpenNew}
       />
     </>
   );
