@@ -65,12 +65,20 @@ function FileTable({ letter }) {
     <div>
       {files.map((file) => {
         return (
-          <Stack mb={10} spacing={0} key={file[1][0].id}>
+          <Stack
+            mb={7}
+            spacing={0}
+            key={file[1][0].id}
+            borderBottomWidth={"1px"}
+            borderBottomColor={"gray"}
+            pb={5}
+          >
             <Heading
               size={"sm"}
-              color={"gray.300"}
+              color={"gray.500"}
               textTransform={"uppercase"}
               mb={4}
+              textAlign={"right"}
             >
               {file[0]}
             </Heading>

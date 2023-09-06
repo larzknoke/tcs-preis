@@ -200,7 +200,7 @@ export const noteSchema = yup.object().shape({
 
 export const fileSchema = yup.object().shape({
   title: yup.string().required(),
-  note: yup.string().required(),
+  note: yup.string(),
 });
 
 export const userSchema = yup.object().shape({
