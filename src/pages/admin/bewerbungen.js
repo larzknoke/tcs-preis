@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 
 function Bewerbungen({ letters }) {
   return (
-    <Container display={"flex"} flexDirection={"column"} maxWidth={"8xl"}>
+    <Container display={"flex"} flexDirection={"column"} minW={"100%"}>
       <LetterTable letters={letters} />
     </Container>
   );

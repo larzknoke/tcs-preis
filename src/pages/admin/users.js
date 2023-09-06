@@ -5,7 +5,7 @@ import UserTable from "@/components/users/userTable";
 
 function Users({ users }) {
   return (
-    <Container display={"flex"} flexDirection={"column"} maxWidth={"7xl"}>
+    <Container display={"flex"} flexDirection={"column"} maxWidth={"8xl"}>
       <UserTable users={users} />
       {/* {JSON.stringify(users)} */}
     </Container>
