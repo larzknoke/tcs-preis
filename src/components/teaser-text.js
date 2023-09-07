@@ -11,7 +11,7 @@ import {
 
 function TeaserText() {
   return (
-    <Card p="8">
+    <Card p={{ base: 2, md: 8 }}>
       <CardBody>
         <VStack>
           <Heading

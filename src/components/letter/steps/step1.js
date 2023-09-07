@@ -17,7 +17,7 @@ import {
 import { Select } from "chakra-react-select";
 import { bundeslaender } from "@/lib/data";
 import { useFormContext, Controller } from "react-hook-form";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
 
 function Step1() {
@@ -51,7 +51,7 @@ function Step1() {
     <VStack gap={10}>
       <SimpleGrid spacing={6} columns={3} w={"full"}>
         <GridItem colSpan={3}>
-          <Heading size={"md"} color={"gray.500"}>
+          <Heading textAlign={"left"} size={"md"} color={"gray.500"}>
             Angaben zur internen Zuordnung
           </Heading>
         </GridItem>
@@ -72,7 +72,7 @@ function Step1() {
           </FormControl>
         </GridItem>
         <GridItem colSpan={3}>
-          <Heading mt={8} size={"md"} color={"gray.500"}>
+          <Heading textAlign={"left"} mt={8} size={"md"} color={"gray.500"}>
             Angaben zum Träger / Dachverband
           </Heading>
         </GridItem>
@@ -196,7 +196,7 @@ function Step1() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={3} maxW={"50%"}>
+        <GridItem colSpan={3} maxW={{ base: "100%", md: "50%" }}>
           <FormControl isInvalid={errors.freistellungsbescheidTraeger}>
             <FormLabel>Freistellungsbescheid (max 10 MB)</FormLabel>
             {freistellungFile == "" ? (
@@ -241,7 +241,7 @@ function Step1() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={3} maxW={"50%"}>
+        <GridItem colSpan={3} maxW={{ base: "100%", md: "50%" }}>
           <FormControl isInvalid={errors.freistellungsbescheidTraeger2}>
             <FormLabel>
               Freistellungsbescheid (optional zweite Datei, max 10MB)

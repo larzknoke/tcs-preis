@@ -334,12 +334,19 @@ function NewLetter() {
               >
                 {steps.map(({ label, description, content }, index) => (
                   <Step label={label} key={label} description={description}>
-                    <Box my={16}>{content}</Box>
+                    <Box my={{ base: 4, md: 16 }}>{content}</Box>
                   </Step>
                 ))}
               </Steps>
               {formSuccess && hasCompletedAllSteps && (
-                <Box sx={{ my: 8, py: 10, px: 8, rounded: "md" }}>
+                <Box
+                  sx={{
+                    my: { base: 4, md: 8 },
+                    py: { base: 2, md: 10 },
+                    px: { base: 0, md: 8 },
+                    rounded: "md",
+                  }}
+                >
                   <Alert
                     status="success"
                     variant="subtle"

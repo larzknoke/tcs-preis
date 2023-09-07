@@ -13,16 +13,20 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  useMediaQuery,
+  IconButton,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { HiUser } from "react-icons/hi2";
 
 function Header() {
   const { data: session } = useSession();
+  const [isMobile] = useMediaQuery("(max-width: 400px)", { fallback: false });
 
   return (
-    <Flex alignItems={"end"} minWidth="max-content" p={8}>
+    <Flex p={8}>
       {session && (
         <HStack gap={4} color={"gray.500"}>
           <Button
@@ -73,7 +77,7 @@ function Header() {
         </HStack>
       )}
       <Spacer />
-      <HStack gap={4} color={"gray.500"}>
+      <HStack gap={{ base: 0, md: 8 }} color={"gray.500"}>
         <Button color={"gray.500"} fontWeight={"400"} variant={"ghost"}>
           Impressum
         </Button>
@@ -112,9 +116,13 @@ function Header() {
           </HStack>
         ) : (
           <Link href={"/api/auth/signin"}>
-            <Button color={"gray.500"} fontWeight={"400"}>
-              Login
-            </Button>
+            {isMobile ? (
+              <IconButton color={"gray.500"} mr={2} icon={<HiUser />} />
+            ) : (
+              <Button color={"gray.500"} fontWeight={"400"}>
+                Login
+              </Button>
+            )}
           </Link>
         )}
       </HStack>

@@ -45,6 +45,7 @@ function Step4() {
               {...register("checkBeitrag")}
               spacing={6}
               isInvalid={errors.checkBeitrag}
+              textAlign={"left"}
             >
               Wir sind damit einverstanden, dass unsere Bewerbung oder Teile
               davon, insbesondere Fotos zum Zwecke der Öffentlichkeitsarbeit der
@@ -69,6 +70,7 @@ function Step4() {
               type="checkbox"
               {...register("checkVeroeffentlich")}
               spacing={6}
+              textAlign={"left"}
             >
               Vor diesem Hintergrund stimmen wir der Veröffentlichung der
               Angaben zu unserer als gemeinnützig anerkannten Einrichtung, zum
@@ -92,6 +94,7 @@ function Step4() {
                 required: "Pflichtfeld",
               })}
               spacing={6}
+              textAlign={"left"}
             >
               Wir verpflichten uns, dafür Sorge zu tragen, dass die im Rahmen
               einer Scheckübergabe zu erstellenden Lichtbilder entsprechend den
@@ -113,6 +116,7 @@ function Step4() {
                 required: "Pflichtfeld",
               })}
               spacing={6}
+              textAlign={"left"}
             >
               Die datenschutzrechtlichen Einwilligungserklärungen der dort
               abgebildeten Personen, insbesondere der dort abgebildeten Kinder
@@ -156,6 +160,7 @@ function Step4() {
                 required: "Pflichtfeld",
               })}
               spacing={6}
+              textAlign={"left"}
             >
               Wir willigen ein, dass die von uns im Rahmen der Bewerbung sowie
               Teilnahme am 11. Town &amp; Country Stiftungspreis übermittelten
@@ -187,6 +192,7 @@ function Step4() {
                 required: "Pflichtfeld",
               })}
               spacing={6}
+              textAlign={"left"}
             >
               Wir haben die{" "}
               <Link href="https://www.tc-stiftung.de/wp-content/uploads/2021/01/DatenschutzerklaerungBewerbung.pdf">
@@ -209,6 +215,7 @@ function Step4() {
                 required: "Pflichtfeld",
               })}
               spacing={6}
+              textAlign={"left"}
             >
               Wir haben die{" "}
               <Link href="https://www.tc-stiftung.de/wp-content/uploads/2021/01/Allg.Teilnahmebedingungen.pdf">
@@ -232,6 +239,7 @@ function Step4() {
                 required: "Pflichtfeld",
               })}
               spacing={6}
+              textAlign={"left"}
             >
               Ich bestätige, die vorstehenden Angaben wahrheitsgemäß und
               vollständig getätigt zu haben.

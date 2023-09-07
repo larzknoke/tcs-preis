@@ -30,7 +30,7 @@ function Step2() {
     <VStack gap={10}>
       <SimpleGrid spacing={6} columns={4} w={"full"}>
         <GridItem colSpan={3}>
-          <Heading size={"md"} color={"gray.500"}>
+          <Heading textAlign={"left"} size={"md"} color={"gray.500"}>
             Angaben zum Projekt
           </Heading>
         </GridItem>
@@ -74,7 +74,7 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.telefonnummerProjekt}>
             <FormLabel>Telefonnummer</FormLabel>
             <Input
@@ -88,7 +88,7 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.mobilProjekt}>
             <FormLabel>Mobilfunknummer</FormLabel>
             <Input
@@ -101,7 +101,7 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.emailProjekt}>
             <FormLabel>E-Mail</FormLabel>
             <Input
@@ -114,7 +114,7 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.emailBestaetigungProjekt}>
             <FormLabel>E-Mail Bestätigung</FormLabel>
             <Input
@@ -141,7 +141,7 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.kontoNameProjekt}>
             <FormLabel>Name des Kontoinhabers (Verein/Organisation)</FormLabel>
             <Input
@@ -154,7 +154,7 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.bankNameProjekt}>
             <FormLabel>Name der Bank / des Kreditinstituts</FormLabel>
             <Input
@@ -194,7 +194,7 @@ function Step2() {
         {adresseTraeger && (
           <>
             <GridItem colSpan={4}>
-              <Heading size={"sm"} color={"red.500"}>
+              <Heading textAlign={"left"} size={"sm"} color={"red.500"}>
                 – Sofern vom Sitz des Trägers abweichend –
               </Heading>
             </GridItem>
@@ -268,7 +268,7 @@ function Step2() {
             </GridItem>
           </>
         )}
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.wannProjekt}>
             <FormLabel>Seit wann besteht das Projekt?</FormLabel>
             <Input
@@ -281,7 +281,7 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.mitarbeiterProjekt}>
             <FormLabel>
               Wie viele Mitarbeiter sind am Projekt beteiligt?
@@ -296,7 +296,7 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.hauptamtlichAnzahl}>
             <FormLabel>Davon hauptamtlich tätig?</FormLabel>
             <Input
@@ -309,7 +309,7 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.hauptamtlichStunden}>
             <FormLabel>
               Anzahl der Gesamtstunden pro Woche (hauptamtlich)
@@ -324,7 +324,7 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.ehrenamtlichAnzahl}>
             <FormLabel>Davon ehrenantlich tätig?</FormLabel>
             <Input
@@ -337,7 +337,7 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.ehrenamtlichStunden}>
             <FormLabel>
               Anzahl der Gesamtstunden pro Woche (ehrenamtlich)

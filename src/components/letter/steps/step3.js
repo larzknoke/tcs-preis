@@ -48,7 +48,7 @@ function Step3() {
     <VStack gap={10}>
       <SimpleGrid spacing={6} columns={4} w={"full"}>
         <GridItem colSpan={3}>
-          <Heading size={"md"} color={"gray.500"}>
+          <Heading textAlign={"left"} size={"md"} color={"gray.500"}>
             Angaben zur Finanzierung (in Euro)
           </Heading>
         </GridItem>
@@ -136,7 +136,7 @@ function Step3() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={3} maxW={"50%"}>
+        <GridItem colSpan={3} maxW={{ base: "100%", md: "50%" }}>
           <FormControl isInvalid={errors.customFile}>
             <FormLabel>weitere Dateien (max 5MB)</FormLabel>
             {customFile == "" ? (
@@ -180,7 +180,7 @@ function Step3() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={3} maxW={"50%"}>
+        <GridItem colSpan={3} maxW={{ base: "100%", md: "50%" }}>
           <FormControl isInvalid={errors.customFile2}>
             <FormLabel>weitere Dateien (max 5MB)</FormLabel>
             {customFile2 == "" ? (
