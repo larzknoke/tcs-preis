@@ -20,6 +20,8 @@ import {
   Text,
   Flex,
   useToast,
+  Stack,
+  Select,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
@@ -202,10 +204,18 @@ function BotschafterTable({ botschafters }) {
 
   return (
     <>
-      <HStack mt={10} mb={6}>
-        <Heading color={"gray.700"} size={"md"} textAlign={"left"}>
+      <Stack mt={10} mb={6} direction={{ base: "column", md: "row" }}>
+        <Heading
+          color={"gray.700"}
+          size={"md"}
+          textAlign={"left"}
+          margin={"auto 0"}
+        >
           Botschafter{" "}
-          <chakra.span color={"gray.400"}>({tableData.length})</chakra.span>
+          <chakra.span color={"gray.400"}>
+            {table.getFilteredRowModel().rows.length || "-"} /{" "}
+            {tableData.length}
+          </chakra.span>
         </Heading>
         <DebouncedInput
           value={globalFilter ?? ""}
@@ -242,7 +252,7 @@ function BotschafterTable({ botschafters }) {
           onClose={onCloseImport}
           isOpen={isOpenImport}
         />
-      </HStack>
+      </Stack>
       <Card>
         <CardBody>
           <TableContainer>
@@ -297,66 +307,58 @@ function BotschafterTable({ botschafters }) {
               </Tbody>
             </Table>
           </TableContainer>
-          <Flex gap={2} mt={6}>
-            <IconButton
-              variant={"ghost"}
-              aria-label="Zur ersten Seite"
-              icon={<HiChevronDoubleLeft />}
-              onClick={() => table.setPageIndex(0)}
-              disabled={!table.getCanPreviousPage()}
-            />
-            <IconButton
-              variant={"ghost"}
-              aria-label="Zur ersten Seite"
-              icon={<HiChevronLeft />}
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-            />
-            <IconButton
-              variant={"ghost"}
-              aria-label="Zur ersten Seite"
-              icon={<HiChevronRight />}
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-            />
-            <IconButton
-              variant={"ghost"}
-              aria-label="Zur ersten Seite"
-              icon={<HiChevronDoubleRight />}
-              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-              disabled={!table.getCanNextPage()}
-            />
-            <chakra.span className="flex items-center gap-1">
-              <Text>Seite</Text>
-              <strong>
-                {table.getState().pagination.pageIndex + 1} von{" "}
-                {table.getPageCount()}
-              </strong>
-            </chakra.span>
-            <chakra.span className="flex items-center gap-1">
-              | Seite:
-              <input
-                type="number"
-                defaultValue={table.getState().pagination.pageIndex + 1}
-                onChange={(e) => {
-                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                  table.setPageIndex(page);
-                }}
-                className="border p-1 rounded w-10"
+          <Flex gap={2} mt={6} direction={{ base: "column", md: "row" }}>
+            <HStack>
+              <IconButton
+                variant={"ghost"}
+                aria-label="Zur ersten Seite"
+                icon={<HiChevronDoubleLeft />}
+                onClick={() => table.setPageIndex(0)}
+                disabled={!table.getCanPreviousPage()}
               />
-            </chakra.span>
-            <select
-              value={table.getState().pagination.pageSize}
-              onChange={(e) => {
-                table.setPageSize(Number(e.target.value));
-              }}
-            >
-              {[10, 20, 30, 40, 50, 100, 1000].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
-                  Zeige {pageSize}
-                </option>
-              ))}
-            </select>
+              <IconButton
+                variant={"ghost"}
+                aria-label="Zur ersten Seite"
+                icon={<HiChevronLeft />}
+                onClick={() => table.previousPage()}
+                disabled={!table.getCanPreviousPage()}
+              />
+              <IconButton
+                variant={"ghost"}
+                aria-label="Zur ersten Seite"
+                icon={<HiChevronRight />}
+                onClick={() => table.nextPage()}
+                disabled={!table.getCanNextPage()}
+              />
+              <IconButton
+                variant={"ghost"}
+                aria-label="Zur ersten Seite"
+                icon={<HiChevronDoubleRight />}
+                onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                disabled={!table.getCanNextPage()}
+              />
+            </HStack>
+            <HStack>
+              <chakra.span className="flex items-center gap-1">
+                <Text>Seite</Text>
+                <strong>
+                  {table.getState().pagination.pageIndex + 1} von{" "}
+                  {table.getPageCount()}
+                </strong>
+              </chakra.span>
+              <select
+                value={table.getState().pagination.pageSize}
+                onChange={(e) => {
+                  table.setPageSize(Number(e.target.value));
+                }}
+              >
+                {[10, 20, 30, 40, 50, 100, 1000].map((pageSize) => (
+                  <option key={pageSize} value={pageSize}>
+                    Zeige {pageSize}
+                  </option>
+                ))}
+              </select>
+            </HStack>
           </Flex>
         </CardBody>
       </Card>

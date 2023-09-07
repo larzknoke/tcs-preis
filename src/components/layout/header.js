@@ -27,7 +27,7 @@ function Header() {
 
   return (
     <Flex p={8}>
-      {session && (
+      {session && !isMobile && (
         <HStack gap={4} color={"gray.500"}>
           <Button
             as={Link}

@@ -7,19 +7,16 @@ import {
   Td,
   Th,
   Tr,
-  TableCaption,
   Tooltip,
   IconButton,
-  Icon,
   chakra,
-  HStack,
   Heading,
-  Button,
   Card,
   CardBody,
   Text,
   Flex,
   useToast,
+  Stack,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
@@ -182,7 +179,7 @@ function UserTable({ users }) {
 
   return (
     <>
-      <HStack mt={10} mb={6}>
+      <Stack mt={10} mb={6} direction={{ base: "column", md: "row" }}>
         <Heading color={"gray.700"} size={"md"} textAlign={"left"}>
           Benutzer{" "}
           <chakra.span color={"gray.400"}>({tableData.length})</chakra.span>
@@ -203,7 +200,7 @@ function UserTable({ users }) {
             variant={"outline"}
           />
         </Tooltip>
-      </HStack>
+      </Stack>
       <Card>
         <CardBody>
           <TableContainer>
@@ -258,7 +255,7 @@ function UserTable({ users }) {
               </Tbody>
             </Table>
           </TableContainer>
-          <Flex gap={2} mt={6}>
+          {/* <Flex gap={2} mt={6}>
             <IconButton
               variant={"ghost"}
               aria-label="Zur ersten Seite"
@@ -318,7 +315,7 @@ function UserTable({ users }) {
                 </option>
               ))}
             </select>
-          </Flex>
+          </Flex> */}
         </CardBody>
       </Card>
       <UserDeleteModal

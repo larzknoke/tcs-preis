@@ -2,21 +2,18 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   TableContainer,
   Td,
   Th,
   Tr,
-  TableCaption,
   Tooltip,
   IconButton,
   Icon,
   chakra,
-  HStack,
   Heading,
-  Button,
   Card,
   CardBody,
+  Stack,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
@@ -133,8 +130,13 @@ function KampagneTable({ kampagnes }) {
 
   return (
     <>
-      <HStack mt={10} mb={6}>
-        <Heading color={"gray.700"} size={"md"} textAlign={"left"}>
+      <Stack mt={10} mb={6} direction={{ base: "column", md: "row" }}>
+        <Heading
+          color={"gray.700"}
+          size={"md"}
+          textAlign={"left"}
+          margin={"auto 0"}
+        >
           Kampagnen{" "}
           <chakra.span color={"gray.400"}>({kampagnes.length})</chakra.span>
         </Heading>
@@ -155,7 +157,7 @@ function KampagneTable({ kampagnes }) {
           />
         </Tooltip>
         <NewKampagneModal onOpen={onOpen} onClose={onClose} isOpen={isOpen} />
-      </HStack>
+      </Stack>
       <Card>
         <CardBody>
           <TableContainer>
