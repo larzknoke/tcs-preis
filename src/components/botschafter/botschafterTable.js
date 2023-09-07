@@ -98,10 +98,8 @@ function BotschafterTable({ botschafters }) {
           isNumeric: true,
         },
       }),
-      columnHelper.accessor("name", {
-        cell: ({ row, info }) => row.original.vorname + " " + row.original.name,
-        header: "Name",
-      }),
+      columnHelper.accessor("vorname"),
+      columnHelper.accessor("name"),
       columnHelper.accessor("bundesland", {
         header: "Bundesland",
       }),
