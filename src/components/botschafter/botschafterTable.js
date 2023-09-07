@@ -22,6 +22,7 @@ import {
   useToast,
   Stack,
   Select,
+  Spacer,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
@@ -32,6 +33,7 @@ import {
   HiChevronDoubleRight,
   HiChevronLeft,
   HiChevronRight,
+  HiPaperClip,
 } from "react-icons/hi2";
 import {
   useReactTable,
@@ -55,6 +57,7 @@ import { useDisclosure } from "@chakra-ui/react";
 import FormBotschafterModal from "./formBotschafterModal";
 import ImportBotschafterModal from "./importBotschafterModal";
 import BotschafterDeleteModal from "./botschafterDeleteModal";
+import { exportToExcel } from "react-json-to-excel";
 
 function BotschafterTable({ botschafters }) {
   const toast = useToast();
@@ -194,6 +197,24 @@ function BotschafterTable({ botschafters }) {
       onCloseDelete();
       setLoading(false);
     }
+  }
+
+  function handleExport() {
+    const ids = table
+      .getFilteredRowModel()
+      .rows.map((row) => row.getValue("id"));
+    const result = tableData.filter(({ id }) => ids.includes(id));
+
+    // rows.map((row) => {
+    //   let rowData = {
+    //     id: row.getValue("id"),
+    //   };
+    //   data.push(rowData);
+    // });
+    console.log("tableData", tableData);
+    console.log("ids", ids);
+    console.log("result", result);
+    exportToExcel(result, "downloadfilename");
   }
 
   useEffect(() => {
@@ -357,6 +378,15 @@ function BotschafterTable({ botschafters }) {
                 ))}
               </select>
             </HStack>
+            <Spacer />
+            <Tooltip label="Botschafter exportieren" placement="top">
+              <IconButton
+                onClick={handleExport}
+                icon={<HiPaperClip />}
+                colorScheme="green"
+                variant={"outline"}
+              />
+            </Tooltip>
           </Flex>
         </CardBody>
       </Card>
