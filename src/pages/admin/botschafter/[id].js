@@ -127,17 +127,24 @@ function Botschafter({ botschafter }) {
 }
 
 export const getServerSideProps = async (ctx) => {
-  const { id } = ctx.params;
-  const botschafter = await prisma.botschafter.findFirstOrThrow({
-    where: {
-      id: parseInt(id),
-    },
-    include: {
-      letters: true,
-    },
-  });
-  console.log("botschafter: ", botschafter);
-  return { props: { botschafter } };
+  try {
+    const { id } = ctx.params;
+    const botschafter = await prisma.botschafter.findFirstOrThrow({
+      where: {
+        id: parseInt(id),
+      },
+      include: {
+        letters: true,
+      },
+    });
+    console.log("botschafter: ", botschafter);
+    return { props: { botschafter } };
+  } catch (error) {
+    console.log("error", error);
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default Botschafter;

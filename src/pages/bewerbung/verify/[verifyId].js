@@ -40,22 +40,32 @@ function VerifyLetter({ letter }) {
 export const getServerSideProps = async (ctx) => {
   console.log("ctx: ", ctx);
   const { verifyId } = ctx.params;
-  const letter = await prisma.letter.update({
-    where: {
-      verifyId: verifyId,
-    },
-    data: {
-      verified: true,
-    },
-  });
-  if (letter && letter.verified) {
-    await sendEmail({
-      to: "info@larsknoke.com",
-      subject: "TC-Stiftung - Stiftungspreis 2023 - Bestätigung 2",
-      html: render(<ConfirmEmail letter={letter} />),
+
+  try {
+    const letter = await prisma.letter.update({
+      where: {
+        verifyId: verifyId,
+      },
+      data: {
+        verified: true,
+      },
     });
+
+    if (letter && letter.verified) {
+      await sendEmail({
+        to: "info@larsknoke.com",
+        subject: "TC-Stiftung - Stiftungspreis 2023 - Bestätigung 2",
+        html: render(<ConfirmEmail letter={letter} />),
+      });
+    }
+
+    return { props: { letter } };
+  } catch (error) {
+    console.log("error: ", error);
+    return {
+      notFound: true,
+    };
   }
-  return { props: { letter } };
 };
 
 export default VerifyLetter;

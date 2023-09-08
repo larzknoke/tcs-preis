@@ -114,19 +114,26 @@ function Bewerbung({ letter }) {
 }
 
 export const getServerSideProps = async (ctx) => {
-  const { id } = ctx.params;
-  const letter = await prisma.letter.findFirstOrThrow({
-    where: {
-      id: parseInt(id),
-    },
-    include: {
-      botschafter: true,
-      kampagne: true,
-      notes: true,
-      files: true,
-    },
-  });
-  return { props: { letter } };
+  try {
+    const { id } = ctx.params;
+    const letter = await prisma.letter.findFirstOrThrow({
+      where: {
+        id: parseInt(id),
+      },
+      include: {
+        botschafter: true,
+        kampagne: true,
+        notes: true,
+        files: true,
+      },
+    });
+    return { props: { letter } };
+  } catch (error) {
+    console.log("error", error);
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default Bewerbung;
