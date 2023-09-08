@@ -204,17 +204,8 @@ function BotschafterTable({ botschafters }) {
       .getFilteredRowModel()
       .rows.map((row) => row.getValue("id"));
     const result = tableData.filter(({ id }) => ids.includes(id));
-
-    // rows.map((row) => {
-    //   let rowData = {
-    //     id: row.getValue("id"),
-    //   };
-    //   data.push(rowData);
-    // });
-    console.log("tableData", tableData);
-    console.log("ids", ids);
-    console.log("result", result);
-    exportToExcel(result, "downloadfilename");
+    const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
+    exportToExcel(result, "botschafter_export_" + date);
   }
 
   useEffect(() => {

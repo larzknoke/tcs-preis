@@ -34,6 +34,7 @@ import {
   useDisclosure,
   Divider,
   useToast,
+  Spacer,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
@@ -52,6 +53,7 @@ import {
   HiChevronDoubleRight,
   HiChevronLeft,
   HiChevronRight,
+  HiPaperClip,
 } from "react-icons/hi2";
 import {
   useReactTable,
@@ -75,6 +77,7 @@ import fuzzyFilter from "@/lib/fuzzyFilter";
 
 import { Capatilizer, dateFormatter } from "@/lib/utils";
 import DateInput from "./dateInput";
+import { exportToExcel } from "react-json-to-excel";
 
 function LetterTable({ letters }) {
   const router = useRouter();
@@ -245,6 +248,15 @@ function LetterTable({ letters }) {
         isClosable: true,
       });
     }
+  }
+
+  function handleExport() {
+    const ids = table
+      .getFilteredRowModel()
+      .rows.map((row) => row.getValue("id"));
+    const result = tableData.filter(({ id }) => ids.includes(id));
+    const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
+    exportToExcel(result, "bewerbung_export_" + date);
   }
 
   const columns = useMemo(() => [
@@ -1078,6 +1090,15 @@ function LetterTable({ letters }) {
                 ))}
               </select>
             </HStack>
+            <Spacer />
+            <Tooltip label="Botschafter exportieren" placement="top">
+              <IconButton
+                onClick={handleExport}
+                icon={<HiPaperClip />}
+                colorScheme="green"
+                variant={"outline"}
+              />
+            </Tooltip>
           </Flex>
         </CardBody>
       </Card>
