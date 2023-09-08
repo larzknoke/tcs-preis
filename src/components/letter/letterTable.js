@@ -1091,7 +1091,7 @@ function LetterTable({ letters }) {
               </select>
             </HStack>
             <Spacer />
-            <Tooltip label="Botschafter exportieren" placement="top">
+            <Tooltip label="Bewerbungen exportieren" placement="top">
               <IconButton
                 onClick={handleExport}
                 icon={<HiPaperClip />}
