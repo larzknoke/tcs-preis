@@ -1,11 +1,12 @@
 import prisma from "@/lib/prisma";
 import {
-  VStack,
   Container,
-  Divider,
-  HStack,
-  Heading,
   Text,
+  Alert,
+  Box,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import { dateFormatter } from "@/lib/utils";
 import { sendEmail } from "@/lib/email";
@@ -17,22 +18,41 @@ function VerifyLetter({ letter }) {
 
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
-      <HStack justify={"space-between"}>
-        <VStack alignItems={"start"}>
-          <Heading fontSize={"22"} color={"gray.300"} fontWeight={"500"}>
-            Bewerbung
-          </Heading>
-          <Heading fontSize={"24"}>{letter.organisationProjekt}</Heading>
-        </VStack>
-        <HStack>
-          <Text fontSize={"sm"} color={"gray.400"} mr={3}>
-            Eingang: {dateFormatter(letter.createdAt)}
-          </Text>
-          <Text>{letter.verified ? "Bestätigt" : "nicht Bestätigt"} </Text>
-        </HStack>
-      </HStack>
-      <Divider my={4} />
-      <Text>Sie erhalten zusätzlich eine Bestätigungs-Email.</Text>
+      <Box
+        sx={{
+          my: { base: 4, md: 8 },
+          py: { base: 2, md: 10 },
+          px: { base: 0, md: 8 },
+          rounded: "md",
+        }}
+      >
+        <Alert
+          status="success"
+          variant="subtle"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          rounded={"md"}
+          bg={"brand.900"}
+          color={"white"}
+          p={8}
+        >
+          <AlertIcon boxSize="40px" mr={0} color={"white"} />
+          <AlertTitle mt={4} mb={1} fontSize="lg">
+            Bewerbung erfolgreich bestätigt.
+          </AlertTitle>
+          <AlertDescription maxWidth="2xl" mt={2}>
+            <Text>
+              {letter.organisationProjekt} / {letter.nameTraeger}
+            </Text>
+            <Text>{dateFormatter(letter.createdAt)}</Text>
+            <Text fontWeight={"700"} mt={4}>
+              Sie erhalten zusätzlich eine Bestätigungs-Email.
+            </Text>
+          </AlertDescription>
+        </Alert>
+      </Box>
     </Container>
   );
 }
