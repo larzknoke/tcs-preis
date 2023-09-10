@@ -1,4 +1,3 @@
-import { useColorModeValue } from "@chakra-ui/color-mode";
 import {
   Button,
   Flex,
@@ -21,8 +20,7 @@ import Step3 from "./steps/step3";
 import Step4 from "./steps/step4";
 import { useState } from "react";
 import { formSchema } from "@/lib/formSchema";
-import { ErrorMessage } from "@hookform/error-message";
-import { isObjEmpty, getInternalValue, topScroller } from "@/lib/utils";
+import { isObjEmpty, topScroller } from "@/lib/utils";
 
 const steps = [
   {

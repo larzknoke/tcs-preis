@@ -1,3 +1,4 @@
+import { Table, Td, Tr } from "@chakra-ui/react";
 import {
   Body,
   Button,
@@ -11,7 +12,7 @@ import {
   Text,
 } from "@react-email/components";
 
-export default function ConfirmEmail({ letter }) {
+export default function ConfirmStiftungEmail({ letter }) {
   return (
     <Html>
       <Head />
@@ -27,14 +28,25 @@ export default function ConfirmEmail({ letter }) {
           />
 
           <Text style={title}>
-            Bewerbung: <strong>{letter.organisationProjekt}</strong>
+            Eingang Bewerbung:{" "}
+            <strong>
+              {letter.organisationProjekt} ID: {letter.id}
+            </strong>
           </Text>
 
-          <Section style={section}>
-            <Text style={text}>Hallo {letter.ansprechpartnerProjekt}</Text>
-            <Text style={text}>Ihre Bewerbung wurde hiermit bestätigt.</Text>
-            <Text style={text}>Vielen Dank.</Text>
+          <Section style={sectionLeft}>
+            <Table>
+              {Object.entries(letter).map(([k, v]) => {
+                return (
+                  <Tr>
+                    <Td textAlign={"left"}>{k}</Td>
+                    <Td textAlign={"left"}>{JSON.stringify(v)}</Td>
+                  </Tr>
+                );
+              })}
+            </Table>
           </Section>
+
           <Text style={links}>
             <Link style={link}>Datenschutz</Link> ・{" "}
             <Link style={link}>Kontakt</Link>
@@ -74,6 +86,13 @@ const section = {
   border: "solid 1px #dedede",
   borderRadius: "5px",
   textAlign: "center",
+};
+
+const sectionLeft = {
+  padding: "24px",
+  border: "solid 1px #dedede",
+  borderRadius: "5px",
+  textAlign: "left",
 };
 
 const text = {

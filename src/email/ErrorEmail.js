@@ -1,3 +1,4 @@
+import { Code } from "@chakra-ui/react";
 import {
   Body,
   Button,
@@ -11,7 +12,7 @@ import {
   Text,
 } from "@react-email/components";
 
-export default function ConfirmEmail({ letter }) {
+export default function ErrorEmail({ letter }) {
   return (
     <Html>
       <Head />
@@ -26,14 +27,13 @@ export default function ConfirmEmail({ letter }) {
             priority
           />
 
-          <Text style={title}>
-            Bewerbung: <strong>{letter.organisationProjekt}</strong>
-          </Text>
+          <Text style={title}>Ein Fehler is aufgetreten</Text>
 
           <Section style={section}>
-            <Text style={text}>Hallo {letter.ansprechpartnerProjekt}</Text>
-            <Text style={text}>Ihre Bewerbung wurde hiermit bestätigt.</Text>
-            <Text style={text}>Vielen Dank.</Text>
+            <Text style={text}>
+              Beim erstellen der Bewerbung ist ein Fehler aufgetreten.
+            </Text>
+            <Code>{JSON.stringify(letter)}</Code>
           </Section>
           <Text style={links}>
             <Link style={link}>Datenschutz</Link> ・{" "}

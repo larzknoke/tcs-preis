@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { sendEmail } from "@/lib/email";
 import VerifyEmail from "@/email/VerifyEmail";
 import { render } from "@react-email/render";
+import ErrorEmail from "@/email/ErrorEmail";
 
 export default async function handle(req, res) {
   console.log("api call");
@@ -17,11 +18,22 @@ export default async function handle(req, res) {
       data.kampagneId = kampagne ? kampagne.id : null;
       const result = await prisma.letter.create({ data: data });
 
-      await sendEmail({
-        to: ["stiftungspreis@tc-stiftung.de", "info@larsknoke.com"],
-        subject: "TC-Stiftung - Stiftungspreis 2023 - Bestätigung",
-        html: render(<VerifyEmail letter={result} />),
-      });
+      if (result.emailProjekt) {
+        await sendEmail({
+          to:
+            process.env.NODE_ENV === "development"
+              ? ["info@larsknoke.com"]
+              : result.emailProjekt,
+          subject: "TC-Stiftung - Stiftungspreis 2023 - Verifizierung",
+          html: render(<VerifyEmail letter={result} />),
+        });
+      } else {
+        await sendEmail({
+          to: ["info@larsknoke.com"],
+          subject: "TC-Stiftung - Stiftungspreis 2023 - Fehler",
+          html: render(<ErrorEmail letter={result} />),
+        });
+      }
 
       return res.status(200).json({ success: true, result });
     } catch (error) {

@@ -12,6 +12,7 @@ import { dateFormatter } from "@/lib/utils";
 import { sendEmail } from "@/lib/email";
 import { render } from "@react-email/render";
 import ConfirmEmail from "@/email/ConfirmEmail";
+import ConfirmStiftungEmail from "@/email/ConfirmStiftungEmail";
 
 function VerifyLetter({ letter }) {
   console.log("letter: ", letter);
@@ -73,9 +74,20 @@ export const getServerSideProps = async (ctx) => {
 
     if (letter && letter.verified) {
       await sendEmail({
-        to: "info@larsknoke.com",
-        subject: "TC-Stiftung - Stiftungspreis 2023 - Bestätigung 2",
+        to:
+          process.env.NODE_ENV === "development"
+            ? "info@larsknoke.com"
+            : letter.emailProjekt,
+        subject: "TC-Stiftung - Stiftungspreis 2023 - Bestätigung",
         html: render(<ConfirmEmail letter={letter} />),
+      });
+      await sendEmail({
+        to:
+          process.env.NODE_ENV === "development"
+            ? "info@larsknoke.com"
+            : ["stiftungspreis@tc-stiftung.de", "info@larsknoke.com"],
+        subject: "TC-Stiftung - Stiftungspreis 2023 - Eingang neue Bewerbung",
+        html: render(<ConfirmStiftungEmail letter={letter} />),
       });
     }
 

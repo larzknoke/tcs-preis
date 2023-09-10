@@ -133,6 +133,7 @@ function Step4() {
         </GridItem>
         <GridItem colSpan={4}>
           <Link
+            target="_blank"
             href={
               "https://www.tc-stiftung.de/wp-content/uploads/2020/01/Muster-Einwilligungserkl%C3%A4rung.pdf"
             }
@@ -195,7 +196,10 @@ function Step4() {
               textAlign={"left"}
             >
               Wir haben die{" "}
-              <Link href="https://www.tc-stiftung.de/wp-content/uploads/2021/01/DatenschutzerklaerungBewerbung.pdf">
+              <Link
+                target="_blank"
+                href="https://www.tc-stiftung.de/wp-content/uploads/2021/01/DatenschutzerklaerungBewerbung.pdf"
+              >
                 hier abrufbare Datenschutzerklärung
               </Link>{" "}
               gelesen und erkennen sie als verbindlich an.
@@ -218,7 +222,10 @@ function Step4() {
               textAlign={"left"}
             >
               Wir haben die{" "}
-              <Link href="https://www.tc-stiftung.de/wp-content/uploads/2021/01/Allg.Teilnahmebedingungen.pdf">
+              <Link
+                target="_blank"
+                href="https://www.tc-stiftung.de/wp-content/uploads/2021/01/Allg.Teilnahmebedingungen.pdf"
+              >
                 hier abrufbaren Teilnahmebedingungen
               </Link>{" "}
               des 11. Town & Country Stiftungspreises gelesen und erkennen sie
