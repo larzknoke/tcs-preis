@@ -134,6 +134,10 @@ function ProjektDetail({ letter }) {
               <StatLabel>Ort</StatLabel>
               <StatNumber>{letter.ortProjekt || "-"}</StatNumber>
             </Stat>
+            <Stat>
+              <StatLabel>Bundesland</StatLabel>
+              <StatNumber>{letter.bundeslandProjekt || "-"}</StatNumber>
+            </Stat>
           </Stack>
         </CardBody>
       </Card>

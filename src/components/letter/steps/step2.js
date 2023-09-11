@@ -169,7 +169,10 @@ function Step2() {
         </GridItem>
         <GridItem colSpan={4}>
           <FormControl isInvalid={errors.ibanProjekt}>
-            <FormLabel>Bankverbindung – IBAN des Vereinskontos</FormLabel>
+            <FormLabel>
+              Bankverbindung - IBAN der gemeinnützigen Einrichtung (Bitte ohne
+              Leerzeichen eingeben)
+            </FormLabel>
             <Input
               name="ibanProjekt"
               type="string"
@@ -216,7 +219,7 @@ function Step2() {
                 <FormLabel>Postleitzahl (Vereinsadresse)</FormLabel>
                 <Input
                   name="plzProjekt"
-                  type="string"
+                  type="number"
                   {...register("plzProjekt")}
                 />
                 <FormErrorMessage>

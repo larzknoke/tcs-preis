@@ -7,7 +7,7 @@ export const formSchema = yup.object().shape({
   nameTraeger: yup.string().required(),
   vorstandTraeger: yup.string().required(),
   strasseTraeger: yup.string().required(),
-  plzTraeger: yup.string().required(),
+  plzTraeger: yup.string().matches(/^\d+$/).max("5").required(),
   ortTraeger: yup.string().required(),
   bundeslandTraeger: yup
     .string()
@@ -58,7 +58,7 @@ export const formSchema = yup.object().shape({
   organisationProjekt: yup.string().required(),
   nameProjekt: yup.string().required(),
   ansprechpartnerProjekt: yup.string().required(),
-  telefonnummerProjekt: yup.string(),
+  telefonnummerProjekt: yup.string().required(),
   mobilProjekt: yup.string().required(),
   emailProjekt: yup.string().email().required(),
   emailBestaetigungProjekt: yup
@@ -73,9 +73,14 @@ export const formSchema = yup.object().shape({
   kontoNameProjekt: yup.string().required(),
   bankNameProjekt: yup.string().required(),
   strasseProjekt: yup.string(),
-  plzProjekt: yup.string(),
+  plzProjekt: yup.string().matches(/^\d+$/).max("5").required(),
   ortProjekt: yup.string(),
-  bundeslandProjekt: yup.string(),
+  bundeslandProjekt: yup
+    .string()
+    .transform((value) => {
+      return value.value;
+    })
+    .required(),
   wannProjekt: yup.string().required(),
   mitarbeiterProjekt: yup.string().required(),
   hauptamtlichAnzahl: yup.string(),
