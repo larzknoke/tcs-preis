@@ -73,14 +73,11 @@ export const formSchema = yup.object().shape({
   kontoNameProjekt: yup.string().required(),
   bankNameProjekt: yup.string().required(),
   strasseProjekt: yup.string(),
-  plzProjekt: yup.string().matches(/^\d+$/).max("5").required(),
+  plzProjekt: yup.string().matches(/^\d+$/).max("5"),
   ortProjekt: yup.string(),
-  bundeslandProjekt: yup
-    .string()
-    .transform((value) => {
-      return value.value;
-    })
-    .required(),
+  bundeslandProjekt: yup.string().transform((value) => {
+    return value.value;
+  }),
   wannProjekt: yup.string().required(),
   mitarbeiterProjekt: yup.string().required(),
   hauptamtlichAnzahl: yup.string(),
