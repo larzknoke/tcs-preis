@@ -13,6 +13,8 @@ import { sendEmail } from "@/lib/email";
 import { render } from "@react-email/render";
 import ConfirmEmail from "@/email/ConfirmEmail";
 import ConfirmStiftungEmail from "@/email/ConfirmStiftungEmail";
+import { LetterPDF } from "@/email/pdf";
+import { renderToBuffer } from "@react-pdf/renderer";
 
 function VerifyLetter({ letter }) {
   console.log("letter: ", letter);
@@ -88,6 +90,12 @@ export const getServerSideProps = async (ctx) => {
             : ["stiftungspreis@tc-stiftung.de", "info@larsknoke.com"],
         subject: "TC-Stiftung - Stiftungspreis 2023 - Eingang neue Bewerbung",
         html: render(<ConfirmStiftungEmail letter={letter} />),
+        attachments: [
+          {
+            filename: "Bewerbung.pdf",
+            content: await renderToBuffer(<LetterPDF letter={letter} />),
+          },
+        ],
       });
     }
 

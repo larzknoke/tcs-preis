@@ -58,8 +58,8 @@ function Step1() {
         <GridItem colSpan={3}>
           <FormControl isInvalid={errors.andereLizenzpartner}>
             <FormLabel>
-              Hatten Sie bereits im Vorfeld Kontakt mit einem Botschafter? (Name
-              bitte eintragen)
+              Hatten Sie bereits im Vorfeld Kontakt mit einem
+              Stiftungsbotschafter? (falls ja bitte Namen eintragen)
             </FormLabel>
             <Input
               name="andereLizenzpartner"
@@ -127,6 +127,8 @@ function Step1() {
               {...register("plzTraeger", {
                 valueAsNumber: true,
               })}
+              min={1}
+              max={99999}
             />
             <FormErrorMessage>
               {errors.plzTraeger && errors.plzTraeger.message}

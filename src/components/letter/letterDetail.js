@@ -1,11 +1,10 @@
 import {
-  SimpleGrid,
-  useClipboard,
   Tabs,
   Tab,
   TabPanels,
   TabPanel,
   TabList,
+  Badge,
 } from "@chakra-ui/react";
 import NoteTable from "../notes/noteTable";
 import TraegerDetail from "./details/traeger";
@@ -25,7 +24,14 @@ function LetterDetail({ letter }) {
         <Tab>Finanzierung</Tab>
         <Tab>Intern</Tab>
         <Tab>Dateien</Tab>
-        <Tab>Notizen</Tab>
+        <Tab>
+          Notizen
+          {letter.notes.length > 0 && (
+            <Badge colorScheme="green" ml={2}>
+              {letter.notes.length}
+            </Badge>
+          )}
+        </Tab>
       </TabList>
 
       <TabPanels>

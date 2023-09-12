@@ -7,7 +7,11 @@ export const formSchema = yup.object().shape({
   nameTraeger: yup.string().required(),
   vorstandTraeger: yup.string().required(),
   strasseTraeger: yup.string().required(),
-  plzTraeger: yup.string().matches(/^\d+$/).max("5").required(),
+  plzTraeger: yup
+    .string()
+    .matches(/^\d+$/, "Bitte eine gültige PLZ eingeben.")
+    .max("5", "Bitte eine gültige PLZ eingeben.")
+    .required(),
   ortTraeger: yup.string().required(),
   bundeslandTraeger: yup
     .string()
@@ -15,7 +19,7 @@ export const formSchema = yup.object().shape({
       return value.value;
     })
     .required(),
-  // vereinTraeger: yup.string(),
+  vereinTraeger: yup.string().required(),
   freistellungsbescheidTraeger: yup
     .mixed()
     .transform((fileList) => {
@@ -73,7 +77,10 @@ export const formSchema = yup.object().shape({
   kontoNameProjekt: yup.string().required(),
   bankNameProjekt: yup.string().required(),
   strasseProjekt: yup.string(),
-  plzProjekt: yup.string().matches(/^\d+$/).max("5"),
+  plzProjekt: yup
+    .string()
+    .matches(/^\d+$/, "Bitte eine gültige PLZ eingeben.")
+    .max("5", "Bitte eine gültige PLZ eingeben."),
   ortProjekt: yup.string(),
   bundeslandProjekt: yup.string().transform((value) => {
     return value.value;

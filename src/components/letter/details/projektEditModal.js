@@ -212,6 +212,8 @@ function ProjektEditModal({ onClose, isOpen, letter }) {
                     name="plzProjekt"
                     type="text"
                     {...register("plzProjekt")}
+                    min={1}
+                    max={99999}
                   />
                   <FormErrorMessage>
                     {errors.plzProjekt && errors.plzProjekt.message}

@@ -390,18 +390,26 @@ function LetterTable({ letters }) {
               <PopoverHeader>Kontaktdaten</PopoverHeader>
               <PopoverBody>
                 <Flex direction={"column"} gap={4}>
-                  <div>
+                  <chakra.div>
+                    <Text as={"b"}>
+                      {row.original.botschafter?.vorname}{" "}
+                      {row.original.botschafter?.name}
+                    </Text>
+                    <Text>{row.original.botschafter?.telefon}</Text>
+                    <Text>{row.original.botschafter?.email}</Text>
+                  </chakra.div>
+                  <chakra.div>
                     <Text as={"b"}>Bundesland:</Text> <br />
                     <Text>{row.original.botschafter?.bundesland || "-"}</Text>
-                  </div>
-                  <div>
+                  </chakra.div>
+                  <chakra.div>
                     <Text as={"b"}>Kontakt:</Text> <br />
                     <Text>{row.original.botschafter.strasse || "-"}</Text>
                     <Text>
                       {row.original.botschafter.plz || "-"}{" "}
                       {row.original.botschafter.ort || "-"}
                     </Text>
-                  </div>
+                  </chakra.div>
                 </Flex>
               </PopoverBody>
             </PopoverContent>
