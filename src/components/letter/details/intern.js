@@ -104,7 +104,7 @@ function InternDetail({ letter }) {
               </StatNumber>
             </Stat>
             <Stat>
-              <StatLabel>ZWB 1000</StatLabel>
+              <StatLabel>ZWB 1111</StatLabel>
               <StatNumber>{dateFormatter(letter.zwb1000, false)}</StatNumber>
             </Stat>
             <Stat>

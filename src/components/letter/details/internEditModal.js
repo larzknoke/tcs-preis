@@ -256,7 +256,7 @@ function InternEditModal({ onClose, isOpen, letter }) {
               </GridItem>
               <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.zwb1000}>
-                  <FormLabel>ZWB 1000</FormLabel>
+                  <FormLabel>ZWB 1111</FormLabel>
                   <SingleDatepicker
                     placeholder="Datum auswählen..."
                     name="date-input"

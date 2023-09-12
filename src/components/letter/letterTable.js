@@ -292,7 +292,7 @@ function LetterTable({ letters }) {
               {row.original.status == "abgelehnt" && (
                 <Icon as={HiOutlineNoSymbol} color={"red.500"} />
               )}
-              {row.original.status == "1000" && (
+              {row.original.status == "1111" && (
                 <Icon as={HiOutlineCheck} color={"green.700"} />
               )}
               {row.original.status == "5000" && (
@@ -336,10 +336,10 @@ function LetterTable({ letters }) {
                   Offen
                 </Button>
                 <Button
-                  onClick={() => changeStatus("1000", row.original.id)}
+                  onClick={() => changeStatus("1111", row.original.id)}
                   colorScheme="green"
                 >
-                  1000,-
+                  1111,-
                 </Button>
                 <Button
                   onClick={() => changeStatus("5000", row.original.id)}
@@ -938,7 +938,7 @@ function LetterTable({ letters }) {
     switch (status) {
       case "offen":
         return "";
-      case "1000":
+      case "1111":
         return "green.50";
       case "5000":
         return "green.50";
