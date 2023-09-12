@@ -447,7 +447,7 @@ function NewLetter() {
                   <AlertTitle>Formular unvollständig!</AlertTitle>
                   <AlertDescription>
                     Einige Felder sind nicht korrekt ausgefüllt. Bitte
-                    überprüfen das Formular.
+                    überprüfen Sie das Formular.
                   </AlertDescription>
                 </Alert>
               )}

@@ -3,6 +3,7 @@ import { Container, VStack, Heading, Button } from "@chakra-ui/react";
 import Image from "next/image";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
+import CookieBanner from "@/components/layout/cookie";
 
 export default function Home() {
   return (
@@ -36,6 +37,7 @@ export default function Home() {
           Zum Formular
         </Button>
       </VStack>
+      <CookieBanner />
     </Container>
   );
 }

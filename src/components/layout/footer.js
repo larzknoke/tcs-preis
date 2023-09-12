@@ -20,7 +20,8 @@ function Footer() {
         <Text color={"gray.400"}>
           Town & Country Stiftung Stiftung <br />
           bürgerlichen Rechts
-          <br /> Hauptstraße 90 E<br /> 99820 Hörselberg – Hainich OT Behringen
+          <br /> Anger 55/56
+          <br /> 99084 Erfurt
         </Text>
         <Text color={"gray.400"}>
           Telefon: 03 61 / 644 78 914 <br />

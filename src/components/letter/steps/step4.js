@@ -141,6 +141,9 @@ function Step4() {
             <HStack>
               <Icon as={FaFilePdf} />
               <Text>
+                <Text as="sup" mr={1}>
+                  1
+                </Text>
                 Hier finden Sie eine Muster-Einwilligungserklärung für
                 Minderjährige für die Preisübergabe
               </Text>

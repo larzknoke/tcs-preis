@@ -71,7 +71,7 @@ function TeaserText() {
               Unterlagen vollständig und ordnungsgemäß eingereicht werden.
             </ListItem>
             <ListItem>
-              Aus allen eingehenden Bewerbungen werden 333 Anträge, die die
+              Aus allen eingehenden Bewerbungen werden 300 Anträge, die die
               Bewerbungskriterien erfüllen, ausgewählt und erhalten eine
               Förderung in Höhe von EUR 1.111. Die Auswahlentscheidung trifft
               die Stiftung.
