@@ -72,8 +72,11 @@ export const formSchema = yup.object().shape({
   wwwProjekt: yup.string().required(),
   ibanProjekt: yup
     .string()
-    //   .required()
-    .matches(/^DE[0-9]{20}$/gm, "Bitte eine gültige IBAN eingeben"),
+    .transform((value) => {
+      return value.replaceAll(" ", "");
+    })
+    .required(),
+  // .matches(/^DE[0-9]{20}$/gm, "Bitte eine gültige IBAN eingeben"),
   kontoNameProjekt: yup.string().required(),
   bankNameProjekt: yup.string().required(),
   strasseProjekt: yup.string(),

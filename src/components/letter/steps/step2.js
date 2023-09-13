@@ -16,6 +16,7 @@ import { useFormContext, Controller } from "react-hook-form";
 import { Select } from "chakra-react-select";
 import { bundeslaender } from "@/lib/data";
 import { useState } from "react";
+import InputMask from "react-input-mask";
 
 function Step2() {
   const {
@@ -168,20 +169,38 @@ function Step2() {
           </FormControl>
         </GridItem>
         <GridItem colSpan={4}>
-          <FormControl isInvalid={errors.ibanProjekt}>
-            <FormLabel>
-              Bankverbindung - IBAN der gemeinnützigen Einrichtung (Bitte ohne
-              Leerzeichen eingeben)
-            </FormLabel>
-            <Input
-              name="ibanProjekt"
-              type="string"
-              {...register("ibanProjekt")}
-            />
-            <FormErrorMessage>
-              {errors.ibanProjekt && errors.ibanProjekt.message}
-            </FormErrorMessage>
-          </FormControl>
+          <Controller
+            name="ibanProjekt"
+            control={control}
+            render={({
+              field: { onChange, onBlur, value, name, ref },
+              fieldState: { error },
+            }) => (
+              <FormControl isInvalid={errors.ibanProjekt}>
+                <FormLabel>
+                  Bankverbindung - IBAN der gemeinnützigen Einrichtung (Bitte
+                  ohne Leerzeichen eingeben)
+                </FormLabel>
+                <InputMask
+                  mask="aa99 9999 9999 9999 9999 99"
+                  value={value}
+                  onChange={onChange}
+                  disabled={false}
+                  onBlur={onBlur}
+                >
+                  <Input
+                    disabled={false}
+                    name="ibanProjekt"
+                    type="text"
+                    placeholder="DE12 3456 7890 1234 5678 90"
+                  />
+                </InputMask>
+                <FormErrorMessage>
+                  {errors.ibanProjekt && errors.ibanProjekt.message}
+                </FormErrorMessage>
+              </FormControl>
+            )}
+          />
         </GridItem>
         <GridItem colSpan={4} py={4}>
           <FormControl display="flex" alignItems="center">
