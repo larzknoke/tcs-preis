@@ -12,6 +12,9 @@ function Bewerbungen({ letters }) {
 
 export const getServerSideProps = async () => {
   const letters = await prisma.letter.findMany({
+    where: {
+      verified: true,
+    },
     include: {
       botschafter: true,
     },

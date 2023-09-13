@@ -134,7 +134,11 @@ export const getServerSideProps = async (ctx) => {
         id: parseInt(id),
       },
       include: {
-        letters: true,
+        letters: {
+          where: {
+            verified: true,
+          },
+        },
       },
     });
     console.log("botschafter: ", botschafter);
