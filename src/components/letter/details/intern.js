@@ -19,6 +19,9 @@ import {
   IconButton,
   useClipboard,
   Flex,
+  Table,
+  Tr,
+  Td,
 } from "@chakra-ui/react";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { useEffect } from "react";
@@ -204,6 +207,32 @@ function InternDetail({ letter }) {
           </Stack>
         </CardBody>
       </Card>
+      {letter.originalLetter && (
+        <Card>
+          <CardHeader>
+            <Heading
+              size="sm"
+              color="gray.500"
+              fontWeight={"600"}
+              textTransform={"uppercase"}
+            >
+              Original Bewerbung
+            </Heading>
+          </CardHeader>
+          <CardBody>
+            <Table>
+              {Object.entries(letter.originalLetter).map(([k, v]) => {
+                return (
+                  <Tr>
+                    <Td textAlign={"left"}>{k}</Td>
+                    <Td textAlign={"left"}>{JSON.stringify(v)}</Td>
+                  </Tr>
+                );
+              })}
+            </Table>
+          </CardBody>
+        </Card>
+      )}
     </SimpleGrid>
   );
 }

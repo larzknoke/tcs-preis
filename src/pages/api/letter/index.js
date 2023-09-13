@@ -9,13 +9,14 @@ export default async function handle(req, res) {
   if (req.method == "POST") {
     try {
       const data = req.body;
-      console.log("data: ", data);
+      const dataCopy = JSON.parse(JSON.stringify(data));
       const kampagne = await prisma.kampagne.findFirst({
         where: {
           abgeschlossen: false,
         },
       });
       data.kampagneId = kampagne ? kampagne.id : null;
+      data.originalLetter = dataCopy;
       const result = await prisma.letter.create({ data: data });
 
       if (result.emailProjekt) {

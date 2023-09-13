@@ -83,6 +83,7 @@ model Letter {
   presseErledigt                DateTime?
   zwb1000                       DateTime?
   zwb5000                       DateTime?
+  originalLetter                Json?
   notes                         Note[]
   files                         File[]
 }
