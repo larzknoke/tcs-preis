@@ -97,6 +97,12 @@ function InternDetail({ letter }) {
               </StatNumber>
             </Stat>
             <Stat>
+              <StatLabel>Jury Vorauswahl</StatLabel>
+              <StatNumber>
+                <Checker bool={letter.jury} />
+              </StatNumber>
+            </Stat>
+            <Stat>
               <StatLabel>Termin Überweisung 1.000€</StatLabel>
               <StatNumber>{dateFormatter(letter.terminGeld, false)}</StatNumber>
             </Stat>

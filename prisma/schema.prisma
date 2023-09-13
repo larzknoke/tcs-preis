@@ -84,6 +84,7 @@ model Letter {
   zwb1000                       DateTime?
   zwb5000                       DateTime?
   originalLetter                Json?
+  jury                          Boolean? @default(false)
   notes                         Note[]
   files                         File[]
 }

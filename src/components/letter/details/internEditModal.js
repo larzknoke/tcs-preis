@@ -167,6 +167,20 @@ function InternEditModal({ onClose, isOpen, letter }) {
                 </FormControl>
               </GridItem>
               <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.jury}>
+                  <FormLabel>Jury Vorauswahl</FormLabel>
+                  <Switch
+                    colorScheme="green"
+                    name="jury"
+                    type="text"
+                    {...register("jury")}
+                  />
+                  <FormErrorMessage>
+                    {errors.jury && errors.jury.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.terminGeld}>
                   <FormLabel>Termin Überweisung 1.000€</FormLabel>
                   <SingleDatepicker
