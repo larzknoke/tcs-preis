@@ -395,6 +395,7 @@ function LetterTable({ letters }) {
                       {row.original.botschafter?.vorname}{" "}
                       {row.original.botschafter?.name}
                     </Text>
+                    <Text>{row.original.botschafter?.mobil}</Text>
                     <Text>{row.original.botschafter?.telefon}</Text>
                     <Text>{row.original.botschafter?.email}</Text>
                   </chakra.div>
