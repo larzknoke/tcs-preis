@@ -26,7 +26,9 @@ function Footer() {
         <Text color={"gray.400"}>
           Telefon: 03 61 / 644 78 914 <br />
           Telefax: 03 61 / 644 78 915 <br />
-          <a href="mailto:info@tc-stiftung.de">info@tc-stiftung.de</a>
+          <a href="mailto:stiftungspreis@tc-stiftung.de">
+            stiftungspreis@tc-stiftung.de
+          </a>
           <br />
           <a href="https://www.tc-stiftung.de">www.tc-stiftung.de</a>
         </Text>

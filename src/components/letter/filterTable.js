@@ -1,9 +1,47 @@
+import {
+  Table,
+  Card,
+  CardBody,
+  Thead,
+  Tbody,
+  Tr,
+  Td,
+  Th,
+  Stack,
+  Heading,
+  chakra,
+  Flex,
+  HStack,
+  IconButton,
+  Spacer,
+  Tooltip,
+  Text,
+  Input,
+} from "@chakra-ui/react";
 import React from "react";
-import ReactDOM from "react-dom/client";
+import {
+  HiOutlineFolderOpen,
+  HiOutlineCheck,
+  HiOutlineNoSymbol,
+  HiOutlineQuestionMarkCircle,
+  HiMiniLanguage,
+  HiMiniStar,
+  HiLink,
+  HiOutlineBanknotes,
+  HiCalendarDays,
+  HiOutlineTrash,
+  HiUserPlus,
+  HiOutlineCircleStack,
+  HiChevronDoubleLeft,
+  HiChevronDoubleRight,
+  HiChevronLeft,
+  HiChevronRight,
+  HiPaperClip,
+} from "react-icons/hi2";
+import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 
 import {
   Column,
-  Table,
   useReactTable,
   ColumnFiltersState,
   getCoreRowModel,
@@ -26,6 +64,7 @@ import {
   rankItem,
   compareItems,
 } from "@tanstack/match-sorter-utils";
+import { TableContainer } from "@chakra-ui/react";
 
 const fuzzyFilter = (row, columnId, value, addMeta) => {
   // Rank the item
@@ -62,6 +101,15 @@ function FilterTable({ letters }) {
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [globalFilter, setGlobalFilter] = React.useState("");
 
+  function handleExport() {
+    const ids = table
+      .getFilteredRowModel()
+      .rows.map((row) => row.getValue("id"));
+    const result = tableData.filter(({ id }) => ids.includes(id));
+    const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
+    exportToExcel(result, "bewerbung_export_" + date);
+  }
+
   const columns = React.useMemo(
     () => [
       {
@@ -71,6 +119,31 @@ function FilterTable({ letters }) {
       },
       {
         accessorKey: "status",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "nameProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "nameTraeger",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "vorstandTraeger",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "bundeslandTraeger",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "organisationProjekt",
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
       },
@@ -112,145 +185,171 @@ function FilterTable({ letters }) {
   }, [table.getState().columnFilters[0]?.id]);
 
   return (
-    <div className="p-2">
-      <div>
+    <>
+      <Stack mt={10} mb={6} direction={{ base: "column", md: "row" }}>
+        <Heading
+          color={"gray.700"}
+          size={"md"}
+          textAlign={"left"}
+          margin={"auto 0"}
+        >
+          Bewerbung Filter{" "}
+          <chakra.span color={"gray.400"}>
+            {table.getFilteredRowModel().rows.length || "-"} /{" "}
+            {tableData.length}
+          </chakra.span>{" "}
+        </Heading>
         <DebouncedInput
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
-          className="p-2 font-lg shadow border border-block"
-          placeholder="Search all columns..."
+          placeholder="Suche..."
+          maxWidth={"450px"}
+          w={"100%"}
+          ml={"auto"}
         />
-      </div>
-      <div className="h-2" />
-      <table>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <th key={header.id} colSpan={header.colSpan}>
-                    {header.isPlaceholder ? null : (
-                      <>
-                        <div
-                          {...{
-                            className: header.column.getCanSort()
-                              ? "cursor-pointer select-none"
-                              : "",
-                            onClick: header.column.getToggleSortingHandler(),
-                          }}
-                        >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
+      </Stack>
+      <Card>
+        <CardBody>
+          <TableContainer>
+            <Table>
+              <Thead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <Tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
+                      return (
+                        <Th key={header.id} colSpan={header.colSpan}>
+                          {header.isPlaceholder ? null : (
+                            <>
+                              <div
+                                {...{
+                                  className: header.column.getCanSort()
+                                    ? "cursor-pointer select-none"
+                                    : "",
+                                  onClick:
+                                    header.column.getToggleSortingHandler(),
+                                }}
+                              >
+                                {flexRender(
+                                  header.column.columnDef.header,
+                                  header.getContext()
+                                )}
+                                {{
+                                  asc: (
+                                    <TriangleUpIcon
+                                      aria-label="sorted descending"
+                                      ml={2}
+                                    />
+                                  ),
+                                  desc: (
+                                    <TriangleDownIcon
+                                      aria-label="sorted descending"
+                                      ml={2}
+                                    />
+                                  ),
+                                }[header.column.getIsSorted()] ?? null}
+                              </div>
+                              {header.column.getCanFilter() ? (
+                                <div>
+                                  <Filter
+                                    column={header.column}
+                                    table={table}
+                                  />
+                                </div>
+                              ) : null}
+                            </>
                           )}
-                          {{
-                            asc: " 🔼",
-                            desc: " 🔽",
-                          }[header.column.getIsSorted()] ?? null}
-                        </div>
-                        {header.column.getCanFilter() ? (
-                          <div>
-                            <Filter column={header.column} table={table} />
-                          </div>
-                        ) : null}
-                      </>
-                    )}
-                  </th>
-                );
-              })}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => {
-            return (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => {
+                        </Th>
+                      );
+                    })}
+                  </Tr>
+                ))}
+              </Thead>
+              <Tbody>
+                {table.getRowModel().rows.map((row) => {
                   return (
-                    <td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
+                    <Tr key={row.id}>
+                      {row.getVisibleCells().map((cell) => {
+                        return (
+                          <Td key={cell.id}>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </Td>
+                        );
+                      })}
+                    </Tr>
                   );
                 })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <div className="h-2" />
-      <div className="flex items-center gap-2">
-        <button
-          className="border rounded p-1"
-          onClick={() => table.setPageIndex(0)}
-          disabled={!table.getCanPreviousPage()}
-        >
-          {"<<"}
-        </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          {"<"}
-        </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          {">"}
-        </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-          disabled={!table.getCanNextPage()}
-        >
-          {">>"}
-        </button>
-        <span className="flex items-center gap-1">
-          <div>Page</div>
-          <strong>
-            {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
-          </strong>
-        </span>
-        <span className="flex items-center gap-1">
-          | Go to page:
-          <input
-            type="number"
-            defaultValue={table.getState().pagination.pageIndex + 1}
-            onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              table.setPageIndex(page);
-            }}
-            className="border p-1 rounded w-16"
-          />
-        </span>
-        <select
-          value={table.getState().pagination.pageSize}
-          onChange={(e) => {
-            table.setPageSize(Number(e.target.value));
-          }}
-        >
-          {[10, 20, 30, 40, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>{table.getPrePaginationRowModel().rows.length} Rows</div>
-      <div>
-        <button onClick={() => rerender()}>Force Rerender</button>
-      </div>
-      <div>
-        <button onClick={() => refreshData()}>Refresh Data</button>
-      </div>
+              </Tbody>
+            </Table>
+          </TableContainer>
+          <Flex gap={2} mt={6} direction={{ base: "column", md: "row" }}>
+            <HStack>
+              <IconButton
+                variant={"ghost"}
+                aria-label="Zur ersten Seite"
+                icon={<HiChevronDoubleLeft />}
+                onClick={() => table.setPageIndex(0)}
+                disabled={!table.getCanPreviousPage()}
+              />
+              <IconButton
+                variant={"ghost"}
+                aria-label="Zur ersten Seite"
+                icon={<HiChevronLeft />}
+                onClick={() => table.previousPage()}
+                disabled={!table.getCanPreviousPage()}
+              />
+              <IconButton
+                variant={"ghost"}
+                aria-label="Zur ersten Seite"
+                icon={<HiChevronRight />}
+                onClick={() => table.nextPage()}
+                disabled={!table.getCanNextPage()}
+              />
+              <IconButton
+                variant={"ghost"}
+                aria-label="Zur ersten Seite"
+                icon={<HiChevronDoubleRight />}
+                onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                disabled={!table.getCanNextPage()}
+              />
+            </HStack>
+            <HStack>
+              <chakra.span className="flex items-center gap-1">
+                <Text>Seite</Text>
+                <strong>
+                  {table.getState().pagination.pageIndex + 1} von{" "}
+                  {table.getPageCount()}
+                </strong>
+              </chakra.span>
+              <select
+                value={table.getState().pagination.pageSize}
+                onChange={(e) => {
+                  table.setPageSize(Number(e.target.value));
+                }}
+              >
+                {[10, 20, 30, 40, 50, 100, 1000].map((pageSize) => (
+                  <option key={pageSize} value={pageSize}>
+                    Zeige {pageSize}
+                  </option>
+                ))}
+              </select>
+            </HStack>
+            <Spacer />
+            <Tooltip label="Bewerbungen exportieren" placement="top">
+              <IconButton
+                onClick={handleExport}
+                icon={<HiPaperClip />}
+                colorScheme="green"
+                variant={"outline"}
+              />
+            </Tooltip>
+          </Flex>
+        </CardBody>
+      </Card>
       <pre>{JSON.stringify(table.getState(), null, 2)}</pre>
-    </div>
+    </>
   );
 }
 
@@ -285,7 +384,6 @@ function Filter({ column, table }) {
               ? `(${column.getFacetedMinMaxValues()?.[0]})`
               : ""
           }`}
-          className="w-24 border shadow rounded"
         />
         <DebouncedInput
           type="number"
@@ -300,10 +398,8 @@ function Filter({ column, table }) {
               ? `(${column.getFacetedMinMaxValues()?.[1]})`
               : ""
           }`}
-          className="w-24 border shadow rounded"
         />
       </div>
-      <div className="h-1" />
     </div>
   ) : (
     <>
@@ -316,11 +412,9 @@ function Filter({ column, table }) {
         type="text"
         value={columnFilterValue ?? ""}
         onChange={(value) => column.setFilterValue(value)}
-        placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
-        className="w-36 border shadow rounded"
+        placeholder={`Suche... (${column.getFacetedUniqueValues().size})`}
         list={column.id + "list"}
       />
-      <div className="h-1" />
     </>
   );
 }
@@ -347,10 +441,12 @@ function DebouncedInput({
   }, [value]);
 
   return (
-    <input
+    <Input
       {...props}
       value={value}
       onChange={(e) => setValue(e.target.value)}
+      size={"xs"}
+      mt={2}
     />
   );
 }
