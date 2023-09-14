@@ -74,6 +74,15 @@ function Header() {
           >
             Benutzer
           </Button>
+          <Button
+            as={Link}
+            href="/admin/filter"
+            color={"gray.500"}
+            fontWeight={"400"}
+            variant={"ghost"}
+          >
+            Filter
+          </Button>
         </HStack>
       )}
       <Spacer />
@@ -107,6 +116,9 @@ function Header() {
                 </MenuItem>
                 <MenuItem as={Link} href="/admin/users">
                   Benutzer
+                </MenuItem>
+                <MenuItem as={Link} href="/admin/filter">
+                  Filter
                 </MenuItem>
                 <MenuDivider />
 
