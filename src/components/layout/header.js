@@ -87,10 +87,22 @@ function Header() {
       )}
       <Spacer />
       <HStack gap={{ base: 0, md: 8 }} color={"gray.500"}>
-        <Button color={"gray.500"} fontWeight={"400"} variant={"ghost"}>
+        <Button
+          as={Link}
+          href={"/impressum"}
+          color={"gray.500"}
+          fontWeight={"400"}
+          variant={"ghost"}
+        >
           Impressum
         </Button>
-        <Button color={"gray.500"} fontWeight={"400"} variant={"ghost"}>
+        <Button
+          as={Link}
+          href={"/datenschutz"}
+          color={"gray.500"}
+          fontWeight={"400"}
+          variant={"ghost"}
+        >
           Datenschutz
         </Button>
         {session ? (

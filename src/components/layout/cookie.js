@@ -59,7 +59,7 @@ function CookieBanner() {
               </Text>
               <Text>
                 Nähere Informationen zu Cookies finden Sie in unserer
-                <Link href="/datenshutz"> Datenschutzerklärung</Link>.
+                <Link href="/datenschutz"> Datenschutzerklärung</Link>.
               </Text>
             </VStack>
           </ModalBody>

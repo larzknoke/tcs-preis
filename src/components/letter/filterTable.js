@@ -206,6 +206,7 @@ function FilterTable({ letters }) {
           maxWidth={"450px"}
           w={"100%"}
           ml={"auto"}
+          size={"md"}
         />
       </Stack>
       <Card>
@@ -424,6 +425,7 @@ function DebouncedInput({
   value: initialValue,
   onChange,
   debounce = 500,
+  size = "xs",
   ...props
 }) {
   const [value, setValue] = React.useState(initialValue);
@@ -445,7 +447,7 @@ function DebouncedInput({
       {...props}
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      size={"xs"}
+      size={size}
       mt={2}
     />
   );
