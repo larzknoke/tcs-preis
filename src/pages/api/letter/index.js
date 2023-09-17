@@ -25,7 +25,8 @@ export default async function handle(req, res) {
             process.env.NODE_ENV === "development"
               ? ["info@larsknoke.com"]
               : result.emailProjekt,
-          subject: "TC-Stiftung - Stiftungspreis 2023 - Verifizierung",
+          subject:
+            "11. Town & Country Stiftungspreis: Bitte bestätigen Sie Ihre Bewerbung",
           html: render(<VerifyEmail letter={result} />),
         });
       } else {

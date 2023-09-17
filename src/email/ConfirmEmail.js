@@ -15,7 +15,9 @@ export default function ConfirmEmail({ letter }) {
   return (
     <Html>
       <Head />
-      <Preview>TC-Stiftung | Bewerbung 2023</Preview>
+      <Preview>
+        11. Town &amp; Country Stiftungspreis: Vielen Dank für Ihre Bewerbung
+      </Preview>
       <Body style={main}>
         <Container style={container}>
           <Img
@@ -31,13 +33,29 @@ export default function ConfirmEmail({ letter }) {
           </Text>
 
           <Section style={section}>
-            <Text style={text}>Hallo {letter.ansprechpartnerProjekt}</Text>
-            <Text style={text}>Ihre Bewerbung wurde hiermit bestätigt.</Text>
-            <Text style={text}>Vielen Dank.</Text>
+            <Text style={text}>Sehr geehrte Bewerber:innen,</Text>
+            <Text style={textbold}>
+              vielen Dank für Ihre Teilnahme am 11. Town &amp; Country
+              Stiftungspreis. Hiermit bestätigen wir Ihnen den Eingang Ihrer
+              Bewerbung.
+            </Text>
+            <Text style={text}>
+              Für Ihre Unterlagen finden Sie anbei eine Kopie des von Ihnen
+              eingereichten Formulars.
+            </Text>
+            <Text style={text}>
+              Die Bekanntgabe der Preisträger erfolgt ab Februar 2024 auf
+              unserer Webseite.
+            </Text>
           </Section>
-          <Text style={links}>
-            <Link style={link}>Datenschutz</Link> ・{" "}
-            <Link style={link}>Kontakt</Link>
+
+          <Text>
+            <strong>Ihr Team der Town &amp; Country Stiftung</strong> <br />
+            Anger 55/56, <br />
+            99084 Erfurt <br />
+            0361 644 789-14 <br />
+            stiftungspreis@tc-stiftung.de <br />
+            www.tc-stiftung.de
           </Text>
 
           <Text style={footer}>
@@ -58,7 +76,7 @@ const main = {
 };
 
 const container = {
-  width: "480px",
+  width: "600px",
   margin: "0 auto",
   padding: "20px 0 48px",
 };
@@ -74,11 +92,18 @@ const section = {
   border: "solid 1px #dedede",
   borderRadius: "5px",
   textAlign: "center",
+  marginBottom: "10px",
 };
 
 const text = {
   margin: "0 0 10px 0",
   textAlign: "left",
+};
+
+const textbold = {
+  margin: "0 0 10px 0",
+  textAlign: "left",
+  fontWeight: "bold",
 };
 
 const button = {

@@ -15,7 +15,9 @@ export default function VerifyEmail({ letter }) {
   return (
     <Html>
       <Head />
-      <Preview>TC-Stiftung | Bewerbung 2023</Preview>
+      <Preview>
+        11. Town & Country Stiftungspreis: Bitte bestätigen Sie Ihre Bewerbung
+      </Preview>
       <Body style={main}>
         <Container style={container}>
           <Img
@@ -31,9 +33,14 @@ export default function VerifyEmail({ letter }) {
           </Text>
 
           <Section style={section}>
-            <Text style={text}>Hallo {letter.ansprechpartnerProjekt}</Text>
+            <Text style={text}>Sehr geehrte Bewerber:innen,</Text>
             <Text style={text}>
-              Bitte bestätigen Sie Ihre Bewerbung mit diesem Link:
+              vielen Dank für Ihre Bewerbung zum diesjährigen 11. Town &amp;
+              Country Stiftungspreis.
+            </Text>
+            <Text style={text}>
+              Um Ihre Bewerbung zu aktivieren, klicken Sie bitte auf folgenden
+              Link:
             </Text>
 
             <Button
@@ -47,9 +54,53 @@ export default function VerifyEmail({ letter }) {
               <Text style={buttonText}>Bewerbung bestätigen</Text>
             </Button>
           </Section>
+          <Text style={text}>
+            Mit dem vorstehenden Link bestätigen Sie, dass Sie sich zur
+            Teilnahme am diesjährigen 11. Town &amp; Country Stiftungspreis
+            beworben haben und aktivieren Ihre Bewerbung.
+          </Text>
+          <Text style={textbold}>
+            Sollten Sie diesen Link nicht bestätigen, kann Ihre Bewerbung zur
+            Teilnahme am 11. Town &amp; Country Stiftungspreis nicht
+            berücksichtigt werden.
+          </Text>
+          <Text style={text}>
+            Falls es sich bei Ihrer Bewerbung um ein Versehen handelt oder Sie
+            Ihre Bewerbung zurückziehen möchten, müssen Sie nicht reagieren. Sie
+            werden keine weiteren E-Mails von uns erhalten.
+          </Text>
+          <Text style={text}>
+            Mit den untenstehenden Links informieren wir Sie nochmals über die
+            geltenden Teilnahmebedingungen und die Datenschutzerklärung, die Sie
+            als verbindlich anerkannt haben.
+          </Text>
+
           <Text style={links}>
-            <Link style={link}>Datenschutz</Link> ・{" "}
-            <Link style={link}>Kontakt</Link>
+            <Link
+              href="https://www.tc-stiftung.de/wp-
+content/uploads/2023/09/DatenschutzerklaerungBewerbung-11.-Stiftungspreis.pdf"
+              style={link}
+            >
+              Hier finden Sie die Datenschutzerklärung
+            </Link>{" "}
+            <br />
+            <Link
+              href="https://www.tc-stiftung.de/wp-
+content/uploads/2023/09/Allg.Teilnahmebedingungen-11.-STP.pdf"
+              style={link}
+            >
+              Hier finden Sie die Teilnahmebedingungen des 11. Town &amp;
+              Country Stiftungspreises
+            </Link>
+          </Text>
+
+          <Text>
+            <strong>Ihr Team der Town &amp; Country Stiftung</strong> <br />
+            Anger 55/56, <br />
+            99084 Erfurt <br />
+            0361 644 789-14 <br />
+            stiftungspreis@tc-stiftung.de <br />
+            www.tc-stiftung.de
           </Text>
 
           <Text style={footer}>
@@ -70,7 +121,7 @@ const main = {
 };
 
 const container = {
-  width: "480px",
+  width: "600px",
   margin: "0 auto",
   padding: "20px 0 48px",
 };
@@ -86,11 +137,18 @@ const section = {
   border: "solid 1px #dedede",
   borderRadius: "5px",
   textAlign: "center",
+  marginBottom: "10px",
 };
 
 const text = {
   margin: "0 0 10px 0",
   textAlign: "left",
+};
+
+const textbold = {
+  margin: "0 0 10px 0",
+  textAlign: "left",
+  fontWeight: "bold",
 };
 
 const button = {
