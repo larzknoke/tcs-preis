@@ -18,7 +18,7 @@ function Footer() {
           priority
         />
         <Text color={"gray.400"}>
-          Town & Country Stiftung Stiftung <br />
+          Town & Country Stiftung <br />
           bürgerlichen Rechts
           <br /> Anger 55/56
           <br /> 99084 Erfurt
