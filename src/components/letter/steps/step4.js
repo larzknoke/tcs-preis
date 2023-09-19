@@ -201,7 +201,7 @@ function Step4() {
               Wir haben die{" "}
               <Link
                 target="_blank"
-                href="https://www.tc-stiftung.de/wp-content/uploads/2021/01/DatenschutzerklaerungBewerbung.pdf"
+                href="https://www.tc-stiftung.de/wp-content/uploads/2023/09/DatenschutzerklaerungBewerbung-11.-Stiftungspreis.pdf"
               >
                 hier abrufbare Datenschutzerklärung
               </Link>{" "}
@@ -227,7 +227,7 @@ function Step4() {
               Wir haben die{" "}
               <Link
                 target="_blank"
-                href="https://www.tc-stiftung.de/wp-content/uploads/2021/01/Allg.Teilnahmebedingungen.pdf"
+                href="https://www.tc-stiftung.de/wp-content/uploads/2023/09/Allg.Teilnahmebedingungen-11.-STP.pdf"
               >
                 hier abrufbaren Teilnahmebedingungen
               </Link>{" "}
