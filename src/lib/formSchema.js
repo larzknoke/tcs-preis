@@ -82,7 +82,10 @@ export const formSchema = yup.object().shape({
   strasseProjekt: yup.string(),
   plzProjekt: yup
     .string()
-    .matches(/^\d+$/, "Bitte eine gültige PLZ eingeben.")
+    .matches(/^\d+$/, {
+      message: "Bitte eine gültige PLZ eingeben.",
+      excludeEmptyString: true,
+    })
     .max("5", "Bitte eine gültige PLZ eingeben."),
   ortProjekt: yup.string(),
   bundeslandProjekt: yup.string().transform((value) => {
