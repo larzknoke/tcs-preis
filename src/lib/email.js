@@ -17,7 +17,7 @@ export const sendEmail = async (data) => {
   });
 
   return await transporter.sendMail({
-    from: process.env.SMTP_FROM_EMAIL,
+    from: `Town & Country Stiftung <${process.env.SMTP_FROM_EMAIL}>`,
     ...data,
   });
 };
