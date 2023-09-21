@@ -135,7 +135,7 @@ function Step4() {
           <Link
             target="_blank"
             href={
-              "https://www.tc-stiftung.de/wp-content/uploads/2020/01/Muster-Einwilligungserkl%C3%A4rung.pdf"
+              "https://www.tc-stiftung.de/wp-content/uploads/2023/09/Muster-Einwilligungserklaerung-Stiftungspreis.pdf"
             }
           >
             <HStack>

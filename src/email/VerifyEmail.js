@@ -77,16 +77,14 @@ export default function VerifyEmail({ letter }) {
 
           <Text style={links}>
             <Link
-              href="https://www.tc-stiftung.de/wp-
-content/uploads/2023/09/DatenschutzerklaerungBewerbung-11.-Stiftungspreis.pdf"
+              href="https://www.tc-stiftung.de/wp-content/uploads/2023/09/DatenschutzerklaerungBewerbung-11.-Stiftungspreis.pdf"
               style={link}
             >
               Hier finden Sie die Datenschutzerklärung
             </Link>{" "}
             <br />
             <Link
-              href="https://www.tc-stiftung.de/wp-
-content/uploads/2023/09/Allg.Teilnahmebedingungen-11.-STP.pdf"
+              href="https://www.tc-stiftung.de/wp-content/uploads/2023/09/Allg.Teilnahmebedingungen-11.-STP.pdf"
               style={link}
             >
               Hier finden Sie die Teilnahmebedingungen des 11. Town &amp;
@@ -95,7 +93,10 @@ content/uploads/2023/09/Allg.Teilnahmebedingungen-11.-STP.pdf"
           </Text>
 
           <Text>
-            <strong>Ihr Team der Town &amp; Country Stiftung</strong> <br />
+            <strong>
+              Ihr Team der <br /> Town &amp; Country Stiftung
+            </strong>{" "}
+            <br />
             Anger 55/56, <br />
             99084 Erfurt <br />
             0361 644 789-14 <br />
@@ -104,8 +105,8 @@ content/uploads/2023/09/Allg.Teilnahmebedingungen-11.-STP.pdf"
           </Text>
 
           <Text style={footer}>
-            Town & Country Stiftung Stiftung ・ Hauptstraße 90 E ・99820
-            Hörselberg – Hainich OT Behringen
+            Town & Country Stiftung ・ Hauptstraße 90 E ・99820 Hörselberg –
+            Hainich OT Behringen
           </Text>
         </Container>
       </Body>
