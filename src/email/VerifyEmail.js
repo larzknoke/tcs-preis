@@ -29,7 +29,9 @@ export default function VerifyEmail({ letter }) {
           />
 
           <Text style={title}>
-            Bewerbung: <strong>{letter.organisationProjekt}</strong>
+            Bewerbung: <br />
+            <strong>{letter.nameTraeger}</strong> <br />
+            <strong>{letter.nameProjekt}</strong>
           </Text>
 
           <Section style={section}>
@@ -123,7 +125,7 @@ const container = {
 };
 
 const title = {
-  fontSize: "24px",
+  fontSize: "20px",
   lineHeight: 1.25,
   color: "#284879",
 };

@@ -28,10 +28,10 @@ export default function ConfirmStiftungEmail({ letter }) {
           />
 
           <Text style={title}>
-            Eingang Bewerbung:{" "}
-            <strong>
-              {letter.organisationProjekt} ID: {letter.id}
-            </strong>
+            Eingang Bewerbung: <br />
+            <strong>ID: {letter.id}</strong> <br />
+            <strong>{letter.nameTraeger}</strong> <br />
+            <strong>{letter.nameProjekt}</strong>
           </Text>
 
           <Section style={sectionLeft}>
@@ -71,7 +71,7 @@ const container = {
 };
 
 const title = {
-  fontSize: "24px",
+  fontSize: "20px",
   lineHeight: 1.25,
   color: "#284879",
 };

@@ -29,7 +29,9 @@ export default function ConfirmEmail({ letter }) {
           />
 
           <Text style={title}>
-            Bewerbung: <strong>{letter.organisationProjekt}</strong>
+            Bewerbung: <br />
+            <strong>{letter.nameTraeger}</strong> <br />
+            <strong>{letter.nameProjekt}</strong>
           </Text>
 
           <Section style={section}>
@@ -51,8 +53,7 @@ export default function ConfirmEmail({ letter }) {
 
           <Text>
             <strong>
-              Ihr Team der <br />
-              Town &amp; Country Stiftung
+              Ihr Team der <br /> Town &amp; Country Stiftung
             </strong>{" "}
             <br />
             Anger 55/56, <br />
@@ -81,7 +82,7 @@ const container = {
 };
 
 const title = {
-  fontSize: "24px",
+  fontSize: "20px",
   lineHeight: 1.25,
   color: "#284879",
 };
