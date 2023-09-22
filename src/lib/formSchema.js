@@ -31,6 +31,13 @@ export const formSchema = yup.object().shape({
     })
     .test("fileSize", "Datei muss unter 10 MB sein.", (file) => {
       return isFileSizeValid(file, 10000000);
+    })
+    .test("fileFormat", "Bitte PDF oder JPG verwenden.", (value) => {
+      if (value === undefined) return true;
+      return (
+        value &&
+        ["application/pdf", "image/jpg", "image/jpeg"].includes(value.type)
+      );
     }),
   freistellungsbescheidTraeger2: yup
     .mixed()
@@ -40,6 +47,13 @@ export const formSchema = yup.object().shape({
     })
     .test("fileSize", "Datei muss unter 10 MB sein.", (file) => {
       return isFileSizeValid(file, 1000000);
+    })
+    .test("fileFormat", "Bitte PDF oder JPG verwenden.", (file) => {
+      if (file === undefined || Object.keys(file).length === 0) return true;
+      return (
+        file &&
+        ["application/pdf", "image/jpg", "image/jpeg"].includes(file.type)
+      );
     }),
   customFile: yup
     .mixed()
@@ -49,6 +63,13 @@ export const formSchema = yup.object().shape({
     })
     .test("fileSize", "Datei muss unter 5 MB sein.", (file) => {
       return isFileSizeValid(file, 500000);
+    })
+    .test("fileFormat", "Bitte PDF oder JPG verwenden.", (value) => {
+      if (value === undefined) return true;
+      return (
+        value &&
+        ["application/pdf", "image/jpg", "image/jpeg"].includes(value.type)
+      );
     }),
   customFile2: yup
     .mixed()
@@ -58,6 +79,13 @@ export const formSchema = yup.object().shape({
     })
     .test("fileSize", "Datei muss unter 5 MB sein.", (file) => {
       return isFileSizeValid(file, 500000);
+    })
+    .test("fileFormat", "Bitte PDF oder JPG verwenden.", (value) => {
+      if (value === undefined) return true;
+      return (
+        value &&
+        ["application/pdf", "image/jpg", "image/jpeg"].includes(value.type)
+      );
     }),
   organisationProjekt: yup.string().required(),
   nameProjekt: yup.string().required(),
@@ -243,6 +271,26 @@ export function isFileSizeValid(file, maxSize) {
 export function checkFileExist(file) {
   if (file != undefined) {
     if (Object.keys(file).length === 0 && file.constructor === Object) {
+      return false;
+    } else {
+      return true;
+    }
+  } else {
+    return true;
+  }
+}
+
+const validFileExtensions = {
+  image: ["jpg", "gif", "png", "jpeg", "svg", "webp"],
+};
+
+export function isValidFileType(fileName, fileType) {
+  console.log("fileName: ", fileName);
+  if (fileName != undefined) {
+    if (
+      fileName &&
+      validFileExtensions[fileType].indexOf(fileName.split(".").pop()) > -1
+    ) {
       return false;
     } else {
       return true;
