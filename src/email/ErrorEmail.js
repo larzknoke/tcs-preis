@@ -39,11 +39,6 @@ export default function ErrorEmail({ letter }) {
             <Link style={link}>Datenschutz</Link> ・{" "}
             <Link style={link}>Kontakt</Link>
           </Text>
-
-          <Text style={footer}>
-            Town & Country Stiftung ・ Hauptstraße 90 E ・99820 Hörselberg –
-            Hainich OT Behringen
-          </Text>
         </Container>
       </Body>
     </Html>

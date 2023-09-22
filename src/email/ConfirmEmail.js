@@ -61,11 +61,6 @@ export default function ConfirmEmail({ letter }) {
             stiftungspreis@tc-stiftung.de <br />
             www.tc-stiftung.de
           </Text>
-
-          <Text style={footer}>
-            Town & Country Stiftung ・ Hauptstraße 90 E ・99820 Hörselberg –
-            Hainich OT Behringen
-          </Text>
         </Container>
       </Body>
     </Html>
