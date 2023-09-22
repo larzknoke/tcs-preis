@@ -109,7 +109,7 @@ export default function SimpleCard() {
             >
               Email & Passwort
             </Button>
-            <Button
+            {/* <Button
               w="full"
               leftIcon={<AiFillGithub />}
               onClick={() =>
@@ -119,7 +119,7 @@ export default function SimpleCard() {
               }
             >
               Github
-            </Button>
+            </Button> */}
           </VStack>
           <Collapse in={isOpenCollapse}>
             <form onSubmit={handleSubmit(onSubmit)}>
