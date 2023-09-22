@@ -58,7 +58,7 @@ function NewLetter() {
     criteriaMode: "all",
     defaultValues: {
       freistellungsbescheidTraeger: null,
-      freistellungsbescheidTraeger2: null,
+      // freistellungsbescheidTraeger2: null,
     },
   });
 
@@ -68,6 +68,12 @@ function NewLetter() {
     watch,
     setValue,
     storage: typeof window !== "undefined" ? window.localStorage : "",
+    exclude: [
+      "freistellungsbescheidTraeger",
+      "freistellungsbescheidTraeger2",
+      "customFile",
+      "customFile2",
+    ],
   });
 
   async function onSubmit(values) {

@@ -30,14 +30,10 @@ export const formSchema = yup.object().shape({
       return checkFileExist(file);
     })
     .test("fileSize", "Datei muss unter 10 MB sein.", (file) => {
-      return isFileSizeValid(file, 10000000);
+      return isFileSizeValid(file, 10485760);
     })
-    .test("fileFormat", "Bitte PDF oder JPG verwenden.", (value) => {
-      if (value === undefined) return true;
-      return (
-        value &&
-        ["application/pdf", "image/jpg", "image/jpeg"].includes(value.type)
-      );
+    .test("fileFormat", "Bitte PDF oder JPG verwenden.", (file) => {
+      return isValidFileType(file);
     }),
   freistellungsbescheidTraeger2: yup
     .mixed()
@@ -46,14 +42,10 @@ export const formSchema = yup.object().shape({
       return fileList[0];
     })
     .test("fileSize", "Datei muss unter 10 MB sein.", (file) => {
-      return isFileSizeValid(file, 1000000);
+      return isFileSizeValid(file, 10485760);
     })
     .test("fileFormat", "Bitte PDF oder JPG verwenden.", (file) => {
-      if (file === undefined || Object.keys(file).length === 0) return true;
-      return (
-        file &&
-        ["application/pdf", "image/jpg", "image/jpeg"].includes(file.type)
-      );
+      return isValidFileType(file);
     }),
   customFile: yup
     .mixed()
@@ -62,14 +54,10 @@ export const formSchema = yup.object().shape({
       return fileList[0];
     })
     .test("fileSize", "Datei muss unter 5 MB sein.", (file) => {
-      return isFileSizeValid(file, 500000);
+      return isFileSizeValid(file, 5242880);
     })
-    .test("fileFormat", "Bitte PDF oder JPG verwenden.", (value) => {
-      if (value === undefined) return true;
-      return (
-        value &&
-        ["application/pdf", "image/jpg", "image/jpeg"].includes(value.type)
-      );
+    .test("fileFormat", "Bitte PDF oder JPG verwenden.", (file) => {
+      return isValidFileType(file);
     }),
   customFile2: yup
     .mixed()
@@ -78,14 +66,10 @@ export const formSchema = yup.object().shape({
       return fileList[0];
     })
     .test("fileSize", "Datei muss unter 5 MB sein.", (file) => {
-      return isFileSizeValid(file, 500000);
+      return isFileSizeValid(file, 5242880);
     })
-    .test("fileFormat", "Bitte PDF oder JPG verwenden.", (value) => {
-      if (value === undefined) return true;
-      return (
-        value &&
-        ["application/pdf", "image/jpg", "image/jpeg"].includes(value.type)
-      );
+    .test("fileFormat", "Bitte PDF oder JPG verwenden.", (file) => {
+      return isValidFileType(file);
     }),
   organisationProjekt: yup.string().required(),
   nameProjekt: yup.string().required(),
@@ -280,22 +264,9 @@ export function checkFileExist(file) {
   }
 }
 
-const validFileExtensions = {
-  image: ["jpg", "gif", "png", "jpeg", "svg", "webp"],
-};
-
-export function isValidFileType(fileName, fileType) {
-  console.log("fileName: ", fileName);
-  if (fileName != undefined) {
-    if (
-      fileName &&
-      validFileExtensions[fileType].indexOf(fileName.split(".").pop()) > -1
-    ) {
-      return false;
-    } else {
-      return true;
-    }
-  } else {
-    return true;
-  }
+export function isValidFileType(file) {
+  if (file === undefined) return true;
+  return (
+    file && ["application/pdf", "image/jpg", "image/jpeg"].includes(file.type)
+  );
 }

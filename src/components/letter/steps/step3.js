@@ -138,7 +138,7 @@ function Step3() {
         </GridItem>
         <GridItem colSpan={3} maxW={{ base: "100%", md: "50%" }}>
           <FormControl isInvalid={errors.customFile}>
-            <FormLabel>weitere Dateien (max 5MB)</FormLabel>
+            <FormLabel>weitere Dateien (max 5MB, PDF oder JPG)</FormLabel>
             {customFile == "" ? (
               <Input
                 name="customFile"
@@ -182,7 +182,7 @@ function Step3() {
         </GridItem>
         <GridItem colSpan={3} maxW={{ base: "100%", md: "50%" }}>
           <FormControl isInvalid={errors.customFile2}>
-            <FormLabel>weitere Dateien (max 5MB)</FormLabel>
+            <FormLabel>weitere Dateien (max 5MB, PDF oder JPG)</FormLabel>
             {customFile2 == "" ? (
               <Input
                 name="customFile2"

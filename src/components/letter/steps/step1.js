@@ -198,9 +198,11 @@ function Step1() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={3} maxW={{ base: "100%", md: "50%" }}>
+        <GridItem colSpan={3} maxW={{ base: "100%", md: "60%" }}>
           <FormControl isInvalid={errors.freistellungsbescheidTraeger}>
-            <FormLabel>Freistellungsbescheid (max 10 MB)</FormLabel>
+            <FormLabel>
+              Freistellungsbescheid (max 10 MB, PDF oder JPG)
+            </FormLabel>
             {freistellungFile == "" ? (
               <Input
                 name="freistellungsbescheidTraeger"
@@ -243,10 +245,11 @@ function Step1() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={3} maxW={{ base: "100%", md: "50%" }}>
+        <GridItem colSpan={3} maxW={{ base: "100%", md: "60%" }}>
           <FormControl isInvalid={errors.freistellungsbescheidTraeger2}>
             <FormLabel>
-              Freistellungsbescheid (optional zweite Datei, max 10MB)
+              Freistellungsbescheid (optional zweite Datei, max 10MB, PDF oder
+              JPG)
             </FormLabel>
             {freistellungFile2 == "" ? (
               <Input
