@@ -21,7 +21,7 @@ export default function VerifyEmail({ letter }) {
       <Body style={main}>
         <Container style={container}>
           <Img
-            src={`https://tcs.larsknoke.com/tcs_logo.svg`} //TODO: URL in Production ersetzen
+            src={`https://stiftungspreis.tc-stiftung.de/tcs_logo.svg`} //TODO: URL in Production ersetzen
             alt="TCS Logo"
             width={120}
             height={24}
