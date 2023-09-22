@@ -172,7 +172,7 @@ function BotschafterDetail({ botschafter }) {
               )}
             </Stack>
           </CardBody>
-          <CardFooter>
+          {/* <CardFooter>
             <Button
               size={"sm"}
               variant={"outline"}
@@ -180,10 +180,10 @@ function BotschafterDetail({ botschafter }) {
             >
               PDF Export
             </Button>
-          </CardFooter>
+          </CardFooter> */}
         </Card>
       </GridItem>
-      <Card>
+      {/* <Card>
         <CardHeader>
           <Heading
             size="sm"
@@ -227,7 +227,7 @@ function BotschafterDetail({ botschafter }) {
           </Stack>{" "}
         </CardBody>
         <CardFooter></CardFooter>
-      </Card>
+      </Card> */}
     </SimpleGrid>
   );
 }
