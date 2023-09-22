@@ -69,7 +69,7 @@ export const formSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref("emailProjekt"), null], "E-Mail stimmt nicht überein")
     .required("Bitte Email wiederholen"),
-  wwwProjekt: yup.string().required(),
+  wwwProjekt: yup.string(),
   ibanProjekt: yup
     .string()
     .matches(/^DE[0-9]{20}$/gm, "Bitte eine gültige IBAN eingeben")
