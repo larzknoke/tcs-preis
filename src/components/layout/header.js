@@ -58,7 +58,7 @@ function Header() {
           </Button>
           <Button
             as={Link}
-            href="/"
+            href="/formular"
             color={"gray.500"}
             fontWeight={"400"}
             variant={"ghost"}
@@ -123,7 +123,7 @@ function Header() {
                 <MenuItem as={Link} href="/admin/kampagne">
                   Kampagnen
                 </MenuItem>
-                <MenuItem as={Link} href="/">
+                <MenuItem as={Link} href="/formular">
                   Formular
                 </MenuItem>
                 <MenuItem as={Link} href="/admin/users">
