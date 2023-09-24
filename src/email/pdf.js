@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
   Font,
+  Image,
 } from "@react-pdf/renderer";
 import { dateFormatter } from "@/lib/utils";
 
@@ -27,6 +28,10 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     marginBottom: 10,
   },
+  image: {
+    width: "100px",
+    margin: 5,
+  },
 });
 
 Font.register({
@@ -46,6 +51,10 @@ export const LetterPDF = ({ letter }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
+        <Image
+          style={styles.image}
+          src={"https://stiftungspreis.tc-stiftung.de/logo.png"}
+        />
         <Text style={styles.title}>11. Town & Country Stiftungspreis</Text>
         <Text style={styles.subTitle}>
           {`Folgende Daten zu Ihrer Bewerbung vom ${dateFormatter(
@@ -66,10 +75,10 @@ export const LetterPDF = ({ letter }) => (
         <Text>{`Name Projekt ${letter.nameProjekt}`}</Text>
         <Text>{`Ansprechpartner Projekt: ${letter.ansprechpartnerProjekt}`}</Text>
         <Text>{`Telefonnummer Projekt: ${letter.telefonnummerProjekt}`}</Text>
-        <Text>{`MobilP rojekt: ${letter.mobilProjekt}`}</Text>
+        <Text>{`Mobil Projekt: ${letter.mobilProjekt}`}</Text>
         <Text>{`Email Projekt: ${letter.emailProjekt}`}</Text>
-        <Text>{`WWW Projekt: ${letter.wwwProjekt}`}</Text>
-        <Text>{`Iban Projekt: ${letter.ibanProjekt}`}</Text>
+        <Text>{`Internet Projekt: ${letter.wwwProjekt}`}</Text>
+        <Text>{`IBAN Projekt: ${letter.ibanProjekt}`}</Text>
         <Text>{`Konto Name Projekt: ${letter.kontoNameProjekt}`}</Text>
         <Text>{`Bank Projekt: ${letter.bankNameProjekt}`}</Text>
         <Text>{`Strasse Projekt: ${letter.strasseProjekt}`}</Text>
