@@ -23,6 +23,7 @@ function Step2() {
     register,
     formState: { errors, isSubmitting },
     control,
+    clearErrors,
   } = useFormContext();
 
   const [adresseTraeger, setAdresseTraeger] = useState(false);
@@ -82,6 +83,11 @@ function Step2() {
               name="telefonnummerProjekt"
               type="string"
               {...register("telefonnummerProjekt")}
+              onChange={(field) => {
+                field.target.value.length > 0
+                  ? clearErrors(["mobilProjekt"])
+                  : "";
+              }}
             />
             <FormErrorMessage>
               {errors.telefonnummerProjekt &&
@@ -96,6 +102,11 @@ function Step2() {
               name="mobilProjekt"
               type="string"
               {...register("mobilProjekt")}
+              onChange={(field) => {
+                field.target.value.length > 0
+                  ? clearErrors(["telefonnummerProjekt"])
+                  : "";
+              }}
             />
             <FormErrorMessage>
               {errors.mobilProjekt && errors.mobilProjekt.message}
