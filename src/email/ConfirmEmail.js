@@ -58,7 +58,7 @@ export default function ConfirmEmail({ letter }) {
             <br />
             Anger 55/56, <br />
             99084 Erfurt <br />
-            0361 644 789-14 <br />
+            Tel. 0361 644 789-14 <br />
             stiftungspreis@tc-stiftung.de <br />
             www.tc-stiftung.de
           </Text>

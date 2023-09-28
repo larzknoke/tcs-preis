@@ -32,7 +32,7 @@ export default async function handle(req, res) {
           process.env.NODE_ENV === "development"
             ? "info@larsknoke.com"
             : ["stiftungspreis@tc-stiftung.de", "info@larsknoke.com"],
-        subject: "11. Town & Country Stiftungspreis - Eingang neue Bewerbung",
+        subject: `11. Stiftungspreis - Neue Bewerbung | ${letter.id} | ${letter.nameTraeger}`,
         html: render(<ConfirmStiftungEmail letter={letter} />),
         attachments: [
           {
