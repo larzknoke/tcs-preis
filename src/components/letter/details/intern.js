@@ -22,6 +22,7 @@ import {
   Table,
   Tr,
   Td,
+  Tbody,
 } from "@chakra-ui/react";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { useEffect } from "react";
@@ -227,14 +228,16 @@ function InternDetail({ letter }) {
           </CardHeader>
           <CardBody>
             <Table>
-              {Object.entries(letter.originalLetter).map(([k, v]) => {
-                return (
-                  <Tr>
-                    <Td textAlign={"left"}>{k}</Td>
-                    <Td textAlign={"left"}>{JSON.stringify(v)}</Td>
-                  </Tr>
-                );
-              })}
+              <Tbody>
+                {Object.entries(letter.originalLetter).map(([k, v]) => {
+                  return (
+                    <Tr key={k}>
+                      <Td textAlign={"left"}>{k}</Td>
+                      <Td textAlign={"left"}>{JSON.stringify(v)}</Td>
+                    </Tr>
+                  );
+                })}
+              </Tbody>
             </Table>
           </CardBody>
         </Card>
