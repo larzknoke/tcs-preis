@@ -121,7 +121,7 @@ export const getServerSideProps = async (ctx) => {
 
     return { props: { letter } };
   } catch (error) {
-    console.log("error: ", error);
+    console.log("verifyError: ", error);
     return {
       redirect: {
         destination: "/bewerbung/verifyError",
