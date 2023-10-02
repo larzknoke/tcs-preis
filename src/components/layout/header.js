@@ -23,7 +23,7 @@ import { HiUser } from "react-icons/hi2";
 
 function Header() {
   const { data: session } = useSession();
-  const [isMobile] = useMediaQuery("(max-width: 400px)", { fallback: false });
+  const [isMobile] = useMediaQuery("(max-width: 900px)", { fallback: false });
 
   return (
     <Flex p={8}>
