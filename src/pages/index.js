@@ -25,24 +25,18 @@ export default function Home() {
           11. Town & Country Stiftungspreis
         </Heading>
         <TeaserText />
-        <Tooltip
-          label={"Das Formular wird am 2.10.2023 um 8.00 Uhr freigeschaltet."}
-          placement={"top"}
-          textAlign={"center"}
+
+        <Button
+          href="/formular"
+          as={NextLink}
+          rightIcon={<ArrowForwardIcon />}
+          colorScheme="green"
+          form="new-angebot-form"
+          type="submit"
+          minWidth={"250px"}
         >
-          <Button
-            href="/formular"
-            as={NextLink}
-            rightIcon={<ArrowForwardIcon />}
-            colorScheme="green"
-            form="new-angebot-form"
-            type="submit"
-            minWidth={"250px"}
-            isDisabled={true}
-          >
-            Zum Formular
-          </Button>
-        </Tooltip>
+          Zum Formular
+        </Button>
       </VStack>
       <CookieBanner />
     </Container>
