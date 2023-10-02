@@ -54,6 +54,16 @@ function Bewerbung({ letter }) {
         <VStack alignItems={"start"}>
           <Heading fontSize={"22"} color={"gray.300"} fontWeight={"500"}>
             Bewerbung
+            {!letter.verified && (
+              <Badge
+                variant="outline"
+                colorScheme={"red"}
+                fontSize={"md"}
+                ml={2}
+              >
+                NICHT BESTÄTIGT
+              </Badge>
+            )}
           </Heading>
           <Heading fontSize={"24"}>{letter.organisationProjekt}</Heading>
         </VStack>

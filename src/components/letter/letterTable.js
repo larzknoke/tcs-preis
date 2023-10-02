@@ -54,6 +54,7 @@ import {
   HiChevronLeft,
   HiChevronRight,
   HiPaperClip,
+  HiFlag,
 } from "react-icons/hi2";
 import {
   useReactTable,
@@ -1100,6 +1101,18 @@ function LetterTable({ letters }) {
               </select>
             </HStack>
             <Spacer />
+            <Tooltip
+              label="Nicht bestätige Bewerbungen anzeigen"
+              placement="top"
+            >
+              <IconButton
+                as={Link}
+                href={"/admin/bewerbungen-not-verified"}
+                icon={<HiFlag />}
+                colorScheme="green"
+                variant={"outline"}
+              />
+            </Tooltip>
             <Tooltip label="Bewerbungen exportieren" placement="top">
               <IconButton
                 onClick={handleExport}

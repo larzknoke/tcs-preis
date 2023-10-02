@@ -55,6 +55,15 @@ export default function VerifyEmail({ letter }) {
             >
               <Text style={buttonText}>Bewerbung bestätigen</Text>
             </Button>
+            <Text style={text}>
+              Wenn der Link oben nicht funktioniert kopieren Sie bitte folgende
+              URL in Ihren Browser ein:
+            </Text>
+            <Text style={textbold}>
+              {process.env.NEXTAUTH_URL +
+                "/bewerbung/verify/" +
+                letter.verifyId}
+            </Text>
           </Section>
           <Text style={text}>
             Mit dem vorstehenden Link bestätigen Sie, dass Sie sich zur
@@ -119,7 +128,7 @@ const main = {
 };
 
 const container = {
-  width: "600px",
+  width: "700px",
   margin: "0 auto",
   padding: "20px 0 48px",
 };
@@ -155,6 +164,7 @@ const button = {
   color: "#fff",
   lineHeight: 1.5,
   borderRadius: "0.5em",
+  marginBottom: "10px",
 };
 
 const buttonText = {
