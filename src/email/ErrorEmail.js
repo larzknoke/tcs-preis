@@ -54,6 +54,7 @@ const main = {
 
 const container = {
   width: "700px",
+  maxWidth: "700px",
   margin: "0 auto",
   padding: "20px 0 48px",
 };
