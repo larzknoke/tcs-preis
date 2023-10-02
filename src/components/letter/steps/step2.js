@@ -249,7 +249,7 @@ function Step2() {
                 <FormLabel>Postleitzahl (Vereinsadresse)</FormLabel>
                 <Input
                   name="plzProjekt"
-                  type="number"
+                  type="text"
                   {...register("plzProjekt")}
                 />
                 <FormErrorMessage>

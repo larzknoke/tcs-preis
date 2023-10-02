@@ -121,15 +121,7 @@ function Step1() {
         <GridItem colSpan={1}>
           <FormControl isInvalid={errors.plzTraeger}>
             <FormLabel>PLZ</FormLabel>
-            <Input
-              name="plzTraeger"
-              type="number"
-              {...register("plzTraeger", {
-                valueAsNumber: true,
-              })}
-              min={1}
-              max={99999}
-            />
+            <Input name="plzTraeger" type="text" {...register("plzTraeger")} />
             <FormErrorMessage>
               {errors.plzTraeger && errors.plzTraeger.message}
             </FormErrorMessage>
