@@ -8,9 +8,6 @@ import { s3 } from "../../../lib/s3";
 export default async function handle(req, res) {
   const session = await getServerSession(req, res, authOptions);
   console.log("session", session);
-  if (!session) {
-    return res.status(401).json({ error: "401 not authenticated" });
-  }
 
   if (req.method == "GET") {
     const { key } = req.query;
