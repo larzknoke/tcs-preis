@@ -19,12 +19,12 @@ function FileDeleteModal({ onClose, isOpen, file, deleteFile, loading }) {
     <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Datei "{file?.title}" löschen</ModalHeader>
+        <ModalHeader>Datei "{file?.file?.split("/")[1]}" löschen</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           Wollen Sie die Datei{" "}
           <Text as={"b"}>
-            "{file?.title}" ({file?.typ})
+            "{file?.file?.split("/")[1]}" ({file?.typ})
           </Text>{" "}
           wirklich unwiderruflich löschen?
         </ModalBody>
