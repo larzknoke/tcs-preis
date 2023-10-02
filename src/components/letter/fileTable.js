@@ -12,14 +12,25 @@ import {
   AlertDescription,
   AlertIcon,
   Heading,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { HiOutlineFolderOpen, HiOutlineTrash } from "react-icons/hi2";
 import { dateFormatter } from "@/lib/utils";
 import { useRouter } from "next/router";
+import FileDeleteModal from "../file/fileDeleteModal";
+import { useState } from "react";
 
 function FileTable({ letter }) {
   const toast = useToast();
   const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
+
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
 
   const groupedFiles = letter.files.reduce((group, file) => {
     const { typ } = file;
@@ -40,7 +51,9 @@ function FileTable({ letter }) {
     const url = await res.json();
     window.open(url, "_blank").focus();
   }
+
   async function deleteFile(id) {
+    setLoading(true);
     const resData = await fetch("/api/file?id=" + id, { method: "DELETE" });
     if (resData.status != 200) {
       toast({
@@ -49,14 +62,16 @@ function FileTable({ letter }) {
         duration: 4000,
         isClosable: true,
       });
+      setLoading(false);
     } else {
-      // const resData = await res.json();
       toast({
         title: `Datei gelöscht.`,
         status: "success",
         duration: 4000,
         isClosable: true,
       });
+      setLoading(false);
+      onCloseDelete();
       router.replace(router.asPath);
     }
   }
@@ -101,7 +116,8 @@ function FileTable({ letter }) {
                           variant={"ghost"}
                           aria-label="Datei löschen"
                           icon={<HiOutlineTrash />}
-                          onClick={() => deleteFile(file.id)}
+                          // onClick={() => deleteFile(file.id)}
+                          onClick={() => onOpenDelete()}
                           colorScheme="red"
                         />
                       </Tooltip>
@@ -113,6 +129,14 @@ function FileTable({ letter }) {
                           onClick={() => getFile(file.file)}
                         />
                       </Tooltip>
+                      <FileDeleteModal
+                        file={file}
+                        onOpen={onOpenDelete}
+                        onClose={onCloseDelete}
+                        isOpen={isOpenDelete}
+                        deleteFile={deleteFile}
+                        loading={loading}
+                      />
                     </HStack>
                   );
                 })
