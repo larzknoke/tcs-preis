@@ -23,12 +23,18 @@ import StatusModal from "@/components/letter/statusModal";
 import { dateFormatter } from "@/lib/utils";
 import Link from "next/link";
 import NoteTable from "@/components/notes/noteTable";
+import ConfirmModal from "@/components/letter/confirmModal";
 
 function Bewerbung({ letter }) {
   const {
     isOpen: statusIsOpen,
     onOpen: statusOnOpen,
     onClose: statusOnClose,
+  } = useDisclosure();
+  const {
+    isOpen: confirmIsOpen,
+    onOpen: confirmOnOpen,
+    onClose: confirmOnClose,
   } = useDisclosure();
 
   function statusBadge(status) {
@@ -49,24 +55,31 @@ function Bewerbung({ letter }) {
       <HStack
         justify={"space-between"}
         flexDirection={{ sm: "column", md: "row" }}
-        alignItems={"start"}
+        mb={4}
       >
-        <VStack alignItems={"start"}>
-          <Heading fontSize={"22"} color={"gray.300"} fontWeight={"500"}>
-            Bewerbung
-            {!letter.verified && (
+        <Heading fontSize={"22"} color={"gray.300"} fontWeight={"500"}>
+          Bewerbung
+          {!letter.verified && (
+            <Tooltip label="Bewerbung bestätigen" placement="top">
               <Badge
                 variant="outline"
                 colorScheme={"red"}
                 fontSize={"md"}
                 ml={2}
+                _hover={{ cursor: "pointer" }}
+                onClick={confirmOnOpen}
               >
                 NICHT BESTÄTIGT
               </Badge>
-            )}
-          </Heading>
-          <Heading fontSize={"24"}>{letter.organisationProjekt}</Heading>
-        </VStack>
+            </Tooltip>
+          )}
+          <ConfirmModal
+            confirmOnOpen={confirmOnOpen}
+            confirmIsOpen={confirmIsOpen}
+            confirmOnClose={confirmOnClose}
+            letter={letter}
+          />
+        </Heading>
         <HStack>
           <Text fontSize={"sm"} color={"gray.400"} mr={3}>
             Eingang: {dateFormatter(letter.createdAt)}
@@ -117,6 +130,7 @@ function Bewerbung({ letter }) {
           </Menu>
         </HStack>
       </HStack>
+      <Heading fontSize={"24"}>{letter.organisationProjekt}</Heading>
       <Divider my={4} />
       <LetterDetail letter={letter} />
     </Container>
