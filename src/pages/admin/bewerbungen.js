@@ -49,7 +49,6 @@ export const getServerSideProps = async () => {
       nameProjekt: true,
       strasseProjekt: true,
       wannProjekt: true,
-      zielsetzungProjekt: true,
       checkFreistellung: true,
       terminGeld: true,
       terminUebergabe: true,
