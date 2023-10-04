@@ -458,7 +458,7 @@ function LetterTable({ letters }) {
                 {row.original.vorstandTraeger}
               </Text>
             </PopoverTrigger>
-            <PopoverContent>
+            <PopoverContent minW={{ base: "100%", lg: "max-content" }}>
               <PopoverArrow />
               <PopoverCloseButton />
               <PopoverHeader>Kontaktdaten</PopoverHeader>
