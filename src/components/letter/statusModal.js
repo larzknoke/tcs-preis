@@ -76,7 +76,8 @@ function StatusModal({ statusOnClose, statusIsOpen, letter }) {
                 <option value="offen">Offen</option>
                 <option value="1111">1111,- Förderung</option>
                 <option value="5000">5000,- Förderung</option>
-                <option value="ausland">Auslandsprojekt</option>
+                <option value="ausland1111">1111,- Auslandsprojekt</option>
+                <option value="ausland5000">5000,- Auslandsprojekt</option>
                 <option value="abgelehnt">Abgelehnt</option>
               </Select>
             </FormControl>
