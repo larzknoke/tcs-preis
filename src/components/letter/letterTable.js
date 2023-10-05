@@ -435,6 +435,12 @@ function LetterTable({ letters }) {
       },
       header: "Träger",
     }),
+    columnHelper.accessor("organisationProjekt", {
+      header: "Projekt Organisation",
+    }),
+    columnHelper.accessor("nameProjekt", {
+      header: "Projekt Name",
+    }),
     columnHelper.accessor("vorstandTraeger", {
       cell: ({ row, info }) => {
         return (
@@ -489,12 +495,6 @@ function LetterTable({ letters }) {
         );
       },
       header: "Kontakt",
-    }),
-    columnHelper.accessor("organisationProjekt", {
-      header: "Projekt Organisation",
-    }),
-    columnHelper.accessor("nameProjekt", {
-      header: "Projekt Name",
     }),
     columnHelper.accessor("checkFreistellung", {
       header: "Freistellungb. Check",
@@ -1035,7 +1035,14 @@ function LetterTable({ letters }) {
                     {row.getVisibleCells().map((cell) => {
                       const meta = cell.column.columnDef.meta;
                       return (
-                        <Td key={cell.id} isNumeric={meta?.isNumeric}>
+                        <Td
+                          key={cell.id}
+                          isNumeric={meta?.isNumeric}
+                          maxWidth={"500px"}
+                          overflow={"hidden"}
+                          whiteSpace={"nowrap"}
+                          textOverflow={"ellipsis"}
+                        >
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
