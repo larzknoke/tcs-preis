@@ -10,7 +10,6 @@ export default async function handle(req, res) {
 
   const letter = req.body;
   try {
-    console.log("letter: ", letter);
     if (letter && letter.verified) {
       await sendEmail({
         to:
@@ -43,7 +42,6 @@ export default async function handle(req, res) {
       });
     }
 
-    console.log("letter: ", letter);
     return res.status(200).json({ success: true, letter });
   } catch (error) {
     console.log("api error: ", error);
