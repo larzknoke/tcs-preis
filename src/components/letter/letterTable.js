@@ -302,8 +302,14 @@ function LetterTable({ letters }) {
                   <Icon as={HiMiniStar} color={"yellow.400"} />
                 </Flex>
               )}
-              {row.original.status == "ausland" && (
+              {row.original.status == "ausland1111" && (
                 <Icon as={HiMiniLanguage} color={"blue.400"} />
+              )}
+              {row.original.status == "ausland5000" && (
+                <Flex>
+                  <Icon as={HiMiniLanguage} color={"blue.400"} />
+                  <Icon as={HiMiniStar} color={"yellow.400"} />
+                </Flex>
               )}
             </span>
           </PopoverTrigger>
@@ -319,10 +325,16 @@ function LetterTable({ letters }) {
               <Text mb={2}>Status ändern:</Text>
               <ButtonGroup size="sm">
                 <Button
-                  onClick={() => changeStatus("ausland", row.original.id)}
+                  onClick={() => changeStatus("ausland1111", row.original.id)}
                   colorScheme="blue"
                 >
-                  Ausland
+                  Aus. 1111,-
+                </Button>
+                <Button
+                  onClick={() => changeStatus("ausland5000", row.original.id)}
+                  colorScheme="blue"
+                >
+                  Aus. 5000,-
                 </Button>
                 <Button
                   onClick={() => changeStatus("abgelehnt", row.original.id)}
@@ -435,6 +447,12 @@ function LetterTable({ letters }) {
       },
       header: "Träger",
     }),
+    columnHelper.accessor("organisationProjekt", {
+      header: "Projekt Organisation",
+    }),
+    columnHelper.accessor("nameProjekt", {
+      header: "Projekt Name",
+    }),
     columnHelper.accessor("vorstandTraeger", {
       cell: ({ row, info }) => {
         return (
@@ -458,7 +476,7 @@ function LetterTable({ letters }) {
                 {row.original.vorstandTraeger}
               </Text>
             </PopoverTrigger>
-            <PopoverContent>
+            <PopoverContent minW={{ base: "100%", lg: "max-content" }}>
               <PopoverArrow />
               <PopoverCloseButton />
               <PopoverHeader>Kontaktdaten</PopoverHeader>
@@ -489,12 +507,6 @@ function LetterTable({ letters }) {
         );
       },
       header: "Kontakt",
-    }),
-    columnHelper.accessor("organisationProjekt", {
-      header: "Projekt Organisation",
-    }),
-    columnHelper.accessor("nameProjekt", {
-      header: "Projekt Name",
     }),
     columnHelper.accessor("checkFreistellung", {
       header: "Freistellungb. Check",
@@ -952,7 +964,9 @@ function LetterTable({ letters }) {
         return "green.50";
       case "5000":
         return "green.50";
-      case "ausland":
+      case "ausland1111":
+        return "blue.50";
+      case "ausland5000":
         return "blue.50";
       case "abgelehnt":
         return "red.50";
@@ -1035,7 +1049,14 @@ function LetterTable({ letters }) {
                     {row.getVisibleCells().map((cell) => {
                       const meta = cell.column.columnDef.meta;
                       return (
-                        <Td key={cell.id} isNumeric={meta?.isNumeric}>
+                        <Td
+                          key={cell.id}
+                          isNumeric={meta?.isNumeric}
+                          maxWidth={"500px"}
+                          overflow={"hidden"}
+                          whiteSpace={"nowrap"}
+                          textOverflow={"ellipsis"}
+                        >
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()

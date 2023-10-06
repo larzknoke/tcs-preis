@@ -189,7 +189,9 @@ function LetterNotVerifiedTable({ letters }) {
         return "green.50";
       case "5000":
         return "green.50";
-      case "ausland":
+      case "ausland1111":
+        return "blue.50";
+      case "ausland5000":
         return "blue.50";
       case "abgelehnt":
         return "red.50";

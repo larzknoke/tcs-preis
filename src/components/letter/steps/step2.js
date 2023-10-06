@@ -11,12 +11,16 @@ import {
   Switch,
   Textarea,
   Text,
+  Flex,
+  Tooltip,
+  Icon,
 } from "@chakra-ui/react";
 import { useFormContext, Controller } from "react-hook-form";
 import { Select } from "chakra-react-select";
 import { bundeslaender } from "@/lib/data";
 import { useState } from "react";
 import InputMask from "react-input-mask";
+import { HiMiniInformationCircle } from "react-icons/hi2";
 
 function Step2() {
   const {
@@ -115,7 +119,18 @@ function Step2() {
         </GridItem>
         <GridItem colSpan={{ base: 4, md: 2 }}>
           <FormControl isInvalid={errors.emailProjekt}>
-            <FormLabel>E-Mail</FormLabel>
+            <Flex>
+              <FormLabel mr={1}>E-Mail</FormLabel>
+              <Tooltip
+                label="An diese Adresse wird der Bestätigungs-Link geschickt."
+                placement={"top"}
+                textAlign={"center"}
+              >
+                <Flex>
+                  <Icon as={HiMiniInformationCircle} color={"gray.500"} />
+                </Flex>
+              </Tooltip>
+            </Flex>
             <Input
               name="emailProjekt"
               type="email"

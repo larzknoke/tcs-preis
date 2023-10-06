@@ -45,6 +45,10 @@ function Bewerbung({ letter }) {
         return "green";
       case "5000":
         return "green";
+      case "ausland1111":
+        return "blue";
+      case "ausland5000":
+        return "blue";
       case "abgelehnt":
         return "red";
     }

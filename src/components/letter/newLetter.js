@@ -50,6 +50,7 @@ function NewLetter() {
   const hasCompletedAllSteps = activeStep === steps.length;
   const [formSuccess, setFormSuccess] = useState(false);
   const [formError, setFormError] = useState(false);
+  const [confirmEmail, setConfirmEmail] = useState("");
 
   const methods = useForm({
     mode: "onBlur",
@@ -127,6 +128,7 @@ function NewLetter() {
         } else {
           const resLetterData = await resLetter.json();
           const letterId = resLetterData.result.id;
+          setConfirmEmail(resLetterData.result.emailProjekt);
 
           // ***********
           // START UPLOAD FILES
@@ -182,110 +184,6 @@ function NewLetter() {
             // END UPLOAD FILE
             // ***********
           });
-
-          // if (fileFreitstellung) {
-          //   const resUpload = await fetch(
-          //     `/api/file/s3url?file=${fileFreitstellung.name}`
-          //   );
-          //   const { url, fields } = await resUpload.json();
-          //   const formDataFile = new FormData();
-
-          //   Object.entries({
-          //     ...fields,
-          //     file: fileFreitstellung,
-          //   }).forEach(([key, value]) => {
-          //     formDataFile.append(key, value);
-          //   });
-
-          //   // UPLOAD TO S3
-          //   // ***********
-          //   const upload = await fetch(url, {
-          //     method: "POST",
-          //     body: formDataFile,
-          //   });
-
-          //   if (upload.ok) {
-          //     // CREATE FILE IN DB
-          //     // ***********
-          //     const formData = {
-          //       letterId: letterId,
-          //       title: "Freistellungsbescheid1",
-          //       note: "-",
-          //       file: fields.key,
-          //       typ: "freistellungsbescheid",
-          //     };
-          //     const res = await fetch("/api/file", {
-          //       method: "POST",
-          //       headers: { "Content-Type": "application/json" },
-          //       body: JSON.stringify(formData),
-          //     });
-          //     if (res.status != 200) {
-          //       toast({
-          //         title: "Ein Fehler ist beim Upload aufgetreten",
-          //         status: "error",
-          //         duration: 4000,
-          //         isClosable: true,
-          //       });
-          //     } else {
-          //       const resFile = await res.json();
-          //     }
-          //   }
-          //   // ***********
-          //   // END UPLOAD FILE
-          //   // ***********
-          // }
-
-          // if (fileFreitstellung2) {
-          //   const resUpload = await fetch(
-          //     `/api/file/s3url?file=${fileFreitstellung2.name}`
-          //   );
-          //   const { url, fields } = await resUpload.json();
-          //   const formDataFile = new FormData();
-
-          //   Object.entries({
-          //     ...fields,
-          //     file: fileFreitstellung2,
-          //   }).forEach(([key, value]) => {
-          //     formDataFile.append(key, value);
-          //   });
-
-          //   // UPLOAD TO S3
-          //   // ***********
-          //   const upload = await fetch(url, {
-          //     method: "POST",
-          //     body: formDataFile,
-          //   });
-
-          //   if (upload.ok) {
-          //     // CREATE FILE IN DB
-          //     // ***********
-          //     const formData = {
-          //       letterId: letterId,
-          //       title: "Freistellungsbescheid2",
-          //       note: "-",
-          //       file: fields.key,
-          //       typ: "freistellungsbescheid",
-          //     };
-          //     const res = await fetch("/api/file", {
-          //       method: "POST",
-          //       headers: { "Content-Type": "application/json" },
-          //       body: JSON.stringify(formData),
-          //     });
-          //     if (res.status != 200) {
-          //       toast({
-          //         title: "Ein Fehler ist beim Upload aufgetreten",
-          //         status: "error",
-          //         duration: 4000,
-          //         isClosable: true,
-          //       });
-          //     } else {
-          //       const resFile = await res.json();
-          //     }
-          //   }
-          //   // ***********
-          //   // END UPLOAD FILE
-          //   // ***********
-          // }
 
           if (typeof window !== "undefined") {
             window.localStorage.removeItem("bewerbungs-daten");
@@ -371,7 +269,8 @@ function NewLetter() {
                     <AlertDescription maxWidth="2xl" mt={2}>
                       Nach Absenden Ihrer Bewerbung und{" "}
                       <Text as="b">
-                        Bestätigung des Ihnen zugesandten Links
+                        Bestätigung des Ihnen zugesandten Links an{" "}
+                        {confirmEmail}
                       </Text>
                       , <br /> erhalten Sie eine automatisierte
                       Bestätigungs-E-Mail.
