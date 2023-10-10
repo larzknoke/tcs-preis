@@ -181,23 +181,6 @@ function LetterNotVerifiedTable({ letters }) {
     debugColumns: false,
   });
 
-  function rowColor(status) {
-    switch (status) {
-      case "offen":
-        return "";
-      case "1111":
-        return "green.50";
-      case "5000":
-        return "green.50";
-      case "ausland1111":
-        return "blue.50";
-      case "ausland5000":
-        return "blue.50";
-      case "abgelehnt":
-        return "red.50";
-    }
-  }
-
   return (
     <>
       <Stack mt={10} mb={6} direction={{ base: "column", md: "row" }}>
@@ -264,7 +247,6 @@ function LetterNotVerifiedTable({ letters }) {
                     // onClick={() =>
                     //   router.push(`/admin/bewerbung/${row.getValue("id")}`)
                     // }
-                    bg={rowColor(row.getValue("status"))}
                     _hover={{
                       cursor: "pointer",
                       backgroundColor: "gray.50",

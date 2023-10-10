@@ -9,7 +9,6 @@ import {
   ModalCloseButton,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -44,7 +43,7 @@ function ConfirmModal({ confirmOnClose, confirmIsOpen, letter }) {
             size={"md"}
             variant="outline"
             colorScheme="green"
-            href={"/bewerbung/verify/" + letter.verifyId}
+            href={"/bewerbung/verify?verifyId=" + letter.verifyId}
           >
             Bestätigen
           </Button>

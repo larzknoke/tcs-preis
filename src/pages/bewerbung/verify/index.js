@@ -16,6 +16,7 @@ import {
 import { dateFormatter } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 function VerifyLetter() {
   const router = useRouter();
@@ -27,7 +28,7 @@ function VerifyLetter() {
   async function getLetter(verifyId) {
     try {
       setLoading(true);
-      const res = await fetch(`/api/letter?verifyId=${verifyId}`, {
+      const res = await fetch(`/api/letter/verify?verifyId=${verifyId}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -60,11 +61,10 @@ function VerifyLetter() {
         setLetterError(true);
       } else {
         const resData = await res.json();
-        console.log("resData", resData);
       }
     } catch (error) {
       console.log("api fetch error");
-      console.error("Err", error);
+      console.error("sendConfirmEmail Error: ", error);
       setLetterError(true);
     }
   }
@@ -119,7 +119,7 @@ function VerifyLetter() {
           </Alert>
         </Box>
       )}
-      {letterError && (
+      {letterError && !letterData?.verified && (
         <Card my={16}>
           <CardBody>
             <VStack gap={6} p={6}>
@@ -130,7 +130,12 @@ function VerifyLetter() {
                 Der Verifizierungs-Link wurde entweder schon bestätigt und ist
                 nun ungültig oder ein Fehler ist aufgetreten.
               </Text>
-              <Text>Bitte kontaktieren Sie die Town & Country Stiftung.</Text>
+              <Text textAlign={"center"}>
+                Bitte kontaktieren Sie die Town & Country Stiftung: <br />
+                <Link href="mailto:stiftungspreis@tc-stiftung.de">
+                  stiftungspreis@tc-stiftung.de
+                </Link>
+              </Text>
             </VStack>
           </CardBody>
         </Card>

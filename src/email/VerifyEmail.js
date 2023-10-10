@@ -49,7 +49,7 @@ export default function VerifyEmail({ letter }) {
               style={button}
               href={
                 process.env.NEXTAUTH_URL +
-                "/bewerbung/verify/" +
+                "/bewerbung/verify?verifyId=" +
                 letter.verifyId
               }
             >
@@ -61,7 +61,7 @@ export default function VerifyEmail({ letter }) {
             </Text>
             <Text style={textbold}>
               {process.env.NEXTAUTH_URL +
-                "/bewerbung/verify/" +
+                "/bewerbung/verify?verifyId=" +
                 letter.verifyId}
             </Text>
           </Section>
