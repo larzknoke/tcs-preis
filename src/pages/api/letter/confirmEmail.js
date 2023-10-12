@@ -4,7 +4,6 @@ import ConfirmEmail from "@/email/ConfirmEmail";
 import ConfirmStiftungEmail from "@/email/ConfirmStiftungEmail";
 import { LetterPDF } from "@/email/pdf";
 import { renderToBuffer } from "@react-pdf/renderer";
-import prisma from "@/lib/prisma";
 
 export default async function handle(req, res) {
   console.log("api call");
@@ -12,7 +11,6 @@ export default async function handle(req, res) {
   try {
     console.log("req.body", req.body);
     const { letter } = req.body;
-    console.log("server letter ", letter);
     if (letter && letter.verified) {
       await sendEmail({
         to:
@@ -43,6 +41,8 @@ export default async function handle(req, res) {
           },
         ],
       });
+    } else {
+      throw new Error("No Letter");
     }
 
     return res.status(200).json({ success: true, letter });

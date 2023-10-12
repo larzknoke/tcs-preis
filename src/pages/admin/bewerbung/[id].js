@@ -15,17 +15,20 @@ import {
   Tooltip,
   useDisclosure,
   Text,
+  useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
-import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import LetterDetail from "@/components/letter/letterDetail";
 import StatusModal from "@/components/letter/statusModal";
 import { dateFormatter } from "@/lib/utils";
 import Link from "next/link";
-import NoteTable from "@/components/notes/noteTable";
 import ConfirmModal from "@/components/letter/confirmModal";
+import { useState } from "react";
 
 function Bewerbung({ letter }) {
+  const [loading, setLoading] = useState();
+  const toast = useToast();
   const {
     isOpen: statusIsOpen,
     onOpen: statusOnOpen,
@@ -54,7 +57,58 @@ function Bewerbung({ letter }) {
     }
   }
 
-  return (
+  async function sendConfirmEmail(letter) {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/letter/confirmEmail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ letter }),
+      });
+      if (res.status != 200) {
+        toast({
+          title: "Ein Fehler ist aufgetreten",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+        setLoading(false);
+      } else {
+        const resData = await res.json();
+        console.log("resData", resData);
+        toast({
+          title: `Email wurde an "${resData.letter.emailProjekt}" versendet.`,
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log("api fetch error");
+      console.error("Err", error);
+      toast({
+        title: "Ein Fehler ist aufgetreten",
+        description: JSON.stringify(error),
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+      setLoading(false);
+    }
+  }
+
+  return loading ? (
+    <Container
+      display={"flex"}
+      flexDirection={"column"}
+      maxWidth={"7xl"}
+      alignItems={"center"}
+      py={32}
+    >
+      <Spinner color="blue.500" size={"xl"} />
+    </Container>
+  ) : (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"7xl"}>
       <HStack
         justify={"space-between"}
@@ -128,13 +182,18 @@ function Bewerbung({ letter }) {
               size={"lg"}
             />
             <MenuList>
-              <MenuItem>Bearbeiten</MenuItem>
-              <MenuItem>Löschen</MenuItem>
+              <MenuItem onClick={() => sendConfirmEmail(letter)}>
+                Bestätigung erneut senden
+              </MenuItem>
+              <MenuItem isDisabled={true}>Bearbeiten</MenuItem>
+              <MenuItem isDisabled={true}>Löschen</MenuItem>
             </MenuList>
           </Menu>
         </HStack>
       </HStack>
-      <Heading fontSize={"24"}>{letter.organisationProjekt}</Heading>
+      <Heading fontSize={"24"}>
+        {letter.id} | {letter.organisationProjekt}
+      </Heading>
       <Divider my={4} />
       <LetterDetail letter={letter} />
     </Container>
