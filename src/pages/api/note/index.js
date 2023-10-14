@@ -40,4 +40,21 @@ export default async function handle(req, res) {
       return res.status(500).json(error);
     }
   }
+
+  if (req.method == "PUT") {
+    try {
+      const id = req.body.id;
+      const result = await prisma.note.update({
+        where: { id: parseInt(id) },
+        data: {
+          title: req.body.title,
+          content: req.body.content,
+        },
+      });
+      return res.status(200).json(result);
+    } catch (error) {
+      console.log("api error: ", error);
+      return res.status(500).json(error);
+    }
+  }
 }

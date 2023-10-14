@@ -8,11 +8,6 @@ import {
   Stack,
   StackDivider,
   HStack,
-  Alert,
-  AlertIcon,
-  AlertDescription,
-  Button,
-  CardFooter,
   useDisclosure,
   Flex,
   IconButton,
@@ -20,12 +15,12 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  Text,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
   HiOutlinePlus,
   HiOutlineTrash,
+  HiOutlinePencilSquare,
 } from "react-icons/hi2";
 
 import ShowNoteModal from "./showNoteModal";
@@ -33,6 +28,7 @@ import NewNoteModal from "./newNoteModal";
 import { dateFormatter } from "@/lib/utils";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import EditNoteModal from "./editNoteModal";
 
 function NoteTable({ letter }) {
   const router = useRouter();
@@ -47,6 +43,11 @@ function NoteTable({ letter }) {
     isOpen: showNoteIsOpen,
     onOpen: showNoteOnOpen,
     onClose: showNoteOnClose,
+  } = useDisclosure();
+  const {
+    isOpen: editNoteIsOpen,
+    onOpen: editNoteOnOpen,
+    onClose: editNoteOnClose,
   } = useDisclosure();
 
   async function deleteNote(id) {
@@ -108,41 +109,60 @@ function NoteTable({ letter }) {
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
             {letter.notes.length > 0
-              ? letter.notes.map((note) => {
-                  return (
-                    <HStack key={note.id} justify={"space-between"}>
-                      <Stat>
-                        <StatLabel>{dateFormatter(note.createdAt)}</StatLabel>
-                        <StatNumber>{note.title}</StatNumber>
-                      </Stat>
-                      <Tooltip label="Notiz löschen" placement="top">
-                        <IconButton
-                          variant={"ghost"}
-                          aria-label="Notiz löschen"
-                          icon={<HiOutlineTrash />}
-                          onClick={() => deleteNote(note.id)}
-                          colorScheme="red"
+              ? letter.notes
+                  .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+                  .map((note) => {
+                    return (
+                      <HStack key={note.id} justify={"space-between"}>
+                        <Stat>
+                          <StatLabel>{dateFormatter(note.createdAt)}</StatLabel>
+                          <StatNumber fontSize={22}>{note.title}</StatNumber>
+                          <StatLabel>{note.content}</StatLabel>
+                        </Stat>
+                        <Tooltip label="Notiz löschen" placement="top">
+                          <IconButton
+                            variant={"ghost"}
+                            aria-label="Notiz löschen"
+                            icon={<HiOutlineTrash />}
+                            onClick={() => deleteNote(note.id)}
+                            colorScheme="red"
+                          />
+                        </Tooltip>
+                        <Tooltip label="Notiz öffnen" placement="top">
+                          <IconButton
+                            variant={"ghost"}
+                            aria-label="Notiz öffnen"
+                            icon={<HiOutlineFolderOpen />}
+                            onClick={() => {
+                              setSelectedNote(note);
+                              showNoteOnOpen();
+                            }}
+                          />
+                        </Tooltip>
+                        <Tooltip label="Notiz bearbeiten" placement="top">
+                          <IconButton
+                            variant={"ghost"}
+                            aria-label="Notiz bearbeiten"
+                            icon={<HiOutlinePencilSquare />}
+                            onClick={() => {
+                              setSelectedNote(note);
+                              editNoteOnOpen();
+                            }}
+                          />
+                        </Tooltip>
+                        <ShowNoteModal
+                          note={selectedNote}
+                          isOpen={showNoteIsOpen}
+                          onClose={showNoteOnClose}
                         />
-                      </Tooltip>
-                      <Tooltip label="Notiz öffnen" placement="top">
-                        <IconButton
-                          variant={"ghost"}
-                          aria-label="Notiz öffnen"
-                          icon={<HiOutlineFolderOpen />}
-                          onClick={() => {
-                            setSelectedNote(note);
-                            showNoteOnOpen();
-                          }}
+                        <EditNoteModal
+                          note={selectedNote}
+                          isOpen={editNoteIsOpen}
+                          onClose={editNoteOnClose}
                         />
-                      </Tooltip>
-                      <ShowNoteModal
-                        note={selectedNote}
-                        isOpen={showNoteIsOpen}
-                        onClose={showNoteOnClose}
-                      />
-                    </HStack>
-                  );
-                })
+                      </HStack>
+                    );
+                  })
               : "no notes"}
           </Stack>
         </CardBody>
