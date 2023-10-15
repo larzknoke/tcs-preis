@@ -39,6 +39,10 @@ function EditNoteModal({ note, isOpen, onClose }) {
     reset(note);
   }, [note, reset]);
 
+  function onSubmit() {
+    submitForm();
+  }
+
   async function submitForm() {
     try {
       const values = getValues();
@@ -87,10 +91,7 @@ function EditNoteModal({ note, isOpen, onClose }) {
           <ModalHeader>Notiz bearbeiten</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form
-              id="edit-note-form"
-              // onSubmit={handleSubmit(onSubmit)}
-            >
+            <form id="edit-note-form" onSubmit={handleSubmit(onSubmit)}>
               <SimpleGrid spacing={6} columns={3} w={"full"}>
                 <GridItem colSpan={3}>
                   <FormControl isInvalid={errors.title}>
