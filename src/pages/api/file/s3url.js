@@ -39,6 +39,6 @@ export default async function handler(req, res) {
     },
     Expires: 600, // seconds
   });
-
+  console.log("createPresignedPost: ", post);
   res.status(200).json(post);
 }

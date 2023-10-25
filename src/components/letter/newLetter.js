@@ -195,7 +195,7 @@ function NewLetter() {
       nextStep();
     } catch (error) {
       console.log("api fetch error");
-      console.error("Err", error);
+      console.error("ErrorNewLetter:", error);
     }
   }
 

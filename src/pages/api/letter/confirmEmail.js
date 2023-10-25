@@ -9,7 +9,7 @@ export default async function handle(req, res) {
   console.log("api call");
 
   try {
-    console.log("req.body", req.body);
+    // console.log("req.body", req.body);
     const { letter } = req.body;
     if (letter && letter.verified) {
       await sendEmail({

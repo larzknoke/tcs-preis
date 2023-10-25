@@ -29,7 +29,7 @@ const hashPassword = (password) => {
 
 // POST /api/user
 async function handlePOST(res, req) {
-  console.log("req.body", req.body);
+  // console.log("req.body", req.body);
   delete req.body.password_confirm;
   const user = await prisma.user.create({
     data: { ...req.body, password: hashPassword(req.body.password) },

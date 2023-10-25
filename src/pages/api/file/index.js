@@ -36,7 +36,7 @@ export default async function handle(req, res) {
       await s3.send(delCommand);
       return res.status(200).json({ success: true, result });
     } catch (error) {
-      console.log("error: ", error);
+      console.log("file delete error: ", error);
       return res.status(500).json({ error: error.message, code: error.code });
     }
   }
@@ -49,7 +49,7 @@ export default async function handle(req, res) {
       });
       return res.status(200).json(result);
     } catch (error) {
-      console.log("error: ", error);
+      console.log("file post error: ", error);
       return res.status(500).json({ error: error.message, code: error.code });
     }
   }
