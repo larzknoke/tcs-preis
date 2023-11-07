@@ -41,6 +41,7 @@ import {
   HiOutlineCheck,
   HiOutlineNoSymbol,
   HiOutlineQuestionMarkCircle,
+  HiOutlineExclamationCircle,
   HiMiniLanguage,
   HiMiniStar,
   HiLink,
@@ -290,6 +291,9 @@ function LetterTable({ letters }) {
               {row.original.status == "offen" && (
                 <Icon as={HiOutlineQuestionMarkCircle} color={"yellow.500"} />
               )}
+              {row.original.status == "klaerung" && (
+                <Icon as={HiOutlineExclamationCircle} color={"orange.500"} />
+              )}
               {row.original.status == "abgelehnt" && (
                 <Icon as={HiOutlineNoSymbol} color={"red.500"} />
               )}
@@ -347,6 +351,12 @@ function LetterTable({ letters }) {
                   colorScheme="yellow"
                 >
                   Offen
+                </Button>
+                <Button
+                  onClick={() => changeStatus("klaerung", row.original.id)}
+                  colorScheme="orange"
+                >
+                  Klärung
                 </Button>
                 <Button
                   onClick={() => changeStatus("1111", row.original.id)}
@@ -960,6 +970,8 @@ function LetterTable({ letters }) {
     switch (status) {
       case "offen":
         return "";
+      case "klaerung":
+        return "orange.50";
       case "1111":
         return "green.50";
       case "5000":
