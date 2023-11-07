@@ -203,7 +203,15 @@ function BotschafterTable({ botschafters }) {
     const ids = table
       .getFilteredRowModel()
       .rows.map((row) => row.getValue("id"));
-    const result = tableData.filter(({ id }) => ids.includes(id));
+    const result = tableData
+      .filter(({ id }) => ids.includes(id))
+      .map((row) => {
+        return Object.assign(
+          { botschafter: `${row.vorname} ${row.name}` },
+          row
+        );
+      });
+    console.log("result", result);
     const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
     exportToExcel(result, "botschafter_export_" + date);
   }
