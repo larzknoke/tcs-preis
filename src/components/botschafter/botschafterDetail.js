@@ -149,7 +149,10 @@ function BotschafterDetail({ botschafter }) {
                           {letter.plzTraeger} {letter.ortTraeger}
                         </StatLabel>
                         <StatNumber>
-                          {letter.id} | {letter.nameTraeger}
+                          <Text as={"span"} pr={4} color={"gray.400"}>
+                            {letter.id}
+                          </Text>
+                          {letter.nameTraeger}
                         </StatNumber>
                       </Stat>
                       <Button
