@@ -148,7 +148,9 @@ function BotschafterDetail({ botschafter }) {
                         <StatLabel>
                           {letter.plzTraeger} {letter.ortTraeger}
                         </StatLabel>
-                        <StatNumber>{letter.nameTraeger}</StatNumber>
+                        <StatNumber>
+                          {letter.id} | {letter.nameTraeger}
+                        </StatNumber>
                       </Stat>
                       <Button
                         as={Link}
