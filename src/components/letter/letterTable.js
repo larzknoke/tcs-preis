@@ -405,6 +405,9 @@ function LetterTable({ letters }) {
                 }}
               >
                 {row.original.botschafter?.name}
+                {row.original.botschafterConfirm && (
+                  <Icon ml={1} as={HiOutlineCheck} color={"green.700"} />
+                )}
               </Button>
             </PopoverTrigger>
             <PopoverContent>

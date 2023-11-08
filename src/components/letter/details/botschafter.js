@@ -16,10 +16,15 @@ import {
   Alert,
   AlertDescription,
   AlertIcon,
+  Tooltip,
+  IconButton,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import BotschafterModal from "@/components/botschafter/botschafterStatusModal";
+import BotschafterEditModal from "./botschafterEditModal";
 import { useEffect } from "react";
+import { Checker } from "@/lib/utils";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 
 function BotschafterDetail({ letter }) {
   const {
@@ -27,6 +32,7 @@ function BotschafterDetail({ letter }) {
     onOpen: botschafterOnOpen,
     onClose: botschafterOnClose,
   } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { onCopy, setValue, hasCopied } = useClipboard();
 
   useEffect(() => {
@@ -35,14 +41,31 @@ function BotschafterDetail({ letter }) {
   return (
     <Card>
       <CardHeader>
-        <Heading
-          size="sm"
-          color="gray.500"
-          fontWeight={"600"}
-          textTransform={"uppercase"}
-        >
-          Botschafter
-        </Heading>
+        <HStack justifyContent={"space-between"}>
+          <Heading
+            size="sm"
+            color="gray.500"
+            fontWeight={"600"}
+            textTransform={"uppercase"}
+          >
+            Botschafter
+          </Heading>
+          <Tooltip label="Bearbeiten">
+            <IconButton
+              onClick={onOpen}
+              variant="ghost"
+              colorScheme="gray"
+              aria-label="See menu"
+              color="gray.600"
+              icon={<HiOutlinePencilSquare size={20} />}
+            />
+          </Tooltip>
+          <BotschafterEditModal
+            onClose={onClose}
+            isOpen={isOpen}
+            letter={letter}
+          />
+        </HStack>
       </CardHeader>
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
@@ -78,6 +101,12 @@ function BotschafterDetail({ letter }) {
               letter={letter}
             />
           </HStack>
+          <Stat>
+            <StatLabel>Botschafter-Zuordnung bestätigt</StatLabel>
+            <StatNumber>
+              <Checker bool={letter.botschafterConfirm} />
+            </StatNumber>
+          </Stat>
           <Stat>
             <StatLabel>Vorfeld Botschafter Kontakt</StatLabel>
             <StatNumber>

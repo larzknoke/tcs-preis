@@ -67,6 +67,7 @@ export const getServerSideProps = async () => {
       ortProjekt: true,
       plzProjekt: true,
       jury: true,
+      botschafterConfirm: true,
       botschafter: {
         select: {
           id: true,
