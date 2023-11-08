@@ -86,6 +86,7 @@ model Letter {
   originalLetter                Json?
   jury                          Boolean? @default(false)
   botschafterConfirm            Boolean? @default(false)
+  juryStatus                    String?
   notes                         Note[]
   files                         File[]
 }

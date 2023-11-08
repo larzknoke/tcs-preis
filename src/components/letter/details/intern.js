@@ -90,17 +90,29 @@ function InternDetail({ letter }) {
               </StatNumber>
             </Stat>
             <Stat>
+              <StatLabel>Jury Vorauswahl</StatLabel>
+              <StatNumber>
+                <Checker bool={letter.jury} />
+              </StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Jury Status</StatLabel>
+              <StatNumber>
+                {letter.juryStatus ? (
+                  <Text as={"span"} style={{ textTransform: "capitalize" }}>
+                    {letter.juryStatus}
+                  </Text>
+                ) : (
+                  <Checker bool={letter.juryStatus} />
+                )}
+              </StatNumber>
+            </Stat>
+            <Stat>
               <StatLabel>Bildmaterial/Medien erhalten</StatLabel>
               <StatNumber>
                 <Checker bool={letter.bildmaterial} />{" "}
                 {letter.bildmaterial &&
                   dateFormatter(letter.bildmaterial, false)}
-              </StatNumber>
-            </Stat>
-            <Stat>
-              <StatLabel>Jury Vorauswahl</StatLabel>
-              <StatNumber>
-                <Checker bool={letter.jury} />
               </StatNumber>
             </Stat>
             <Stat>

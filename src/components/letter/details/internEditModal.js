@@ -16,6 +16,7 @@ import {
   FormErrorMessage,
   useDisclosure,
   Textarea,
+  Select,
   Switch,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -23,8 +24,6 @@ import { useRouter } from "next/router";
 import { formSchema } from "@/lib/formSchema";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { bundeslaender } from "@/lib/data";
-import { Select } from "chakra-react-select";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import { Weekday_Names_Short, Month_Names_Short } from "@/lib/utils";
 
@@ -122,6 +121,35 @@ function InternEditModal({ onClose, isOpen, letter }) {
                 </FormControl>
               </GridItem>
               <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.jury}>
+                  <FormLabel>Jury Vorauswahl</FormLabel>
+                  <Switch
+                    colorScheme="green"
+                    name="jury"
+                    type="text"
+                    {...register("jury")}
+                  />
+                  <FormErrorMessage>
+                    {errors.jury && errors.jury.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.juryStatus}>
+                  <FormLabel>Jury Status</FormLabel>
+                  <Select
+                    placeholder="Status wählen..."
+                    {...register("juryStatus")}
+                  >
+                    <option value="klaerung">Klärung Jurysitzung</option>
+                    <option value="empfehlung">Empfehlung Jurysitzung</option>
+                  </Select>
+                  <FormErrorMessage>
+                    {errors.juryStatus && errors.juryStatus.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.checkFreistellung}>
                   <FormLabel>Bildmaterial/Medien erhalten</FormLabel>
                   <SingleDatepicker
@@ -163,20 +191,6 @@ function InternEditModal({ onClose, isOpen, letter }) {
                   <FormErrorMessage>
                     {errors.checkFreistellung &&
                       errors.checkFreistellung.message}
-                  </FormErrorMessage>
-                </FormControl>
-              </GridItem>
-              <GridItem colSpan={4}>
-                <FormControl isInvalid={errors.jury}>
-                  <FormLabel>Jury Vorauswahl</FormLabel>
-                  <Switch
-                    colorScheme="green"
-                    name="jury"
-                    type="text"
-                    {...register("jury")}
-                  />
-                  <FormErrorMessage>
-                    {errors.jury && errors.jury.message}
                   </FormErrorMessage>
                 </FormControl>
               </GridItem>
