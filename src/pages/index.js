@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import CookieBanner from "@/components/layout/cookie";
+import CloseText from "@/components/close-text";
 
 export default function Home() {
   return (
@@ -24,19 +25,21 @@ export default function Home() {
         >
           11. Town & Country Stiftungspreis
         </Heading>
-        <TeaserText />
+        {true ? <TeaserText /> : <CloseText />}
 
-        <Button
-          href="/formular"
-          as={NextLink}
-          rightIcon={<ArrowForwardIcon />}
-          colorScheme="green"
-          form="new-angebot-form"
-          type="submit"
-          minWidth={"250px"}
-        >
-          Zum Formular
-        </Button>
+        {true && (
+          <Button
+            href="/formular"
+            as={NextLink}
+            rightIcon={<ArrowForwardIcon />}
+            colorScheme="green"
+            form="new-angebot-form"
+            type="submit"
+            minWidth={"250px"}
+          >
+            Zum Formular
+          </Button>
+        )}
       </VStack>
       <CookieBanner />
     </Container>
