@@ -6,7 +6,7 @@ import NextLink from "next/link";
 import CookieBanner from "@/components/layout/cookie";
 import CloseText from "@/components/close-text";
 
-export default function Home() {
+export default function Home({ validKampagne }) {
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
       <VStack gap={8}>
@@ -25,9 +25,9 @@ export default function Home() {
         >
           11. Town & Country Stiftungspreis
         </Heading>
-        {true ? <TeaserText /> : <CloseText />}
+        {validKampagne ? <TeaserText /> : <CloseText />}
 
-        {true && (
+        {validKampagne && (
           <Button
             href="/formular"
             as={NextLink}
@@ -45,3 +45,14 @@ export default function Home() {
     </Container>
   );
 }
+
+export const getServerSideProps = async () => {
+  const kampagnes = await prisma.kampagne.findMany({
+    where: {
+      abgeschlossen: false,
+    },
+  });
+  const validKampagne = Object.keys(kampagnes).length > 0;
+  console.log("validKampagne: ", validKampagne);
+  return { props: { validKampagne } };
+};
