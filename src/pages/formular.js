@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
+import prisma from "@/lib/prisma";
 
 function Formular() {
   return (

@@ -5,6 +5,7 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import CookieBanner from "@/components/layout/cookie";
 import CloseText from "@/components/close-text";
+import prisma from "@/lib/prisma";
 
 export default function Home({ validKampagne }) {
   return (
