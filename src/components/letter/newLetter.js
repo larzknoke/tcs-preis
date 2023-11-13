@@ -50,6 +50,7 @@ function NewLetter() {
   const hasCompletedAllSteps = activeStep === steps.length;
   const [formSuccess, setFormSuccess] = useState(false);
   const [formError, setFormError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState();
   const [confirmEmail, setConfirmEmail] = useState("");
 
   const methods = useForm({
@@ -80,6 +81,7 @@ function NewLetter() {
   async function onSubmit(values) {
     setFormError(false);
     setFormSuccess(false);
+    setErrorMsg(null);
 
     delete values.emailBestaetigungProjekt;
     try {
@@ -124,6 +126,11 @@ function NewLetter() {
           body: JSON.stringify(values),
         });
         if (resLetter.status != 200) {
+          const error = await resLetter.json();
+          console.log("error", error);
+          if (error.msg) {
+            setErrorMsg(error.msg);
+          }
           setFormError(true);
         } else {
           const resLetterData = await resLetter.json();
@@ -295,12 +302,14 @@ function NewLetter() {
                   >
                     <AlertIcon boxSize="40px" mr={0} color={"white"} />
                     <AlertTitle mt={4} mb={1} fontSize="lg">
-                      Ein Fehler ist aufgetreten.
+                      {errorMsg ? errorMsg : "Ein Fehler ist aufgetreten."}
                     </AlertTitle>
-                    <AlertDescription maxWidth="2xl" mt={2}>
-                      Bitte überprüfen Sie Ihre eingaben oder <br />
-                      probieren Sie es zu einem späteren Zeitpunkt nochmal.
-                    </AlertDescription>
+                    {!errorMsg && (
+                      <AlertDescription maxWidth="2xl" mt={2}>
+                        Bitte überprüfen Sie Ihre eingaben oder <br />
+                        probieren Sie es zu einem späteren Zeitpunkt nochmal.
+                      </AlertDescription>
+                    )}
                   </Alert>
                 </Box>
               )}

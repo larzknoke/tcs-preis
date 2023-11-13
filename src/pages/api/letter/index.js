@@ -15,6 +15,11 @@ export default async function handle(req, res) {
           abgeschlossen: false,
         },
       });
+      if (!kampagne) {
+        return res
+          .status(500)
+          .json({ msg: "Die Bewerbungsphase ist beendet." });
+      }
       data.kampagneId = kampagne ? kampagne.id : null;
       data.originalLetter = dataCopy;
       const result = await prisma.letter.create({ data: data });
