@@ -377,6 +377,38 @@ function LetterTable({ letters }) {
         </Popover>
       ),
     }),
+    columnHelper.accessor("jury", {
+      header: "Jury",
+      cell: ({ info, row }) => (
+        <HStack>
+          <Tooltip label="Jury Vorauswahl">
+            <Text>
+              {row.original.jury ? (
+                <Icon as={HiOutlineCheck} color={"green.700"} />
+              ) : (
+                <Icon as={HiOutlineNoSymbol} color={"red.500"} />
+              )}
+            </Text>
+          </Tooltip>
+          <Tooltip
+            label={
+              <Text style={{ textTransform: "capitalize" }}>
+                {row.original.juryStatus}
+              </Text>
+            }
+          >
+            <Text>
+              {row.original.juryStatus == "klaerung" && (
+                <Icon as={HiOutlineQuestionMarkCircle} color={"yellow.500"} />
+              )}
+              {row.original.juryStatus == "empfehlung" && (
+                <Icon as={HiOutlineCheck} color={"green.700"} />
+              )}
+            </Text>
+          </Tooltip>
+        </HStack>
+      ),
+    }),
     columnHelper.accessor("bundeslandTraeger", {
       header: "Bundesland",
     }),
