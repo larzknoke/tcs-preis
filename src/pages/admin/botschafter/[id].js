@@ -138,6 +138,9 @@ export const getServerSideProps = async (ctx) => {
           where: {
             verified: true,
           },
+          orderBy: {
+            botschafterConfirm: "asc",
+          },
         },
       },
     });

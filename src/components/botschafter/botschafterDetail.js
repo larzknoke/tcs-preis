@@ -4,7 +4,6 @@ import {
   CardBody,
   CardHeader,
   Heading,
-  CardFooter,
   Button,
   Text,
   Stat,
@@ -14,34 +13,22 @@ import {
   Stack,
   StackDivider,
   Icon,
-  useDisclosure,
   Tooltip,
   HStack,
   GridItem,
   Alert,
   AlertIcon,
-  AlertTitle,
   AlertDescription,
+  VStack,
 } from "@chakra-ui/react";
 import {
   HiOutlineCheckCircle,
   HiOutlineDocumentText,
-  HiOutlineDocumentMagnifyingGlass,
-  HiOutlineCloudArrowDown,
-  HiMiniArrowSmallRight,
-  HiOutlinePrinter,
+  HiOutlineNoSymbol,
 } from "react-icons/hi2";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import BotschafterModal from "./botschafterStatusModal";
 import Link from "next/link";
 
 function BotschafterDetail({ botschafter }) {
-  const {
-    isOpen: botschafterIsOpen,
-    onOpen: botschafterOnOpen,
-    onClose: botschafterOnClose,
-  } = useDisclosure();
-
   return (
     <SimpleGrid
       spacing={6}
@@ -85,12 +72,6 @@ function BotschafterDetail({ botschafter }) {
               <StatLabel>Bundesland</StatLabel>
               <StatNumber>{botschafter.bundesland}</StatNumber>
             </Stat>
-            {/* <Stat>
-              <StatLabel>Verifiziert</StatLabel>
-              <StatNumber>
-                <Icon as={HiOutlineCheckCircle} color={"green.500"} />
-              </StatNumber>
-            </Stat> */}
           </Stack>
         </CardBody>
       </Card>
@@ -143,27 +124,57 @@ function BotschafterDetail({ botschafter }) {
               {botschafter.letters.length > 0 ? (
                 botschafter.letters.map((letter) => {
                   return (
-                    <HStack>
-                      <Stat>
-                        <StatLabel>
+                    <HStack justify={"space-between"}>
+                      <VStack alignItems={"self-start"}>
+                        <Text as={"span"} color={"gray.400"}>
                           {letter.plzTraeger} {letter.ortTraeger}
-                        </StatLabel>
-                        <StatNumber>
-                          <Text as={"span"} pr={4} color={"gray.400"}>
-                            {letter.id}
+                        </Text>
+                        <HStack as={"b"} fontSize={"lg"} gap={4}>
+                          <Text color={"gray.400"}>{letter.id}</Text>
+                          <Text>
+                            {letter.organisationProjekt} | {letter.nameProjekt}
                           </Text>
-                          {letter.nameTraeger}
-                        </StatNumber>
-                      </Stat>
-                      <Button
-                        as={Link}
-                        href={`/admin/bewerbung/${letter.id}`}
-                        size={"sm"}
-                        variant={"outline"}
-                        leftIcon={<HiOutlineDocumentText />}
-                      >
-                        Details
-                      </Button>
+                        </HStack>
+                        <HStack as={"span"} color={"gray.400"}>
+                          <Text>
+                            {letter.emailProjekt} |{" "}
+                            {letter.telefonnummerProjekt} |{" "}
+                            {letter.mobilProjekt} | {letter.wwwProjekt}
+                          </Text>
+                        </HStack>
+                      </VStack>
+                      <HStack gap={6}>
+                        {letter.botschafterConfirm ? (
+                          <Tooltip label={"Botschafter bestätigt"}>
+                            <div>
+                              <Icon
+                                fontSize={"xl"}
+                                as={HiOutlineCheckCircle}
+                                color={"green.500"}
+                              />
+                            </div>
+                          </Tooltip>
+                        ) : (
+                          <Tooltip label={"Botschafter nicht bestätigt"}>
+                            <div>
+                              <Icon
+                                fontSize={"xl"}
+                                as={HiOutlineNoSymbol}
+                                color={"red.500"}
+                              />
+                            </div>
+                          </Tooltip>
+                        )}
+                        <Button
+                          as={Link}
+                          href={`/admin/bewerbung/${letter.id}`}
+                          size={"sm"}
+                          variant={"outline"}
+                          leftIcon={<HiOutlineDocumentText />}
+                        >
+                          Details
+                        </Button>
+                      </HStack>
                     </HStack>
                   );
                 })
@@ -177,62 +188,8 @@ function BotschafterDetail({ botschafter }) {
               )}
             </Stack>
           </CardBody>
-          {/* <CardFooter>
-            <Button
-              size={"sm"}
-              variant={"outline"}
-              leftIcon={<HiOutlinePrinter />}
-            >
-              PDF Export
-            </Button>
-          </CardFooter> */}
         </Card>
       </GridItem>
-      {/* <Card>
-        <CardHeader>
-          <Heading
-            size="sm"
-            color="gray.500"
-            fontWeight={"600"}
-            textTransform={"uppercase"}
-          >
-            Dateien
-          </Heading>
-        </CardHeader>
-        <CardBody>
-          <Stack divider={<StackDivider />} spacing="4">
-            <Stat>
-              <StatLabel>Profil.pdf</StatLabel>
-              <StatNumber>
-                <Button
-                  size={"sm"}
-                  leftIcon={<HiOutlineCloudArrowDown />}
-                  colorScheme="gray"
-                  variant="outline"
-                  mt={2}
-                >
-                  Download
-                </Button>{" "}
-              </StatNumber>
-            </Stat>
-            <Stat>
-              <StatLabel>ProjektNoah.pdf</StatLabel>
-              <StatNumber>
-                <Button
-                  size={"sm"}
-                  leftIcon={<HiOutlineCloudArrowDown />}
-                  colorScheme="gray"
-                  variant="outline"
-                  mt={2}
-                >
-                  Download
-                </Button>
-              </StatNumber>
-            </Stat>
-          </Stack>{" "}
-        </CardBody>
-        <CardFooter></CardFooter>
-      </Card> */}
     </SimpleGrid>
   );
 }
