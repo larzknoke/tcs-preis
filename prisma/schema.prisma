@@ -134,6 +134,21 @@ model Botschafter {
   region            String?
   email             String?
   letters           Letter[]
+  botcontacts       Botcontact[]
+}
+
+model Botcontact {
+  id                Int       @id @default(autoincrement())
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
+  name              String?
+  anrede            String?
+  telefon           String?
+  funktion          String?
+  email             String?
+  notiz             String?
+  botschafter       Botschafter? @relation(fields: [botschafterId], references: [id])
+  botschafterId     Int?
 }
 
 model Kampagne {

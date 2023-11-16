@@ -142,9 +142,9 @@ export const getServerSideProps = async (ctx) => {
             botschafterConfirm: "asc",
           },
         },
+        botcontacts: true,
       },
     });
-    console.log("botschafter: ", botschafter);
     return { props: { botschafter } };
   } catch (error) {
     console.log("error", error);
