@@ -13,11 +13,13 @@ import {
   HStack,
   Tooltip,
   useDisclosure,
+  GridItem,
 } from "@chakra-ui/react";
 import { Checker } from "@/lib/utils";
 import BotschafterDetail from "./botschafter";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import TraegerEditModal from "./traegerEditModal";
+import BotContactTable from "@/components/botschafter/botContactTable";
 
 function TraegerDetail({ letter }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -91,6 +93,9 @@ function TraegerDetail({ letter }) {
         </CardBody>
       </Card>
       <BotschafterDetail letter={letter} />
+      <GridItem colSpan={2}>
+        <BotContactTable botschafter={letter.botschafter} />
+      </GridItem>
     </SimpleGrid>
   );
 }

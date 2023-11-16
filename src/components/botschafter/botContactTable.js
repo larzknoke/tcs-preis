@@ -84,7 +84,7 @@ function BotContactTable({ botschafter }) {
             fontWeight={"600"}
             textTransform={"uppercase"}
           >
-            Ansprechpartner
+            Botschafter Ansprechpartner
           </Heading>
           <Button
             onClick={botcontactOnOpen}

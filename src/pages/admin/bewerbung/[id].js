@@ -210,7 +210,7 @@ export const getServerSideProps = async (ctx) => {
         id: parseInt(id),
       },
       include: {
-        botschafter: true,
+        botschafter: { include: { botcontacts: true } },
         kampagne: true,
         notes: true,
         files: true,
