@@ -1,3 +1,5 @@
+import { authOptions } from "../auth/[...nextauth]";
+import { getServerSession } from "next-auth";
 import prisma from "@/lib/prisma";
 import { sendEmail } from "@/lib/email";
 import VerifyEmail from "@/email/VerifyEmail";
@@ -6,6 +8,8 @@ import ErrorEmail from "@/email/ErrorEmail";
 
 export default async function handle(req, res) {
   console.log("api call");
+  const session = await getServerSession(req, res, authOptions);
+
   if (req.method == "POST") {
     try {
       const data = req.body;
@@ -15,7 +19,7 @@ export default async function handle(req, res) {
           abgeschlossen: false,
         },
       });
-      if (!kampagne) {
+      if (!session && !kampagne) {
         return res
           .status(500)
           .json({ msg: "Die Bewerbungsphase ist beendet." });
