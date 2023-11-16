@@ -34,6 +34,7 @@ import {
   HiChevronLeft,
   HiChevronRight,
   HiPaperClip,
+  HiOutlineEnvelope,
 } from "react-icons/hi2";
 import {
   useReactTable,
@@ -58,6 +59,7 @@ import FormBotschafterModal from "./formBotschafterModal";
 import ImportBotschafterModal from "./importBotschafterModal";
 import BotschafterDeleteModal from "./botschafterDeleteModal";
 import { exportToExcel } from "react-json-to-excel";
+import EmailBotschafterModal from "./emailBotschafterModal";
 
 function BotschafterTable({ botschafters }) {
   const toast = useToast();
@@ -74,6 +76,11 @@ function BotschafterTable({ botschafters }) {
     isOpen: isOpenDelete,
     onOpen: onOpenDelete,
     onClose: onCloseDelete,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenEmail,
+    onOpen: onOpenEmail,
+    onClose: onCloseEmail,
   } = useDisclosure();
   const [sorting, setSorting] = useState([{ id: "plz", desc: false }]);
   const [globalFilter, setGlobalFilter] = useState("");
@@ -269,6 +276,19 @@ function BotschafterTable({ botschafters }) {
           onOpen={onOpenImport}
           onClose={onCloseImport}
           isOpen={isOpenImport}
+        />
+        <Tooltip label="Botschafter Email austauschen" placement="top">
+          <IconButton
+            onClick={onOpenEmail}
+            icon={<HiOutlineEnvelope />}
+            colorScheme="green"
+            variant={"outline"}
+          />
+        </Tooltip>
+        <EmailBotschafterModal
+          onOpen={onOpenEmail}
+          onClose={onCloseEmail}
+          isOpen={isOpenEmail}
         />
       </Stack>
       <Card>
