@@ -56,6 +56,7 @@ function EmailBotschafterModal({ isOpen, onClose }) {
               setLoading(false);
             } else {
               const resData = await res.json();
+              console.log("resDataBots: ", resData.bots);
               toast({
                 title: `Botschafter erfolgreich geändert.`,
                 status: "success",
