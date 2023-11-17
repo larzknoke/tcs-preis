@@ -108,7 +108,7 @@ function BotContactTable({ botschafter }) {
       </CardHeader>
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
-          {botschafter.botcontacts.length > 0 ? (
+          {botschafter && botschafter.botcontacts.length > 0 ? (
             botschafter.botcontacts.map((botcontact) => {
               return (
                 <HStack justify={"space-between"} gap={6} key={botcontact.id}>
