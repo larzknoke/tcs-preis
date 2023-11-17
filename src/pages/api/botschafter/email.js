@@ -15,25 +15,27 @@ export default async function handle(req, res) {
       const csv = req.body;
 
       const changeBots = async () => {
-        const bots = csv.map(async (bot) => {
-          const botData = await prisma.botschafter.updateMany({
-            where: {
-              vorname: bot.vorname,
-              name: bot.name,
-            },
-            data: {
-              email: bot.email2,
-            },
-          });
-          return botData;
-        });
+        const bots = await prisma.$transaction(
+          csv.map((bot) => {
+            const botData = prisma.botschafter.updateMany({
+              where: {
+                vorname: bot.vorname,
+                name: bot.name,
+              },
+              data: {
+                email: bot.email2,
+              },
+            });
+            return botData;
+          })
+        );
+
         return Promise.all(bots);
       };
       const bots = await changeBots();
 
       console.log("bots:", bots);
       console.log("bots length:", bots.length);
-      // return res.status(200).json({ success: true, botschafter: botschafter });
       return res.status(200).json({ success: true, bots: bots });
     } catch (error) {
       console.log("api error: ", error);
