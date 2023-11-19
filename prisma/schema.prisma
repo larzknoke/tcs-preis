@@ -87,6 +87,7 @@ model Letter {
   jury                          Boolean? @default(false)
   botschafterConfirm            Boolean? @default(false)
   juryStatus                    String?
+  presseText                    String?
   notes                         Note[]
   files                         File[]
 }

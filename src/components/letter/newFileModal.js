@@ -22,7 +22,7 @@ import { fileSchema } from "@/lib/formSchema";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-function NewFileModal({ letter, isOpen, onClose }) {
+function NewFileModal({ letter, isOpen, onClose, uploadType }) {
   const router = useRouter();
   const {
     register,
@@ -67,7 +67,7 @@ function NewFileModal({ letter, isOpen, onClose }) {
           title: values.title,
           note: values.note,
           file: fields.key,
-          typ: "admin-upload",
+          typ: uploadType,
         };
         const res = await fetch("/api/file", {
           method: "POST",

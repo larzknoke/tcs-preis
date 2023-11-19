@@ -98,7 +98,7 @@ function SocialEditModal({ onClose, isOpen, letter }) {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent minW={"3xl"}>
-        <ModalHeader>Social Media & Presse bearbeiten</ModalHeader>
+        <ModalHeader>Social Media bearbeiten</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <form id="edit-beschreibung-form" onSubmit={handleSubmit(onSubmit)}>
@@ -201,20 +201,6 @@ function SocialEditModal({ onClose, isOpen, letter }) {
                   />
                   <FormErrorMessage>
                     {errors.socialNotiz && errors.socialNotiz.message}
-                  </FormErrorMessage>
-                </FormControl>
-              </GridItem>
-              <GridItem colSpan={4}>
-                <FormControl isInvalid={errors.presseErlaubt}>
-                  <FormLabel>Pressearbeit erwünscht</FormLabel>
-                  <Switch
-                    colorScheme="green"
-                    name="presseErlaubt"
-                    type="text"
-                    {...register("presseErlaubt")}
-                  />
-                  <FormErrorMessage>
-                    {errors.presseErlaubt && errors.presseErlaubt.message}
                   </FormErrorMessage>
                 </FormControl>
               </GridItem>

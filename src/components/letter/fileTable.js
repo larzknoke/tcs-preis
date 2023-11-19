@@ -20,7 +20,7 @@ import { useRouter } from "next/router";
 import FileDeleteModal from "../file/fileDeleteModal";
 import { useState } from "react";
 
-function FileTable({ letter }) {
+function FileTable({ letter, uploadType = "" }) {
   const toast = useToast();
   const router = useRouter();
 
@@ -32,12 +32,14 @@ function FileTable({ letter }) {
     onClose: onCloseDelete,
   } = useDisclosure();
 
-  const groupedFiles = letter.files.reduce((group, file) => {
-    const { typ } = file;
-    group[typ] = group[typ] ?? [];
-    group[typ].push(file);
-    return group;
-  }, {});
+  const groupedFiles = letter.files
+    .filter((file) => (uploadType.length > 0 ? file.typ == uploadType : true))
+    .reduce((group, file) => {
+      const { typ } = file;
+      group[typ] = group[typ] ?? [];
+      group[typ].push(file);
+      return group;
+    }, {});
 
   const files = Object.entries(groupedFiles);
 

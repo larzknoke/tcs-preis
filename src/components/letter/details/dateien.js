@@ -52,6 +52,7 @@ function DateienDetail({ letter }) {
               letter={letter}
               isOpen={fileIsOpen}
               onClose={fileOnClose}
+              uploadType={"admin-upload"}
             />
           </Flex>
         </CardHeader>

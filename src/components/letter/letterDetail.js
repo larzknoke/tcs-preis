@@ -13,6 +13,7 @@ import FinanzierungDetail from "./details/finanzierung";
 import DateienDetail from "./details/dateien";
 import BeschreibungDetail from "./details/beschreibung";
 import InternDetail from "./details/intern";
+import PresseDetail from "./details/presse";
 
 function LetterDetail({ letter }) {
   return (
@@ -23,6 +24,7 @@ function LetterDetail({ letter }) {
         <Tab>Beschreibung</Tab>
         <Tab>Finanzierung</Tab>
         <Tab>Intern</Tab>
+        <Tab>Presse</Tab>
         <Tab>Dateien</Tab>
         <Tab>
           Notizen
@@ -49,6 +51,9 @@ function LetterDetail({ letter }) {
         </TabPanel>
         <TabPanel px={0} py={6}>
           <InternDetail letter={letter} />
+        </TabPanel>
+        <TabPanel px={0} py={6}>
+          <PresseDetail letter={letter} />
         </TabPanel>
         <TabPanel px={0} py={6}>
           <DateienDetail letter={letter} />

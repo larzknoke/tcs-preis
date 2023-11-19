@@ -145,7 +145,7 @@ function InternDetail({ letter }) {
               fontWeight={"600"}
               textTransform={"uppercase"}
             >
-              Social Media & Presse
+              Social Media
             </Heading>
             <Tooltip label="Bearbeiten">
               <IconButton
@@ -183,45 +183,6 @@ function InternDetail({ letter }) {
             <Stat>
               <StatLabel>Social Media Notiz</StatLabel>
               <StatNumber fontSize={15}>{letter.socialNotiz}</StatNumber>
-            </Stat>
-            <Stat>
-              <StatLabel>Pressearbeit erwünscht</StatLabel>
-              <StatNumber>
-                <Checker bool={letter.presseErlaubt} />
-              </StatNumber>
-              <Flex direction={"column"} my={4} gap={2}>
-                <Text as={"b"}>Presse Daten:</Text>
-                <Stat>
-                  <StatLabel>Presseeinladung versendet</StatLabel>
-                  <StatNumber>
-                    {dateFormatter(letter.presseEinladung, false)}
-                  </StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Pressemitteilung erstellt</StatLabel>
-                  <StatNumber>
-                    {dateFormatter(letter.presseMitteilung, false)}
-                  </StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Pressemitteilung freigegeben</StatLabel>
-                  <StatNumber>
-                    {dateFormatter(letter.presseFreigabe, false)}
-                  </StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Pressemitteilung versendet</StatLabel>
-                  <StatNumber>
-                    {dateFormatter(letter.presseVersendet, false)}
-                  </StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Pressearbeit erledigt</StatLabel>
-                  <StatNumber>
-                    {dateFormatter(letter.presseErledigt, false)}
-                  </StatNumber>
-                </Stat>
-              </Flex>
             </Stat>
           </Stack>
         </CardBody>
