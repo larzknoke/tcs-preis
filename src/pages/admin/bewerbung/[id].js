@@ -17,6 +17,7 @@ import {
   Text,
   useToast,
   Spinner,
+  MenuDivider,
 } from "@chakra-ui/react";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
 import LetterDetail from "@/components/letter/letterDetail";
@@ -25,6 +26,7 @@ import { dateFormatter } from "@/lib/utils";
 import Link from "next/link";
 import ConfirmModal from "@/components/letter/confirmModal";
 import { useState } from "react";
+import { exportToExcel } from "react-json-to-excel";
 
 function Bewerbung({ letter }) {
   const [loading, setLoading] = useState();
@@ -98,6 +100,38 @@ function Bewerbung({ letter }) {
       });
       setLoading(false);
     }
+  }
+
+  function exportPresse() {
+    const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
+    const letterExport = {
+      id: letter.id,
+      "Name Träger": letter.nameTraeger,
+      "Name Organisation": letter.organisationProjekt,
+      "Name Projekt": letter.nameProjekt,
+      "Ansprechpartner Projekt": letter.ansprechpartnerProjekt,
+      "Email Projekt": letter.emailProjekt,
+      "Telefon Projekt": letter.telefonnummerProjekt,
+      "Mobil Projekt": letter.mobilProjekt,
+      "WWW Projekt": letter.wwwProjekt,
+      "Seit wann besteht das Projekt": letter.wannProjekt,
+      Mitarbeiter: letter.mitarbeiterProjekt,
+      "Hauptamtlich Anzahl / Stunden": `${letter.hauptamtlichAnzahl} / ${letter.hauptamtlichStunden}`,
+      "Ehrenamtlich Anzahl / Stunden": `${letter.ehrenamtlichAnzahl} / ${letter.ehrenamtlichStunden}`,
+      Projektbeschreibung: letter.beschreibungProjekt,
+      "Zielsetzung des Projektes": letter.zielsetzungProjekt,
+      Benachteiligung: letter.benachteiligungProjekt,
+      Projektumsetzung: letter.umsetzungProjekt,
+      "Bisherige Ergebnisse": letter.bisherigeErgebnisse,
+      "Botschafter Name ": `${letter.botschafter.vorname} / ${letter.botschafter.name}`,
+      "Botschafter Email": letter.botschafter.email,
+      "Botschafter Telefon": letter.botschafter.telefon,
+      "Botschafter Mobil": letter.botschafter.mobil,
+    };
+    exportToExcel(
+      [letterExport],
+      "bewerbung_" + letter.id + "_presse-export_" + date
+    );
   }
 
   return loading ? (
@@ -187,6 +221,11 @@ function Bewerbung({ letter }) {
               <MenuItem onClick={() => sendConfirmEmail(letter)}>
                 Bestätigung erneut senden
               </MenuItem>
+              <MenuDivider />
+              <MenuItem onClick={() => exportPresse(letter)}>
+                Export Presse
+              </MenuItem>
+              <MenuDivider />
               <MenuItem isDisabled={true}>Bearbeiten</MenuItem>
               <MenuItem isDisabled={true}>Löschen</MenuItem>
             </MenuList>

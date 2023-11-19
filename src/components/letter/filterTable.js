@@ -20,18 +20,6 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import {
-  HiOutlineFolderOpen,
-  HiOutlineCheck,
-  HiOutlineNoSymbol,
-  HiOutlineQuestionMarkCircle,
-  HiMiniLanguage,
-  HiMiniStar,
-  HiLink,
-  HiOutlineBanknotes,
-  HiCalendarDays,
-  HiOutlineTrash,
-  HiUserPlus,
-  HiOutlineCircleStack,
   HiChevronDoubleLeft,
   HiChevronDoubleRight,
   HiChevronLeft,
@@ -39,6 +27,7 @@ import {
   HiPaperClip,
 } from "react-icons/hi2";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
+import { exportToExcel } from "react-json-to-excel";
 
 import {
   Column,
@@ -143,7 +132,72 @@ function FilterTable({ letters }) {
         footer: (props) => props.column.id,
       },
       {
+        accessorKey: "plzTraeger",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "ortTraeger",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
         accessorKey: "organisationProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "nameProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "ansprechpartnerProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "emailProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "telefonnummerProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "mobilProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "wwwProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "strasseProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "plzProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "ortProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "bundeslandProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "wannProjekt",
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
       },
