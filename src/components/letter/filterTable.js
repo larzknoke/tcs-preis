@@ -54,6 +54,7 @@ import {
   compareItems,
 } from "@tanstack/match-sorter-utils";
 import { TableContainer } from "@chakra-ui/react";
+import { dateFormatter } from "@/lib/utils";
 
 const fuzzyFilter = (row, columnId, value, addMeta) => {
   // Rank the item
@@ -107,6 +108,13 @@ function FilterTable({ letters }) {
         footer: (props) => props.column.id,
       },
       {
+        accessorKey: "createdAt",
+        cell: (info) => dateFormatter(info.getValue(), false),
+        footer: (props) => props.column.id,
+        header: "Erstellt",
+        filterFn: "isWithinRange",
+      },
+      {
         accessorKey: "status",
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
@@ -131,76 +139,71 @@ function FilterTable({ letters }) {
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
       },
-      {
-        accessorKey: "plzTraeger",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "ortTraeger",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "organisationProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "nameProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "ansprechpartnerProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "emailProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "telefonnummerProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "mobilProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "wwwProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "strasseProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "plzProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "ortProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "bundeslandProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "wannProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
+      // {
+      //   accessorKey: "plzTraeger",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "ortTraeger",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "organisationProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "ansprechpartnerProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "emailProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "telefonnummerProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "mobilProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "wwwProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "strasseProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "plzProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "ortProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "bundeslandProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "wannProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
     ],
     []
   );
@@ -210,6 +213,7 @@ function FilterTable({ letters }) {
     columns,
     filterFns: {
       fuzzy: fuzzyFilter,
+      isWithinRange: isWithinRange,
     },
     state: {
       columnFilters,
@@ -225,18 +229,18 @@ function FilterTable({ letters }) {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    debugTable: true,
-    debugHeaders: true,
+    debugTable: false,
+    debugHeaders: false,
     debugColumns: false,
   });
 
-  React.useEffect(() => {
-    if (table.getState().columnFilters[0]?.id === "fullName") {
-      if (table.getState().sorting[0]?.id !== "fullName") {
-        table.setSorting([{ id: "fullName", desc: false }]);
-      }
-    }
-  }, [table.getState().columnFilters[0]?.id]);
+  // React.useEffect(() => {
+  //   if (table.getState().columnFilters[0]?.id === "fullName") {
+  //     if (table.getState().sorting[0]?.id !== "fullName") {
+  //       table.setSorting([{ id: "fullName", desc: false }]);
+  //     }
+  //   }
+  // }, [table.getState().columnFilters[0]?.id]);
 
   return (
     <>
@@ -423,55 +427,81 @@ function Filter({ column, table }) {
     [column.getFacetedUniqueValues()]
   );
 
-  return typeof firstValue === "number" ? (
-    <div>
-      <div className="flex space-x-2">
-        <DebouncedInput
-          type="number"
-          min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
-          max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
-          value={columnFilterValue?.[0] ?? ""}
-          onChange={(value) =>
-            column.setFilterValue((old) => [value, old?.[1]])
-          }
-          placeholder={`Min ${
-            column.getFacetedMinMaxValues()?.[0]
-              ? `(${column.getFacetedMinMaxValues()?.[0]})`
-              : ""
-          }`}
-        />
-        <DebouncedInput
-          type="number"
-          min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
-          max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
-          value={columnFilterValue?.[1] ?? ""}
-          onChange={(value) =>
-            column.setFilterValue((old) => [old?.[0], value])
-          }
-          placeholder={`Max ${
-            column.getFacetedMinMaxValues()?.[1]
-              ? `(${column.getFacetedMinMaxValues()?.[1]})`
-              : ""
-          }`}
-        />
-      </div>
-    </div>
-  ) : (
-    <>
-      <datalist id={column.id + "list"}>
-        {sortedUniqueValues.slice(0, 5000).map((value) => (
-          <option value={value} key={value} />
-        ))}
-      </datalist>
-      <DebouncedInput
-        type="text"
-        value={columnFilterValue ?? ""}
-        onChange={(value) => column.setFilterValue(value)}
-        placeholder={`Suche... (${column.getFacetedUniqueValues().size})`}
-        list={column.id + "list"}
-      />
-    </>
-  );
+  switch (typeof firstValue) {
+    case "object":
+      return (
+        <div>
+          <div className="flex space-x-2">
+            <DebouncedInput
+              type="date"
+              value={columnFilterValue?.[0] ?? ""}
+              onChange={(value) =>
+                column.setFilterValue((old) => [value, old?.[1]])
+              }
+            />
+            <DebouncedInput
+              type="date"
+              value={columnFilterValue?.[1] ?? ""}
+              onChange={(value) =>
+                column.setFilterValue((old) => [old?.[0], value])
+              }
+            />
+          </div>
+        </div>
+      );
+    case "number":
+      return (
+        <div>
+          <div className="flex space-x-2">
+            <DebouncedInput
+              type="number"
+              min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+              max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+              value={columnFilterValue?.[0] ?? ""}
+              onChange={(value) =>
+                column.setFilterValue((old) => [value, old?.[1]])
+              }
+              placeholder={`Min ${
+                column.getFacetedMinMaxValues()?.[0]
+                  ? `(${column.getFacetedMinMaxValues()?.[0]})`
+                  : ""
+              }`}
+            />
+            <DebouncedInput
+              type="number"
+              min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+              max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+              value={columnFilterValue?.[1] ?? ""}
+              onChange={(value) =>
+                column.setFilterValue((old) => [old?.[0], value])
+              }
+              placeholder={`Max ${
+                column.getFacetedMinMaxValues()?.[1]
+                  ? `(${column.getFacetedMinMaxValues()?.[1]})`
+                  : ""
+              }`}
+            />
+          </div>
+        </div>
+      );
+    default:
+      return (
+        <>
+          <datalist id={column.id + "list"}>
+            {sortedUniqueValues.slice(0, 5000).map((value) => (
+              <option value={value} key={value} />
+            ))}
+          </datalist>
+          <DebouncedInput
+            type="text"
+            value={columnFilterValue ?? ""}
+            onChange={(value) => column.setFilterValue(value)}
+            placeholder={`Suche... (${column.getFacetedUniqueValues().size})`}
+            list={column.id + "list"}
+          />
+        </>
+      );
+  }
 }
 
 // A debounced input react component
@@ -506,5 +536,23 @@ function DebouncedInput({
     />
   );
 }
+
+const isWithinRange = (row, columnId, value) => {
+  const date = row.getValue(columnId);
+  const [startRaw, endRaw] = value; // value => two date input values
+  const start = startRaw != "" ? new Date(startRaw) : null;
+  const end = endRaw != "" ? new Date(endRaw) : null;
+  if ((start || end) && !date) return false;
+  if (start && !end) {
+    console.log("1");
+    return date.getTime() >= start.getTime();
+  } else if (!start && end) {
+    console.log("2");
+    return date.getTime() <= end.getTime();
+  } else if (start && end) {
+    console.log("3", start);
+    return date.getTime() >= start.getTime() && date.getTime() <= end.getTime();
+  } else return true;
+};
 
 export default FilterTable;
