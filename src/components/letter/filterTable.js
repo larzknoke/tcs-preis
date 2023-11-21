@@ -55,6 +55,8 @@ import {
 } from "@tanstack/match-sorter-utils";
 import { TableContainer } from "@chakra-ui/react";
 import { dateFormatter } from "@/lib/utils";
+import { Select } from "chakra-react-select";
+import { bundeslaender } from "@/lib/data";
 
 const fuzzyFilter = (row, columnId, value, addMeta) => {
   // Rank the item
@@ -427,8 +429,10 @@ function Filter({ column, table }) {
     [column.getFacetedUniqueValues()]
   );
 
-  switch (typeof firstValue) {
-    case "object":
+  console.log("column: ", column.id);
+
+  switch (column.id) {
+    case "createdAt":
       return (
         <div>
           <div className="flex space-x-2">
@@ -449,7 +453,7 @@ function Filter({ column, table }) {
           </div>
         </div>
       );
-    case "number":
+    case "id":
       return (
         <div>
           <div className="flex space-x-2">
@@ -483,6 +487,36 @@ function Filter({ column, table }) {
             />
           </div>
         </div>
+      );
+    case "bundeslandTraeger":
+      return (
+        // <>
+        //   <datalist id={column.id + "list"}>
+        //     {sortedUniqueValues.slice(0, 5000).map((value) => (
+        //       <option value={"Berlin"} key={"Berlin"} />
+        //     ))}
+        //   </datalist>
+        //   <DebouncedInput
+        //     type="text"
+        //     value={columnFilterValue ?? ""}
+        //     onChange={(value) => column.setFilterValue(value)}
+        //     placeholder={`Suche... (${column.getFacetedUniqueValues().size})`}
+        //     list={column.id + "list"}
+        //   />
+        // </>
+        <Select
+          // name={name}
+          // ref={ref}
+          // onChange={(e) => {
+          //   setValue("bundesland", e.value);
+          // setSelectedBundesland(e);
+          // }}
+          onChange={(e) => column.setFilterValue(e.value)}
+          // onBlur={onBlur}
+          // value={selectedBundesland}
+          options={bundeslaender}
+          placeholder="Bitte auswählen..."
+        />
       );
     default:
       return (
