@@ -119,6 +119,7 @@ function FilterTable({ letters }) {
         accessorKey: "status",
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
+        filterFn: "equals",
       },
       {
         accessorKey: "bundeslandTraeger",
