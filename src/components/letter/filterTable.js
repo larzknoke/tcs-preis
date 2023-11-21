@@ -49,26 +49,9 @@ import {
   FilterFns,
 } from "@tanstack/react-table";
 
-import {
-  RankingInfo,
-  rankItem,
-  compareItems,
-} from "@tanstack/match-sorter-utils";
 import { TableContainer } from "@chakra-ui/react";
 import { dateFormatter } from "@/lib/utils";
-
-const fuzzyFilter = (row, columnId, value, addMeta) => {
-  // Rank the item
-  const itemRank = rankItem(row.getValue(columnId), value);
-
-  // Store the itemRank info
-  addMeta({
-    itemRank,
-  });
-
-  // Return if the item should be filtered in/out
-  return itemRank.passed;
-};
+import fuzzyFilter from "@/lib/fuzzyFilter";
 
 // const fuzzySort= (rowA, rowB, columnId) => {
 //   let dir = 0
@@ -528,6 +511,8 @@ function DebouncedInput({
       onChange={(e) => setValue(e.target.value)}
       size={size}
       mt={2}
+      minWidth={"90px"}
+      py={3}
     />
   );
 }
@@ -539,13 +524,10 @@ function isWithinRange(row, columnId, value) {
   const end = endRaw != "" ? new Date(endRaw) : null;
   if ((start || end) && !date) return false;
   if (start && !end) {
-    console.log("1");
     return date.getTime() >= start.getTime();
   } else if (!start && end) {
-    console.log("2");
     return date.getTime() <= end.getTime();
   } else if (start && end) {
-    console.log("3", start);
     return date.getTime() >= start.getTime() && date.getTime() <= end.getTime();
   } else return true;
 }
