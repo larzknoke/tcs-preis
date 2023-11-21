@@ -17,7 +17,16 @@ import {
   Tooltip,
   Text,
   Input,
-  Select,
+  useDisclosure,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerOverlay,
+  DrawerCloseButton,
+  Checkbox,
+  Divider,
 } from "@chakra-ui/react";
 import React from "react";
 import {
@@ -26,6 +35,7 @@ import {
   HiChevronLeft,
   HiChevronRight,
   HiPaperClip,
+  HiOutlineTableCells,
 } from "react-icons/hi2";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { exportToExcel } from "react-json-to-excel";
@@ -74,6 +84,10 @@ function FilterTable({ letters }) {
 
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [globalFilter, setGlobalFilter] = React.useState("");
+  const [columnVisibility, setColumnVisibility] = React.useState({});
+
+  const btnRef = React.useRef();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   function handleExport() {
     const ids = table
@@ -81,7 +95,7 @@ function FilterTable({ letters }) {
       .rows.map((row) => row.getValue("id"));
     const result = tableData.filter(({ id }) => ids.includes(id));
     const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
-    exportToExcel(result, "bewerbung_export_" + date);
+    exportToExcel(result, "filter_export_" + date);
   }
 
   const columns = React.useMemo(
@@ -204,7 +218,9 @@ function FilterTable({ letters }) {
     state: {
       columnFilters,
       globalFilter,
+      columnVisibility,
     },
+    onColumnVisibilityChange: setColumnVisibility,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: fuzzyFilter,
@@ -244,6 +260,51 @@ function FilterTable({ letters }) {
           ml={"auto"}
           size={"md"}
         />
+        <Tooltip label="Spalten ein-/ausblenden">
+          <IconButton
+            ref={btnRef}
+            onClick={onOpen}
+            aria-label="Spalten ein-/ausblenden"
+            icon={<HiOutlineTableCells />}
+            mt={2}
+            colorScheme="green"
+            variant={"outline"}
+          />
+        </Tooltip>
+        <Drawer
+          isOpen={isOpen}
+          placement="right"
+          onClose={onClose}
+          finalFocusRef={btnRef}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader>Spalten ein-/ausblenden</DrawerHeader>
+
+            <DrawerBody>
+              <Checkbox
+                onChange={table.getToggleAllColumnsVisibilityHandler()}
+                isChecked={table.getIsAllColumnsVisible()}
+              >
+                <Text as="b">Alle aus-/abwählen</Text>
+              </Checkbox>
+              <Divider my={2} />
+              {table.getAllLeafColumns().map((column) => {
+                return (
+                  <div key={column.id}>
+                    <Checkbox
+                      isChecked={column.getIsVisible()}
+                      onChange={column.getToggleVisibilityHandler()}
+                    >
+                      {column.id}
+                    </Checkbox>
+                  </div>
+                );
+              })}
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
       </Stack>
       <Card>
         <CardBody>

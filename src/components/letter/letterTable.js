@@ -1043,6 +1043,23 @@ function LetterTable({ letters }) {
           w={"100%"}
           ml={"auto"}
         />
+        <Tooltip label="Nicht bestätige Bewerbungen anzeigen" placement="top">
+          <IconButton
+            as={Link}
+            href={"/admin/bewerbungen-not-verified"}
+            icon={<HiFlag />}
+            colorScheme="green"
+            variant={"outline"}
+          />
+        </Tooltip>
+        <Tooltip label="Bewerbungen exportieren" placement="top">
+          <IconButton
+            onClick={handleExport}
+            icon={<HiPaperClip />}
+            colorScheme="green"
+            variant={"outline"}
+          />
+        </Tooltip>
       </Stack>
       <Card>
         <CardBody>
@@ -1168,27 +1185,6 @@ function LetterTable({ letters }) {
                 ))}
               </select>
             </HStack>
-            <Spacer />
-            <Tooltip
-              label="Nicht bestätige Bewerbungen anzeigen"
-              placement="top"
-            >
-              <IconButton
-                as={Link}
-                href={"/admin/bewerbungen-not-verified"}
-                icon={<HiFlag />}
-                colorScheme="green"
-                variant={"outline"}
-              />
-            </Tooltip>
-            <Tooltip label="Bewerbungen exportieren" placement="top">
-              <IconButton
-                onClick={handleExport}
-                icon={<HiPaperClip />}
-                colorScheme="green"
-                variant={"outline"}
-              />
-            </Tooltip>
           </Flex>
         </CardBody>
       </Card>
