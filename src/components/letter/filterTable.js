@@ -17,6 +17,7 @@ import {
   Tooltip,
   Text,
   Input,
+  Select,
 } from "@chakra-ui/react";
 import React from "react";
 import {
@@ -55,8 +56,6 @@ import {
 } from "@tanstack/match-sorter-utils";
 import { TableContainer } from "@chakra-ui/react";
 import { dateFormatter } from "@/lib/utils";
-import { Select } from "chakra-react-select";
-import { bundeslaender } from "@/lib/data";
 
 const fuzzyFilter = (row, columnId, value, addMeta) => {
   // Rank the item
@@ -122,6 +121,12 @@ function FilterTable({ letters }) {
         footer: (props) => props.column.id,
       },
       {
+        accessorKey: "bundeslandTraeger",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+        filterFn: "equals",
+      },
+      {
         accessorKey: "nameProjekt",
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
@@ -137,75 +142,70 @@ function FilterTable({ letters }) {
         footer: (props) => props.column.id,
       },
       {
-        accessorKey: "bundeslandTraeger",
+        accessorKey: "plzTraeger",
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
       },
-      // {
-      //   accessorKey: "plzTraeger",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
-      // {
-      //   accessorKey: "ortTraeger",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
-      // {
-      //   accessorKey: "organisationProjekt",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
-      // {
-      //   accessorKey: "ansprechpartnerProjekt",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
-      // {
-      //   accessorKey: "emailProjekt",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
-      // {
-      //   accessorKey: "telefonnummerProjekt",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
-      // {
-      //   accessorKey: "mobilProjekt",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
-      // {
-      //   accessorKey: "wwwProjekt",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
-      // {
-      //   accessorKey: "strasseProjekt",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
-      // {
-      //   accessorKey: "plzProjekt",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
-      // {
-      //   accessorKey: "ortProjekt",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
-      // {
-      //   accessorKey: "bundeslandProjekt",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
-      // {
-      //   accessorKey: "wannProjekt",
-      //   cell: (info) => info.getValue(),
-      //   footer: (props) => props.column.id,
-      // },
+      {
+        accessorKey: "ortTraeger",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "organisationProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "ansprechpartnerProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "emailProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "telefonnummerProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "mobilProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "wwwProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "strasseProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "plzProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "ortProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "bundeslandProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "wannProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
     ],
     []
   );
@@ -235,14 +235,6 @@ function FilterTable({ letters }) {
     debugHeaders: false,
     debugColumns: false,
   });
-
-  // React.useEffect(() => {
-  //   if (table.getState().columnFilters[0]?.id === "fullName") {
-  //     if (table.getState().sorting[0]?.id !== "fullName") {
-  //       table.setSorting([{ id: "fullName", desc: false }]);
-  //     }
-  //   }
-  // }, [table.getState().columnFilters[0]?.id]);
 
   return (
     <>
@@ -429,8 +421,6 @@ function Filter({ column, table }) {
     [column.getFacetedUniqueValues()]
   );
 
-  console.log("column: ", column.id);
-
   switch (column.id) {
     case "createdAt":
       return (
@@ -488,36 +478,6 @@ function Filter({ column, table }) {
           </div>
         </div>
       );
-    case "bundeslandTraeger":
-      return (
-        // <>
-        //   <datalist id={column.id + "list"}>
-        //     {sortedUniqueValues.slice(0, 5000).map((value) => (
-        //       <option value={"Berlin"} key={"Berlin"} />
-        //     ))}
-        //   </datalist>
-        //   <DebouncedInput
-        //     type="text"
-        //     value={columnFilterValue ?? ""}
-        //     onChange={(value) => column.setFilterValue(value)}
-        //     placeholder={`Suche... (${column.getFacetedUniqueValues().size})`}
-        //     list={column.id + "list"}
-        //   />
-        // </>
-        <Select
-          // name={name}
-          // ref={ref}
-          // onChange={(e) => {
-          //   setValue("bundesland", e.value);
-          // setSelectedBundesland(e);
-          // }}
-          onChange={(e) => column.setFilterValue(e.value)}
-          // onBlur={onBlur}
-          // value={selectedBundesland}
-          options={bundeslaender}
-          placeholder="Bitte auswählen..."
-        />
-      );
     default:
       return (
         <>
@@ -571,7 +531,7 @@ function DebouncedInput({
   );
 }
 
-const isWithinRange = (row, columnId, value) => {
+function isWithinRange(row, columnId, value) {
   const date = row.getValue(columnId);
   const [startRaw, endRaw] = value; // value => two date input values
   const start = startRaw != "" ? new Date(startRaw) : null;
@@ -587,6 +547,6 @@ const isWithinRange = (row, columnId, value) => {
     console.log("3", start);
     return date.getTime() >= start.getTime() && date.getTime() <= end.getTime();
   } else return true;
-};
+}
 
 export default FilterTable;
