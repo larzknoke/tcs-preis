@@ -17,17 +17,20 @@ import {
   useDisclosure,
   Textarea,
   Switch,
+  Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import { Weekday_Names_Short, Month_Names_Short } from "@/lib/utils";
+import { useEffect } from "react";
 
 function PresseEditModal({ onClose, isOpen, letter }) {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [count, setCount] = useState(0);
 
   const [datePresseEinladung, setDatePresseEinladung] = useState(
     letter.presseEinladung || undefined
@@ -56,6 +59,10 @@ function PresseEditModal({ onClose, isOpen, letter }) {
     // resolver: yupResolver(formSchema),
     defaultValues: letter,
   });
+
+  useEffect(() => {
+    setCount(letter.presseText.length);
+  }, [letter.presseText]);
 
   async function onSubmit(values) {
     try {
@@ -124,12 +131,20 @@ function PresseEditModal({ onClose, isOpen, letter }) {
               </GridItem>
               <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.presseText}>
-                  <FormLabel>Pressetext</FormLabel>
+                  <FormLabel display={"flex"} justifyContent={"space-between"}>
+                    Pressetext{" "}
+                    {count && <Text color={"gray.300"}>Zeichen: {count}</Text>}
+                  </FormLabel>
                   <Textarea
                     name="presseText"
                     type="text"
                     {...register("presseText")}
                     minHeight={"200px"}
+                    onChange={(e) => {
+                      console.log(e.target.value.length);
+                      console.log("count: ", count);
+                      setCount(e.target.value.length);
+                    }}
                   />
 
                   <FormErrorMessage>

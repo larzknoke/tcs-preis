@@ -19,6 +19,8 @@ import {
   IconButton,
   useClipboard,
   Flex,
+  VStack,
+  GridItem,
 } from "@chakra-ui/react";
 import { HiOutlinePencilSquare, HiOutlinePlus } from "react-icons/hi2";
 import { useEffect } from "react";
@@ -86,10 +88,6 @@ function PresseDetail({ letter }) {
                 <Checker bool={letter.presseErlaubt} />
               </StatNumber>
             </Stat>
-            <Stat>
-              <StatLabel>Pressetext</StatLabel>
-              <StatNumber fontSize={15}>{letter.presseText || "-"}</StatNumber>
-            </Stat>
             <Flex direction={"column"} my={4} gap={2}>
               <Text as={"b"}>Presse Daten:</Text>
               <Stat>
@@ -126,39 +124,67 @@ function PresseDetail({ letter }) {
           </Stack>
         </CardBody>
       </Card>
-      <Card>
-        <CardHeader>
-          <Flex justify={"space-between"}>
-            <Heading
-              size="sm"
-              color="gray.500"
-              fontWeight={"600"}
-              textTransform={"uppercase"}
-            >
-              Presse Dateien
-            </Heading>
-            <Tooltip label="Neue Presse Datei" placement="top">
-              <IconButton
-                size={"sm"}
-                variant="outline"
-                colorScheme="green"
-                aria-label="See menu"
-                icon={<HiOutlinePlus />}
-                onClick={() => fileOnOpen()}
-              />
-            </Tooltip>
-            <NewFileModal
-              letter={letter}
-              isOpen={fileIsOpen}
-              onClose={fileOnClose}
-              uploadType={"presse-upload"}
-            />
-          </Flex>
-        </CardHeader>
-        <CardBody>
-          <FileTable uploadType={"presse-upload"} letter={letter} />
-        </CardBody>
-      </Card>
+      <GridItem>
+        <Flex gap={6} direction={"column"}>
+          <Card>
+            <CardHeader>
+              <HStack justifyContent={"space-between"}>
+                <Heading
+                  size="sm"
+                  color="gray.500"
+                  fontWeight={"600"}
+                  textTransform={"uppercase"}
+                >
+                  Presse-Text
+                </Heading>
+                {letter.presseText && (
+                  <Text color={"gray.300"}>
+                    Zeichen: {letter.presseText.length}
+                  </Text>
+                )}
+              </HStack>
+            </CardHeader>
+            <CardBody>
+              {letter.presseText || (
+                <Text color={"gray.300"}>kein Text vorhanden</Text>
+              )}
+            </CardBody>
+          </Card>
+          <Card>
+            <CardHeader>
+              <Flex justify={"space-between"}>
+                <Heading
+                  size="sm"
+                  color="gray.500"
+                  fontWeight={"600"}
+                  textTransform={"uppercase"}
+                >
+                  Presse Dateien
+                </Heading>
+                <Tooltip label="Neue Presse Datei" placement="top">
+                  <IconButton
+                    size={"sm"}
+                    variant="outline"
+                    colorScheme="green"
+                    aria-label="See menu"
+                    icon={<HiOutlinePlus />}
+                    onClick={() => fileOnOpen()}
+                  />
+                </Tooltip>
+                <NewFileModal
+                  letter={letter}
+                  isOpen={fileIsOpen}
+                  onClose={fileOnClose}
+                  uploadType={"presse-upload"}
+                />
+              </Flex>
+            </CardHeader>
+            <CardBody>
+              <FileTable uploadType={"presse-upload"} letter={letter} />
+            </CardBody>
+          </Card>
+        </Flex>
+      </GridItem>
     </SimpleGrid>
   );
 }
