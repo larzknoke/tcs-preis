@@ -61,7 +61,7 @@ function PresseEditModal({ onClose, isOpen, letter }) {
   });
 
   useEffect(() => {
-    setCount(letter.presseText.length);
+    setCount(letter.presseText?.length || 0);
   }, [letter.presseText]);
 
   async function onSubmit(values) {
