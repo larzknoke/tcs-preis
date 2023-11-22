@@ -90,10 +90,13 @@ function FilterTable({ letters }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   function handleExport() {
-    const ids = table
-      .getFilteredRowModel()
-      .rows.map((row) => row.getValue("id"));
-    const result = tableData.filter(({ id }) => ids.includes(id));
+    const result = table.getFilteredRowModel().rows.map((row) => {
+      const rowData = row.getVisibleCells().map((cell) => {
+        return { [cell.getContext().column.id]: cell.getValue() };
+      });
+      const rows = Object.assign({}, ...rowData);
+      return rows;
+    });
     const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
     exportToExcel(result, "filter_export_" + date);
   }
@@ -114,6 +117,12 @@ function FilterTable({ letters }) {
       },
       {
         accessorKey: "status",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+        filterFn: "equals",
+      },
+      {
+        accessorKey: "juryStatus",
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
         filterFn: "equals",
@@ -204,6 +213,101 @@ function FilterTable({ letters }) {
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
       },
+      {
+        accessorKey: "mitarbeiterProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "hauptamtlichAnzahl",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "hauptamtlichStunden",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "ehrenamtlichAnzahl",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "ehrenamtlichStunden",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "beschreibungProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "zielsetzungProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "benachteiligungProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "umsetzungProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "bisherigeErgebnisse",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "botschafter.vorname",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "botschafter.name",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "botschafter.firma",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "botschafter.bundesland",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "botschafter.plz",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "botschafter.ort",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "botschafter.telefon",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "botschafter.mobil",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "botschafter.email",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
     ],
     []
   );
@@ -260,6 +364,15 @@ function FilterTable({ letters }) {
           ml={"auto"}
           size={"md"}
         />
+        <Tooltip label="Bewerbungen exportieren" placement="top">
+          <IconButton
+            onClick={handleExport}
+            icon={<HiPaperClip />}
+            colorScheme="green"
+            variant={"outline"}
+            mt={2}
+          />
+        </Tooltip>
         <Tooltip label="Spalten ein-/ausblenden">
           <IconButton
             ref={btnRef}
@@ -434,15 +547,6 @@ function FilterTable({ letters }) {
                 ))}
               </select>
             </HStack>
-            <Spacer />
-            <Tooltip label="Bewerbungen exportieren" placement="top">
-              <IconButton
-                onClick={handleExport}
-                icon={<HiPaperClip />}
-                colorScheme="green"
-                variant={"outline"}
-              />
-            </Tooltip>
           </Flex>
         </CardBody>
       </Card>
