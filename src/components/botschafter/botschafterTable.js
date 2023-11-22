@@ -146,7 +146,7 @@ function BotschafterTable({ botschafters }) {
             </Tooltip>
           </>
         ),
-        header: "Test ",
+        header: " ",
       }),
     ],
     [tableData]
