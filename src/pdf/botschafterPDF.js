@@ -105,7 +105,7 @@ export const BotschafterPDF = ({ bot }) => (
                   }}
                 >
                   <View style={styles.row}>
-                    <Text style={{ fontWeight: 600 }}>{letter.id}</Text>
+                    <Text style={{ fontWeight: 600 }}>ID: {letter.id}</Text>
                     <Text style={{ fontWeight: 600 }}>
                       {letter.bundeslandTraeger || letter.bundeslandProjekt}
                     </Text>
@@ -114,21 +114,21 @@ export const BotschafterPDF = ({ bot }) => (
                     <Text>Träger: {letter.nameTraeger}</Text>
                   </View>
                   <View style={styles.row}>
-                    <Text>Name: {letter.nameProjekt}</Text>
+                    <Text>Projekt: {letter.nameProjekt}</Text>
                   </View>
                   <View>
                     <Text style={{ fontWeight: 600, marginTop: 5 }}>
                       Kontakt:
                     </Text>
                     <View style={styles.row}>
-                      <View>
+                      <View style={{ width: "50%" }}>
                         <Text>{letter.ansprechpartnerProjekt}</Text>
                         <Text>{letter.strasseProjekt}</Text>
                         <Text>
                           {letter.plzProjekt} {letter.ortProjekt}
                         </Text>
                       </View>
-                      <View>
+                      <View style={{ width: "50%" }}>
                         <Text>Tel.: {letter.telefonnummerProjekt}</Text>
                         <Text>Mobil: {letter.mobilProjekt}</Text>
                         <Text>Email: {letter.emailProjekt}</Text>
