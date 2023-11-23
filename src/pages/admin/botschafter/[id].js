@@ -18,12 +18,17 @@ import {
   Text,
   VStack,
   useToast,
+  MenuDivider,
 } from "@chakra-ui/react";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
 import BotschafterDetail from "@/components/botschafter/botschafterDetail";
 import { dateFormatter } from "@/lib/utils";
 import BotschafterDeleteModal from "@/components/botschafter/botschafterDeleteModal";
 import FormBotschafterModal from "@/components/botschafter/formBotschafterModal";
+
+import { BotschafterPDF } from "@/pdf/botschafterPDF";
+import { pdf } from "@react-pdf/renderer";
+import { saveAs } from "file-saver";
 
 function Botschafter({ botschafter }) {
   const router = useRouter();
@@ -72,6 +77,11 @@ function Botschafter({ botschafter }) {
     }
   }
 
+  async function botschafterPdfExport() {
+    const blob = await pdf(<BotschafterPDF bot={botschafter} />).toBlob();
+    saveAs(blob, `Botschafter_${botschafter.id}.pdf`);
+  }
+
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
       <HStack justify={"space-between"}>
@@ -99,6 +109,10 @@ function Botschafter({ botschafter }) {
               size={"lg"}
             />
             <MenuList>
+              <MenuItem onClick={() => botschafterPdfExport()}>
+                PDF Export
+              </MenuItem>
+              <MenuDivider />
               <MenuItem onClick={() => onOpenEdit()}>Bearbeiten</MenuItem>
               <MenuItem onClick={() => onOpenDelete()}>Löschen</MenuItem>
             </MenuList>

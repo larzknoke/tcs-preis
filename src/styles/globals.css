@@ -9,3 +9,7 @@
 .cui-steps__step-icon-container[aria-current="step"] {
   background: var(--chakra-colors-brand-900) !important;
 }
+
+button a {
+  color: inherit;
+}
