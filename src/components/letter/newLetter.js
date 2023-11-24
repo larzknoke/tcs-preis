@@ -18,7 +18,7 @@ import Step1 from "./steps/step1";
 import Step2 from "./steps/step2";
 import Step3 from "./steps/step3";
 import Step4 from "./steps/step4";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { formSchema } from "@/lib/formSchema";
 import { isObjEmpty, topScroller } from "@/lib/utils";
 
@@ -52,6 +52,7 @@ function NewLetter() {
   const [formError, setFormError] = useState(false);
   const [errorMsg, setErrorMsg] = useState();
   const [confirmEmail, setConfirmEmail] = useState("");
+  const [validKampagne, setValidKampagne] = useState(true);
 
   const methods = useForm({
     mode: "onBlur",
@@ -77,6 +78,19 @@ function NewLetter() {
       "customFile2",
     ],
   });
+
+  async function checkValidKampange() {
+    const validKampagneRes = await fetch("/api/kampagne/validKampagne", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    const validKampagneData = await validKampagneRes.json();
+    setValidKampagne(validKampagneData.length > 0 ? true : false);
+  }
+
+  useEffect(() => {
+    checkValidKampange();
+  }, []);
 
   async function onSubmit(values) {
     setFormError(false);
@@ -212,164 +226,183 @@ function NewLetter() {
   };
 
   return (
-    <Card size={"lg"} w={"100%"}>
-      <CardBody>
-        <FormProvider {...methods}>
-          <form id="new-letter-form" onSubmit={methods.handleSubmit(onSubmit)}>
-            <Flex flexDir="column" width="100%">
-              <Steps
-                variant={"circles"}
-                colorScheme="blue"
-                activeStep={activeStep}
-                onClickStep={(i) => {
-                  setStep(i);
-                }}
-                size={"sm"}
-                sx={{
-                  "& .cui-steps__step-icon-container": {
-                    bg: "brand2.900",
-                    color: "white",
-                    border: 0,
-                    "&:hover": {
-                      bg: "brand.900",
-                      cursor: "pointer",
-                    },
-                    // use _active attribute to target the active step
-                    _active: {
-                      bg: "brand.900",
-                    },
-                  },
-                }}
-              >
-                {steps.map(({ label, description, content }, index) => (
-                  <Step label={label} key={label} description={description}>
-                    <Box my={{ base: 4, md: 16 }}>{content}</Box>
-                  </Step>
-                ))}
-              </Steps>
-              {formSuccess && hasCompletedAllSteps && (
-                <Box
+    <>
+      {!validKampagne && (
+        <Alert status="error">
+          <AlertIcon />
+          {/* <AlertTitle>Achtung!</AlertTitle> */}
+          <AlertDescription>
+            <Text as={"b"}>Achtung!</Text> Aufgrund der hohen Nachfrage wurde
+            die Bewerbungsphase bereits vorzeitig beendet. Eine Bewerbung für
+            den 11. Town & Country Stiftungspreis ist nicht mehr möglich.
+          </AlertDescription>
+        </Alert>
+      )}
+      <Card size={"lg"} w={"100%"}>
+        <CardBody>
+          <FormProvider {...methods}>
+            <form
+              id="new-letter-form"
+              onSubmit={methods.handleSubmit(onSubmit)}
+            >
+              <Flex flexDir="column" width="100%">
+                <Steps
+                  variant={"circles"}
+                  colorScheme="blue"
+                  activeStep={activeStep}
+                  onClickStep={(i) => {
+                    checkValidKampange();
+                    setStep(i);
+                  }}
+                  size={"sm"}
                   sx={{
-                    my: { base: 4, md: 8 },
-                    py: { base: 2, md: 10 },
-                    px: { base: 0, md: 8 },
-                    rounded: "md",
+                    "& .cui-steps__step-icon-container": {
+                      bg: "brand2.900",
+                      color: "white",
+                      border: 0,
+                      "&:hover": {
+                        bg: "brand.900",
+                        cursor: "pointer",
+                      },
+                      // use _active attribute to target the active step
+                      _active: {
+                        bg: "brand.900",
+                      },
+                    },
                   }}
                 >
-                  <Alert
-                    status="success"
-                    variant="subtle"
-                    flexDirection="column"
-                    alignItems="center"
-                    justifyContent="center"
-                    textAlign="center"
-                    // height="200px"
-                    rounded={"md"}
-                    bg={"brand.900"}
-                    color={"white"}
-                    p={8}
+                  {steps.map(({ label, description, content }, index) => (
+                    <Step label={label} key={label} description={description}>
+                      <Box my={{ base: 4, md: 16 }}>{content}</Box>
+                    </Step>
+                  ))}
+                </Steps>
+                {formSuccess && hasCompletedAllSteps && (
+                  <Box
+                    sx={{
+                      my: { base: 4, md: 8 },
+                      py: { base: 2, md: 10 },
+                      px: { base: 0, md: 8 },
+                      rounded: "md",
+                    }}
                   >
-                    <AlertIcon boxSize="40px" mr={0} color={"white"} />
-                    <AlertTitle mt={4} mb={1} fontSize="lg">
-                      Formular erfolgreich übermittelt
-                    </AlertTitle>
-                    <AlertDescription maxWidth="2xl" mt={2}>
-                      Nach Absenden Ihrer Bewerbung und{" "}
-                      <Text as="b">
-                        Bestätigung des Ihnen zugesandten Links an{" "}
-                        {confirmEmail}
-                      </Text>
-                      , <br /> erhalten Sie eine automatisierte
-                      Bestätigungs-E-Mail.
+                    <Alert
+                      status="success"
+                      variant="subtle"
+                      flexDirection="column"
+                      alignItems="center"
+                      justifyContent="center"
+                      textAlign="center"
+                      // height="200px"
+                      rounded={"md"}
+                      bg={"brand.900"}
+                      color={"white"}
+                      p={8}
+                    >
+                      <AlertIcon boxSize="40px" mr={0} color={"white"} />
+                      <AlertTitle mt={4} mb={1} fontSize="lg">
+                        Formular erfolgreich übermittelt
+                      </AlertTitle>
+                      <AlertDescription maxWidth="2xl" mt={2}>
+                        Nach Absenden Ihrer Bewerbung und{" "}
+                        <Text as="b">
+                          Bestätigung des Ihnen zugesandten Links an{" "}
+                          {confirmEmail}
+                        </Text>
+                        , <br /> erhalten Sie eine automatisierte
+                        Bestätigungs-E-Mail.
+                      </AlertDescription>
+                    </Alert>
+                  </Box>
+                )}
+                {formError && hasCompletedAllSteps && (
+                  <Box sx={{ my: 8, py: 10, px: 8, rounded: "md" }}>
+                    <Alert
+                      status="error"
+                      variant="subtle"
+                      flexDirection="column"
+                      alignItems="center"
+                      justifyContent="center"
+                      textAlign="center"
+                      // height="200px"
+                      rounded={"md"}
+                      bg={"red.500"}
+                      color={"white"}
+                      p={8}
+                    >
+                      <AlertIcon boxSize="40px" mr={0} color={"white"} />
+                      <AlertTitle mt={4} mb={1} fontSize="lg">
+                        {errorMsg ? errorMsg : "Ein Fehler ist aufgetreten."}
+                      </AlertTitle>
+                      {!errorMsg && (
+                        <AlertDescription maxWidth="2xl" mt={2}>
+                          Bitte überprüfen Sie Ihre eingaben oder <br />
+                          probieren Sie es zu einem späteren Zeitpunkt nochmal.
+                        </AlertDescription>
+                      )}
+                    </Alert>
+                  </Box>
+                )}
+                <Flex width="100%" justify="flex-end" gap={4}>
+                  {!hasCompletedAllSteps && (
+                    <>
+                      <Button
+                        isDisabled={activeStep === 0}
+                        onClick={() => {
+                          checkValidKampange();
+                          topScroller();
+                          prevStep();
+                        }}
+                        size="md"
+                        variant="ghost"
+                        color={"gray.500"}
+                      >
+                        Zurück
+                      </Button>
+                      {!isLastStep && (
+                        <Button
+                          onClick={() => {
+                            checkValidKampange();
+                            topScroller();
+                            nextStep();
+                          }}
+                        >
+                          Weiter
+                        </Button>
+                      )}
+                      {isLastStep && (
+                        <Button
+                          isDisabled={!isObjEmpty(methods.formState.errors)}
+                          isLoading={methods.formState.isSubmitting}
+                          loadingText="bitte warten"
+                          size="md"
+                          onClick={() => methods.handleSubmit(onSubmit)()}
+                          bg={isLastStep ? "brand.800" : "gray.400"}
+                          _hover={{ bg: isLastStep ? "brand.900" : "gray.500" }}
+                          color={"white"}
+                        >
+                          {isLastStep ? "Bewerbung abschicken" : "Weiter"}
+                        </Button>
+                      )}
+                    </>
+                  )}
+                </Flex>
+                {isLastStep && !isObjEmpty(methods.formState.errors) && (
+                  <Alert status="error" my={6} rounded={"md"}>
+                    <AlertIcon />
+                    <AlertTitle>Formular unvollständig!</AlertTitle>
+                    <AlertDescription>
+                      Einige Felder sind nicht korrekt ausgefüllt. Bitte
+                      überprüfen Sie das Formular.
                     </AlertDescription>
                   </Alert>
-                </Box>
-              )}
-              {formError && hasCompletedAllSteps && (
-                <Box sx={{ my: 8, py: 10, px: 8, rounded: "md" }}>
-                  <Alert
-                    status="error"
-                    variant="subtle"
-                    flexDirection="column"
-                    alignItems="center"
-                    justifyContent="center"
-                    textAlign="center"
-                    // height="200px"
-                    rounded={"md"}
-                    bg={"red.500"}
-                    color={"white"}
-                    p={8}
-                  >
-                    <AlertIcon boxSize="40px" mr={0} color={"white"} />
-                    <AlertTitle mt={4} mb={1} fontSize="lg">
-                      {errorMsg ? errorMsg : "Ein Fehler ist aufgetreten."}
-                    </AlertTitle>
-                    {!errorMsg && (
-                      <AlertDescription maxWidth="2xl" mt={2}>
-                        Bitte überprüfen Sie Ihre eingaben oder <br />
-                        probieren Sie es zu einem späteren Zeitpunkt nochmal.
-                      </AlertDescription>
-                    )}
-                  </Alert>
-                </Box>
-              )}
-              <Flex width="100%" justify="flex-end" gap={4}>
-                {!hasCompletedAllSteps && (
-                  <>
-                    <Button
-                      isDisabled={activeStep === 0}
-                      onClick={() => {
-                        topScroller();
-                        prevStep();
-                      }}
-                      size="md"
-                      variant="ghost"
-                      color={"gray.500"}
-                    >
-                      Zurück
-                    </Button>
-                    {!isLastStep && (
-                      <Button
-                        onClick={() => {
-                          topScroller();
-                          nextStep();
-                        }}
-                      >
-                        Weiter
-                      </Button>
-                    )}
-                    {isLastStep && (
-                      <Button
-                        isDisabled={!isObjEmpty(methods.formState.errors)}
-                        isLoading={methods.formState.isSubmitting}
-                        loadingText="bitte warten"
-                        size="md"
-                        onClick={() => methods.handleSubmit(onSubmit)()}
-                        bg={isLastStep ? "brand.800" : "gray.400"}
-                        _hover={{ bg: isLastStep ? "brand.900" : "gray.500" }}
-                        color={"white"}
-                      >
-                        {isLastStep ? "Bewerbung abschicken" : "Weiter"}
-                      </Button>
-                    )}
-                  </>
                 )}
               </Flex>
-              {isLastStep && !isObjEmpty(methods.formState.errors) && (
-                <Alert status="error" my={6} rounded={"md"}>
-                  <AlertIcon />
-                  <AlertTitle>Formular unvollständig!</AlertTitle>
-                  <AlertDescription>
-                    Einige Felder sind nicht korrekt ausgefüllt. Bitte
-                    überprüfen Sie das Formular.
-                  </AlertDescription>
-                </Alert>
-              )}
-            </Flex>
-          </form>
-        </FormProvider>
-      </CardBody>
-    </Card>
+            </form>
+          </FormProvider>
+        </CardBody>
+      </Card>
+    </>
   );
 }
 
