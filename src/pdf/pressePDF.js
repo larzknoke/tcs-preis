@@ -80,7 +80,7 @@ export const PressePDF = ({ letter }) => (
             letter.bundeslandProjekt ? letter.bundeslandProjekt : "-"
           }`}</Text>
         </View>
-        <View style={{ fontWeight: 600, marginBottom: 10 }}>
+        <View style={{ fontWeight: 600, marginBottom: 10, fontSize: 12 }}>
           <Text>Projekt-Nr.: {letter.id}</Text>
           <Text>Träger: {letter.nameTraeger}</Text>
           <Text>Projekt: {letter.nameProjekt ? letter.nameProjekt : "-"}</Text>
@@ -92,8 +92,8 @@ export const PressePDF = ({ letter }) => (
           </Text>
         </View>
         <View style={{ marginBottom: 10 }}>
-          <Text style={{ fontWeight: 600, marginBottom: 10 }}>
-            Projektbeschreibung:
+          <Text style={{ fontWeight: 600, marginBottom: 10, fontSize: 12 }}>
+            Projekt-/ Pressebeschreibung
           </Text>
           <Text style={{ fontWeight: 600 }}>Pressetext:</Text>
           <Text style={{ marginBottom: 5 }}>
