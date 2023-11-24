@@ -27,6 +27,8 @@ import Link from "next/link";
 import ConfirmModal from "@/components/letter/confirmModal";
 import { useState } from "react";
 import { exportToExcel } from "react-json-to-excel";
+import { PressePDF } from "@/pdf/pressePDF";
+import { pdf } from "@react-pdf/renderer";
 
 function Bewerbung({ letter }) {
   const [loading, setLoading] = useState();
@@ -102,36 +104,41 @@ function Bewerbung({ letter }) {
     }
   }
 
-  function exportPresse() {
-    const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
-    const letterExport = {
-      id: letter.id,
-      "Name Träger": letter.nameTraeger,
-      "Name Organisation": letter.organisationProjekt,
-      "Name Projekt": letter.nameProjekt,
-      "Ansprechpartner Projekt": letter.ansprechpartnerProjekt,
-      "Email Projekt": letter.emailProjekt,
-      "Telefon Projekt": letter.telefonnummerProjekt,
-      "Mobil Projekt": letter.mobilProjekt,
-      "WWW Projekt": letter.wwwProjekt,
-      "Seit wann besteht das Projekt": letter.wannProjekt,
-      Mitarbeiter: letter.mitarbeiterProjekt,
-      "Hauptamtlich Anzahl / Stunden": `${letter.hauptamtlichAnzahl} / ${letter.hauptamtlichStunden}`,
-      "Ehrenamtlich Anzahl / Stunden": `${letter.ehrenamtlichAnzahl} / ${letter.ehrenamtlichStunden}`,
-      Projektbeschreibung: letter.beschreibungProjekt,
-      "Zielsetzung des Projektes": letter.zielsetzungProjekt,
-      Benachteiligung: letter.benachteiligungProjekt,
-      Projektumsetzung: letter.umsetzungProjekt,
-      "Bisherige Ergebnisse": letter.bisherigeErgebnisse,
-      "Botschafter Name ": `${letter.botschafter.vorname} / ${letter.botschafter.name}`,
-      "Botschafter Email": letter.botschafter.email,
-      "Botschafter Telefon": letter.botschafter.telefon,
-      "Botschafter Mobil": letter.botschafter.mobil,
-    };
-    exportToExcel(
-      [letterExport],
-      "bewerbung_" + letter.id + "_presse-export_" + date
-    );
+  // function exportPresse() {
+  //   const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
+  //   const letterExport = {
+  //     id: letter.id,
+  //     "Name Träger": letter.nameTraeger,
+  //     "Name Organisation": letter.organisationProjekt,
+  //     "Name Projekt": letter.nameProjekt,
+  //     "Ansprechpartner Projekt": letter.ansprechpartnerProjekt,
+  //     "Email Projekt": letter.emailProjekt,
+  //     "Telefon Projekt": letter.telefonnummerProjekt,
+  //     "Mobil Projekt": letter.mobilProjekt,
+  //     "WWW Projekt": letter.wwwProjekt,
+  //     "Seit wann besteht das Projekt": letter.wannProjekt,
+  //     Mitarbeiter: letter.mitarbeiterProjekt,
+  //     "Hauptamtlich Anzahl / Stunden": `${letter.hauptamtlichAnzahl} / ${letter.hauptamtlichStunden}`,
+  //     "Ehrenamtlich Anzahl / Stunden": `${letter.ehrenamtlichAnzahl} / ${letter.ehrenamtlichStunden}`,
+  //     Projektbeschreibung: letter.beschreibungProjekt,
+  //     "Zielsetzung des Projektes": letter.zielsetzungProjekt,
+  //     Benachteiligung: letter.benachteiligungProjekt,
+  //     Projektumsetzung: letter.umsetzungProjekt,
+  //     "Bisherige Ergebnisse": letter.bisherigeErgebnisse,
+  //     "Botschafter Name ": `${letter.botschafter.vorname} / ${letter.botschafter.name}`,
+  //     "Botschafter Email": letter.botschafter.email,
+  //     "Botschafter Telefon": letter.botschafter.telefon,
+  //     "Botschafter Mobil": letter.botschafter.mobil,
+  //   };
+  //   exportToExcel(
+  //     [letterExport],
+  //     "bewerbung_" + letter.id + "_presse-export_" + date
+  //   );
+  // }
+
+  async function exportPresse() {
+    const blob = await pdf(<PressePDF letter={letter} />).toBlob();
+    saveAs(blob, `Presse_Bewerbung${letter.id}.pdf`);
   }
 
   return loading ? (

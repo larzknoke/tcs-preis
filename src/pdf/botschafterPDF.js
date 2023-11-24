@@ -8,7 +8,6 @@ import {
   Image,
 } from "@react-pdf/renderer";
 import { dateFormatter } from "@/lib/utils";
-import { Checker } from "@/lib/utils";
 
 // Create styles
 const styles = StyleSheet.create({
