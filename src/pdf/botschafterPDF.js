@@ -8,6 +8,7 @@ import {
   Image,
 } from "@react-pdf/renderer";
 import { dateFormatter } from "@/lib/utils";
+import { Checker } from "@/lib/utils";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
   subTitle: {
     fontWeight: 600,
     marginBottom: 10,
+    fontSize: 13,
   },
   image: {
     width: "100px",
@@ -132,6 +134,40 @@ export const BotschafterPDF = ({ bot }) => (
                         <Text>Tel.: {letter.telefonnummerProjekt}</Text>
                         <Text>Mobil: {letter.mobilProjekt}</Text>
                         <Text>Email: {letter.emailProjekt}</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View>
+                    <Text style={{ fontWeight: 600, marginTop: 5 }}>
+                      Übergabe:
+                    </Text>
+                    <View style={styles.row}>
+                      <View style={{ width: "50%" }}>
+                        <Text>
+                          Zuordnung bestätigt:{" "}
+                          {letter.botschafterConfirm ? "Ja" : "Nein"}
+                        </Text>
+                        <Text>
+                          Fotos: {letter.bildmaterial ? "Ja" : "Nein"}
+                        </Text>
+                        <Text>
+                          Pressearbeit erwünscht:{" "}
+                          {letter.presseErlaubt ? "Ja" : "Nein"}
+                        </Text>
+                      </View>
+                      <View style={{ width: "50%" }}>
+                        <Text>
+                          Übergabe Datum:{" "}
+                          {letter.terminUebergabe
+                            ? dateFormatter(letter.terminUebergabe, true)
+                            : "-"}
+                        </Text>
+                        <Text>
+                          Termin Überweisung 1.000€ :{" "}
+                          {letter.terminGeld
+                            ? dateFormatter(letter.terminGeld, true)
+                            : "-"}
+                        </Text>
                       </View>
                     </View>
                   </View>
