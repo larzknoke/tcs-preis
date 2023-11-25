@@ -75,19 +75,19 @@ function BotschafterExportPDFModal({ onClose, onOpen, isOpen }) {
         );
       });
 
-      return zip.generateAsync({ type: "blob" }).then((blob) => {
-        onClose();
-        router.replace(router.asPath);
-        setLoading(false);
-        toast({
-          title: `Botschafter exportiert`,
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-        });
-        const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
-        saveAs(blob, `Botschafter_PDF-Export_${date}.zip`);
+      const blob = await zip.generateAsync({ type: "blob" });
+      onClose();
+      router.replace(router.asPath);
+      setLoading(false);
+      toast({
+        title: `Botschafter exportiert`,
+        status: "success",
+        duration: 4000,
+        isClosable: true,
       });
+
+      const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
+      saveAs(blob, `Botschafter_PDF-Export_${date}.zip`);
     }
   }
 
