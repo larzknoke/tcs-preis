@@ -23,6 +23,11 @@ import {
   Stack,
   Select,
   Spacer,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
@@ -35,6 +40,10 @@ import {
   HiChevronRight,
   HiPaperClip,
   HiOutlineEnvelope,
+  HiBars3,
+  HiOutlineUserPlus,
+  HiOutlineCloudArrowDown,
+  HiOutlineCloudArrowUp,
 } from "react-icons/hi2";
 import {
   useReactTable,
@@ -60,6 +69,7 @@ import ImportBotschafterModal from "./importBotschafterModal";
 import BotschafterDeleteModal from "./botschafterDeleteModal";
 import { exportToExcel } from "react-json-to-excel";
 import EmailBotschafterModal from "./emailBotschafterModal";
+import BotschafterExportPDFModal from "./botschafterExportPDF";
 
 function BotschafterTable({ botschafters }) {
   const toast = useToast();
@@ -81,6 +91,11 @@ function BotschafterTable({ botschafters }) {
     isOpen: isOpenEmail,
     onOpen: onOpenEmail,
     onClose: onCloseEmail,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenExport,
+    onOpen: onOpenExport,
+    onClose: onCloseExport,
   } = useDisclosure();
   const [sorting, setSorting] = useState([{ id: "plz", desc: false }]);
   const [globalFilter, setGlobalFilter] = useState("");
@@ -250,45 +265,69 @@ function BotschafterTable({ botschafters }) {
           w={"100%"}
           ml={"auto"}
         />
-        <Tooltip label="Botschafter hinzufügen" placement="top">
-          <IconButton
-            onClick={onOpen}
-            icon={<HiUserPlus />}
-            colorScheme="green"
-            variant={"outline"}
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            aria-label="Options"
+            icon={<HiBars3 />}
+            variant="outline"
           />
-        </Tooltip>
+          <MenuList>
+            <MenuItem
+              onClick={onOpen}
+              icon={<HiOutlineUserPlus size={"1.4em"} />}
+            >
+              {" "}
+              Neuer Botschafter
+            </MenuItem>
+            <MenuDivider />
+            <MenuItem
+              onClick={onOpenExport}
+              icon={<HiOutlineCloudArrowUp size={"1.4em"} />}
+            >
+              Export PDF
+            </MenuItem>
+            <MenuItem
+              onClick={handleExport}
+              icon={<HiOutlineCloudArrowUp size={"1.4em"} />}
+            >
+              Export Excel
+            </MenuItem>
+            <MenuDivider />
+            <MenuItem
+              onClick={onOpenImport}
+              icon={<HiOutlineCloudArrowDown size={"1.4em"} />}
+            >
+              Import
+            </MenuItem>
+            <MenuItem
+              onClick={onOpenEmail}
+              icon={<HiOutlineEnvelope size={"1.4em"} />}
+            >
+              Email austauschen
+            </MenuItem>
+          </MenuList>
+        </Menu>
         <FormBotschafterModal
           onOpen={onOpen}
           onClose={onClose}
           isOpen={isOpen}
           isNew={true}
         />
-        <Tooltip label="Botschafter importieren" placement="top">
-          <IconButton
-            onClick={onOpenImport}
-            icon={<HiOutlineCircleStack />}
-            colorScheme="green"
-            variant={"outline"}
-          />
-        </Tooltip>
         <ImportBotschafterModal
           onOpen={onOpenImport}
           onClose={onCloseImport}
           isOpen={isOpenImport}
         />
-        <Tooltip label="Botschafter Email austauschen" placement="top">
-          <IconButton
-            onClick={onOpenEmail}
-            icon={<HiOutlineEnvelope />}
-            colorScheme="green"
-            variant={"outline"}
-          />
-        </Tooltip>
         <EmailBotschafterModal
           onOpen={onOpenEmail}
           onClose={onCloseEmail}
           isOpen={isOpenEmail}
+        />
+        <BotschafterExportPDFModal
+          onOpen={onOpenExport}
+          onClose={onCloseExport}
+          isOpen={isOpenExport}
         />
       </Stack>
       <Card>
@@ -398,14 +437,14 @@ function BotschafterTable({ botschafters }) {
               </select>
             </HStack>
             <Spacer />
-            <Tooltip label="Botschafter exportieren" placement="top">
+            {/* <Tooltip label="Botschafter exportieren" placement="top">
               <IconButton
                 onClick={handleExport}
                 icon={<HiPaperClip />}
                 colorScheme="green"
                 variant={"outline"}
               />
-            </Tooltip>
+            </Tooltip> */}
           </Flex>
         </CardBody>
       </Card>
