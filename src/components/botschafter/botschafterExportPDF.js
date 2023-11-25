@@ -82,11 +82,10 @@ function BotschafterExportPDFModal({ onClose, onOpen, isOpen }) {
         );
       });
 
-      onClose();
-      router.replace(router.asPath);
-      setLoading(false);
-
       return zip.generateAsync({ type: "blob" }).then((blob) => {
+        onClose();
+        router.replace(router.asPath);
+        setLoading(false);
         const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
         saveAs(blob, `Botschafter_PDF-Export_${date}.zip`);
       });
