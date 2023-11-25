@@ -68,13 +68,6 @@ function BotschafterExportPDFModal({ onClose, onOpen, isOpen }) {
       const zip = new JSZip();
       const resData = await res.json();
 
-      toast({
-        title: `Botschafter exportiert`,
-        status: "success",
-        duration: 4000,
-        isClosable: true,
-      });
-
       resData.map((bot) => {
         zip.file(
           `Botschafter_${bot.id}.pdf`,
@@ -86,6 +79,12 @@ function BotschafterExportPDFModal({ onClose, onOpen, isOpen }) {
         onClose();
         router.replace(router.asPath);
         setLoading(false);
+        toast({
+          title: `Botschafter exportiert`,
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
         const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
         saveAs(blob, `Botschafter_PDF-Export_${date}.zip`);
       });
