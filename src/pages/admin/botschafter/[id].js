@@ -82,6 +82,37 @@ function Botschafter({ botschafter }) {
     saveAs(blob, `Botschafter_${botschafter.id}.pdf`);
   }
 
+  async function sendBotEmail() {
+    try {
+      const res = await fetch("/api/botschafter/botEmail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ botschafter }),
+      });
+      if (res.status != 200) {
+        console.log("BotEmail Error");
+        toast({
+          title: "Ein Fehler ist aufgetreten",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      } else {
+        const resData = await res.json();
+        console.log("resData", resData);
+        toast({
+          title: `Email ${resData.botschafter.email} versendet.`,
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.log("api fetch error");
+      console.error("sendConfirmEmail Error: ", error);
+    }
+  }
+
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
       <HStack justify={"space-between"}>
@@ -111,6 +142,9 @@ function Botschafter({ botschafter }) {
             <MenuList>
               <MenuItem onClick={() => botschafterPdfExport()}>
                 PDF Export
+              </MenuItem>
+              <MenuItem onClick={() => sendBotEmail()}>
+                Botschafter Email versenden
               </MenuItem>
               <MenuDivider />
               <MenuItem onClick={() => onOpenEdit()}>Bearbeiten</MenuItem>
