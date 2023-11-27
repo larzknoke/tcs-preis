@@ -54,7 +54,7 @@ Font.register({
   ],
 });
 
-export const BotschafterPDF = ({ bot }) => (
+export const BotschafterPDF = ({ bot, zusatzAngaben = true }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
@@ -136,40 +136,42 @@ export const BotschafterPDF = ({ bot }) => (
                       </View>
                     </View>
                   </View>
-                  <View>
-                    <Text style={{ fontWeight: 600, marginTop: 5 }}>
-                      Übergabe:
-                    </Text>
-                    <View style={styles.row}>
-                      <View style={{ width: "50%" }}>
-                        <Text>
-                          Zuordnung bestätigt:{" "}
-                          {letter.botschafterConfirm ? "Ja" : "Nein"}
-                        </Text>
-                        <Text>
-                          Fotos: {letter.bildmaterial ? "Ja" : "Nein"}
-                        </Text>
-                        <Text>
-                          Pressearbeit erwünscht:{" "}
-                          {letter.presseErlaubt ? "Ja" : "Nein"}
-                        </Text>
-                      </View>
-                      <View style={{ width: "50%" }}>
-                        <Text>
-                          Übergabe Datum:{" "}
-                          {letter.terminUebergabe
-                            ? dateFormatter(letter.terminUebergabe, true)
-                            : "-"}
-                        </Text>
-                        <Text>
-                          Termin Überweisung 1.000€ :{" "}
-                          {letter.terminGeld
-                            ? dateFormatter(letter.terminGeld, true)
-                            : "-"}
-                        </Text>
+                  {zusatzAngaben && (
+                    <View>
+                      <Text style={{ fontWeight: 600, marginTop: 5 }}>
+                        Übergabe:
+                      </Text>
+                      <View style={styles.row}>
+                        <View style={{ width: "50%" }}>
+                          <Text>
+                            Zuordnung bestätigt:{" "}
+                            {letter.botschafterConfirm ? "Ja" : "Nein"}
+                          </Text>
+                          <Text>
+                            Fotos: {letter.bildmaterial ? "Ja" : "Nein"}
+                          </Text>
+                          <Text>
+                            Pressearbeit erwünscht:{" "}
+                            {letter.presseErlaubt ? "Ja" : "Nein"}
+                          </Text>
+                        </View>
+                        <View style={{ width: "50%" }}>
+                          <Text>
+                            Übergabe Datum:{" "}
+                            {letter.terminUebergabe
+                              ? dateFormatter(letter.terminUebergabe, true)
+                              : "-"}
+                          </Text>
+                          <Text>
+                            Termin Überweisung 1.111€ :{" "}
+                            {letter.terminGeld
+                              ? dateFormatter(letter.terminGeld, true)
+                              : "-"}
+                          </Text>
+                        </View>
                       </View>
                     </View>
-                  </View>
+                  )}
                 </View>
               );
             })}

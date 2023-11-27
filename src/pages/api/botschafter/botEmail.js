@@ -8,7 +8,7 @@ export default async function handle(req, res) {
   console.log("api call");
 
   try {
-    const { botschafter } = req.body;
+    const { botschafter, zusatzAngaben } = req.body;
     if (botschafter && botschafter.email) {
       await sendEmail({
         to:
@@ -20,7 +20,9 @@ export default async function handle(req, res) {
         attachments: [
           {
             filename: `Botschafter_${botschafter.id}.pdf`,
-            content: await renderToBuffer(<BotschafterPDF bot={botschafter} />),
+            content: await renderToBuffer(
+              <BotschafterPDF zusatzAngaben={zusatzAngaben} bot={botschafter} />
+            ),
           },
         ],
       });

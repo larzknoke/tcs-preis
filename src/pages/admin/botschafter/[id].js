@@ -25,6 +25,7 @@ import BotschafterDetail from "@/components/botschafter/botschafterDetail";
 import { dateFormatter } from "@/lib/utils";
 import BotschafterDeleteModal from "@/components/botschafter/botschafterDeleteModal";
 import FormBotschafterModal from "@/components/botschafter/formBotschafterModal";
+import BotschafterEmailModal from "@/components/botschafter/botschafterEmailModal";
 
 import { BotschafterPDF } from "@/pdf/botschafterPDF";
 import { pdf } from "@react-pdf/renderer";
@@ -45,6 +46,12 @@ function Botschafter({ botschafter }) {
     isOpen: isOpenEdit,
     onOpen: onOpenEdit,
     onClose: onCloseEdit,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenEmail,
+    onOpen: onOpenEmail,
+    onClose: onCloseEmail,
   } = useDisclosure();
 
   async function onSubmitDelete(id) {
@@ -82,37 +89,6 @@ function Botschafter({ botschafter }) {
     saveAs(blob, `Botschafter_${botschafter.id}.pdf`);
   }
 
-  async function sendBotEmail() {
-    try {
-      const res = await fetch("/api/botschafter/botEmail", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ botschafter }),
-      });
-      if (res.status != 200) {
-        console.log("BotEmail Error");
-        toast({
-          title: "Ein Fehler ist aufgetreten",
-          status: "error",
-          duration: 4000,
-          isClosable: true,
-        });
-      } else {
-        const resData = await res.json();
-        console.log("resData", resData);
-        toast({
-          title: `Email ${resData.botschafter.email} versendet.`,
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-        });
-      }
-    } catch (error) {
-      console.log("api fetch error");
-      console.error("sendConfirmEmail Error: ", error);
-    }
-  }
-
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
       <HStack justify={"space-between"}>
@@ -143,7 +119,7 @@ function Botschafter({ botschafter }) {
               <MenuItem onClick={() => botschafterPdfExport()}>
                 PDF Export
               </MenuItem>
-              <MenuItem onClick={() => sendBotEmail()}>
+              <MenuItem onClick={() => onOpenEmail()}>
                 Botschafter Email versenden
               </MenuItem>
               <MenuDivider />
@@ -168,6 +144,12 @@ function Botschafter({ botschafter }) {
         onClose={onCloseEdit}
         isOpen={isOpenEdit}
         isNew={false}
+        botschafter={botschafter}
+      />
+      <BotschafterEmailModal
+        onOpen={onOpenEmail}
+        onClose={onCloseEmail}
+        isOpen={isOpenEmail}
         botschafter={botschafter}
       />
     </Container>
