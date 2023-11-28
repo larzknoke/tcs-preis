@@ -7,25 +7,22 @@ import {
   ModalBody,
   Button,
   ModalCloseButton,
-  Input,
   FormControl,
   FormLabel,
   Switch,
   VStack,
   useToast,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { HiOutlineInformationCircle } from "react-icons/hi2";
 
-function BotschafterEmailModal({
-  onClose,
-  onOpen,
-  isOpen,
-  onSubmit,
-  botschafter,
-}) {
+function BotschafterEmailModal({ onClose, onOpen, isOpen, botschafter }) {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const [zusatzAngaben, setZusatzAngaben] = useState(false);
+  const [allLetter, setAllLetter] = useState(false);
 
   async function sendBotEmail() {
     try {
@@ -33,7 +30,7 @@ function BotschafterEmailModal({
       const res = await fetch("/api/botschafter/botEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ botschafter, zusatzAngaben }),
+        body: JSON.stringify({ botschafter, zusatzAngaben, allLetter }),
       });
       if (res.status != 200) {
         console.log("BotEmail Error");
@@ -63,13 +60,19 @@ function BotschafterEmailModal({
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size={"2xl"}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Botschafter Email versenden</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <VStack spacing={6} my={4}>
+          <Alert status="info">
+            <AlertIcon />
+            Der Botschafter ({botschafter.email}) erhält eine Email mit einem
+            PDF Anhang aller verknüpften Bewerbungen die den Status "1111" oder
+            "Ausland 1111" haben.{" "}
+          </Alert>
+          <VStack spacing={6} my={6}>
             <FormControl>
               <FormLabel>Zusatzangaben ausgeben</FormLabel>
               <Switch
@@ -77,6 +80,17 @@ function BotschafterEmailModal({
                 name="zusatzAngaben"
                 type="text"
                 onChange={(e) => setZusatzAngaben(e.target.checked)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>
+                Status ignorieren (Alle verknüpften Bewerbungen ausgegeben)
+              </FormLabel>
+              <Switch
+                colorScheme="green"
+                name="allLetter"
+                type="text"
+                onChange={(e) => setAllLetter(e.target.checked)}
               />
             </FormControl>
           </VStack>

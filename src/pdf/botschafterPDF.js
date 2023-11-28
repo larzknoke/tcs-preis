@@ -54,7 +54,11 @@ Font.register({
   ],
 });
 
-export const BotschafterPDF = ({ bot, zusatzAngaben = true }) => (
+export const BotschafterPDF = ({
+  bot,
+  zusatzAngaben = true,
+  allLetter = true,
+}) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
@@ -95,90 +99,97 @@ export const BotschafterPDF = ({ bot, zusatzAngaben = true }) => (
         <View style={{ marginTop: 20, marginBottom: 20 }}>
           <Text style={styles.subTitle}>Bewerbungen:</Text>
           {bot.letters &&
-            bot.letters.map((letter) => {
-              return (
-                <View
-                  style={{
-                    marginBottom: 10,
-                    borderBottom: 1,
-                    paddingBottom: 10,
-                    borderBottomColor: "#ccc",
-                  }}
-                >
-                  <View style={styles.row}>
-                    <Text style={{ fontWeight: 600 }}>ID: {letter.id}</Text>
-                    <Text style={{ fontWeight: 600 }}>
-                      Status: {Capatilizer(letter.status)}
-                    </Text>
-                    <Text style={{ fontWeight: 600 }}>
-                      Bundesland:{" "}
-                      {letter.bundeslandTraeger || letter.bundeslandProjekt}
-                    </Text>
-                  </View>
-                  <View style={styles.row}>
-                    <Text>Träger: {letter.nameTraeger}</Text>
-                  </View>
-                  <View style={styles.row}>
-                    <Text>Projekt: {letter.nameProjekt}</Text>
-                  </View>
-                  <View>
-                    <Text style={{ fontWeight: 600, marginTop: 5 }}>
-                      Kontakt:
-                    </Text>
+            bot.letters
+              .filter(
+                (letter) =>
+                  allLetter ||
+                  letter.status == "1111" ||
+                  letter.status == "ausland1111"
+              )
+              .map((letter) => {
+                return (
+                  <View
+                    style={{
+                      marginBottom: 10,
+                      borderBottom: 1,
+                      paddingBottom: 10,
+                      borderBottomColor: "#ccc",
+                    }}
+                  >
                     <View style={styles.row}>
-                      <View style={{ width: "50%" }}>
-                        <Text>{letter.ansprechpartnerProjekt}</Text>
-                        <Text>{letter.strasseProjekt}</Text>
-                        <Text>
-                          {letter.plzProjekt} {letter.ortProjekt}
-                        </Text>
-                      </View>
-                      <View style={{ width: "50%" }}>
-                        <Text>Tel.: {letter.telefonnummerProjekt}</Text>
-                        <Text>Mobil: {letter.mobilProjekt}</Text>
-                        <Text>Email: {letter.emailProjekt}</Text>
-                      </View>
+                      <Text style={{ fontWeight: 600 }}>ID: {letter.id}</Text>
+                      <Text style={{ fontWeight: 600 }}>
+                        Status: {Capatilizer(letter.status)}
+                      </Text>
+                      <Text style={{ fontWeight: 600 }}>
+                        Bundesland:{" "}
+                        {letter.bundeslandTraeger || letter.bundeslandProjekt}
+                      </Text>
                     </View>
-                  </View>
-                  {zusatzAngaben && (
+                    <View style={styles.row}>
+                      <Text>Träger: {letter.nameTraeger}</Text>
+                    </View>
+                    <View style={styles.row}>
+                      <Text>Projekt: {letter.nameProjekt}</Text>
+                    </View>
                     <View>
                       <Text style={{ fontWeight: 600, marginTop: 5 }}>
-                        Übergabe:
+                        Kontakt:
                       </Text>
                       <View style={styles.row}>
                         <View style={{ width: "50%" }}>
+                          <Text>{letter.ansprechpartnerProjekt}</Text>
+                          <Text>{letter.strasseProjekt}</Text>
                           <Text>
-                            Zuordnung bestätigt:{" "}
-                            {letter.botschafterConfirm ? "Ja" : "Nein"}
-                          </Text>
-                          <Text>
-                            Fotos: {letter.bildmaterial ? "Ja" : "Nein"}
-                          </Text>
-                          <Text>
-                            Pressearbeit erwünscht:{" "}
-                            {letter.presseErlaubt ? "Ja" : "Nein"}
+                            {letter.plzProjekt} {letter.ortProjekt}
                           </Text>
                         </View>
                         <View style={{ width: "50%" }}>
-                          <Text>
-                            Übergabe Datum:{" "}
-                            {letter.terminUebergabe
-                              ? dateFormatter(letter.terminUebergabe, true)
-                              : "-"}
-                          </Text>
-                          <Text>
-                            Termin Überweisung 1.111€ :{" "}
-                            {letter.terminGeld
-                              ? dateFormatter(letter.terminGeld, true)
-                              : "-"}
-                          </Text>
+                          <Text>Tel.: {letter.telefonnummerProjekt}</Text>
+                          <Text>Mobil: {letter.mobilProjekt}</Text>
+                          <Text>Email: {letter.emailProjekt}</Text>
                         </View>
                       </View>
                     </View>
-                  )}
-                </View>
-              );
-            })}
+                    {zusatzAngaben && (
+                      <View>
+                        <Text style={{ fontWeight: 600, marginTop: 5 }}>
+                          Übergabe:
+                        </Text>
+                        <View style={styles.row}>
+                          <View style={{ width: "50%" }}>
+                            <Text>
+                              Zuordnung bestätigt:{" "}
+                              {letter.botschafterConfirm ? "Ja" : "Nein"}
+                            </Text>
+                            <Text>
+                              Fotos: {letter.bildmaterial ? "Ja" : "Nein"}
+                            </Text>
+                            <Text>
+                              Pressearbeit erwünscht:{" "}
+                              {letter.presseErlaubt ? "Ja" : "Nein"}
+                            </Text>
+                          </View>
+                          <View style={{ width: "50%" }}>
+                            <Text>
+                              Übergabe Datum:{" "}
+                              {letter.terminUebergabe
+                                ? dateFormatter(letter.terminUebergabe, true)
+                                : "-"}
+                            </Text>
+                            <Text>
+                              Termin Überweisung 1.111€ :{" "}
+                              {letter.terminGeld
+                                ? dateFormatter(letter.terminGeld, true)
+                                : "-"}
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    )}
+                  </View>
+                );
+              })}
         </View>
       </View>
     </Page>
