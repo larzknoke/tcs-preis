@@ -7,7 +7,7 @@ import {
   Font,
   Image,
 } from "@react-pdf/renderer";
-import { dateFormatter } from "@/lib/utils";
+import { Capatilizer, dateFormatter } from "@/lib/utils";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -108,6 +108,10 @@ export const BotschafterPDF = ({ bot, zusatzAngaben = true }) => (
                   <View style={styles.row}>
                     <Text style={{ fontWeight: 600 }}>ID: {letter.id}</Text>
                     <Text style={{ fontWeight: 600 }}>
+                      Status: {Capatilizer(letter.status)}
+                    </Text>
+                    <Text style={{ fontWeight: 600 }}>
+                      Bundesland:{" "}
                       {letter.bundeslandTraeger || letter.bundeslandProjekt}
                     </Text>
                   </View>
