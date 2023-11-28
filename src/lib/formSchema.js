@@ -206,7 +206,7 @@ export const formSchema = yup.object().shape(
 );
 
 export const botschafterSchema = yup.object().shape({
-  primaryId: yup.string().required(),
+  primaryId: yup.string(),
   firma: yup.string().required(),
   vorname: yup.string().required(),
   name: yup.string().required(),
