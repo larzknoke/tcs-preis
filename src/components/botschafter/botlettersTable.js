@@ -65,7 +65,7 @@ function BotlettersTable({ botschafter }) {
                       <HStack gap={1}>
                         <Icon as={HiOutlineMapPin} color={"gray.400"} />
                         <Text as={"span"} color={"gray.400"}>
-                          {letter.plzTraeger} {letter.ortTraeger}
+                          {`${letter.plzTraeger} ${letter.ortTraeger}, ${letter.bundeslandTraeger}`}
                         </Text>
                       </HStack>
                     </HStack>
