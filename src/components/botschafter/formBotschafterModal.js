@@ -60,6 +60,7 @@ function FormBotschafterModal({ isOpen, onClose, isNew, botschafter = null }) {
   );
 
   async function onSubmit(values) {
+    delete values.botcontacts;
     try {
       setLoading(true);
       const res = await fetch("/api/botschafter", {
