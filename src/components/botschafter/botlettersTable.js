@@ -20,8 +20,16 @@ import {
   HiOutlineCheckCircle,
   HiOutlineDocumentText,
   HiOutlineNoSymbol,
+  HiOutlineMapPin,
+  HiOutlineEnvelope,
+  HiOutlinePhone,
+  HiDevicePhoneMobile,
+  HiOutlineGlobeAlt,
+  HiOutlineHashtag,
+  HiOutlineTag,
 } from "react-icons/hi2";
 import Link from "next/link";
+import { Capatilizer } from "@/lib/utils";
 
 function BotlettersTable({ botschafter }) {
   return (
@@ -43,20 +51,44 @@ function BotlettersTable({ botschafter }) {
               return (
                 <HStack justify={"space-between"} key={letter.id}>
                   <VStack alignItems={"self-start"}>
-                    <Text as={"span"} color={"gray.400"}>
-                      {letter.plzTraeger} {letter.ortTraeger}
-                    </Text>
-                    <HStack as={"b"} fontSize={"lg"} gap={4}>
-                      <Text color={"gray.400"}>{letter.id}</Text>
-                      <Text>
-                        {letter.organisationProjekt} | {letter.nameProjekt}
-                      </Text>
+                    <HStack gap={6}>
+                      <HStack color={"gray.400"} gap={1}>
+                        <Icon as={HiOutlineHashtag} />
+                        <Text as={"b"} minW={"20px"}>
+                          {letter.id}
+                        </Text>
+                      </HStack>
+                      <HStack color={"gray.400"} gap={1}>
+                        <Icon as={HiOutlineTag} />
+                        <Text>{Capatilizer(letter.status)}</Text>
+                      </HStack>
+                      <HStack gap={1}>
+                        <Icon as={HiOutlineMapPin} color={"gray.400"} />
+                        <Text as={"span"} color={"gray.400"}>
+                          {letter.plzTraeger} {letter.ortTraeger}
+                        </Text>
+                      </HStack>
                     </HStack>
-                    <HStack as={"span"} color={"gray.400"}>
-                      <Text>
-                        {letter.emailProjekt} | {letter.telefonnummerProjekt} |{" "}
-                        {letter.mobilProjekt} | {letter.wwwProjekt}
-                      </Text>
+                    <Text as={"b"} fontSize={"lg"}>
+                      {letter.organisationProjekt} | {letter.nameProjekt}
+                    </Text>
+                    <HStack as={"span"} color={"gray.400"} gap={5}>
+                      <HStack>
+                        <Icon as={HiOutlineEnvelope} />
+                        <Text>{letter.emailProjekt || "-"}</Text>
+                      </HStack>
+                      <HStack>
+                        <Icon as={HiOutlinePhone} />
+                        <Text>{letter.telefonnummerProjekt || "-"}</Text>
+                      </HStack>
+                      <HStack>
+                        <Icon as={HiDevicePhoneMobile} />
+                        <Text>{letter.mobilProjekt || "-"}</Text>
+                      </HStack>
+                      <HStack>
+                        <Icon as={HiOutlineGlobeAlt} />
+                        <Text>{letter.wwwProjekt || "-"}</Text>
+                      </HStack>
                     </HStack>
                   </VStack>
                   <HStack gap={6}>
