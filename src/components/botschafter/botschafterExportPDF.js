@@ -71,7 +71,7 @@ function BotschafterExportPDFModal({ onClose, onOpen, isOpen }) {
       resData.map((bot) => {
         zip.file(
           `Botschafter_${bot.id}.pdf`,
-          pdf(<BotschafterPDF bot={bot} />).toBlob()
+          pdf(<BotschafterPDF bot={bot} zusatzAngaben={false} />).toBlob()
         );
       });
 
