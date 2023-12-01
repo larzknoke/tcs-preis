@@ -19,7 +19,7 @@ import {
 import {
   HiOutlineCheckCircle,
   HiOutlineDocumentText,
-  HiOutlineNoSymbol,
+  HiXMark,
   HiOutlineMapPin,
   HiOutlineEnvelope,
   HiOutlinePhone,
@@ -52,9 +52,14 @@ function BotlettersTable({ botschafter }) {
               return (
                 <HStack justify={"space-between"} key={letter.id}>
                   <VStack alignItems={"self-start"} w={"100%"}>
-                    <Text as={"b"} fontSize={"lg"}>
-                      {letter.organisationProjekt} | {letter.nameProjekt}
-                    </Text>
+                    <Link
+                      href={`/admin/bewerbung/${letter.id}`}
+                      color={"gray.500"}
+                    >
+                      <Text as={"b"} fontSize={"lg"}>
+                        {letter.organisationProjekt} | {letter.nameProjekt}
+                      </Text>
+                    </Link>
                     <HStack gap={6} w={"100%"}>
                       <HStack color={"gray.500"} gap={1}>
                         <Icon as={HiOutlineHashtag} />
@@ -65,6 +70,30 @@ function BotlettersTable({ botschafter }) {
                       <HStack color={"gray.500"} gap={1}>
                         <Icon as={HiOutlineTag} />
                         <Text as={"b"}>{Capatilizer(letter.status)}</Text>
+                      </HStack>
+                      <HStack>
+                        {letter.botschafterConfirm ? (
+                          <Tooltip label={"Botschafter bestätigt"}>
+                            <div>
+                              <Icon
+                                fontSize={"xl"}
+                                as={HiOutlineCheckCircle}
+                                color={"green.500"}
+                              />
+                            </div>
+                          </Tooltip>
+                        ) : (
+                          <Tooltip label={"Botschafter nicht bestätigt"}>
+                            <div>
+                              <Icon
+                                fontSize={"lg"}
+                                as={HiXMark}
+                                color={"red.500"}
+                                mb={1}
+                              />
+                            </div>
+                          </Tooltip>
+                        )}
                       </HStack>
                     </HStack>
                     <VStack alignItems={"start"} w={"100%"} gap={1}>
@@ -139,38 +168,6 @@ function BotlettersTable({ botschafter }) {
                       </VStack>
                     </VStack>
                   </VStack>
-                  <HStack gap={6}>
-                    {letter.botschafterConfirm ? (
-                      <Tooltip label={"Botschafter bestätigt"}>
-                        <div>
-                          <Icon
-                            fontSize={"xl"}
-                            as={HiOutlineCheckCircle}
-                            color={"green.500"}
-                          />
-                        </div>
-                      </Tooltip>
-                    ) : (
-                      <Tooltip label={"Botschafter nicht bestätigt"}>
-                        <div>
-                          <Icon
-                            fontSize={"xl"}
-                            as={HiOutlineNoSymbol}
-                            color={"red.500"}
-                          />
-                        </div>
-                      </Tooltip>
-                    )}
-                    <Button
-                      as={Link}
-                      href={`/admin/bewerbung/${letter.id}`}
-                      size={"sm"}
-                      variant={"outline"}
-                      leftIcon={<HiOutlineDocumentText />}
-                    >
-                      Details
-                    </Button>
-                  </HStack>
                 </HStack>
               );
             })
