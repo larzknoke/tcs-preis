@@ -20,6 +20,7 @@ import BotschafterDetail from "./botschafter";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import TraegerEditModal from "./traegerEditModal";
 import BotContactTable from "@/components/botschafter/botContactTable";
+import LetterContactTable from "../letterContactTable";
 
 function TraegerDetail({ letter }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -95,6 +96,9 @@ function TraegerDetail({ letter }) {
       <BotschafterDetail letter={letter} />
       <GridItem colSpan={2}>
         <BotContactTable botschafter={letter.botschafter} />
+      </GridItem>
+      <GridItem colSpan={2}>
+        <LetterContactTable letter={letter} />
       </GridItem>
     </SimpleGrid>
   );

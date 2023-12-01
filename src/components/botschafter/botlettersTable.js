@@ -27,6 +27,7 @@ import {
   HiOutlineGlobeAlt,
   HiOutlineHashtag,
   HiOutlineTag,
+  HiOutlineUserCircle,
 } from "react-icons/hi2";
 import Link from "next/link";
 import { Capatilizer } from "@/lib/utils";
@@ -50,46 +51,93 @@ function BotlettersTable({ botschafter }) {
             botschafter.letters.map((letter) => {
               return (
                 <HStack justify={"space-between"} key={letter.id}>
-                  <VStack alignItems={"self-start"}>
-                    <HStack gap={6}>
-                      <HStack color={"gray.400"} gap={1}>
+                  <VStack alignItems={"self-start"} w={"100%"}>
+                    <Text as={"b"} fontSize={"lg"}>
+                      {letter.organisationProjekt} | {letter.nameProjekt}
+                    </Text>
+                    <HStack gap={6} w={"100%"}>
+                      <HStack color={"gray.500"} gap={1}>
                         <Icon as={HiOutlineHashtag} />
                         <Text as={"b"} minW={"20px"}>
                           {letter.id}
                         </Text>
                       </HStack>
-                      <HStack color={"gray.400"} gap={1}>
+                      <HStack color={"gray.500"} gap={1}>
                         <Icon as={HiOutlineTag} />
-                        <Text>{Capatilizer(letter.status)}</Text>
+                        <Text as={"b"}>{Capatilizer(letter.status)}</Text>
                       </HStack>
-                      <HStack gap={1}>
-                        <Icon as={HiOutlineMapPin} color={"gray.400"} />
-                        <Text as={"span"} color={"gray.400"}>
+                    </HStack>
+                    <VStack alignItems={"start"} w={"100%"} gap={1}>
+                      <Text as={"b"} color={"gray.500"}>
+                        Kontakt:
+                      </Text>
+                      <HStack color={"gray.400"} gap={1}>
+                        <Icon as={HiOutlineMapPin} />
+                        <Text>
                           {`${letter.plzTraeger} ${letter.ortTraeger}, ${letter.bundeslandTraeger}`}
                         </Text>
                       </HStack>
-                    </HStack>
-                    <Text as={"b"} fontSize={"lg"}>
-                      {letter.organisationProjekt} | {letter.nameProjekt}
-                    </Text>
-                    <HStack as={"span"} color={"gray.400"} gap={5}>
-                      <HStack>
-                        <Icon as={HiOutlineEnvelope} />
-                        <Text>{letter.emailProjekt || "-"}</Text>
+                      <HStack
+                        as={"span"}
+                        color={"gray.400"}
+                        gap={5}
+                        alignItems={"start"}
+                        minW={"50%"}
+                      >
+                        <HStack>
+                          <Icon as={HiOutlineEnvelope} />
+                          <Text>{letter.emailProjekt || "-"}</Text>
+                        </HStack>
+                        <HStack>
+                          <Icon as={HiOutlinePhone} />
+                          <Text>{letter.telefonnummerProjekt || "-"}</Text>
+                        </HStack>
+                        <HStack>
+                          <Icon as={HiDevicePhoneMobile} />
+                          <Text>{letter.mobilProjekt || "-"}</Text>
+                        </HStack>
+                        <HStack>
+                          <Icon as={HiOutlineGlobeAlt} />
+                          <Text>{letter.wwwProjekt || "-"}</Text>
+                        </HStack>
                       </HStack>
-                      <HStack>
-                        <Icon as={HiOutlinePhone} />
-                        <Text>{letter.telefonnummerProjekt || "-"}</Text>
-                      </HStack>
-                      <HStack>
-                        <Icon as={HiDevicePhoneMobile} />
-                        <Text>{letter.mobilProjekt || "-"}</Text>
-                      </HStack>
-                      <HStack>
-                        <Icon as={HiOutlineGlobeAlt} />
-                        <Text>{letter.wwwProjekt || "-"}</Text>
-                      </HStack>
-                    </HStack>
+                      <VStack alignItems={"start"} gap={1} mt={2}>
+                        {letter && letter.lettercontacts.length > 0 && (
+                          <Text as={"b"} color={"gray.500"}>
+                            Ansprechpartner:
+                          </Text>
+                        )}
+                        {letter &&
+                          letter.lettercontacts.length > 0 &&
+                          letter.lettercontacts.map((contact) => {
+                            return (
+                              <HStack
+                                alignItems={"start"}
+                                gap={4}
+                                color={"gray.400"}
+                              >
+                                <Text color={"gray.500"}>{contact.name}</Text>
+                                <HStack>
+                                  <Icon as={HiOutlineUserCircle} />
+                                  <Text>{contact.funktion || "-"}</Text>
+                                </HStack>
+                                <HStack>
+                                  <Icon as={HiOutlineEnvelope} />
+                                  <Text>{contact.email || "-"}</Text>
+                                </HStack>
+                                <HStack>
+                                  <Icon as={HiOutlinePhone} />
+                                  <Text>{contact.telefon || "-"}</Text>
+                                </HStack>
+                                <HStack>
+                                  <Icon as={HiDevicePhoneMobile} />
+                                  <Text>{contact.mobil || "-"}</Text>
+                                </HStack>
+                              </HStack>
+                            );
+                          })}
+                      </VStack>
+                    </VStack>
                   </VStack>
                   <HStack gap={6}>
                     {letter.botschafterConfirm ? (

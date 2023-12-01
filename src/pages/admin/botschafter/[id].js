@@ -173,6 +173,9 @@ export const getServerSideProps = async (ctx) => {
           orderBy: {
             botschafterConfirm: "asc",
           },
+          include: {
+            lettercontacts: true,
+          },
         },
         botcontacts: true,
       },
