@@ -53,6 +53,8 @@ function BotlettersTable({ botschafter }) {
                 <HStack justify={"space-between"} key={letter.id}>
                   <VStack alignItems={"self-start"} w={"100%"}>
                     <Link
+                      target="_black"
+                      rel="noopener noreferrer"
                       href={`/admin/bewerbung/${letter.id}`}
                       color={"gray.500"}
                     >
