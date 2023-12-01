@@ -245,6 +245,10 @@ export const botcontactSchema = yup.object().shape({
   name: yup.string().required(),
 });
 
+export const lettercontactSchema = yup.object().shape({
+  name: yup.string().required(),
+});
+
 export const fileSchema = yup.object().shape({
   title: yup.string().required(),
   note: yup.string(),

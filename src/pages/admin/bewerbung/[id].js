@@ -260,6 +260,7 @@ export const getServerSideProps = async (ctx) => {
         kampagne: true,
         notes: true,
         files: true,
+        lettercontacts: true,
       },
     });
     return { props: { letter } };

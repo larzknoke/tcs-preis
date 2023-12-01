@@ -14,6 +14,7 @@ import DateienDetail from "./details/dateien";
 import BeschreibungDetail from "./details/beschreibung";
 import InternDetail from "./details/intern";
 import PresseDetail from "./details/presse";
+import LetterContactTable from "./letterContactTable";
 
 function LetterDetail({ letter }) {
   return (
@@ -34,6 +35,7 @@ function LetterDetail({ letter }) {
             </Badge>
           )}
         </Tab>
+        <Tab>Ansprechpartner</Tab>
       </TabList>
 
       <TabPanels>
@@ -60,6 +62,9 @@ function LetterDetail({ letter }) {
         </TabPanel>
         <TabPanel px={0} py={6}>
           <NoteTable letter={letter} />
+        </TabPanel>
+        <TabPanel px={0} py={6}>
+          <LetterContactTable letter={letter} />
         </TabPanel>
       </TabPanels>
     </Tabs>

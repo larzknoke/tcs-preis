@@ -90,6 +90,8 @@ model Letter {
   presseText                    String?
   notes                         Note[]
   files                         File[]
+  lettercontacts                Lettercontact[]
+
 }
 
 model Note {
@@ -150,6 +152,20 @@ model Botcontact {
   notiz             String?
   botschafter       Botschafter? @relation(fields: [botschafterId], references: [id])
   botschafterId     Int?
+}
+
+model Lettercontact {
+  id                Int       @id @default(autoincrement())
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
+  name              String?
+  anrede            String?
+  telefon           String?
+  funktion          String?
+  email             String?
+  notiz             String?
+  letter            Letter? @relation(fields: [letterId], references: [id])
+  letterId          Int?
 }
 
 model Kampagne {
