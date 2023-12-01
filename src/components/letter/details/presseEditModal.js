@@ -65,6 +65,7 @@ function PresseEditModal({ onClose, isOpen, letter }) {
   }, [letter.presseText]);
 
   async function onSubmit(values) {
+    delete values.lettercontacts;
     try {
       setLoading(true);
       const res = await fetch("/api/letter", {

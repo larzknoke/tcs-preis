@@ -53,6 +53,7 @@ function SocialEditModal({ onClose, isOpen, letter }) {
   );
 
   async function onSubmit(values) {
+    delete values.lettercontacts;
     try {
       setLoading(true);
       const res = await fetch("/api/letter", {

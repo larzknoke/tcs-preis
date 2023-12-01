@@ -53,6 +53,7 @@ function InternEditModal({ onClose, isOpen, letter }) {
   );
 
   async function onSubmit(values) {
+    delete values.lettercontacts;
     try {
       setLoading(true);
       console.log("values: ", values);
