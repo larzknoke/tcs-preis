@@ -87,14 +87,40 @@ export const BotschafterPDF = ({
           {bot.typ} / {bot.firma}
         </Text>
 
-        <Text style={{ fontWeight: 600, marginTop: 10 }}>Kontakt:</Text>
-        <Text>{bot.strasse}</Text>
-        <Text>
-          {bot.plz} {bot.ort}
-        </Text>
-        <Text style={{ marginTop: 5 }}>Tel.: {bot.telefon || "-"}</Text>
-        <Text>Mobil: {bot.mobil || "-"}</Text>
-        <Text>Email {bot.email || "-"}</Text>
+        <View style={styles.row}>
+          <View style={{ width: "50%" }}>
+            <Text style={{ fontWeight: 600, marginTop: 10 }}>Kontakt:</Text>
+            <Text>{bot.strasse}</Text>
+            <Text>
+              {bot.plz} {bot.ort}
+            </Text>
+            <Text style={{ marginTop: 5 }}>Tel.: {bot.telefon || "-"}</Text>
+            <Text>Mobil: {bot.mobil || "-"}</Text>
+            <Text>Email {bot.email || "-"}</Text>
+          </View>
+          <View style={{ width: "50%" }}>
+            {bot && bot.botcontacts.length > 0 && (
+              <Text style={{ fontWeight: 600, marginTop: 10 }}>
+                Botschafter-Ansprechpartner:
+              </Text>
+            )}
+            {bot &&
+              bot.botcontacts.length > 0 &&
+              bot.botcontacts.map((botcontact) => {
+                return (
+                  <View>
+                    <Text style={{ fontWeight: 600, marginTop: 5 }}>
+                      {botcontact.name}
+                    </Text>
+                    <Text>{botcontact.funktion || "-"}</Text>
+                    <Text>{botcontact.email || "-"}</Text>
+                    <Text>Tel.: {botcontact.telefon || "-"}</Text>
+                    <Text>Mobil: {botcontact.mobil || "-"}</Text>
+                  </View>
+                );
+              })}
+          </View>
+        </View>
 
         <View style={{ marginTop: 20, marginBottom: 20 }}>
           <Text style={styles.subTitle}>Bewerbungen:</Text>
@@ -151,6 +177,26 @@ export const BotschafterPDF = ({
                         </View>
                       </View>
                     </View>
+                    {letter && letter.lettercontacts.length > 0 && (
+                      <View>
+                        <Text style={{ fontWeight: 600, marginTop: 5 }}>
+                          weiterer Botschafter-Kontakt:
+                        </Text>
+                        {letter &&
+                          letter.lettercontacts.length > 0 &&
+                          letter.lettercontacts.map((contact) => {
+                            return (
+                              <View style={styles.row}>
+                                <Text>{contact.name}</Text>
+                                <Text>{contact.funktion || "-"}</Text>
+                                <Text>{contact.email || "-"}</Text>
+                                <Text>Tel.: {contact.telefon || "-"}</Text>
+                                <Text>Mobil: {contact.mobil || "-"}</Text>
+                              </View>
+                            );
+                          })}
+                      </View>
+                    )}
                     {zusatzAngaben && (
                       <View>
                         <Text style={{ fontWeight: 600, marginTop: 5 }}>

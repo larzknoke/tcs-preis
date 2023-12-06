@@ -135,7 +135,7 @@ function BotlettersTable({ botschafter }) {
                       <VStack alignItems={"start"} gap={1} mt={2}>
                         {letter && letter.lettercontacts.length > 0 && (
                           <Text as={"b"} color={"gray.500"}>
-                            Ansprechpartner:
+                            weiterer Botschafter-Kontakt:
                           </Text>
                         )}
                         {letter &&
