@@ -88,7 +88,10 @@ function Botschafter({ botschafter }) {
     const blob = await pdf(
       <BotschafterPDF bot={botschafter} zusatzAngaben={false} />
     ).toBlob();
-    saveAs(blob, `Botschafter_${botschafter.id}.pdf`);
+    saveAs(
+      blob,
+      `Botschafter_${botschafter.vorname}_${botschafter.name}_${botschafter.id}.pdf`
+    );
   }
 
   return (

@@ -13,6 +13,7 @@ export default async function handle(req, res) {
         },
         include: {
           letters: true,
+          botcontacts: true,
         },
       });
 

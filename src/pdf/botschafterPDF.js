@@ -99,13 +99,13 @@ export const BotschafterPDF = ({
             <Text>Email {bot.email || "-"}</Text>
           </View>
           <View style={{ width: "50%" }}>
-            {bot && bot.botcontacts.length > 0 && (
+            {bot && bot.botcontacts?.length > 0 && (
               <Text style={{ fontWeight: 600, marginTop: 10 }}>
                 Botschafter-Ansprechpartner:
               </Text>
             )}
             {bot &&
-              bot.botcontacts.length > 0 &&
+              bot.botcontacts?.length > 0 &&
               bot.botcontacts.map((botcontact) => {
                 return (
                   <View>
@@ -177,7 +177,7 @@ export const BotschafterPDF = ({
                         </View>
                       </View>
                     </View>
-                    {letter && letter.lettercontacts.length > 0 && (
+                    {letter && letter.lettercontacts?.length > 0 && (
                       <View>
                         <Text style={{ fontWeight: 600, marginTop: 5 }}>
                           weiterer Botschafter-Kontakt:
