@@ -21,8 +21,10 @@ import { HiOutlineCog6Tooth } from "react-icons/hi2";
 import { dateFormatter } from "@/lib/utils";
 import LetterTable from "@/components/letter/letterTable";
 import EditKampagneModal from "@/components/kampagne/editKampagneModal";
+import KampagnenBots from "@/components/kampagne/kampagnenBots";
 
-function Kampagne({ kampagne }) {
+function Kampagne({ kampagne, kampagnenBots }) {
+  console.log("kampagnenBots: ", kampagnenBots);
   const {
     isOpen: editIsOpen,
     onOpen: editOnOpen,
@@ -76,7 +78,8 @@ function Kampagne({ kampagne }) {
         </HStack>
       </HStack>
       <Divider my={4} />
-      <LetterTable letters={kampagne.letters} />
+      {/* <LetterTable letters={kampagne.letters} /> */}
+      <KampagnenBots kampagnenBots={kampagnenBots} />
     </Container>
   );
 }
@@ -164,7 +167,18 @@ export const getServerSideProps = async (ctx) => {
       },
     },
   });
-  return { props: { kampagne } };
+  const kampagnenBots = await prisma.botschafter.findMany({
+    where: {
+      letters: {
+        some: { kampagneId: parseInt(id), verified: true },
+      },
+    },
+    include: {
+      letters: true,
+      botcontacts: true,
+    },
+  });
+  return { props: { kampagne, kampagnenBots } };
 };
 
 export default Kampagne;
