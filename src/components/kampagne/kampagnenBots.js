@@ -7,29 +7,61 @@ import {
   Heading,
   StackDivider,
   Text,
+  HStack,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuButton,
+  IconButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { HiBars3, HiOutlineEnvelope } from "react-icons/hi2";
+import BotschafterBulkEmailModal from "../botschafter/botschafterBulkEmailModal";
 
 function KampagnenBots({ kampagnenBots }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   let botcontacts = kampagnenBots.map((bot) => bot.botcontacts.length);
   let contactsum = botcontacts.reduce(function (a, b) {
     return a + b;
   });
-  console.log("contactsum: ", contactsum);
   return (
     <Card>
       <CardHeader>
-        <Heading size="md">
-          {" "}
-          Botschafter mit vorhandenen Bewerbungen ({kampagnenBots.length}
-          <Text as={"span"} color={"gray.300"}>
-            {" "}
-            + {contactsum} Bot.Ansprechpartner
-          </Text>
-          )
-        </Heading>
+        <HStack justifyContent={"space-between"}>
+          <Heading size="md">
+            Botschafter mit vorhandenen Bewerbungen ({kampagnenBots.length}
+            <Text as={"span"} color={"gray.300"}>
+              {" "}
+              + {contactsum} Bot.Ansprechpartner
+            </Text>
+            )
+          </Heading>
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<HiBars3 />}
+              variant="outline"
+            />
+            <MenuList>
+              <MenuItem
+                onClick={onOpen}
+                icon={<HiOutlineEnvelope size={"1.4em"} />}
+              >
+                Email versenden
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </HStack>
+        <BotschafterBulkEmailModal
+          onOpen={onOpen}
+          isOpen={isOpen}
+          onClose={onClose}
+          kampagnenBots={kampagnenBots}
+        />
       </CardHeader>
-
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
           {kampagnenBots.length > 0 &&
