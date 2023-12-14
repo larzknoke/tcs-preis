@@ -33,55 +33,62 @@ function KampagnenBots({ kampagnenBots }) {
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
           {kampagnenBots.length > 0 &&
-            kampagnenBots.map((bot) => {
-              return (
-                <Box key={bot.id}>
-                  <Link
-                    href={`/admin/botschafter/${bot.id}`}
-                    target="_black"
-                    rel="noopener noreferrer"
-                  >
-                    <Heading size="sm" display={"flex"} gap={2}>
-                      <Text color={"gray.400"}>{bot.id} </Text>
-                      <Text>
-                        {bot.vorname} {bot.name}
-                      </Text>
-                      <Text color={"gray.400"}>{bot.bundesland} </Text>
-                      {bot.botcontacts.length > 0 ? (
-                        <Text color={"gray.300"}>
-                          (+ {bot.botcontacts.length}
-                          {" Bot.Ansprechpartner "})
+            kampagnenBots
+              .sort((a, b) => [
+                a.bundesland
+                  .toLowerCase()
+                  .localeCompare(b.bundesland.toLowerCase()),
+                a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
+              ])
+              .map((bot) => {
+                return (
+                  <Box key={bot.id}>
+                    <Link
+                      href={`/admin/botschafter/${bot.id}`}
+                      target="_black"
+                      rel="noopener noreferrer"
+                    >
+                      <Heading size="sm" display={"flex"} gap={2}>
+                        <Text color={"gray.400"}>{bot.id} </Text>
+                        <Text>
+                          {bot.vorname} {bot.name}
                         </Text>
-                      ) : (
-                        ""
-                      )}
-                    </Heading>
-                  </Link>
-                  {bot.letters.map((letter) => {
-                    return (
-                      <Link
-                        href={`/admin/bewerbung/${letter.id}`}
-                        target="_black"
-                        rel="noopener noreferrer"
-                        key={letter.id}
-                      >
-                        <Text
-                          pt="2"
-                          fontSize="sm"
-                          color={"gray.600"}
-                          _hover={{
-                            textDecoration: "underline",
-                            color: "gray.900",
-                          }}
+                        <Text color={"gray.400"}>{bot.bundesland} </Text>
+                        {bot.botcontacts.length > 0 ? (
+                          <Text color={"gray.300"}>
+                            (+ {bot.botcontacts.length}
+                            {" Bot.Ansprechpartner "})
+                          </Text>
+                        ) : (
+                          ""
+                        )}
+                      </Heading>
+                    </Link>
+                    {bot.letters.map((letter) => {
+                      return (
+                        <Link
+                          href={`/admin/bewerbung/${letter.id}`}
+                          target="_black"
+                          rel="noopener noreferrer"
+                          key={letter.id}
                         >
-                          {`${letter.id} | ${letter.bundeslandTraeger} | ${letter.nameProjekt} | ${letter.nameTraeger} `}
-                        </Text>
-                      </Link>
-                    );
-                  })}
-                </Box>
-              );
-            })}
+                          <Text
+                            pt="2"
+                            fontSize="sm"
+                            color={"gray.600"}
+                            _hover={{
+                              textDecoration: "underline",
+                              color: "gray.900",
+                            }}
+                          >
+                            {`${letter.id} | ${letter.bundeslandTraeger} | ${letter.nameProjekt} | ${letter.nameTraeger} `}
+                          </Text>
+                        </Link>
+                      );
+                    })}
+                  </Box>
+                );
+              })}
         </Stack>
       </CardBody>
     </Card>
