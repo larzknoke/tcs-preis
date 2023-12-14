@@ -34,12 +34,11 @@ function KampagnenBots({ kampagnenBots }) {
         <Stack divider={<StackDivider />} spacing="4">
           {kampagnenBots.length > 0 &&
             kampagnenBots
-              .sort((a, b) => [
+              .sort((a, b) =>
                 a.bundesland
                   .toLowerCase()
-                  .localeCompare(b.bundesland.toLowerCase()),
-                a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
-              ])
+                  .localeCompare(b.bundesland.toLowerCase())
+              )
               .map((bot) => {
                 return (
                   <Box key={bot.id}>
