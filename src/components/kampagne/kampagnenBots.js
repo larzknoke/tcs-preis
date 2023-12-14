@@ -80,7 +80,7 @@ function KampagnenBots({ kampagnenBots }) {
                               color: "gray.900",
                             }}
                           >
-                            {`${letter.id} | ${letter.bundeslandTraeger} | ${letter.nameProjekt} | ${letter.nameTraeger} `}
+                            {`${letter.id} | ${letter.status} | ${letter.bundeslandTraeger} | ${letter.nameProjekt} | ${letter.nameTraeger} `}
                           </Text>
                         </Link>
                       );
