@@ -86,7 +86,11 @@ function Botschafter({ botschafter }) {
 
   async function botschafterPdfExport() {
     const blob = await pdf(
-      <BotschafterPDF bot={botschafter} zusatzAngaben={false} />
+      <BotschafterPDF
+        bot={botschafter}
+        zusatzAngaben={false}
+        allLetter={false}
+      />
     ).toBlob();
     saveAs(
       blob,

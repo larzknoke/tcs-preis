@@ -15,11 +15,12 @@ export default async function handle(req, res) {
           process.env.NODE_ENV === "development"
             ? "info@larsknoke.com"
             : "stiftungspreis@tc-stiftung.de",
-        subject: "Botschafter Übersicht - 11. Town & Country Stiftungspreis",
+        subject:
+          "11. Town & Country Stiftungspreis, Übersicht geförderte Projekte zur Prüfung",
         html: render(<BotschafterEmail botschafter={botschafter} />),
         attachments: [
           {
-            filename: `Botschafter_${botschafter.id}.pdf`,
+            filename: `Botschafter_${botschafter.vorname}_${botschafter.name}_${botschafter.id}.pdf`,
             content: await renderToBuffer(
               <BotschafterPDF
                 zusatzAngaben={zusatzAngaben}

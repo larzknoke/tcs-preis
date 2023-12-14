@@ -27,20 +27,45 @@ export default function BotschafterEmail({ botschafter }) {
             height={24}
             priority
           />
-
-          <Text style={title}>
-            Botschafter: <br />
-            <strong>
-              {botschafter.vorname} {botschafter.name}
-            </strong>{" "}
-            <br />
-            <strong>{botschafter.firma}</strong>
-          </Text>
-
           <Section style={section}>
             <Text style={text}>Sehr geehrter Botschafter</Text>
             <Text style={text}>
-              im Anhang die Übersicht Ihrer zugeordneten Bewerbungen.
+              es ist so weit: die diesjährigen 1.111 Euro Preisträger des 11.
+              Town &amp; Country Stiftungspreises sind ausgewählt! 300 Vereine
+              und Einrichtungen bundesweit können ab Februar 2024 besucht und
+              die Förderungen mit einer symbolischen Urkunde persönlich
+              überreicht werden.{" "}
+            </Text>
+            <Text style={text}>
+              <strong>
+                Dabei freuen wir uns wieder auf Ihre tatkräftige Unterstützung!
+              </strong>
+            </Text>
+            <Text style={text}>
+              Im Anhang finden Sie eine <strong>Übersicht</strong>, welche
+              Projekte in Ihrer Region gefördert werden. Bitte prüfen Sie die
+              Angaben und{" "}
+              <strong>geben Sie uns bis zum 10.01.2024 eine Rückmeldung</strong>
+              , ob Sie die Übergaben für diese Projekte übernehmen können.{" "}
+              <br />
+              <strong>Vielen Dank!</strong>
+            </Text>
+            <Text style={text}>
+              <i>
+                (Unsere Bitte: Da wir die Preisträger ab Februar 2024 auf
+                unserer Webseite bekannt geben, bitten wir Sie bis dahin
+                zunächst um eine vertrauliche Behandlung. Bitte informieren Sie
+                die Preisträger noch nicht über eine Förderung. Sie erhalten
+                dazu gesonderte Informationen von uns.)
+              </i>
+            </Text>
+            <Text style={text}>
+              Falls Sie zeitliche Schwierigkeiten für Übergaben sehen, geben Sie
+              uns bitte Bescheid. Wenn Sie Fragen haben, zögern Sie nicht und
+              rufen Sie uns gerne an.
+            </Text>
+            <Text style={text}>
+              Vielen Dank für Ihre Unterstützung und Ihr soziales Engagement!
             </Text>
           </Section>
 
@@ -86,11 +111,12 @@ const section = {
   border: "solid 1px #dedede",
   borderRadius: "5px",
   textAlign: "center",
+  marginTop: "10px",
   marginBottom: "10px",
 };
 
 const text = {
-  margin: "0 0 10px 0",
+  margin: "0 0 15px 0",
   textAlign: "left",
 };
 

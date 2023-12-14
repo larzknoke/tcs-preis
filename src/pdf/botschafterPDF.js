@@ -79,7 +79,7 @@ export const BotschafterPDF = ({
           />
           <Text style={styles.subTitle}>11. Town & Country Stiftungspreis</Text>
         </View>
-        <Text style={{ fontWeight: 600 }}>Botschafter</Text>
+        <Text style={styles.subTitle}>Botschafter</Text>
         <Text style={styles.title}>
           {`${bot.id} | ${bot.vorname} ${bot.name} | ${bot.bundesland}`}
         </Text>
@@ -121,9 +121,23 @@ export const BotschafterPDF = ({
               })}
           </View>
         </View>
+        <View style={{ marginTop: 20, marginBottom: 20 }}>
+          <Text style={{ fontWeight: 600, color: "#b2c243" }}>
+            Bitte prüfen Sie, ob Sie die Übergabe für die nachfolgenden Projekte
+            übernehmen können und geben Sie uns bitte bis zum 10.01.2024 eine
+            Rückmeldung. Vielen Dank!
+          </Text>
+          <Text style={{ fontWeight: 600, marginTop: 10, color: "#b2c243" }}>
+            Unsere Bitte: Da wir die Preisträger ab Februar 2024 auf unserer
+            Webseite bekannt geben, bitten wir Sie bis dahin zunächst um eine
+            vertrauliche Behandlung. Bitte informieren Sie die Preisträger noch
+            nicht über eine Förderung. Sie erhalten dazu gesonderte
+            Informationen von uns.
+          </Text>
+        </View>
 
         <View style={{ marginTop: 20, marginBottom: 20 }}>
-          <Text style={styles.subTitle}>Bewerbungen:</Text>
+          <Text style={styles.subTitle}>Bewerbungen</Text>
           {bot.letters &&
             bot.letters
               .filter(
@@ -160,7 +174,7 @@ export const BotschafterPDF = ({
                     </View>
                     <View>
                       <Text style={{ fontWeight: 600, marginTop: 5 }}>
-                        Kontakt:
+                        Kontakt Projekt:
                       </Text>
                       <View style={styles.row}>
                         <View style={{ width: "50%" }}>
@@ -174,6 +188,21 @@ export const BotschafterPDF = ({
                           <Text>Tel.: {letter.telefonnummerProjekt}</Text>
                           <Text>Mobil: {letter.mobilProjekt}</Text>
                           <Text>Email: {letter.emailProjekt}</Text>
+                        </View>
+                      </View>
+                    </View>
+                    <View>
+                      <Text style={{ fontWeight: 600, marginTop: 5 }}>
+                        Kontakt Träger:
+                      </Text>
+                      <View style={styles.row}>
+                        <View style={{ width: "50%" }}>
+                          <Text>{letter.nameTraeger}</Text>
+                          <Text>{letter.vorstandTraeger}</Text>
+                          <Text>{letter.strasseTraeger}</Text>
+                          <Text>
+                            {letter.plzTraeger} {letter.ortTraeger}
+                          </Text>
                         </View>
                       </View>
                     </View>
