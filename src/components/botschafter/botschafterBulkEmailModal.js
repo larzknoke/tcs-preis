@@ -76,7 +76,7 @@ function BotschafterBulkEmailModal({ onClose, onOpen, isOpen, kampagnenBots }) {
             <OrderedList spacing={3} marginInlineStart={"2em"}>
               {kampagnenBots.map((bot) => {
                 return (
-                  <ListItem alignItems={"flex-start"}>
+                  <ListItem alignItems={"flex-start"} key={bot.id}>
                     <Text as={"b"}>{bot.email}</Text>
                     {bot.botcontacts.map((botcontact) => {
                       return <Text>{botcontact.email}</Text>;

@@ -22,20 +22,18 @@ import {
   TabPanel,
 } from "@chakra-ui/react";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
-// import kampagneDetail from "@/components/kampagne/kampagneDetail";
 import { dateFormatter } from "@/lib/utils";
-import LetterTable from "@/components/letter/letterTable";
 import EditKampagneModal from "@/components/kampagne/editKampagneModal";
 import KampagnenBots from "@/components/kampagne/kampagnenBots";
 import KampagnenBundesland from "@/components/kampagne/kampagnenBundesland";
 
 function Kampagne({ kampagne, kampagnenBots }) {
   const groupLetters = kampagne.letters.reduce((x, y) => {
-    (x[y.bundeslandTraeger] = x[y.bundeslandTraeger] || []).push(y);
+    (x[y.bundeslandProjekt ? y.bundeslandProjekt : y.bundeslandTraeger] =
+      x[y.bundeslandProjekt ? y.bundeslandProjekt : y.bundeslandTraeger] ||
+      []).push(y);
     return x;
   }, {});
-  console.log("kamp.letters: ", groupLetters);
-  console.log("kampagnenBots: ", kampagnenBots);
   const {
     isOpen: editIsOpen,
     onOpen: editOnOpen,
@@ -100,7 +98,7 @@ function Kampagne({ kampagne, kampagnenBots }) {
             <KampagnenBots kampagnenBots={kampagnenBots} />
           </TabPanel>
           <TabPanel px={0} py={6}>
-            <KampagnenBundesland kampagnenBots={kampagnenBots} />
+            <KampagnenBundesland groupLetters={groupLetters} />
           </TabPanel>
         </TabPanels>
       </Tabs>
