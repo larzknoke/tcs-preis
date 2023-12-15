@@ -93,12 +93,6 @@ function BotschafterDetail({ botschafter }) {
           </Stack>
         </CardBody>
       </Card>
-      <GridItem colSpan={2}>
-        <BotContactTable botschafter={botschafter} />
-      </GridItem>
-      <GridItem colSpan={2}>
-        <BotlettersTable botschafter={botschafter} />
-      </GridItem>
     </SimpleGrid>
   );
 }

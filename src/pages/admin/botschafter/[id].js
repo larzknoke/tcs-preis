@@ -2,6 +2,11 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import prisma from "@/lib/prisma";
 import {
+  Tabs,
+  TabPanel,
+  TabPanels,
+  TabList,
+  Tab,
   Container,
   Divider,
   HStack,
@@ -20,9 +25,11 @@ import {
   useToast,
   MenuDivider,
 } from "@chakra-ui/react";
+import { dateFormatter } from "@/lib/utils";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
 import BotschafterDetail from "@/components/botschafter/botschafterDetail";
-import { dateFormatter } from "@/lib/utils";
+import BotContactTable from "@/components/botschafter/botContactTable";
+import BotlettersTable from "@/components/botschafter/botlettersTable";
 import BotschafterDeleteModal from "@/components/botschafter/botschafterDeleteModal";
 import FormBotschafterModal from "@/components/botschafter/formBotschafterModal";
 import BotschafterEmailModal from "@/components/botschafter/botschafterEmailModal";
@@ -139,7 +146,25 @@ function Botschafter({ botschafter }) {
         </HStack>
       </HStack>
       <Divider my={4} />
-      <BotschafterDetail botschafter={botschafter} />
+      <Tabs>
+        <TabList>
+          <Tab>Details</Tab>
+          <Tab>Ansprechpartner</Tab>
+          <Tab>Bewerbungen</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel px={0} py={6}>
+            <BotschafterDetail botschafter={botschafter} />
+          </TabPanel>
+          <TabPanel px={0} py={6}>
+            <BotContactTable botschafter={botschafter} />
+          </TabPanel>
+          <TabPanel px={0} py={6}>
+            <BotlettersTable botschafter={botschafter} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+
       <BotschafterDeleteModal
         botschafter={botschafter}
         onOpen={onOpenDelete}
