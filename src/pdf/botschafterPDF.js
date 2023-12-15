@@ -191,21 +191,23 @@ export const BotschafterPDF = ({
                         </View>
                       </View>
                     </View>
-                    <View>
-                      <Text style={{ fontWeight: 600, marginTop: 5 }}>
-                        Kontakt Träger:
-                      </Text>
-                      <View style={styles.row}>
-                        <View style={{ width: "50%" }}>
-                          <Text>{letter.nameTraeger}</Text>
-                          <Text>{letter.vorstandTraeger}</Text>
-                          <Text>{letter.strasseTraeger}</Text>
-                          <Text>
-                            {letter.plzTraeger} {letter.ortTraeger}
-                          </Text>
+                    {!letter.plzProjekt && !letter.ortProjekt && (
+                      <View>
+                        <Text style={{ fontWeight: 600, marginTop: 5 }}>
+                          Kontakt Träger:
+                        </Text>
+                        <View style={styles.row}>
+                          <View style={{ width: "50%" }}>
+                            <Text>{letter.nameTraeger}</Text>
+                            <Text>{letter.vorstandTraeger}</Text>
+                            <Text>{letter.strasseTraeger}</Text>
+                            <Text>
+                              {letter.plzTraeger} {letter.ortTraeger}
+                            </Text>
+                          </View>
                         </View>
                       </View>
-                    </View>
+                    )}
                     {letter && letter.lettercontacts?.length > 0 && (
                       <View>
                         <Text style={{ fontWeight: 600, marginTop: 5 }}>

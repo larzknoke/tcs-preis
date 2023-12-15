@@ -9,20 +9,14 @@ import {
   ModalBody,
   Button,
   ModalCloseButton,
-  FormControl,
-  FormLabel,
-  Switch,
   VStack,
   useToast,
   Alert,
   AlertIcon,
-  HStack,
-  List,
   ListItem,
   OrderedList,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { HiOutlineInformationCircle } from "react-icons/hi2";
 
 function BotschafterBulkEmailModal({ onClose, onOpen, isOpen, kampagnenBots }) {
   const toast = useToast();
@@ -30,7 +24,7 @@ function BotschafterBulkEmailModal({ onClose, onOpen, isOpen, kampagnenBots }) {
   const [zusatzAngaben, setZusatzAngaben] = useState(false);
   const [allLetter, setAllLetter] = useState(false);
 
-  async function sendBotEmail() {
+  async function sendBotEmails() {
     try {
       setLoading(true);
       const res = await fetch("/api/botschafter/botEmail", {
@@ -79,7 +73,7 @@ function BotschafterBulkEmailModal({ onClose, onOpen, isOpen, kampagnenBots }) {
           </Alert>
           <VStack mt={6} alignItems={"flex-start"}>
             <Heading size={"md"}>Emails:</Heading>
-            <OrderedList spacing={3}>
+            <OrderedList spacing={3} marginInlineStart={"2em"}>
               {kampagnenBots.map((bot) => {
                 return (
                   <ListItem alignItems={"flex-start"}>
@@ -129,7 +123,7 @@ function BotschafterBulkEmailModal({ onClose, onOpen, isOpen, kampagnenBots }) {
             size={"md"}
             variant="outline"
             colorScheme="green"
-            // onClick={sendBotEmail}
+            // onClick={sendBotEmails}
             isLoading={loading}
             isDisabled={true}
           >

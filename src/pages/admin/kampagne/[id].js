@@ -15,6 +15,11 @@ import {
   useDisclosure,
   Text,
   VStack,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
 } from "@chakra-ui/react";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
 // import kampagneDetail from "@/components/kampagne/kampagneDetail";
@@ -22,8 +27,14 @@ import { dateFormatter } from "@/lib/utils";
 import LetterTable from "@/components/letter/letterTable";
 import EditKampagneModal from "@/components/kampagne/editKampagneModal";
 import KampagnenBots from "@/components/kampagne/kampagnenBots";
+import KampagnenBundesland from "@/components/kampagne/kampagnenBundesland";
 
 function Kampagne({ kampagne, kampagnenBots }) {
+  const groupLetters = kampagne.letters.reduce((x, y) => {
+    (x[y.bundeslandTraeger] = x[y.bundeslandTraeger] || []).push(y);
+    return x;
+  }, {});
+  console.log("kamp.letters: ", groupLetters);
   console.log("kampagnenBots: ", kampagnenBots);
   const {
     isOpen: editIsOpen,
@@ -78,8 +89,21 @@ function Kampagne({ kampagne, kampagnenBots }) {
         </HStack>
       </HStack>
       <Divider my={4} />
-      {/* <LetterTable letters={kampagne.letters} /> */}
-      <KampagnenBots kampagnenBots={kampagnenBots} />
+      <Tabs>
+        <TabList>
+          <Tab>Botschafer</Tab>
+          <Tab>Bundesland</Tab>
+        </TabList>
+
+        <TabPanels>
+          <TabPanel px={0} py={6}>
+            <KampagnenBots kampagnenBots={kampagnenBots} />
+          </TabPanel>
+          <TabPanel px={0} py={6}>
+            <KampagnenBundesland kampagnenBots={kampagnenBots} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Container>
   );
 }
@@ -145,28 +169,26 @@ export const getServerSideProps = async (ctx) => {
           plzProjekt: true,
           jury: true,
           botschafterConfirm: true,
-          botschafter: {
+          lettercontacts: {
             select: {
-              id: true,
               name: true,
-              strasse: true,
-              plz: true,
-              ort: true,
-              bundesland: true,
               anrede: true,
-              firma: true,
-              mobil: true,
-              primaryId: true,
               telefon: true,
-              typ: true,
-              vorname: true,
+              funktion: true,
               email: true,
             },
           },
         },
       },
+      // botcontacts: true,
     },
   });
+  // const letters = await prisma.letter.groupBy({
+  //   by: ["bundeslandProjekt", "bundeslandTraeger"],
+  //   where: {
+  //     kampagneId: parseInt(id),
+  //   },
+  // });
   const kampagnenBots = await prisma.botschafter.findMany({
     where: {
       letters: {
@@ -174,7 +196,71 @@ export const getServerSideProps = async (ctx) => {
       },
     },
     include: {
-      letters: true,
+      letters: {
+        select: {
+          id: true,
+          nameTraeger: true,
+          vorstandTraeger: true,
+          strasseTraeger: true,
+          plzTraeger: true,
+          ortTraeger: true,
+          bundeslandTraeger: true,
+          vereinTraeger: true,
+          organisationProjekt: true,
+          ansprechpartnerProjekt: true,
+          telefonnummerProjekt: true,
+          mobilProjekt: true,
+          emailProjekt: true,
+          wwwProjekt: true,
+          ibanProjekt: true,
+          kontoNameProjekt: true,
+          botschafterId: true,
+          kampagneId: true,
+          andereLizenzpartner: true,
+          zuwendungAndere: true,
+          status: true,
+          verified: true,
+          verifyId: true,
+          bankNameProjekt: true,
+          bundeslandProjekt: true,
+          ehrenamtlichAnzahl: true,
+          ehrenamtlichStunden: true,
+          hauptamtlichAnzahl: true,
+          hauptamtlichStunden: true,
+          mitarbeiterProjekt: true,
+          nameProjekt: true,
+          strasseProjekt: true,
+          wannProjekt: true,
+          checkFreistellung: true,
+          terminGeld: true,
+          terminUebergabe: true,
+          bildmaterial: true,
+          socialFremd: true,
+          socialNotiz: true,
+          socialTCS: true,
+          presseEinladung: true,
+          presseErlaubt: true,
+          presseErledigt: true,
+          presseFreigabe: true,
+          presseMitteilung: true,
+          presseVersendet: true,
+          zwb1000: true,
+          zwb5000: true,
+          ortProjekt: true,
+          plzProjekt: true,
+          jury: true,
+          botschafterConfirm: true,
+          lettercontacts: {
+            select: {
+              name: true,
+              anrede: true,
+              telefon: true,
+              funktion: true,
+              email: true,
+            },
+          },
+        },
+      },
       botcontacts: true,
     },
   });
