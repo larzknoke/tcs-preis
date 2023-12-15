@@ -26,7 +26,7 @@ function KampagnenBundesland({ groupLetters }) {
         </HStack>
       </CardHeader>
       <CardBody>
-        <Accordion defaultIndex={[0]} allowMultiple>
+        <Accordion allowMultiple>
           {Object.entries(groupLetters)
             .sort()
             .map(([bundesland, letters]) => {
