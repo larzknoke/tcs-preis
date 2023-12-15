@@ -9,6 +9,11 @@ import {
   Text,
   HStack,
   useDisclosure,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -21,50 +26,58 @@ function KampagnenBundesland({ groupLetters }) {
         </HStack>
       </CardHeader>
       <CardBody>
-        <Stack divider={<StackDivider />} spacing="4">
+        <Accordion defaultIndex={[0]} allowMultiple>
           {Object.entries(groupLetters)
             .sort()
             .map(([bundesland, letters]) => {
               return (
-                <Box key={bundesland}>
-                  <Heading
-                    size="sm"
-                    display={"flex"}
-                    gap={2}
-                    color={"brand.900"}
-                  >
-                    <Text>{bundesland}</Text>
-                  </Heading>
-                  {letters.map((letter) => {
-                    return (
-                      <Link
-                        href={`/admin/bewerbung/${letter.id}`}
-                        target="_black"
-                        rel="noopener noreferrer"
-                        key={letter.id}
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box
+                        as="span"
+                        flex="1"
+                        textAlign="left"
+                        color={"brand.900"}
+                        fontWeight={"bold"}
                       >
-                        <Text
-                          pt="2"
-                          fontSize="sm"
-                          color={"gray.600"}
-                          _hover={{
-                            textDecoration: "underline",
-                            color: "gray.900",
-                          }}
+                        {`${bundesland} (${letters.length})`}
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}>
+                    {letters.map((letter) => {
+                      return (
+                        <Link
+                          href={`/admin/bewerbung/${letter.id}`}
+                          target="_black"
+                          rel="noopener noreferrer"
+                          key={letter.id}
                         >
-                          {`${letter.id} | ${letter.status} | Träger: ${
-                            letter.bundeslandTraeger
-                          } | Projekt: ${letter.bundeslandProjekt || "-"} | ${
-                            letter.nameProjekt
-                          } | ${letter.nameTraeger} `}
-                        </Text>
-                      </Link>
-                    );
-                  })}
-                </Box>
+                          <Text
+                            pt="2"
+                            fontSize="sm"
+                            color={"gray.600"}
+                            _hover={{
+                              textDecoration: "underline",
+                              color: "gray.900",
+                            }}
+                          >
+                            {`${letter.id} | ${letter.status} | Träger: ${
+                              letter.bundeslandTraeger
+                            } | Projekt: ${letter.bundeslandProjekt || "-"} | ${
+                              letter.nameProjekt
+                            } | ${letter.nameTraeger} `}
+                          </Text>
+                        </Link>
+                      );
+                    })}
+                  </AccordionPanel>
+                </AccordionItem>
               );
             })}
-        </Stack>
+        </Accordion>
       </CardBody>
     </Card>
   );
