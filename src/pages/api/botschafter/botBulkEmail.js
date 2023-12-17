@@ -114,8 +114,8 @@ export default async function handle(req, res) {
           {
             to:
               process.env.NODE_ENV === "development"
-                ? "tcs-preis@larsknoke.com"
-                : "tcs-preis@larsknoke.com",
+                ? "lars.knoke@tc-stiftung.de"
+                : "lars.knoke@tc-stiftung.de",
             subject:
               "11. Town & Country Stiftungspreis, Übersicht geförderte Projekte zur Prüfung",
             html: render(
