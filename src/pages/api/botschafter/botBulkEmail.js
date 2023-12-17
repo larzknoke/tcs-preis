@@ -144,14 +144,16 @@ export default async function handle(req, res) {
     const mails = await Promise.all(mailsPromise);
 
     const ids = kampagnenBots.map((bot) => bot.id);
-    const updatedBots = await prisma.botschafter.updateMany({
-      where: {
-        id: { in: ids },
-      },
-      data: {
-        botmail1: new Date(),
-      },
-    });
+    if (!testMode) {
+      const updatedBots = await prisma.botschafter.updateMany({
+        where: {
+          id: { in: ids },
+        },
+        data: {
+          botmail1: new Date(),
+        },
+      });
+    }
 
     console.log("mails", mails);
     return res.status(200).json({ success: true, kampagnenBots, mails });
