@@ -18,6 +18,7 @@ import {
 import Link from "next/link";
 import { HiBars3, HiOutlineEnvelope } from "react-icons/hi2";
 import BotschafterBulkEmailModal from "../botschafter/botschafterBulkEmailModal";
+import { dateFormatter } from "@/lib/utils";
 
 function KampagnenBots({ kampagnenBots, kampagneId }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -94,6 +95,10 @@ function KampagnenBots({ kampagnenBots, kampagneId }) {
                         ) : (
                           ""
                         )}
+                        <Text ml={"auto"}>
+                          E-Mail versendet am:{" "}
+                          {bot.botmail1 ? dateFormatter(bot.botmail1) : "-"}
+                        </Text>
                       </Heading>
                     </Link>
                     {bot.letters.map((letter) => {
