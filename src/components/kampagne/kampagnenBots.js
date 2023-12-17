@@ -95,9 +95,12 @@ function KampagnenBots({ kampagnenBots, kampagneId }) {
                         ) : (
                           ""
                         )}
-                        <Text ml={"auto"}>
+                        <Text
+                          ml={"auto"}
+                          color={bot.botmail1 ? "brand.900" : "gray.400"}
+                        >
                           E-Mail versendet am:{" "}
-                          {bot.botmail1 ? dateFormatter(bot.botmail1) : "-"}
+                          {bot.botmail1 ? dateFormatter(bot.botmail1) : "--"}
                         </Text>
                       </Heading>
                     </Link>
