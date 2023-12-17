@@ -11,9 +11,10 @@ const smtpOptions = {
   },
 };
 
-export const sendEmail = async (data) => {
+export const sendEmail = async (data, pool = false) => {
   const transporter = nodemailer.createTransport({
     ...smtpOptions,
+    pool: pool,
   });
 
   return await transporter.sendMail({

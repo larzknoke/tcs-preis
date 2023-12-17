@@ -95,7 +95,10 @@ function Kampagne({ kampagne, kampagnenBots }) {
 
         <TabPanels>
           <TabPanel px={0} py={6}>
-            <KampagnenBots kampagnenBots={kampagnenBots} />
+            <KampagnenBots
+              kampagnenBots={kampagnenBots}
+              kampagneId={kampagne.id}
+            />
           </TabPanel>
           <TabPanel px={0} py={6}>
             <KampagnenBundesland groupLetters={groupLetters} />
@@ -181,12 +184,6 @@ export const getServerSideProps = async (ctx) => {
       // botcontacts: true,
     },
   });
-  // const letters = await prisma.letter.groupBy({
-  //   by: ["bundeslandProjekt", "bundeslandTraeger"],
-  //   where: {
-  //     kampagneId: parseInt(id),
-  //   },
-  // });
   const kampagnenBots = await prisma.botschafter.findMany({
     where: {
       letters: {

@@ -1,3 +1,5 @@
+import { saveAs } from "file-saver";
+
 import {
   Text,
   Heading,
@@ -18,7 +20,13 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-function BotschafterBulkEmailModal({ onClose, onOpen, isOpen, kampagnenBots }) {
+function BotschafterBulkEmailModal({
+  onClose,
+  onOpen,
+  isOpen,
+  kampagneId,
+  kampagnenBots,
+}) {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const [zusatzAngaben, setZusatzAngaben] = useState(false);
@@ -27,10 +35,10 @@ function BotschafterBulkEmailModal({ onClose, onOpen, isOpen, kampagnenBots }) {
   async function sendBotEmails() {
     try {
       setLoading(true);
-      const res = await fetch("/api/botschafter/botEmail", {
+      const res = await fetch("/api/botschafter/botBulkEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ botschafter, zusatzAngaben, allLetter }),
+        body: kampagneId,
       });
       if (res.status != 200) {
         console.log("BotEmail Error");
@@ -47,11 +55,18 @@ function BotschafterBulkEmailModal({ onClose, onOpen, isOpen, kampagnenBots }) {
         console.log("resData", resData);
         onClose();
         toast({
-          title: `Email ${resData.botschafter.email} versendet.`,
+          title: `Emails an ${resData.kampagnenBots.length} Botschafter versendet.`,
           status: "success",
           duration: 4000,
           isClosable: true,
         });
+        let blob = new Blob(
+          [resData.mails.map((mail) => JSON.stringify(mail, null, " "))],
+          {
+            type: "text/plain;charset=utf-8",
+          }
+        );
+        saveAs(blob, `log.txt`);
       }
     } catch (error) {
       console.log("api fetch error");
@@ -66,6 +81,10 @@ function BotschafterBulkEmailModal({ onClose, onOpen, isOpen, kampagnenBots }) {
         <ModalHeader>Botschafter Emails versenden</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
+          <Alert status="error" mb={4}>
+            <AlertIcon />
+            <Text as="b">TESTMODUS</Text>
+          </Alert>
           <Alert status="info">
             <AlertIcon />
             Alle Botschafter und Botschafter-Ansprechpartner erhalten eine Email
@@ -79,7 +98,9 @@ function BotschafterBulkEmailModal({ onClose, onOpen, isOpen, kampagnenBots }) {
                   <ListItem alignItems={"flex-start"} key={bot.id}>
                     <Text as={"b"}>{bot.email}</Text>
                     {bot.botcontacts.map((botcontact) => {
-                      return <Text>{botcontact.email}</Text>;
+                      return (
+                        <Text key={botcontact.id}>{botcontact.email}</Text>
+                      );
                     })}
                   </ListItem>
                 );
@@ -123,9 +144,8 @@ function BotschafterBulkEmailModal({ onClose, onOpen, isOpen, kampagnenBots }) {
             size={"md"}
             variant="outline"
             colorScheme="green"
-            // onClick={sendBotEmails}
+            onClick={sendBotEmails}
             isLoading={loading}
-            isDisabled={true}
           >
             Email versenden
           </Button>

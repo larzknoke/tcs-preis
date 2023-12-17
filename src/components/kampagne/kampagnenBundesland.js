@@ -31,7 +31,7 @@ function KampagnenBundesland({ groupLetters }) {
             .sort()
             .map(([bundesland, letters]) => {
               return (
-                <AccordionItem>
+                <AccordionItem key={bundesland}>
                   <h2>
                     <AccordionButton>
                       <Box

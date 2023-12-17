@@ -11,7 +11,7 @@ import {
   Text,
 } from "@react-email/components";
 
-export default function BotschafterEmail({ botschafter }) {
+export default function BotschafterEmail({ botschafter, anreden = [] }) {
   return (
     <Html>
       <Head />
@@ -28,7 +28,15 @@ export default function BotschafterEmail({ botschafter }) {
             priority
           />
           <Section style={section}>
-            <Text style={text}>Sehr geehrter Botschafter</Text>
+            <Text style={text}>
+              {anreden.map((anrede) => {
+                return (
+                  <>
+                    {anrede} <br />
+                  </>
+                );
+              })}
+            </Text>
             <Text style={text}>
               es ist so weit: die diesjährigen 1.111 Euro Preisträger des 11.
               Town &amp; Country Stiftungspreises sind ausgewählt! 300 Vereine

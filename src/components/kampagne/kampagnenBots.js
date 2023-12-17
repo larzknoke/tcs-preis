@@ -19,7 +19,7 @@ import Link from "next/link";
 import { HiBars3, HiOutlineEnvelope } from "react-icons/hi2";
 import BotschafterBulkEmailModal from "../botschafter/botschafterBulkEmailModal";
 
-function KampagnenBots({ kampagnenBots }) {
+function KampagnenBots({ kampagnenBots, kampagneId }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   let botcontacts = kampagnenBots.map((bot) => bot.botcontacts.length);
@@ -59,6 +59,7 @@ function KampagnenBots({ kampagnenBots }) {
           onOpen={onOpen}
           isOpen={isOpen}
           onClose={onClose}
+          kampagneId={kampagneId}
           kampagnenBots={kampagnenBots}
         />
       </CardHeader>
