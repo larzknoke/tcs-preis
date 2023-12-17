@@ -17,6 +17,10 @@ import {
   AlertIcon,
   ListItem,
   OrderedList,
+  FormControl,
+  FormLabel,
+  Switch,
+  Divider,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -29,8 +33,7 @@ function BotschafterBulkEmailModal({
 }) {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
-  const [zusatzAngaben, setZusatzAngaben] = useState(false);
-  const [allLetter, setAllLetter] = useState(false);
+  const [testMode, setTestMode] = useState(false);
 
   async function sendBotEmails() {
     try {
@@ -38,7 +41,7 @@ function BotschafterBulkEmailModal({
       const res = await fetch("/api/botschafter/botBulkEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: kampagneId,
+        body: JSON.stringify({ kampagneId: kampagneId, testMode: testMode }),
       });
       if (res.status != 200) {
         console.log("BotEmail Error");
@@ -83,7 +86,7 @@ function BotschafterBulkEmailModal({
         <ModalBody>
           <Alert status="error" mb={4}>
             <AlertIcon />
-            <Text as="b">TESTMODUS</Text>
+            <Text as="b">TEST MODUS</Text>
           </Alert>
           <Alert status="info">
             <AlertIcon />
@@ -91,7 +94,20 @@ function BotschafterBulkEmailModal({
             inkl. PDF mit der Übersicht der verknüpften Bewerbungen.
           </Alert>
           <VStack mt={6} alignItems={"flex-start"}>
-            <Heading size={"md"}>Emails:</Heading>
+            <FormControl>
+              <FormLabel>
+                Test Modus (1x Beispiel Email an "stiftungspreis@tc-stiftung.de)
+              </FormLabel>
+              <Switch
+                colorScheme="green"
+                name="testMode"
+                type="text"
+                isChecked={testMode}
+                onChange={(e) => setTestMode(e.target.checked)}
+              />
+            </FormControl>
+            <Divider my={4} />
+            <Heading size={"sm"}>Emails:</Heading>
             <OrderedList spacing={3} marginInlineStart={"2em"}>
               {kampagnenBots.map((bot) => {
                 return (
@@ -106,26 +122,6 @@ function BotschafterBulkEmailModal({
                 );
               })}
             </OrderedList>
-            {/* <FormControl>
-              <FormLabel>Zusatzangaben ausgeben</FormLabel>
-              <Switch
-                colorScheme="green"
-                name="zusatzAngaben"
-                type="text"
-                onChange={(e) => setZusatzAngaben(e.target.checked)}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>
-                Status ignorieren (Alle verknüpften Bewerbungen ausgegeben)
-              </FormLabel>
-              <Switch
-                colorScheme="green"
-                name="allLetter"
-                type="text"
-                onChange={(e) => setAllLetter(e.target.checked)}
-              />
-            </FormControl> */}
           </VStack>
         </ModalBody>
 
@@ -146,6 +142,7 @@ function BotschafterBulkEmailModal({
             colorScheme="green"
             onClick={sendBotEmails}
             isLoading={loading}
+            isDisabled={true}
           >
             Email versenden
           </Button>

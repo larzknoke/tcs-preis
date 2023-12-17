@@ -25,7 +25,7 @@ export default function BotschafterEmail({ botschafter, anreden = [] }) {
             alt="TCS Logo"
             width={120}
             height={24}
-            priority
+            priority={"true"}
           />
           <Section style={section}>
             <Text style={text}>

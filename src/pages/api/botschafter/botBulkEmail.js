@@ -9,11 +9,11 @@ export default async function handle(req, res) {
   console.log("api call");
 
   try {
-    const id = req.body;
+    const { kampagneId, testMode } = req.body;
     const kampagnenBots = await prisma.botschafter.findMany({
       where: {
         letters: {
-          some: { kampagneId: parseInt(id), verified: true },
+          some: { kampagneId: parseInt(kampagneId), verified: true },
         },
       },
       include: {
@@ -85,62 +85,62 @@ export default async function handle(req, res) {
         botcontacts: true,
       },
     });
-    let mailsPromise = kampagnenBots.map(async (bot) => {
-      // RECEIVER
-      let receiver = [];
-      receiver.push(bot.email);
-      bot.botcontacts.map((contact) => receiver.push(contact.email));
+    let mailsPromise = kampagnenBots
+      .filter((bot, index) => (testMode ? index === 0 : true))
+      .map(async (bot) => {
+        // RECEIVER
+        let receiver = [];
+        receiver.push(bot.email);
+        bot.botcontacts.map((contact) => receiver.push(contact.email));
 
-      // ANREDEN
-      let anreden = [];
-      let botAnrede =
-        bot.anrede == "Frau"
-          ? `Sehr geehrte Frau ${bot.vorname} ${bot.name}, `
-          : `Sehr geehrter Herr ${bot.vorname} ${bot.name}, `;
-      anreden.push(botAnrede);
+        // ANREDEN
+        let anreden = [];
+        let botAnrede =
+          bot.anrede == "Frau"
+            ? `Sehr geehrte Frau ${bot.vorname} ${bot.name}, `
+            : `Sehr geehrter Herr ${bot.vorname} ${bot.name}, `;
+        anreden.push(botAnrede);
 
-      bot.botcontacts.map((contact) => {
-        let botContactAnrede =
-          contact.anrede == "Frau"
-            ? `Sehr geehrte Frau ${contact.name}, `
-            : `Sehr geehrter Herr ${contact.name}, `;
-        anreden.push(botContactAnrede);
+        bot.botcontacts.map((contact) => {
+          let botContactAnrede =
+            contact.anrede == "Frau"
+              ? `Sehr geehrte Frau ${contact.name}, `
+              : `Sehr geehrter Herr ${contact.name}, `;
+          anreden.push(botContactAnrede);
+        });
+
+        console.log("anreden", anreden);
+        console.log("receiver", receiver);
+        if (receiver.length > 0) {
+          const resEmail = await sendEmail(
+            {
+              to: testMode ? "info@larsknoke.com" : "lars.knoke@tc-stiftung.de",
+              // bcc: "lars.knoke@tc-stiftung.de",
+              subject:
+                "11. Town & Country Stiftungspreis, Übersicht geförderte Projekte zur Prüfung",
+              html: render(
+                <BotschafterEmail botschafter={bot} anreden={anreden} />
+              ),
+              attachments: [
+                {
+                  filename: `Botschafter_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
+                  content: await renderToBuffer(
+                    <BotschafterPDF
+                      zusatzAngaben={false}
+                      bot={bot}
+                      allLetter={false}
+                    />
+                  ),
+                },
+              ],
+            },
+            true // POOL PARAMETER
+          );
+          return resEmail;
+        } else {
+          console.error("No Botschafter");
+        }
       });
-
-      console.log("anreden", anreden);
-      console.log("receiver", receiver);
-      if (receiver.length > 0) {
-        const resEmail = await sendEmail(
-          {
-            to:
-              process.env.NODE_ENV === "development"
-                ? "lars.knoke@tc-stiftung.de"
-                : "lars.knoke@tc-stiftung.de",
-            subject:
-              "11. Town & Country Stiftungspreis, Übersicht geförderte Projekte zur Prüfung",
-            html: render(
-              <BotschafterEmail botschafter={bot} anreden={anreden} />
-            ),
-            attachments: [
-              {
-                filename: `Botschafter_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
-                content: await renderToBuffer(
-                  <BotschafterPDF
-                    zusatzAngaben={false}
-                    bot={bot}
-                    allLetter={false}
-                  />
-                ),
-              },
-            ],
-          },
-          true // POOL PARAMETER
-        );
-        return resEmail;
-      } else {
-        console.error("No Botschafter");
-      }
-    });
     const mails = await Promise.all(mailsPromise);
 
     const ids = kampagnenBots.map((bot) => bot.id);
