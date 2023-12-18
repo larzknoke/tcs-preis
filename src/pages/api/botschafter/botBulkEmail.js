@@ -114,8 +114,10 @@ export default async function handle(req, res) {
         if (receiver.length > 0) {
           const resEmail = await sendEmail(
             {
-              to: testMode ? "info@larsknoke.com" : "lars.knoke@tc-stiftung.de",
-              // bcc: "lars.knoke@tc-stiftung.de",
+              to: testMode
+                ? "stiftungspreis@tc-stiftung.de"
+                : "lars.knoke@tc-stiftung.de",
+              bcc: "stiftungspreis@tc-stiftung.de",
               subject:
                 "11. Town & Country Stiftungspreis, Übersicht geförderte Projekte zur Prüfung",
               html: render(

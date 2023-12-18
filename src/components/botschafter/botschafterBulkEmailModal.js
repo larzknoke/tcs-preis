@@ -84,10 +84,10 @@ function BotschafterBulkEmailModal({
         <ModalHeader>Botschafter Emails versenden</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Alert status="error" mb={4}>
+          {/* <Alert status="error" mb={4}>
             <AlertIcon />
             <Text as="b">TEST MODUS</Text>
-          </Alert>
+          </Alert> */}
           <Alert status="info">
             <AlertIcon />
             Alle Botschafter und Botschafter-Ansprechpartner erhalten eine Email
@@ -142,7 +142,6 @@ function BotschafterBulkEmailModal({
             colorScheme="green"
             onClick={sendBotEmails}
             isLoading={loading}
-            isDisabled={true}
           >
             Email versenden
           </Button>
