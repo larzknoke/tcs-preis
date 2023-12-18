@@ -58,7 +58,7 @@ function BotschafterBulkEmailModal({
         console.log("resData", resData);
         onClose();
         toast({
-          title: `Emails an ${resData.kampagnenBots.length} Botschafter versendet.`,
+          title: `Emails an ${resData.mails.length} Botschafter versendet.`,
           status: "success",
           duration: 4000,
           isClosable: true,
