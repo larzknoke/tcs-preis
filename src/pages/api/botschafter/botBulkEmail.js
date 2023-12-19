@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { sendEmail } from "@/lib/email";
+import nodemailer from "nodemailer";
 import { render } from "@react-email/render";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { BotschafterPDF } from "@/pdf/botschafterPDF";
@@ -9,6 +9,21 @@ export default async function handle(req, res) {
   console.log("api call");
 
   try {
+    // INIT NODEMAILER
+    const smtpOptions = {
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT),
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    };
+    const transporter = nodemailer.createTransport({
+      ...smtpOptions,
+      pool: true,
+    });
+
     const { kampagneId, testMode } = req.body;
     const kampagnenBots = await prisma.botschafter.findMany({
       where: {
@@ -112,30 +127,28 @@ export default async function handle(req, res) {
         console.log("anreden", anreden);
         console.log("receiver", receiver);
         if (receiver.length > 0) {
-          const resEmail = await sendEmail(
-            {
-              to: testMode ? "stiftungspreis@tc-stiftung.de" : receiver,
-              bcc: "stiftungspreis@tc-stiftung.de",
-              subject:
-                "11. Town & Country Stiftungspreis, Übersicht geförderte Projekte zur Prüfung",
-              html: render(
-                <BotschafterEmail botschafter={bot} anreden={anreden} />
-              ),
-              attachments: [
-                {
-                  filename: `Botschafter_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
-                  content: await renderToBuffer(
-                    <BotschafterPDF
-                      zusatzAngaben={false}
-                      bot={bot}
-                      allLetter={false}
-                    />
-                  ),
-                },
-              ],
-            },
-            true // POOL PARAMETER
-          );
+          const resEmail = await transporter.sendMail({
+            from: `Town & Country Stiftung <${process.env.SMTP_FROM_EMAIL}>`,
+            to: testMode ? "stiftungspreis@tc-stiftung.de" : receiver,
+            bcc: "stiftungspreis@tc-stiftung.de",
+            subject:
+              "11. Town & Country Stiftungspreis, Übersicht geförderte Projekte zur Prüfung",
+            html: render(
+              <BotschafterEmail botschafter={bot} anreden={anreden} />
+            ),
+            attachments: [
+              {
+                filename: `Botschafter_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
+                content: await renderToBuffer(
+                  <BotschafterPDF
+                    zusatzAngaben={false}
+                    bot={bot}
+                    allLetter={false}
+                  />
+                ),
+              },
+            ],
+          });
           return resEmail;
         } else {
           console.error("No Botschafter");
