@@ -20,6 +20,8 @@ import { useRouter } from "next/router";
 import { formSchema } from "@/lib/formSchema";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Select } from "chakra-react-select";
+import { bundeslaender } from "@/lib/data";
 
 function ProjektEditModal({ onClose, isOpen, letter }) {
   const toast = useToast();
@@ -41,8 +43,8 @@ function ProjektEditModal({ onClose, isOpen, letter }) {
   const [selectedBundesland, setSelectedBundesland] = useState(
     letter
       ? {
-          value: letter?.bundeslandTraeger,
-          label: letter?.bundeslandTraeger,
+          value: letter?.bundeslandProjekt,
+          label: letter?.bundeslandProjekt,
         }
       : ""
   );
@@ -233,6 +235,38 @@ function ProjektEditModal({ onClose, isOpen, letter }) {
                     {errors.ortProjekt && errors.ortProjekt.message}
                   </FormErrorMessage>
                 </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
+                <Controller
+                  control={control}
+                  name="bundeslandProjekt"
+                  render={({
+                    field: { onChange, onBlur, value, name, ref },
+                    fieldState: { error },
+                  }) => {
+                    return (
+                      <FormControl isInvalid={!!error} id="bundeslandProjekt">
+                        <FormLabel>Bundesland</FormLabel>
+                        <Select
+                          name={name}
+                          ref={ref}
+                          onChange={(e) => {
+                            setValue("bundeslandProjekt", e.value);
+                            setSelectedBundesland(e);
+                          }}
+                          onBlur={onBlur}
+                          value={selectedBundesland}
+                          options={bundeslaender}
+                          placeholder="Bitte auswählen..."
+                        />
+                        <FormErrorMessage>
+                          {errors.bundeslandProjekt &&
+                            errors.bundeslandProjekt.message}
+                        </FormErrorMessage>
+                      </FormControl>
+                    );
+                  }}
+                />
               </GridItem>
             </SimpleGrid>
           </form>

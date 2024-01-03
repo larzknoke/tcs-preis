@@ -123,13 +123,13 @@ function TraegerEditModal({ onClose, isOpen, letter }) {
                     fieldState: { error },
                   }) => {
                     return (
-                      <FormControl isInvalid={!!error} id="bundesland">
+                      <FormControl isInvalid={!!error} id="bundeslandTraeger">
                         <FormLabel>Bundesland</FormLabel>
                         <Select
                           name={name}
                           ref={ref}
                           onChange={(e) => {
-                            setValue("bundesland", e.value);
+                            setValue("bundeslandTraeger", e.value);
                             setSelectedBundesland(e);
                           }}
                           onBlur={onBlur}
