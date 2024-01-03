@@ -104,28 +104,36 @@ function KampagnenBots({ kampagnenBots, kampagneId }) {
                         </Text>
                       </Heading>
                     </Link>
-                    {bot.letters.map((letter) => {
-                      return (
-                        <Link
-                          href={`/admin/bewerbung/${letter.id}`}
-                          target="_black"
-                          rel="noopener noreferrer"
-                          key={letter.id}
-                        >
-                          <Text
-                            pt="2"
-                            fontSize="sm"
-                            color={"gray.600"}
-                            _hover={{
-                              textDecoration: "underline",
-                              color: "gray.900",
-                            }}
+                    {bot.letters
+                      .sort(
+                        (a, b) => b.botschafterConfirm - a.botschafterConfirm
+                      )
+                      .map((letter) => {
+                        return (
+                          <Link
+                            href={`/admin/bewerbung/${letter.id}`}
+                            target="_black"
+                            rel="noopener noreferrer"
+                            key={letter.id}
                           >
-                            {`${letter.id} | ${letter.status} | ${letter.bundeslandTraeger} | ${letter.nameProjekt} | ${letter.nameTraeger} `}
-                          </Text>
-                        </Link>
-                      );
-                    })}
+                            <Text
+                              pt="2"
+                              fontSize="sm"
+                              color={
+                                letter.botschafterConfirm
+                                  ? "brand.900"
+                                  : "red.300"
+                              }
+                              _hover={{
+                                textDecoration: "underline",
+                                color: "gray.500",
+                              }}
+                            >
+                              {`${letter.id} | ${letter.status} | ${letter.bundeslandTraeger} | ${letter.nameProjekt} | ${letter.nameTraeger} `}
+                            </Text>
+                          </Link>
+                        );
+                      })}
                   </Box>
                 );
               })}

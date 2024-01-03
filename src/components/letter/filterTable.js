@@ -27,6 +27,7 @@ import {
   DrawerCloseButton,
   Checkbox,
   Divider,
+  Icon,
 } from "@chakra-ui/react";
 import React from "react";
 import {
@@ -36,6 +37,8 @@ import {
   HiChevronRight,
   HiPaperClip,
   HiOutlineTableCells,
+  HiOutlineCheck,
+  HiOutlineNoSymbol,
 } from "react-icons/hi2";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { exportToExcel } from "react-json-to-excel";
@@ -307,6 +310,21 @@ function FilterTable({ letters }) {
         accessorKey: "botschafter.email",
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "botschafterConfirm",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+        filterFn: "equals",
+        cell: ({ info, row }) => (
+          <span>
+            {row.original.botschafterConfirm ? (
+              <Icon as={HiOutlineCheck} color={"green.700"} />
+            ) : (
+              <Icon as={HiOutlineNoSymbol} color={"red.500"} />
+            )}
+          </span>
+        ),
       },
     ],
     []
