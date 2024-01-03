@@ -241,31 +241,31 @@ function FilterTable({ letters }) {
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
       },
-      {
-        accessorKey: "beschreibungProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "zielsetzungProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "benachteiligungProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "umsetzungProjekt",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "bisherigeErgebnisse",
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-      },
+      // {
+      //   accessorKey: "beschreibungProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "zielsetzungProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "benachteiligungProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "umsetzungProjekt",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
+      // {
+      //   accessorKey: "bisherigeErgebnisse",
+      //   cell: (info) => info.getValue(),
+      //   footer: (props) => props.column.id,
+      // },
       {
         accessorKey: "botschafter.vorname",
         cell: (info) => info.getValue(),
