@@ -13,7 +13,6 @@ import {
   Flex,
   HStack,
   IconButton,
-  Spacer,
   Tooltip,
   Text,
   Input,
@@ -27,6 +26,7 @@ import {
   DrawerCloseButton,
   Checkbox,
   Divider,
+  Select,
   Icon,
 } from "@chakra-ui/react";
 import React from "react";
@@ -313,9 +313,7 @@ function FilterTable({ letters }) {
       },
       {
         accessorKey: "botschafterConfirm",
-        cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
-        filterFn: "equals",
         cell: ({ info, row }) => (
           <span>
             {row.original.botschafterConfirm ? (
@@ -609,6 +607,29 @@ function Filter({ column, table }) {
             />
           </div>
         </div>
+      );
+    case "botschafterConfirm":
+      return (
+        <>
+          <Select
+            h={"25px"}
+            mt={2}
+            size={"sm"}
+            onChange={(e) => {
+              if (e.target.value == "Alle") {
+                column.setFilterValue("");
+              } else if (e.target.value == "Ja") {
+                column.setFilterValue(true);
+              } else if (e.target.value == "Nein") {
+                column.setFilterValue(false);
+              }
+            }}
+          >
+            <option value="Alle">Alle</option>
+            <option value="Ja">Ja</option>
+            <option value="Nein">Nein</option>
+          </Select>
+        </>
       );
     case "id":
       return (
