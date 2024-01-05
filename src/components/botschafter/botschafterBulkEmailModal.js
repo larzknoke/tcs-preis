@@ -109,18 +109,28 @@ function BotschafterBulkEmailModal({
             <Divider my={4} />
             <Heading size={"sm"}>Emails:</Heading>
             <OrderedList spacing={3} marginInlineStart={"2em"}>
-              {kampagnenBots.map((bot) => {
-                return (
-                  <ListItem alignItems={"flex-start"} key={bot.id}>
-                    <Text as={"b"}>{bot.email}</Text>
-                    {bot.botcontacts.map((botcontact) => {
-                      return (
-                        <Text key={botcontact.id}>{botcontact.email}</Text>
-                      );
-                    })}
-                  </ListItem>
-                );
-              })}
+              {kampagnenBots
+                .filter((d) =>
+                  d.letters.some((l) =>
+                    ["1111", "5000", "ausland1111", "ausland5000"].includes(
+                      l.status
+                    )
+                  )
+                )
+                .map((bot) => {
+                  return (
+                    <ListItem alignItems={"flex-start"} key={bot.id}>
+                      <Text as={"b"}>
+                        {bot.email} | ID: {bot.id}
+                      </Text>
+                      {bot.botcontacts.map((botcontact) => {
+                        return (
+                          <Text key={botcontact.id}>{botcontact.email}</Text>
+                        );
+                      })}
+                    </ListItem>
+                  );
+                })}
             </OrderedList>
           </VStack>
         </ModalBody>
