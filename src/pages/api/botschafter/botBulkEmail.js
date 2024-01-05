@@ -28,7 +28,11 @@ export default async function handle(req, res) {
     const kampagnenBots = await prisma.botschafter.findMany({
       where: {
         letters: {
-          some: { kampagneId: parseInt(kampagneId), verified: true },
+          some: {
+            kampagneId: parseInt(kampagneId),
+            verified: true,
+            status: { in: ["1111", "5000", "ausland1111", "ausland5000"] },
+          },
         },
       },
       include: {
