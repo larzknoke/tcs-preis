@@ -10,14 +10,40 @@ export default async function handle(req, res) {
   try {
     const { botschafter, zusatzAngaben, allLetter } = req.body;
     if (botschafter && botschafter.email) {
+      let receiver = [];
+      receiver.push(botschafter.email);
+      botschafter.botcontacts.map((contact) => receiver.push(contact.email));
+
+      // ANREDEN
+      let anreden = [];
+      let botAnrede =
+        botschafter.anrede == "Frau"
+          ? `Sehr geehrte Frau ${botschafter.vorname} ${botschafter.name}, `
+          : `Sehr geehrter Herr ${botschafter.vorname} ${botschafter.name}, `;
+      anreden.push(botAnrede);
+
+      botschafter.botcontacts.map((contact) => {
+        let botContactAnrede =
+          contact.anrede == "Frau"
+            ? `Sehr geehrte Frau ${contact.name}, `
+            : `Sehr geehrter Herr ${contact.name}, `;
+        anreden.push(botContactAnrede);
+      });
+
+      console.log("anreden", anreden);
+      console.log("receiver", receiver);
+
       await sendEmail({
         to:
           process.env.NODE_ENV === "development"
             ? "info@larsknoke.com"
-            : "stiftungspreis@tc-stiftung.de",
+            : receiver,
+        bcc: "stiftungspreis@tc-stiftung.de",
         subject:
           "11. Town & Country Stiftungspreis, Übersicht geförderte Projekte zur Prüfung",
-        html: render(<BotschafterEmail botschafter={botschafter} />),
+        html: render(
+          <BotschafterEmail botschafter={botschafter} anreden={anreden} />
+        ),
         attachments: [
           {
             filename: `Botschafter_${botschafter.vorname}_${botschafter.name}_${botschafter.id}.pdf`,
@@ -30,6 +56,15 @@ export default async function handle(req, res) {
             ),
           },
         ],
+      });
+
+      const updateBot = await prisma.botschafter.update({
+        where: {
+          id: botschafter.id,
+        },
+        data: {
+          botmail1: new Date(),
+        },
       });
     } else {
       throw new Error("No Botschafter");

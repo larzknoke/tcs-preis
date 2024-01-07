@@ -47,7 +47,7 @@ function BotschafterEmailModal({ onClose, onOpen, isOpen, botschafter }) {
         console.log("resData", resData);
         onClose();
         toast({
-          title: `Email ${resData.botschafter.email} versendet.`,
+          title: `Email an ${resData.botschafter.email} + Ansprechpartner versendet.`,
           status: "success",
           duration: 4000,
           isClosable: true,
