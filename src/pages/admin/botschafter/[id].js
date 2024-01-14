@@ -37,6 +37,7 @@ import BotschafterEmailModal from "@/components/botschafter/botschafterEmailModa
 import { BotschafterPDF } from "@/pdf/botschafterPDF";
 import { pdf } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
+import BotschafterExportSinglePDFModal from "@/components/botschafter/botschafterExportSinglePDF";
 
 function Botschafter({ botschafter }) {
   const router = useRouter();
@@ -59,6 +60,12 @@ function Botschafter({ botschafter }) {
     isOpen: isOpenEmail,
     onOpen: onOpenEmail,
     onClose: onCloseEmail,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenPDFExport,
+    onOpen: onOpenPDFExport,
+    onClose: onClosePDFExport,
   } = useDisclosure();
 
   async function onSubmitDelete(id) {
@@ -132,9 +139,7 @@ function Botschafter({ botschafter }) {
               size={"lg"}
             />
             <MenuList>
-              <MenuItem onClick={() => botschafterPdfExport()}>
-                PDF Export
-              </MenuItem>
+              <MenuItem onClick={() => onOpenPDFExport()}>PDF Export</MenuItem>
               <MenuItem onClick={() => onOpenEmail()}>
                 Botschafter Email versenden
               </MenuItem>
@@ -185,6 +190,12 @@ function Botschafter({ botschafter }) {
         onClose={onCloseEmail}
         isOpen={isOpenEmail}
         botschafter={botschafter}
+      />
+      <BotschafterExportSinglePDFModal
+        botschafter={botschafter}
+        onOpen={onOpenPDFExport}
+        onClose={onClosePDFExport}
+        isOpen={isOpenPDFExport}
       />
     </Container>
   );

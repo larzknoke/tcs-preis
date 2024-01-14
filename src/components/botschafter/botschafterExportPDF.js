@@ -13,6 +13,7 @@ import {
   Switch,
   VStack,
   useToast,
+  Textarea,
 } from "@chakra-ui/react";
 import { Select } from "chakra-react-select";
 import { useState, useEffect } from "react";
@@ -26,6 +27,7 @@ function BotschafterExportPDFModal({ onClose, onOpen, isOpen }) {
   const toast = useToast();
   const [kampagneSelect, setKampagneSelect] = useState([]);
   const [kampagneSelected, setKampagneSelected] = useState(null);
+  const [freitext, setFreitext] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function kampagneForSelect() {
@@ -71,7 +73,13 @@ function BotschafterExportPDFModal({ onClose, onOpen, isOpen }) {
       resData.map((bot) => {
         zip.file(
           `Botschafter_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
-          pdf(<BotschafterPDF bot={bot} zusatzAngaben={false} />).toBlob()
+          pdf(
+            <BotschafterPDF
+              bot={bot}
+              zusatzAngaben={false}
+              freitext={freitext}
+            />
+          ).toBlob()
         );
       });
 
@@ -79,6 +87,7 @@ function BotschafterExportPDFModal({ onClose, onOpen, isOpen }) {
       onClose();
       router.replace(router.asPath);
       setLoading(false);
+      setFreitext("");
       toast({
         title: `Botschafter exportiert`,
         status: "success",
@@ -114,6 +123,15 @@ function BotschafterExportPDFModal({ onClose, onOpen, isOpen }) {
                 //       letter.botschafter?.name || "",
                 //   value: letter.botschafter?.id || "",
                 // }}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Freitext</FormLabel>
+              <Textarea
+                name="freitext"
+                placeholder="Text hier...."
+                onChange={(e) => setFreitext(e.target.value)}
+                minH={200}
               />
             </FormControl>
           </VStack>

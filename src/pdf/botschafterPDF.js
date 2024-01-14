@@ -58,6 +58,7 @@ export const BotschafterPDF = ({
   bot,
   zusatzAngaben = true,
   allLetter = true,
+  freitext = "",
 }) => (
   <Document>
     <Page size="A4" style={styles.page}>
@@ -122,18 +123,11 @@ export const BotschafterPDF = ({
           </View>
         </View>
         <View style={{ marginTop: 20, marginBottom: 20 }}>
-          <Text style={{ fontWeight: 600, color: "#b2c243" }}>
-            Bitte prüfen Sie, ob Sie die Übergabe für die nachfolgenden Projekte
-            übernehmen können und geben Sie uns bitte bis zum 10.01.2024 eine
-            Rückmeldung. Vielen Dank!
-          </Text>
-          <Text style={{ fontWeight: 600, marginTop: 10, color: "#b2c243" }}>
-            Unsere Bitte: Da wir die Preisträger ab Februar 2024 auf unserer
-            Webseite bekannt geben, bitten wir Sie bis dahin zunächst um eine
-            vertrauliche Behandlung. Bitte informieren Sie die Preisträger noch
-            nicht über eine Förderung. Sie erhalten dazu gesonderte
-            Informationen von uns.
-          </Text>
+          {freitext.length > 0 && (
+            <Text style={{ fontWeight: 600, color: "#b2c243" }}>
+              {freitext}
+            </Text>
+          )}
         </View>
 
         <View style={{ marginTop: 20, marginBottom: 20 }}>
