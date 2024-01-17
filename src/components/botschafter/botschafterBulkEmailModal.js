@@ -21,6 +21,11 @@ import {
   FormLabel,
   Switch,
   Divider,
+  Textarea,
+  Radio,
+  RadioGroup,
+  Stack,
+  AlertDescription,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -34,14 +39,25 @@ function BotschafterBulkEmailModal({
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const [testMode, setTestMode] = useState(false);
+  const [freitext, setFreitext] = useState("");
+  const [emailVersion, setEmailVersion] = useState("");
+  const [emailVersionError, setEmailVersionError] = useState(false);
 
   async function sendBotEmails() {
     try {
       setLoading(true);
+      if (emailVersion == "") {
+        throw "Keine Email Version ausgewählt.";
+      }
       const res = await fetch("/api/botschafter/botBulkEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kampagneId: kampagneId, testMode: testMode }),
+        body: JSON.stringify({
+          kampagneId: kampagneId,
+          testMode: testMode,
+          freitext: freitext,
+          emailVersion: emailVersion,
+        }),
       });
       if (res.status != 200) {
         console.log("BotEmail Error");
@@ -54,6 +70,10 @@ function BotschafterBulkEmailModal({
         });
       } else {
         setLoading(false);
+        setFreitext("");
+        setEmailVersion("");
+        setEmailVersionError(false);
+        setTestMode(false);
         const resData = await res.json();
         console.log("resData", resData);
         onClose();
@@ -74,6 +94,8 @@ function BotschafterBulkEmailModal({
     } catch (error) {
       console.log("api fetch error");
       console.error("sendConfirmEmail Error: ", error);
+      setEmailVersionError(true);
+      setLoading(false);
     }
   }
 
@@ -84,16 +106,57 @@ function BotschafterBulkEmailModal({
         <ModalHeader>Botschafter Emails versenden</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          {/* <Alert status="error" mb={4}>
-            <AlertIcon />
-            <Text as="b">TEST MODUS</Text>
-          </Alert> */}
           <Alert status="info">
             <AlertIcon />
             Alle Botschafter und Botschafter-Ansprechpartner erhalten eine Email
             inkl. PDF mit der Übersicht der verknüpften Bewerbungen.
           </Alert>
           <VStack mt={6} alignItems={"flex-start"}>
+            <FormControl mb={4}>
+              <FormLabel>Email Version</FormLabel>
+              <RadioGroup onChange={setEmailVersion} value={emailVersion}>
+                <Stack direction="row">
+                  <Radio
+                    isInvalid={emailVersionError}
+                    onChange={() => setEmailVersionError(false)}
+                    value="1"
+                  >
+                    Erste
+                  </Radio>
+                  <Radio
+                    isInvalid={emailVersionError}
+                    onChange={() => setEmailVersionError(false)}
+                    value="2"
+                  >
+                    Zweite
+                  </Radio>
+                  {/* <Radio
+                    isInvalid={emailVersionError}
+                    onChange={() => setEmailVersionError(false)}
+                    value="3"
+                  >
+                    Dritte
+                  </Radio> */}
+                </Stack>
+              </RadioGroup>
+              {emailVersionError && (
+                <Alert status="error" mt={4}>
+                  <AlertIcon />
+                  <AlertDescription>
+                    Keine Email Version ausgewählt.
+                  </AlertDescription>
+                </Alert>
+              )}
+            </FormControl>
+            <FormControl mb={4}>
+              <FormLabel>Freitext</FormLabel>
+              <Textarea
+                name="freitext"
+                placeholder="Text hier...."
+                onChange={(e) => setFreitext(e.target.value)}
+                minH={200}
+              />
+            </FormControl>
             <FormControl>
               <FormLabel>
                 Test Modus (1x Beispiel Email an "stiftungspreis@tc-stiftung.de)

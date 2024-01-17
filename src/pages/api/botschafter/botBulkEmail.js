@@ -4,6 +4,7 @@ import { render } from "@react-email/render";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { BotschafterPDF } from "@/pdf/botschafterPDF";
 import BotschafterEmail from "@/email/BotschafterEmail";
+import BotschafterEmail2 from "@/email/BotschafterEmail2";
 
 export default async function handle(req, res) {
   console.log("api call");
@@ -24,7 +25,7 @@ export default async function handle(req, res) {
       pool: true,
     });
 
-    const { kampagneId, testMode } = req.body;
+    const { kampagneId, testMode, freitext, emailVersion } = req.body;
     const kampagnenBots = await prisma.botschafter.findMany({
       where: {
         letters: {
@@ -133,13 +134,23 @@ export default async function handle(req, res) {
         if (receiver.length > 0) {
           const resEmail = await transporter.sendMail({
             from: `Town & Country Stiftung <${process.env.SMTP_FROM_EMAIL}>`,
-            to: testMode ? "stiftungspreis@tc-stiftung.de" : receiver,
-            bcc: "stiftungspreis@tc-stiftung.de",
+            to: testMode ? "info@larsknoke.com" : receiver,
+            // bcc: "stiftungspreis@tc-stiftung.de",
             subject:
               "11. Town & Country Stiftungspreis, Übersicht geförderte Projekte zur Prüfung",
-            html: render(
-              <BotschafterEmail botschafter={bot} anreden={anreden} />
-            ),
+            html:
+              (emailVersion == "1" &&
+                render(
+                  <BotschafterEmail botschafter={bot} anreden={anreden} />
+                )) ||
+              (emailVersion == "2" &&
+                render(
+                  <BotschafterEmail2 botschafter={bot} anreden={anreden} />
+                )) ||
+              (emailVersion == "3" &&
+                render(
+                  <BotschafterEmail botschafter={bot} anreden={anreden} />
+                )),
             attachments: [
               {
                 filename: `Botschafter_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
@@ -148,6 +159,7 @@ export default async function handle(req, res) {
                     zusatzAngaben={false}
                     bot={bot}
                     allLetter={false}
+                    freitext={freitext}
                   />
                 ),
               },
