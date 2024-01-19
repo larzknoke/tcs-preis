@@ -14,14 +14,17 @@ import {
   MenuButton,
   IconButton,
   useDisclosure,
+  Select,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { HiBars3, HiOutlineEnvelope } from "react-icons/hi2";
 import BotschafterBulkEmailModal from "../botschafter/botschafterBulkEmailModal";
 import { dateFormatter } from "@/lib/utils";
+import { useState } from "react";
 
 function KampagnenBots({ kampagnenBots, kampagneId }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [sortValue, setSortValue] = useState("name");
 
   let botcontacts = kampagnenBots.map((bot) => bot.botcontacts.length);
   let contactsum = botcontacts.reduce(function (a, b) {
@@ -39,6 +42,17 @@ function KampagnenBots({ kampagnenBots, kampagneId }) {
             </Text>
             )
           </Heading>
+          <Select
+            w={"250px"}
+            ml={"auto"}
+            onChange={(e) => {
+              setSortValue(e.target.value);
+            }}
+            value={sortValue}
+          >
+            <option value="name">Name</option>
+            <option value="bundesland">Bundesland</option>
+          </Select>
           <Menu>
             <MenuButton
               as={IconButton}
@@ -69,9 +83,9 @@ function KampagnenBots({ kampagnenBots, kampagneId }) {
           {kampagnenBots.length > 0 &&
             kampagnenBots
               .sort((a, b) =>
-                a.bundesland
+                a[sortValue]
                   .toLowerCase()
-                  .localeCompare(b.bundesland.toLowerCase())
+                  .localeCompare(b[sortValue].toLowerCase())
               )
               .map((bot) => {
                 return (

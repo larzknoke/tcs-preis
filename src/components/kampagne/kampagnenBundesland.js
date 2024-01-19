@@ -58,7 +58,11 @@ function KampagnenBundesland({ groupLetters }) {
                           <Text
                             pt="2"
                             fontSize="sm"
-                            color={"gray.600"}
+                            color={
+                              letter.botschafterConfirm
+                                ? "brand.900"
+                                : "red.300"
+                            }
                             _hover={{
                               textDecoration: "underline",
                               color: "gray.900",
@@ -66,9 +70,15 @@ function KampagnenBundesland({ groupLetters }) {
                           >
                             {`${letter.id} | ${letter.status} | Träger: ${
                               letter.bundeslandTraeger
+                            }${
+                              letter.botschafter
+                                ? `| Bot: ${letter.botschafter.vorname} ${letter.botschafter.name}`
+                                : ""
                             } | Projekt: ${letter.bundeslandProjekt || "-"} | ${
-                              letter.nameProjekt
-                            } | ${letter.nameTraeger} `}
+                              letter.nameProjekt.length > 80
+                                ? letter.nameProjekt.substring(0, 80) + "..."
+                                : letter.nameProjekt
+                            } | ${letter.nameTraeger}  `}
                           </Text>
                         </Link>
                       );

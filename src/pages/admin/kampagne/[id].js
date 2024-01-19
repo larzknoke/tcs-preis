@@ -89,7 +89,7 @@ function Kampagne({ kampagne, kampagnenBots }) {
       <Divider my={4} />
       <Tabs>
         <TabList>
-          <Tab>Botschafer</Tab>
+          <Tab>Botschafter</Tab>
           <Tab>Bundesland</Tab>
         </TabList>
 
@@ -178,6 +178,9 @@ export const getServerSideProps = async (ctx) => {
               funktion: true,
               email: true,
             },
+          },
+          botschafter: {
+            select: { vorname: true, name: true, id: true },
           },
         },
       },
