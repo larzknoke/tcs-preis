@@ -277,6 +277,11 @@ function FilterTable({ letters }) {
         footer: (props) => props.column.id,
       },
       {
+        accessorKey: "botschafter.anrede",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
         accessorKey: "botschafter.firma",
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
