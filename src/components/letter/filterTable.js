@@ -241,6 +241,11 @@ function FilterTable({ letters }) {
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
       },
+      {
+        accessorKey: "ibanProjekt",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
       // {
       //   accessorKey: "beschreibungProjekt",
       //   cell: (info) => info.getValue(),
@@ -288,6 +293,11 @@ function FilterTable({ letters }) {
       },
       {
         accessorKey: "botschafter.bundesland",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "botschafter.strasse",
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
       },
