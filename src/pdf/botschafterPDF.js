@@ -137,8 +137,10 @@ export const BotschafterPDF = ({
               .filter(
                 (letter) =>
                   allLetter ||
-                  letter.status == "1111" ||
-                  letter.status == "ausland1111"
+                  (["1111", "5000", "ausland1111", "ausland5000"].includes(
+                    letter.status
+                  ) &&
+                    letter.botschafterConfirm)
               )
               .map((letter) => {
                 return (

@@ -33,6 +33,7 @@ export default async function handle(req, res) {
             kampagneId: parseInt(kampagneId),
             verified: true,
             status: { in: ["1111", "5000", "ausland1111", "ausland5000"] },
+            botschafterConfirm: true,
           },
         },
       },
@@ -137,7 +138,12 @@ export default async function handle(req, res) {
             to: testMode ? "info@larsknoke.com" : receiver,
             // bcc: "stiftungspreis@tc-stiftung.de",
             subject:
-              "11. Town & Country Stiftungspreis, Übersicht geförderte Projekte zur Prüfung",
+              (emailVersion == "1" &&
+                "11. Town & Country Stiftungspreis - Übersicht geförderte Projekte zur Prüfung") ||
+              (emailVersion == "2" &&
+                "11. Town & Country Stiftungspreis – überbringen Sie die gute Nachricht zuerst?") ||
+              (emailVersion == "3" &&
+                "11. Town & Country Stiftungspreis - ???? "),
             html:
               (emailVersion == "1" &&
                 render(
@@ -162,6 +168,11 @@ export default async function handle(req, res) {
                     freitext={freitext}
                   />
                 ),
+              },
+              {
+                path:
+                  process.cwd() +
+                  "/public/Hinweise_und_Checkliste_fuer_Uebergabe.pdf",
               },
             ],
           });

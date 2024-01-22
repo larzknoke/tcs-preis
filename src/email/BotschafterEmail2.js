@@ -16,7 +16,8 @@ export default function BotschafterEmail2({ botschafter, anreden = [] }) {
     <Html>
       <Head />
       <Preview>
-        Botschafter Übersicht - 11. Town &amp; Country Stiftungspreis 2
+        11. Town & Country Stiftungspreis – überbringen Sie die gute Nachricht
+        zuerst?
       </Preview>
       <Body style={main}>
         <Container style={container}>
@@ -38,49 +39,43 @@ export default function BotschafterEmail2({ botschafter, anreden = [] }) {
               })}
             </Text>
             <Text style={text}>
-              es ist so weit: die diesjährigen 1.111 Euro Preisträger des 11.
-              Town &amp; Country Stiftungspreises sind ausgewählt! 300 Vereine
-              und Einrichtungen bundesweit können ab Februar 2024 besucht und
-              die Förderungen mit einer symbolischen Urkunde persönlich
-              überreicht werden.{" "}
+              vielen Dank, dass Sie sich an der Übergabe der Stiftungspreise
+              2024 beteiligen! Für unsere Arbeit spielen Sie eine bedeutende
+              Rolle: Sie vertreten die Town &amp; Country Stiftung vor Ort und
+              sind unser Kontakt zu den Preisträgern.
             </Text>
             <Text style={text}>
-              <strong>
-                Dabei freuen wir uns wieder auf Ihre tatkräftige Unterstützung!
-              </strong>
+              Deshalb geben wir Ihnen gern die Gelegenheit, die gute Nachricht
+              zuerst zu überbringen: Anfang Februar informieren wir die
+              Preisträger und veröffentlichen sie auf www.tc-stiftung.de – bis
+              dahin laden wir Sie herzlich ein, vorab exklusiv Kontakt
+              aufzunehmen und Freude zu verbreiten!
             </Text>
             <Text style={text}>
-              Im Anhang finden Sie eine <strong>Übersicht</strong>, welche
-              Projekte in Ihrer Region gefördert werden. Bitte prüfen Sie die
-              Angaben und{" "}
-              <strong>geben Sie uns bis zum 10.01.2024 eine Rückmeldung</strong>
-              , ob Sie die Übergaben für diese Projekte übernehmen können.{" "}
-              <br />
-              <strong>Vielen Dank!</strong>
+              Die Kontaktdaten haben wir anbei bereits für Sie zusammengestellt.
             </Text>
             <Text style={text}>
-              <i>
-                (Unsere Bitte: Da wir die Preisträger ab Februar 2024 auf
-                unserer Webseite bekannt geben, bitten wir Sie bis dahin
-                zunächst um eine vertrauliche Behandlung. Bitte informieren Sie
-                die Preisträger noch nicht über eine Förderung. Sie erhalten
-                dazu gesonderte Informationen von uns.)
-              </i>
+              Vereinbaren Sie am besten gleich einen Termin für die symbolische
+              Übergabe. Diese soll möglichst bis Ende Mai stattfinden. Bitte
+              teilen Sie uns den/die vereinbarten Termin/e zeitnah mit. So
+              können wir das Preisgeld wie gewohnt direkt nach der Übergabe
+              überweisen – und Sie tatkräftig mit Pressearbeit unterstützen.
             </Text>
             <Text style={text}>
-              Falls Sie zeitliche Schwierigkeiten für Übergaben sehen, geben Sie
-              uns bitte Bescheid. Wenn Sie Fragen haben, zögern Sie nicht und
-              rufen Sie uns gerne an.
+              Anbei finden Sie auch eine <strong>Checkliste</strong> sowie
+              Hinweise für die optimale Vorbereitung der Übergabe.
             </Text>
             <Text style={text}>
-              Vielen Dank für Ihre Unterstützung und Ihr soziales Engagement!
+              Für Rückfragen stehen wir Ihnen gern zur Verfügung – und danken
+              Ihnen herzlich für Ihr Engagement als Botschafterin bzw.
+              Botschafter der Town &amp; Country Stiftung!
             </Text>
           </Section>
 
           <Text>
             <strong>
               Ihr Team der <br /> Town &amp; Country Stiftung
-            </strong>{" "}
+            </strong>
             <br />
             Anger 55/56 <br />
             99084 Erfurt <br />
