@@ -137,6 +137,7 @@ model Botschafter {
   region            String?
   email             String?
   botmail1          DateTime?
+  botmail2          DateTime?
   letters           Letter[]
   botcontacts       Botcontact[]
 }

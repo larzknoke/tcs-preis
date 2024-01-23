@@ -175,9 +175,9 @@ function BotschafterBulkEmailModal({
               {kampagnenBots
                 .filter((d) =>
                   d.letters.some((l) =>
-                    ["1111", "5000", "ausland1111", "ausland5000"].includes(
+                    (["1111", "5000", "ausland1111", "ausland5000"].includes(
                       l.status
-                    )
+                    ) && l.botschafterConfirm)
                   )
                 )
                 .map((bot) => {

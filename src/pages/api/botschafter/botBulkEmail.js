@@ -1,10 +1,12 @@
 import prisma from "@/lib/prisma";
 import nodemailer from "nodemailer";
 import { render } from "@react-email/render";
-import { renderToBuffer } from "@react-pdf/renderer";
+import { renderToBuffer, pdf, renderToFile } from "@react-pdf/renderer";
 import { BotschafterPDF } from "@/pdf/botschafterPDF";
 import BotschafterEmail from "@/email/BotschafterEmail";
 import BotschafterEmail2 from "@/email/BotschafterEmail2";
+import JSZip from "jszip";
+import { LetterBotPDF } from "@/pdf/letterBotPDF";
 
 export default async function handle(req, res) {
   console.log("api call");
@@ -92,6 +94,15 @@ export default async function handle(req, res) {
             plzProjekt: true,
             jury: true,
             botschafterConfirm: true,
+            beschreibungProjekt: true,
+            zielsetzungProjekt: true,
+            benachteiligungProjekt: true,
+            umsetzungProjekt: true,
+            bisherigeErgebnisse: true,
+            eigenmittel: true,
+            oeffentlicheZuwendungen: true,
+            privateSpenden: true,
+            bisherigeFoerderung: true,
             lettercontacts: {
               select: {
                 name: true,
@@ -130,6 +141,39 @@ export default async function handle(req, res) {
           anreden.push(botContactAnrede);
         });
 
+        // BEWERBUNGEN
+        let letters = bot.letters.filter(
+          (letter) =>
+            ["1111", "5000", "ausland1111", "ausland5000"].includes(
+              letter.status
+            ) && letter.botschafterConfirm
+        );
+
+        let letterAttachments = [];
+        if (letters.length > 0) {
+          letters.map(async (letter) => {
+            letterAttachments.push({
+              filename: `Bewerbung_${letter.id}.pdf`,
+              content: await renderToBuffer(<LetterBotPDF letter={letter} />),
+            });
+          });
+        }
+
+        // const zip = new JSZip();
+
+        // if (letters.length > 0) {
+        //   letters.map((letter) => {
+        //     zip.file(
+        //       `Bewerbung_${letter.id}.pdf`,
+        //       pdf(
+        //         <LetterBotPDF letter={letter} />
+        //       ).toBlob()
+        //     );
+        //   });
+        // }
+        // const blob = await zip.generateAsync({ type: "blob" })
+        // console.log('blob: ', blob);
+
         console.log("anreden", anreden);
         console.log("receiver", receiver);
         if (receiver.length > 0) {
@@ -159,7 +203,7 @@ export default async function handle(req, res) {
                 )),
             attachments: [
               {
-                filename: `Botschafter_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
+                filename: `Übersicht_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
                 content: await renderToBuffer(
                   <BotschafterPDF
                     zusatzAngaben={false}
@@ -174,7 +218,7 @@ export default async function handle(req, res) {
                   process.cwd() +
                   "/public/Hinweise_und_Checkliste_fuer_Uebergabe.pdf",
               },
-            ],
+            ].concat(letterAttachments),
           });
           return resEmail;
         } else {
@@ -183,16 +227,29 @@ export default async function handle(req, res) {
       });
     const mails = await Promise.all(mailsPromise);
 
+    // ZEITSTEMPEL FÜR EMAIL AUSGANG
     const ids = kampagnenBots.map((bot) => bot.id);
     if (!testMode) {
-      const updatedBots = await prisma.botschafter.updateMany({
-        where: {
-          id: { in: ids },
-        },
-        data: {
-          botmail1: new Date(),
-        },
-      });
+      if (emailVersion == "1") {
+        const updatedBots = await prisma.botschafter.updateMany({
+          where: {
+            id: { in: ids },
+          },
+          data: {
+            botmail1: new Date(),
+          },
+        });
+      }
+      if (emailVersion == "2") {
+        const updatedBots = await prisma.botschafter.updateMany({
+          where: {
+            id: { in: ids },
+          },
+          data: {
+            botmail2: new Date(),
+          },
+        });
+      }
     }
 
     console.log("mails", mails);

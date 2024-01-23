@@ -113,8 +113,11 @@ function KampagnenBots({ kampagnenBots, kampagneId }) {
                           ml={"auto"}
                           color={bot.botmail1 ? "brand.900" : "gray.400"}
                         >
-                          E-Mail versendet am:{" "}
+                          <Text as={"span"} color={"gray.400"}>Email 1: </Text>
                           {bot.botmail1 ? dateFormatter(bot.botmail1) : "--"}
+                          {", "}
+                          <Text as={"span"} color={"gray.400"}>Email 2: </Text>
+                          {bot.botmail2 ? dateFormatter(bot.botmail2) : "--"}
                         </Text>
                       </Heading>
                     </Link>
