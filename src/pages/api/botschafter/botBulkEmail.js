@@ -150,7 +150,48 @@ export default async function handle(req, res) {
         );
 
         // BASIC ANHÄNGE
-        const basicAttachments = [
+        // const basicAttachments = [
+        //   {
+        //     filename: `Übersicht_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
+        //     content: await renderToBuffer(
+        //       <BotschafterPDF
+        //         zusatzAngaben={false}
+        //         bot={bot}
+        //         allLetter={false}
+        //         freitext={freitext}
+        //       />
+        //     ),
+        //   },
+        //   {
+        //     path:
+        //       process.cwd() +
+        //       "/public/Hinweise_und_Checkliste_fuer_Uebergabe.pdf",
+        //   },
+        // ];
+        // BEWERBUNG ANHÄNGE
+        // const letterAttachments = await Promise.all(
+        //   letters.map(async (letter) => {
+        //     return {
+        //       filename: `Bewerbung_${letter.id}.pdf`,
+        //       content: await renderToBuffer(<LetterBotPDF letter={letter} />),
+        //     };
+        //   })
+        // );
+
+        // ANHÄNHE ZUSAMMENFÜGEN
+        // const attachments = basicAttachments.concat(letterAttachments);
+
+        // ZIPPEN
+        const zip = new JSZip();
+        letters.map((letter) => {
+          zip.file(
+            `Bewerbung_${letter.id}.pdf`,
+            renderToBuffer(<LetterBotPDF letter={letter} />)
+          );
+        });
+
+        // ANHÄNGE
+        const attachments = [
           {
             filename: `Übersicht_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
             content: await renderToBuffer(
@@ -167,35 +208,11 @@ export default async function handle(req, res) {
               process.cwd() +
               "/public/Hinweise_und_Checkliste_fuer_Uebergabe.pdf",
           },
+          {
+            filename: "Bewerbungen_Details.zip",
+            content: await zip.generateAsync({ type: "uint8array" }),
+          },
         ];
-        // BEWERBUNG ANHÄNGE
-        const letterAttachments = await Promise.all(
-          letters.map(async (letter) => {
-            return {
-              filename: `Bewerbung_${letter.id}.pdf`,
-              content: await renderToBuffer(<LetterBotPDF letter={letter} />),
-            };
-          })
-        );
-
-        // ANHÄNHE ZUSAMMENFÜGEN
-        const allAttachments = basicAttachments.concat(letterAttachments);
-
-        //ZIPPEN
-        // const zip = new JSZip();
-
-        // if (letters.length > 0) {
-        //   letters.map((letter) => {
-        //     zip.file(
-        //       `Bewerbung_${letter.id}.pdf`,
-        //       pdf(
-        //         <LetterBotPDF letter={letter} />
-        //       ).toBlob()
-        //     );
-        //   });
-        // }
-        // const blob = await zip.generateAsync({ type: "blob" })
-        // console.log('blob: ', blob);
 
         console.log("anreden", anreden);
         console.log("receiver", receiver);
@@ -226,7 +243,7 @@ export default async function handle(req, res) {
                 render(
                   <BotschafterEmail botschafter={bot} anreden={anreden} />
                 )),
-            attachments: allAttachments,
+            attachments: attachments,
           });
           return resEmail;
         } else {
