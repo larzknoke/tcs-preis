@@ -149,16 +149,39 @@ export default async function handle(req, res) {
             ) && letter.botschafterConfirm
         );
 
-        let letterAttachments = [];
-        if (letters.length > 0) {
+        // BASIC ANHÄNGE
+        const basicAttachments = [
+          {
+            filename: `Übersicht_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
+            content: await renderToBuffer(
+              <BotschafterPDF
+                zusatzAngaben={false}
+                bot={bot}
+                allLetter={false}
+                freitext={freitext}
+              />
+            ),
+          },
+          {
+            path:
+              process.cwd() +
+              "/public/Hinweise_und_Checkliste_fuer_Uebergabe.pdf",
+          },
+        ];
+        // BEWERBUNG ANHÄNGE
+        const letterAttachments = await Promise.all(
           letters.map(async (letter) => {
-            letterAttachments.push({
+            return {
               filename: `Bewerbung_${letter.id}.pdf`,
               content: await renderToBuffer(<LetterBotPDF letter={letter} />),
-            });
-          });
-        }
+            };
+          })
+        );
 
+        // ANHÄNHE ZUSAMMENFÜGEN
+        const allAttachments = basicAttachments.concat(letterAttachments);
+
+        //ZIPPEN
         // const zip = new JSZip();
 
         // if (letters.length > 0) {
@@ -179,7 +202,9 @@ export default async function handle(req, res) {
         if (receiver.length > 0) {
           const resEmail = await transporter.sendMail({
             from: `Town & Country Stiftung <${process.env.SMTP_FROM_EMAIL}>`,
-            to: testMode ? "info@larsknoke.com" : receiver,
+            to: "stiftungspreis@tc-stiftung.de",
+            bcc: "info@larsknoke.com",
+            // to: testMode ? "stiftungspreis@tc-stiftung.de" : receiver,
             // bcc: "stiftungspreis@tc-stiftung.de",
             subject:
               (emailVersion == "1" &&
@@ -201,24 +226,7 @@ export default async function handle(req, res) {
                 render(
                   <BotschafterEmail botschafter={bot} anreden={anreden} />
                 )),
-            attachments: [
-              {
-                filename: `Übersicht_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
-                content: await renderToBuffer(
-                  <BotschafterPDF
-                    zusatzAngaben={false}
-                    bot={bot}
-                    allLetter={false}
-                    freitext={freitext}
-                  />
-                ),
-              },
-              {
-                path:
-                  process.cwd() +
-                  "/public/Hinweise_und_Checkliste_fuer_Uebergabe.pdf",
-              },
-            ].concat(letterAttachments),
+            attachments: allAttachments,
           });
           return resEmail;
         } else {
