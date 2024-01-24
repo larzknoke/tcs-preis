@@ -26,8 +26,18 @@ import {
   RadioGroup,
   Stack,
   AlertDescription,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { render } from "@react-email/render";
+import BotschafterEmail from "@/email/BotschafterEmail";
+import BotschafterEmail2 from "@/email/BotschafterEmail2";
 
 function BotschafterBulkEmailModal({
   onClose,
@@ -42,6 +52,13 @@ function BotschafterBulkEmailModal({
   const [freitext, setFreitext] = useState("");
   const [emailVersion, setEmailVersion] = useState("");
   const [emailVersionError, setEmailVersionError] = useState(false);
+
+  const emailText1 = render(<BotschafterEmail botschafter={{}} />, {
+    plainText: true,
+  });
+  const emailText2 = render(<BotschafterEmail2 botschafter={{}} />, {
+    plainText: true,
+  });
 
   async function sendBotEmails() {
     try {
@@ -114,31 +131,61 @@ function BotschafterBulkEmailModal({
           <VStack mt={6} alignItems={"flex-start"}>
             <FormControl mb={4}>
               <FormLabel>Email Version</FormLabel>
-              <RadioGroup onChange={setEmailVersion} value={emailVersion}>
-                <Stack direction="row">
-                  <Radio
-                    isInvalid={emailVersionError}
-                    onChange={() => setEmailVersionError(false)}
-                    value="1"
-                  >
-                    Erste
-                  </Radio>
-                  <Radio
-                    isInvalid={emailVersionError}
-                    onChange={() => setEmailVersionError(false)}
-                    value="2"
-                  >
-                    Zweite
-                  </Radio>
-                  {/* <Radio
+              <Stack direction="column" gap={4}>
+                <RadioGroup onChange={setEmailVersion} value={emailVersion}>
+                  <Stack direction="row">
+                    <Radio
+                      isInvalid={emailVersionError}
+                      onChange={() => setEmailVersionError(false)}
+                      value="1"
+                    >
+                      Email 1
+                    </Radio>
+                    <Radio
+                      isInvalid={emailVersionError}
+                      onChange={() => setEmailVersionError(false)}
+                      value="2"
+                    >
+                      Email 2
+                    </Radio>
+                    {/* <Radio
                     isInvalid={emailVersionError}
                     onChange={() => setEmailVersionError(false)}
                     value="3"
                   >
                     Dritte
                   </Radio> */}
+                  </Stack>
+                </RadioGroup>
+                <Stack direction={"row"}>
+                  <Popover placement="right">
+                    <PopoverTrigger>
+                      <Button size={"sm"}>Email 1 Vorschau</Button>
+                    </PopoverTrigger>
+                    <PopoverContent minW={{ base: "100%", lg: "max-content" }}>
+                      <PopoverArrow />
+                      <PopoverCloseButton />
+                      <PopoverHeader>Email 1</PopoverHeader>
+                      <PopoverBody>
+                        <Text whiteSpace="pre-line">{emailText1}</Text>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                  <Popover placement="right">
+                    <PopoverTrigger>
+                      <Button size={"sm"}>Email 2 Vorschau</Button>
+                    </PopoverTrigger>
+                    <PopoverContent minW={{ base: "100%", lg: "max-content" }}>
+                      <PopoverArrow />
+                      <PopoverCloseButton />
+                      <PopoverHeader>Email 2</PopoverHeader>
+                      <PopoverBody>
+                        <Text whiteSpace="pre-line">{emailText2}</Text>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
                 </Stack>
-              </RadioGroup>
+              </Stack>
               {emailVersionError && (
                 <Alert status="error" mt={4}>
                   <AlertIcon />
@@ -174,10 +221,11 @@ function BotschafterBulkEmailModal({
             <OrderedList spacing={3} marginInlineStart={"2em"}>
               {kampagnenBots
                 .filter((d) =>
-                  d.letters.some((l) =>
-                    (["1111", "5000", "ausland1111", "ausland5000"].includes(
-                      l.status
-                    ) && l.botschafterConfirm)
+                  d.letters.some(
+                    (l) =>
+                      ["1111", "5000", "ausland1111", "ausland5000"].includes(
+                        l.status
+                      ) && l.botschafterConfirm
                   )
                 )
                 .map((bot) => {
