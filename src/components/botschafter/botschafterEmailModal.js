@@ -83,9 +83,7 @@ function BotschafterEmailModal({ onClose, onOpen, isOpen, botschafter }) {
               />
             </FormControl>
             <FormControl>
-              <FormLabel>
-                Status ignorieren (Alle verknüpften Bewerbungen ausgegeben)
-              </FormLabel>
+              <FormLabel>Botschafter Bestätigung ignorieren</FormLabel>
               <Switch
                 colorScheme="green"
                 name="allLetter"
