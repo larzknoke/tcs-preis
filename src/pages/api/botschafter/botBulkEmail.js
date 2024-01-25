@@ -219,10 +219,10 @@ export default async function handle(req, res) {
         if (receiver.length > 0) {
           const resEmail = await transporter.sendMail({
             from: `Town & Country Stiftung <${process.env.SMTP_FROM_EMAIL}>`,
-            to: "stiftungspreis@tc-stiftung.de",
-            bcc: "info@larsknoke.com",
-            // to: testMode ? "stiftungspreis@tc-stiftung.de" : receiver,
-            // bcc: "stiftungspreis@tc-stiftung.de",
+            // to: "stiftungspreis@tc-stiftung.de",
+            // bcc: "info@larsknoke.com",
+            to: testMode ? "stiftungspreis@tc-stiftung.de" : receiver,
+            bcc: "stiftungspreis@tc-stiftung.de",
             subject:
               (emailVersion == "1" &&
                 "11. Town & Country Stiftungspreis - Übersicht geförderte Projekte zur Prüfung") ||

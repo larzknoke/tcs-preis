@@ -133,58 +133,65 @@ function BotschafterBulkEmailModal({
               <FormLabel>Email Version</FormLabel>
               <Stack direction="column" gap={4}>
                 <RadioGroup onChange={setEmailVersion} value={emailVersion}>
-                  <Stack direction="row">
+                  <Stack direction="column">
                     <Radio
                       isInvalid={emailVersionError}
                       onChange={() => setEmailVersionError(false)}
                       value="1"
                     >
-                      Email 1
+                      <Stack direction={"row"} alignItems={"center"}>
+                        <Text>BS_Abfrage Zuordnung</Text>
+                        <Popover placement="right">
+                          <PopoverTrigger>
+                            <Button size={"xs"}>Vorschau</Button>
+                          </PopoverTrigger>
+                          <PopoverContent
+                            minW={{ base: "100%", lg: "max-content" }}
+                          >
+                            <PopoverArrow />
+                            <PopoverCloseButton />
+                            <PopoverHeader>BS_Abfrage Zuordnung</PopoverHeader>
+                            <PopoverBody>
+                              <Text whiteSpace="pre-line">{emailText1}</Text>
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Popover>
+                      </Stack>
                     </Radio>
                     <Radio
                       isInvalid={emailVersionError}
                       onChange={() => setEmailVersionError(false)}
                       value="2"
                     >
-                      Email 2
+                      <Stack direction={"row"} alignItems={"center"}>
+                        <Text>BS_Info Preisträger</Text>
+                        <Popover placement="right">
+                          <PopoverTrigger>
+                            <Button size={"xs"}>Vorschau</Button>
+                          </PopoverTrigger>
+                          <PopoverContent
+                            minW={{ base: "100%", lg: "max-content" }}
+                          >
+                            <PopoverArrow />
+                            <PopoverCloseButton />
+                            <PopoverHeader>BS_Info Preisträger</PopoverHeader>
+                            <PopoverBody>
+                              <Text whiteSpace="pre-line">{emailText2}</Text>
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Popover>
+                      </Stack>
                     </Radio>
-                    {/* <Radio
-                    isInvalid={emailVersionError}
-                    onChange={() => setEmailVersionError(false)}
-                    value="3"
-                  >
-                    Dritte
-                  </Radio> */}
+                    <Radio
+                      isInvalid={emailVersionError}
+                      onChange={() => setEmailVersionError(false)}
+                      value="3"
+                      isDisabled={true}
+                    >
+                      PT_Gratulation Preisträger
+                    </Radio>
                   </Stack>
                 </RadioGroup>
-                <Stack direction={"row"}>
-                  <Popover placement="right">
-                    <PopoverTrigger>
-                      <Button size={"sm"}>Email 1 Vorschau</Button>
-                    </PopoverTrigger>
-                    <PopoverContent minW={{ base: "100%", lg: "max-content" }}>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverHeader>Email 1</PopoverHeader>
-                      <PopoverBody>
-                        <Text whiteSpace="pre-line">{emailText1}</Text>
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Popover>
-                  <Popover placement="right">
-                    <PopoverTrigger>
-                      <Button size={"sm"}>Email 2 Vorschau</Button>
-                    </PopoverTrigger>
-                    <PopoverContent minW={{ base: "100%", lg: "max-content" }}>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverHeader>Email 2</PopoverHeader>
-                      <PopoverBody>
-                        <Text whiteSpace="pre-line">{emailText2}</Text>
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Popover>
-                </Stack>
               </Stack>
               {emailVersionError && (
                 <Alert status="error" mt={4}>
