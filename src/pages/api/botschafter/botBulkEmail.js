@@ -181,38 +181,61 @@ export default async function handle(req, res) {
         // ANHÄNHE ZUSAMMENFÜGEN
         // const attachments = basicAttachments.concat(letterAttachments);
 
-        // ZIPPEN
-        const zip = new JSZip();
-        letters.map((letter) => {
-          zip.file(
-            `Bewerbung_${letter.id}.pdf`,
-            renderToBuffer(<LetterBotPDF letter={letter} />)
-          );
-        });
+        // ##########################################################
+        // ##########################################################
+        // RÜCKFRAGEN WELCHE BEWERBUNGEN & ANHÄNGE IN EMAIL1 SOLLEN
+        // ##########################################################
+        // ##########################################################
+        let attachments = [];
+        if (emailVersion == "1") {
+          attachments = [
+            {
+              filename: `Übersicht_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
+              content: await renderToBuffer(
+                <BotschafterPDF
+                  zusatzAngaben={false}
+                  bot={bot}
+                  allLetter={false}
+                  freitext={freitext}
+                />
+              ),
+            },
+          ];
+        }
+        if (emailVersion == "2") {
+          // ZIPPEN
+          const zip = new JSZip();
+          letters.map((letter) => {
+            zip.file(
+              `Bewerbung_${letter.id}.pdf`,
+              renderToBuffer(<LetterBotPDF letter={letter} />)
+            );
+          });
 
-        // ANHÄNGE
-        const attachments = [
-          {
-            filename: `Übersicht_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
-            content: await renderToBuffer(
-              <BotschafterPDF
-                zusatzAngaben={false}
-                bot={bot}
-                allLetter={false}
-                freitext={freitext}
-              />
-            ),
-          },
-          {
-            path:
-              process.cwd() +
-              "/public/Hinweise_und_Checkliste_fuer_Uebergabe.pdf",
-          },
-          {
-            filename: "Bewerbungen_Details.zip",
-            content: await zip.generateAsync({ type: "uint8array" }),
-          },
-        ];
+          // ANHÄNGE
+          attachments = [
+            {
+              filename: `Übersicht_${bot.vorname}_${bot.name}_${bot.id}.pdf`,
+              content: await renderToBuffer(
+                <BotschafterPDF
+                  zusatzAngaben={false}
+                  bot={bot}
+                  allLetter={false}
+                  freitext={freitext}
+                />
+              ),
+            },
+            {
+              path:
+                process.cwd() +
+                "/public/Hinweise_und_Checkliste_fuer_Uebergabe.pdf",
+            },
+            {
+              filename: "Bewerbungen_Details.zip",
+              content: await zip.generateAsync({ type: "uint8array" }),
+            },
+          ];
+        }
 
         console.log("anreden", anreden);
         console.log("receiver", receiver);
@@ -220,7 +243,7 @@ export default async function handle(req, res) {
           const resEmail = await transporter.sendMail({
             from: `Town & Country Stiftung <${process.env.SMTP_FROM_EMAIL}>`,
             // to: "stiftungspreis@tc-stiftung.de",
-            // bcc: "info@larsknoke.com",
+            // to: "info@larsknoke.com",
             to: testMode ? "stiftungspreis@tc-stiftung.de" : receiver,
             bcc: "stiftungspreis@tc-stiftung.de",
             subject:
