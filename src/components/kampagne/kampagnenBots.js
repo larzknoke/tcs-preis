@@ -52,6 +52,7 @@ function KampagnenBots({ kampagnenBots, kampagneId }) {
           >
             <option value="name">Name</option>
             <option value="bundesland">Bundesland</option>
+            <option value="typ">Typ</option>
           </Select>
           <Menu>
             <MenuButton
