@@ -100,6 +100,7 @@ function KampagnenBots({ kampagnenBots, kampagneId }) {
                         <Text>
                           {bot.vorname} {bot.name}
                         </Text>
+                        <Text color={"gray.400"}>{bot.typ} </Text>
                         <Text color={"gray.400"}>{bot.bundesland} </Text>
                         {bot.botcontacts.length > 0 ? (
                           <Text color={"gray.300"}>

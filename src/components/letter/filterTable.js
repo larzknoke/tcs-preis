@@ -339,6 +339,11 @@ function FilterTable({ letters }) {
           </span>
         ),
       },
+      {
+        accessorKey: "botschafter.typ",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
     ],
     []
   );
