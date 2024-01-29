@@ -31,6 +31,7 @@ function BotschafterExportSinglePDFModal({
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const [freitext, setFreitext] = useState("");
+  const [allLetter, setAllLetter] = useState(false);
 
   async function onSubmit() {
     setLoading(true);
@@ -49,7 +50,7 @@ function BotschafterExportSinglePDFModal({
       <BotschafterPDF
         bot={botschafter}
         zusatzAngaben={false}
-        allLetter={false}
+        allLetter={allLetter}
         freitext={freitext}
       />
     ).toBlob();
@@ -58,6 +59,7 @@ function BotschafterExportSinglePDFModal({
       `Botschafter_${botschafter.vorname}_${botschafter.name}_${botschafter.id}.pdf`
     );
     setFreitext("");
+    setAllLetter(false);
   }
 
   return (
@@ -75,6 +77,15 @@ function BotschafterExportSinglePDFModal({
                 placeholder="Text hier...."
                 onChange={(e) => setFreitext(e.target.value)}
                 minH={200}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Botschafter Bestätigung ignorieren</FormLabel>
+              <Switch
+                colorScheme="green"
+                name="allLetter"
+                type="text"
+                onChange={(e) => setAllLetter(e.target.checked)}
               />
             </FormControl>
           </VStack>

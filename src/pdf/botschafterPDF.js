@@ -57,7 +57,7 @@ Font.register({
 export const BotschafterPDF = ({
   bot,
   zusatzAngaben = true,
-  allLetter = true,
+  allLetter = false,
   freitext = "",
 }) => (
   <Document>
@@ -136,11 +136,10 @@ export const BotschafterPDF = ({
             bot.letters
               .filter(
                 (letter) =>
-                  allLetter ||
-                  (["1111", "5000", "ausland1111", "ausland5000"].includes(
+                  ["1111", "5000", "ausland1111", "ausland5000"].includes(
                     letter.status
                   ) &&
-                    letter.botschafterConfirm)
+                  (letter.botschafterConfirm || allLetter)
               )
               .map((letter) => {
                 return (
