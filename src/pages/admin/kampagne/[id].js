@@ -95,10 +95,7 @@ function Kampagne({ kampagne, kampagnenBots }) {
 
         <TabPanels>
           <TabPanel px={0} py={6}>
-            <KampagnenBots
-              kampagnenBots={kampagnenBots}
-              kampagneId={kampagne.id}
-            />
+            <KampagnenBots kampagnenBots={kampagnenBots} kampagne={kampagne} />
           </TabPanel>
           <TabPanel px={0} py={6}>
             <KampagnenBundesland groupLetters={groupLetters} />

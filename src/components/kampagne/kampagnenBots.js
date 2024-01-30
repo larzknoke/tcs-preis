@@ -15,15 +15,22 @@ import {
   IconButton,
   useDisclosure,
   Select,
+  MenuDivider,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { HiBars3, HiOutlineEnvelope } from "react-icons/hi2";
 import BotschafterBulkEmailModal from "../botschafter/botschafterBulkEmailModal";
 import { dateFormatter } from "@/lib/utils";
 import { useState } from "react";
+import LetterBulkEmailModal from "../botschafter/letterBulkEmailModal";
 
-function KampagnenBots({ kampagnenBots, kampagneId }) {
+function KampagnenBots({ kampagnenBots, kampagne }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: letterModalIsOpen,
+    onOpen: letterModalOnOpen,
+    onClose: letterModalOnClose,
+  } = useDisclosure();
   const [sortValue, setSortValue] = useState("name");
 
   let botcontacts = kampagnenBots.map((bot) => bot.botcontacts.length);
@@ -66,7 +73,13 @@ function KampagnenBots({ kampagnenBots, kampagneId }) {
                 onClick={onOpen}
                 icon={<HiOutlineEnvelope size={"1.4em"} />}
               >
-                Email versenden
+                Botschafter Email
+              </MenuItem>
+              <MenuItem
+                onClick={letterModalOnOpen}
+                icon={<HiOutlineEnvelope size={"1.4em"} />}
+              >
+                Bewerbung Email
               </MenuItem>
             </MenuList>
           </Menu>
@@ -75,8 +88,14 @@ function KampagnenBots({ kampagnenBots, kampagneId }) {
           onOpen={onOpen}
           isOpen={isOpen}
           onClose={onClose}
-          kampagneId={kampagneId}
+          kampagneId={kampagne.id}
           kampagnenBots={kampagnenBots}
+        />
+        <LetterBulkEmailModal
+          onOpen={letterModalOnOpen}
+          isOpen={letterModalIsOpen}
+          onClose={letterModalOnClose}
+          kampagne={kampagne}
         />
       </CardHeader>
       <CardBody>

@@ -88,6 +88,7 @@ model Letter {
   botschafterConfirm            Boolean? @default(false)
   juryStatus                    String?
   presseText                    String?
+  letteremail1                  DateTime?
   notes                         Note[]
   files                         File[]
   lettercontacts                Lettercontact[]

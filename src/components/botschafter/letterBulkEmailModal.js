@@ -36,27 +36,16 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { render } from "@react-email/render";
-import BotschafterEmail from "@/email/BotschafterEmail";
-import BotschafterEmail2 from "@/email/BotschafterEmail2";
+import LetterEmail1 from "@/email/LetterEmail1";
 
-function BotschafterBulkEmailModal({
-  onClose,
-  onOpen,
-  isOpen,
-  kampagneId,
-  kampagnenBots,
-}) {
+function LetterBulkEmailModal({ onClose, onOpen, isOpen, kampagne }) {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const [testMode, setTestMode] = useState(false);
-  const [freitext, setFreitext] = useState("");
-  const [emailVersion, setEmailVersion] = useState("");
+  const [emailVersion, setEmailVersion] = useState("3");
   const [emailVersionError, setEmailVersionError] = useState(false);
 
-  const emailText1 = render(<BotschafterEmail botschafter={{}} />, {
-    plainText: true,
-  });
-  const emailText2 = render(<BotschafterEmail2 botschafter={{}} />, {
+  const emailText3 = render(<LetterEmail1 letter={{}} />, {
     plainText: true,
   });
 
@@ -66,18 +55,17 @@ function BotschafterBulkEmailModal({
       if (emailVersion == "") {
         throw "Keine Email Version ausgewählt.";
       }
-      const res = await fetch("/api/botschafter/botBulkEmail", {
+      const res = await fetch("/api/botschafter/letterBulkEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          kampagneId: kampagneId,
+          kampagneId: kampagne.id,
           testMode: testMode,
-          freitext: freitext,
           emailVersion: emailVersion,
         }),
       });
       if (res.status != 200) {
-        console.log("BotEmail Error");
+        console.log("LetterEmail Error");
         setLoading(false);
         toast({
           title: "Ein Fehler ist aufgetreten",
@@ -87,7 +75,6 @@ function BotschafterBulkEmailModal({
         });
       } else {
         setLoading(false);
-        setFreitext("");
         setEmailVersion("");
         setEmailVersionError(false);
         setTestMode(false);
@@ -95,7 +82,7 @@ function BotschafterBulkEmailModal({
         console.log("resData", resData);
         onClose();
         toast({
-          title: `Emails an ${resData.mails.length} Botschafter versendet.`,
+          title: `Emails an ${resData.mails.length} Projekte versendet.`,
           status: "success",
           duration: 4000,
           isClosable: true,
@@ -120,13 +107,13 @@ function BotschafterBulkEmailModal({
     <Modal isOpen={isOpen} onClose={onClose} size={"2xl"}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Botschafter Emails versenden</ModalHeader>
+        <ModalHeader>Bewerbungen Emails versenden</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Alert status="info">
             <AlertIcon />
-            Alle Botschafter und Botschafter-Ansprechpartner erhalten eine Email
-            inkl. PDF mit der Übersicht der verknüpften Bewerbungen.
+            Alle geförderten Projekte und deren Ansprechpartner werden
+            angeschrieben inkl. PDF Anhänge.
           </Alert>
           <VStack mt={6} alignItems={"flex-start"}>
             <FormControl mb={4}>
@@ -137,10 +124,10 @@ function BotschafterBulkEmailModal({
                     <Radio
                       isInvalid={emailVersionError}
                       onChange={() => setEmailVersionError(false)}
-                      value="1"
+                      value="3"
                     >
                       <Stack direction={"row"} alignItems={"center"}>
-                        <Text>BS_Abfrage Zuordnung</Text>
+                        <Text> PT_Gratulation Preisträger</Text>
                         <Popover placement="right">
                           <PopoverTrigger>
                             <Button size={"xs"}>Vorschau</Button>
@@ -150,33 +137,12 @@ function BotschafterBulkEmailModal({
                           >
                             <PopoverArrow />
                             <PopoverCloseButton />
-                            <PopoverHeader>BS_Abfrage Zuordnung</PopoverHeader>
+                            <PopoverHeader>
+                              {" "}
+                              PT_Gratulation Preisträger
+                            </PopoverHeader>
                             <PopoverBody>
-                              <Text whiteSpace="pre-line">{emailText1}</Text>
-                            </PopoverBody>
-                          </PopoverContent>
-                        </Popover>
-                      </Stack>
-                    </Radio>
-                    <Radio
-                      isInvalid={emailVersionError}
-                      onChange={() => setEmailVersionError(false)}
-                      value="2"
-                    >
-                      <Stack direction={"row"} alignItems={"center"}>
-                        <Text>BS_Info Preisträger</Text>
-                        <Popover placement="right">
-                          <PopoverTrigger>
-                            <Button size={"xs"}>Vorschau</Button>
-                          </PopoverTrigger>
-                          <PopoverContent
-                            minW={{ base: "100%", lg: "max-content" }}
-                          >
-                            <PopoverArrow />
-                            <PopoverCloseButton />
-                            <PopoverHeader>BS_Info Preisträger</PopoverHeader>
-                            <PopoverBody>
-                              <Text whiteSpace="pre-line">{emailText2}</Text>
+                              <Text whiteSpace="pre-line">{emailText3}</Text>
                             </PopoverBody>
                           </PopoverContent>
                         </Popover>
@@ -194,15 +160,7 @@ function BotschafterBulkEmailModal({
                 </Alert>
               )}
             </FormControl>
-            <FormControl mb={4}>
-              <FormLabel>Freitext</FormLabel>
-              <Textarea
-                name="freitext"
-                placeholder="Text hier...."
-                onChange={(e) => setFreitext(e.target.value)}
-                minH={200}
-              />
-            </FormControl>
+            <Divider my={4} />
             <FormControl>
               <FormLabel>
                 Test Modus (1x Beispiel Email an "stiftungspreis@tc-stiftung.de)
@@ -218,26 +176,18 @@ function BotschafterBulkEmailModal({
             <Divider my={4} />
             <Heading size={"sm"}>Emails:</Heading>
             <OrderedList spacing={3} marginInlineStart={"2em"}>
-              {kampagnenBots
-                .filter((d) =>
-                  d.letters.some(
-                    (l) =>
-                      ["1111", "5000", "ausland1111", "ausland5000"].includes(
-                        l.status
-                      ) && l.botschafterConfirm
+              {kampagne.letters
+                .filter((l) =>
+                  ["1111", "5000", "ausland1111", "ausland5000"].includes(
+                    l.status
                   )
                 )
-                .map((bot) => {
+                .map((letter) => {
                   return (
-                    <ListItem alignItems={"flex-start"} key={bot.id}>
+                    <ListItem alignItems={"flex-start"} key={letter.id}>
                       <Text as={"b"}>
-                        {bot.email} | ID: {bot.id}
+                        {letter.emailProjekt} | ID: {letter.id}
                       </Text>
-                      {bot.botcontacts.map((botcontact) => {
-                        return (
-                          <Text key={botcontact.id}>{botcontact.email}</Text>
-                        );
-                      })}
                     </ListItem>
                   );
                 })}
@@ -271,4 +221,4 @@ function BotschafterBulkEmailModal({
   );
 }
 
-export default BotschafterBulkEmailModal;
+export default LetterBulkEmailModal;
