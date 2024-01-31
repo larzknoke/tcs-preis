@@ -69,7 +69,7 @@ export default async function handle(req, res) {
             {
               path:
                 process.cwd() +
-                "/public/Hinweise_und_Checkliste_fuer_Uebergabe.pdf",
+                "/public/Preistraeger_Checkliste_fuer_Uebergabe.pdf",
             },
           ];
         }

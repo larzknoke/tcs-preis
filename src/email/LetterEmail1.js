@@ -30,7 +30,7 @@ export default function LetterEmail1({ letter, anreden = [] }) {
           />
           <Section style={section}>
             <Text style={text}>
-              Sehr geehrte/r Frau/Herr {letter.ansprechpartnerProjekt}
+              Sehr geehrte/r Frau/Herr {letter.ansprechpartnerProjekt},
             </Text>
             <Text style={text}>mit Ihrer Arbeit und dem Projekt</Text>
             <Text>
@@ -71,7 +71,6 @@ export default function LetterEmail1({ letter, anreden = [] }) {
                     return (
                       <Text style={bottext}>
                         {contact.name} <br />
-                        {contact.funktion} <br />
                         {contact.telefon} <br />
                         {contact.email}
                       </Text>
@@ -90,8 +89,17 @@ export default function LetterEmail1({ letter, anreden = [] }) {
                   Wir freuen uns über Ihr großartiges Engagement, auf die
                   Übergabe der Urkunde – und auf begeisternde Fotos!
                 </Text>
-                <Text style={textbold}>
-                  Ihr Team der <br /> Town &amp; Country Stiftung
+                <Text style={text}>
+                  <br />
+                  <strong>
+                    Ihr Team der <br /> Town &amp; Country Stiftung
+                  </strong>
+                  <br />
+                  Anger 55/56 <br />
+                  99084 Erfurt <br />
+                  Tel. 0361 644 789-14 <br />
+                  stiftungspreis@tc-stiftung.de <br />
+                  www.tc-stiftung.de
                 </Text>
                 <Text style={text}>
                   <strong>Anlagen</strong> <br />
@@ -113,20 +121,30 @@ export default function LetterEmail1({ letter, anreden = [] }) {
                 <Text style={text}>
                   Freuen Sie sich auf Ihre persönliche Urkunde als symbolische
                   Übergabe, die Sie in den nächsten Tagen von uns erhalten.
-                  Bitte stellen Sie uns anschließend für unsere Presse- und
-                  Öffentlichkeitsarbeit ein Foto mit der Urkunde zur Verfügung –
-                  weitere Informationen dazu senden wir Ihnen zusammen mit der
-                  Urkunde.
+                  Bitte stellen Sie uns für unsere Presse- und
+                  Öffentlichkeitsarbeit ein Foto mit der Urkunde zur Verfügung.
+                  Die Auszahlung der Förderung veranlassen wir gleich im
+                  Anschluss. Weitere Informationen dazu senden wir Ihnen
+                  zusammen mit der Urkunde.
                 </Text>
                 <Text style={text}>
                   Wir freuen uns über Ihr großartiges Engagement, gratulieren
                   Ihnen nochmals herzlich zur Förderung mit dem Stiftungspreis
                   und wünschen viel Freude bei der Umsetzung Ihres Vorhabens!
                 </Text>
-                <Text style={textbold}>
-                  Ihr Team der <br /> Town &amp; Country Stiftung
+                <Text style={text}>
+                  <br />
+                  <strong>
+                    Ihr Team der <br /> Town &amp; Country Stiftung
+                  </strong>
+                  <br />
+                  Anger 55/56 <br />
+                  99084 Erfurt <br />
+                  Tel. 0361 644 789-14 <br />
+                  stiftungspreis@tc-stiftung.de <br />
+                  www.tc-stiftung.de
                 </Text>
-                <Text s tyle={text}>
+                <Text style={text}>
                   PS: Die Landespreisträger werden in der Jurysitzung am 14.
                   März 2024 gekürt und anschließend zur Stiftungspreis-Gala am
                   21. Juni 2024 nach Erfurt eingeladen. Wir drücken Ihnen die
