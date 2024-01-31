@@ -70,6 +70,7 @@ model Letter {
   verified                      Boolean? @default(false)
   checkFreistellung             Boolean? @default(false)
   terminGeld                    DateTime?
+  terminGeld5000                DateTime?
   terminUebergabe               DateTime?
   bildmaterial                  DateTime?
   socialTCS                     DateTime?

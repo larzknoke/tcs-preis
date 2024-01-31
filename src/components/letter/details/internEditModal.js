@@ -46,6 +46,9 @@ function InternEditModal({ onClose, isOpen, letter }) {
 
   const [dateBild, setDateBild] = useState(letter.bildmaterial || undefined);
   const [dateGeld, setDateGeld] = useState(letter.terminGeld || undefined);
+  const [dateGeld5000, setDateGeld5000] = useState(
+    letter.terminGeld5000 || undefined
+  );
   const [dateZWB1000, setDateZWB1000] = useState(letter.zwb1000 || undefined);
   const [dateZWB5000, setDateZWB5000] = useState(letter.zwb5000 || undefined);
   const [dateUebergabe, setDateUebergabe] = useState(
@@ -197,7 +200,7 @@ function InternEditModal({ onClose, isOpen, letter }) {
               </GridItem>
               <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.terminGeld}>
-                  <FormLabel>Termin Überweisung 1.000€</FormLabel>
+                  <FormLabel>Überweisung 1.000€</FormLabel>
                   <SingleDatepicker
                     placeholder="Datum auswählen..."
                     name="date-input"
@@ -236,6 +239,50 @@ function InternEditModal({ onClose, isOpen, letter }) {
                   />
                   <FormErrorMessage>
                     {errors.terminGeld && errors.terminGeld.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.terminGeld5000}>
+                  <FormLabel>Überweisung 5.000€</FormLabel>
+                  <SingleDatepicker
+                    placeholder="Datum auswählen..."
+                    name="date-input"
+                    date={dateGeld5000}
+                    onDateChange={(dateInput) => {
+                      setDateGeld5000(dateInput);
+                      setValue("terminGeld5000", dateInput);
+                    }}
+                    configs={{
+                      dateFormat: "dd.MM.yyyy",
+                      dayNames: Weekday_Names_Short,
+                      monthNames: Month_Names_Short,
+                      firstDayOfWeek: 1,
+                    }}
+                    propsConfigs={{
+                      inputProps: {
+                        placeholder: "Datum auswählen...",
+                      },
+                      dayOfMonthBtnProps: {
+                        defaultBtnProps: {
+                          _hover: {
+                            background: "brand.900",
+                            color: "white",
+                          },
+                        },
+                        todayBtnProps: {
+                          background: "brand2.900",
+                          color: "white",
+                        },
+                        selectedBtnProps: {
+                          background: "brand.900",
+                          color: "white",
+                        },
+                      },
+                    }}
+                  />
+                  <FormErrorMessage>
+                    {errors.terminGeld5000 && errors.terminGeld5000.message}
                   </FormErrorMessage>
                 </FormControl>
               </GridItem>

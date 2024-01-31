@@ -116,8 +116,14 @@ function InternDetail({ letter }) {
               </StatNumber>
             </Stat>
             <Stat>
-              <StatLabel>Termin Überweisung 1.000€</StatLabel>
+              <StatLabel>Überweisung 1.000€</StatLabel>
               <StatNumber>{dateFormatter(letter.terminGeld, false)}</StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Überweisung 5.000€</StatLabel>
+              <StatNumber>
+                {dateFormatter(letter.terminGeld5000, false)}
+              </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Termin Übergabe</StatLabel>
