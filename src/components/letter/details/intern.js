@@ -139,6 +139,12 @@ function InternDetail({ letter }) {
               <StatLabel>ZWB 5000</StatLabel>
               <StatNumber>{dateFormatter(letter.zwb5000, false)}</StatNumber>
             </Stat>
+            <Stat>
+              <StatLabel>Projekt Email 1</StatLabel>
+              <StatNumber>
+                {dateFormatter(letter.letteremail1, false)}
+              </StatNumber>
+            </Stat>
           </Stack>
         </CardBody>
       </Card>
