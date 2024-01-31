@@ -126,7 +126,7 @@ function InternDetail({ letter }) {
               <StatNumber>{dateFormatter(letter.terminGeld, false)}</StatNumber>
             </Stat>
             <Stat>
-              <StatLabel>ZWB 1111</StatLabel>
+              <StatLabel>ZWB 1.111€</StatLabel>
               <StatNumber>{dateFormatter(letter.zwb1000, false)}</StatNumber>
             </Stat>
             <Stat>
@@ -136,7 +136,7 @@ function InternDetail({ letter }) {
               </StatNumber>
             </Stat>
             <Stat>
-              <StatLabel>ZWB 5000</StatLabel>
+              <StatLabel>ZWB 5.000€</StatLabel>
               <StatNumber>{dateFormatter(letter.zwb5000, false)}</StatNumber>
             </Stat>
             <Stat>

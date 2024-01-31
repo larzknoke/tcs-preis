@@ -199,8 +199,52 @@ function InternEditModal({ onClose, isOpen, letter }) {
                 </FormControl>
               </GridItem>
               <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.terminUebergabe}>
+                  <FormLabel>Termin Übergabe</FormLabel>
+                  <SingleDatepicker
+                    placeholder="Datum auswählen..."
+                    name="date-input"
+                    date={dateUebergabe}
+                    onDateChange={(dateInput) => {
+                      setDateUebergabe(dateInput);
+                      setValue("terminUebergabe", dateInput);
+                    }}
+                    configs={{
+                      dateFormat: "dd.MM.yyyy",
+                      dayNames: Weekday_Names_Short,
+                      monthNames: Month_Names_Short,
+                      firstDayOfWeek: 1,
+                    }}
+                    propsConfigs={{
+                      inputProps: {
+                        placeholder: "Datum auswählen...",
+                      },
+                      dayOfMonthBtnProps: {
+                        defaultBtnProps: {
+                          _hover: {
+                            background: "brand.900",
+                            color: "white",
+                          },
+                        },
+                        todayBtnProps: {
+                          background: "brand2.900",
+                          color: "white",
+                        },
+                        selectedBtnProps: {
+                          background: "brand.900",
+                          color: "white",
+                        },
+                      },
+                    }}
+                  />
+                  <FormErrorMessage>
+                    {errors.terminUebergabe && errors.terminUebergabe.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.terminGeld}>
-                  <FormLabel>Überweisung 1.000€</FormLabel>
+                  <FormLabel>Überweisung 1.111€</FormLabel>
                   <SingleDatepicker
                     placeholder="Datum auswählen..."
                     name="date-input"
@@ -239,6 +283,50 @@ function InternEditModal({ onClose, isOpen, letter }) {
                   />
                   <FormErrorMessage>
                     {errors.terminGeld && errors.terminGeld.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.zwb1000}>
+                  <FormLabel>ZWB 1.111€</FormLabel>
+                  <SingleDatepicker
+                    placeholder="Datum auswählen..."
+                    name="date-input"
+                    date={dateZWB1000}
+                    onDateChange={(dateInput) => {
+                      setDateZWB1000(dateInput);
+                      setValue("zwb1000", dateInput);
+                    }}
+                    configs={{
+                      dateFormat: "dd.MM.yyyy",
+                      dayNames: Weekday_Names_Short,
+                      monthNames: Month_Names_Short,
+                      firstDayOfWeek: 1,
+                    }}
+                    propsConfigs={{
+                      inputProps: {
+                        placeholder: "Datum auswählen...",
+                      },
+                      dayOfMonthBtnProps: {
+                        defaultBtnProps: {
+                          _hover: {
+                            background: "brand.900",
+                            color: "white",
+                          },
+                        },
+                        todayBtnProps: {
+                          background: "brand2.900",
+                          color: "white",
+                        },
+                        selectedBtnProps: {
+                          background: "brand.900",
+                          color: "white",
+                        },
+                      },
+                    }}
+                  />
+                  <FormErrorMessage>
+                    {errors.zwb1000 && errors.zwb5000.message}
                   </FormErrorMessage>
                 </FormControl>
               </GridItem>
@@ -287,96 +375,8 @@ function InternEditModal({ onClose, isOpen, letter }) {
                 </FormControl>
               </GridItem>
               <GridItem colSpan={4}>
-                <FormControl isInvalid={errors.terminUebergabe}>
-                  <FormLabel>Termin Übergabe</FormLabel>
-                  <SingleDatepicker
-                    placeholder="Datum auswählen..."
-                    name="date-input"
-                    date={dateUebergabe}
-                    onDateChange={(dateInput) => {
-                      setDateUebergabe(dateInput);
-                      setValue("terminUebergabe", dateInput);
-                    }}
-                    configs={{
-                      dateFormat: "dd.MM.yyyy",
-                      dayNames: Weekday_Names_Short,
-                      monthNames: Month_Names_Short,
-                      firstDayOfWeek: 1,
-                    }}
-                    propsConfigs={{
-                      inputProps: {
-                        placeholder: "Datum auswählen...",
-                      },
-                      dayOfMonthBtnProps: {
-                        defaultBtnProps: {
-                          _hover: {
-                            background: "brand.900",
-                            color: "white",
-                          },
-                        },
-                        todayBtnProps: {
-                          background: "brand2.900",
-                          color: "white",
-                        },
-                        selectedBtnProps: {
-                          background: "brand.900",
-                          color: "white",
-                        },
-                      },
-                    }}
-                  />
-                  <FormErrorMessage>
-                    {errors.terminUebergabe && errors.terminUebergabe.message}
-                  </FormErrorMessage>
-                </FormControl>
-              </GridItem>
-              <GridItem colSpan={4}>
-                <FormControl isInvalid={errors.zwb1000}>
-                  <FormLabel>ZWB 1111</FormLabel>
-                  <SingleDatepicker
-                    placeholder="Datum auswählen..."
-                    name="date-input"
-                    date={dateZWB1000}
-                    onDateChange={(dateInput) => {
-                      setDateZWB1000(dateInput);
-                      setValue("zwb1000", dateInput);
-                    }}
-                    configs={{
-                      dateFormat: "dd.MM.yyyy",
-                      dayNames: Weekday_Names_Short,
-                      monthNames: Month_Names_Short,
-                      firstDayOfWeek: 1,
-                    }}
-                    propsConfigs={{
-                      inputProps: {
-                        placeholder: "Datum auswählen...",
-                      },
-                      dayOfMonthBtnProps: {
-                        defaultBtnProps: {
-                          _hover: {
-                            background: "brand.900",
-                            color: "white",
-                          },
-                        },
-                        todayBtnProps: {
-                          background: "brand2.900",
-                          color: "white",
-                        },
-                        selectedBtnProps: {
-                          background: "brand.900",
-                          color: "white",
-                        },
-                      },
-                    }}
-                  />
-                  <FormErrorMessage>
-                    {errors.zwb1000 && errors.zwb5000.message}
-                  </FormErrorMessage>
-                </FormControl>
-              </GridItem>
-              <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.zwb5000}>
-                  <FormLabel>ZWB 5000</FormLabel>
+                  <FormLabel>ZWB 5.000€</FormLabel>
                   <SingleDatepicker
                     placeholder="Datum auswählen..."
                     name="date-input"
