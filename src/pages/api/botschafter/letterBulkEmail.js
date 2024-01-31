@@ -43,7 +43,9 @@ export default async function handle(req, res) {
       },
     });
     let mailsPromise = letters
-      .filter((letter, index) => (testMode ? index === 0 : true))
+      .filter((letter, index) =>
+        testMode ? [0, 1, 2, 3].includes(index) : true
+      )
       .map(async (letter) => {
         let attachments = [];
         if (letter.botschafterConfirm) {
@@ -91,13 +93,6 @@ export default async function handle(req, res) {
     // ZEITSTEMPEL FÜR EMAIL AUSGANG
     const ids = letters.map((letter) => letter.id);
     if (!testMode) {
-      console.log("#######");
-      console.log("#######");
-      console.log("#######");
-      console.log(ids);
-      console.log("#######");
-      console.log("#######");
-      console.log("#######");
       const updatedLetters = await prisma.letter.updateMany({
         where: {
           id: { in: ids },

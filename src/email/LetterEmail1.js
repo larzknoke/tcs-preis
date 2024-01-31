@@ -16,8 +16,8 @@ export default function LetterEmail1({ letter, anreden = [] }) {
     <Html>
       <Head />
       <Preview>
-        11. Town & Country Stiftungspreis: Gratulation – und 1.111 Euro für
-        „[nameProjekt]“
+        11. Town & Country Stiftungspreis: Gratulation – und 1.111 Euro für{" "}
+        {letter.nameProjekt}
       </Preview>
       <Body style={main}>
         <Container style={container}>
@@ -66,6 +66,17 @@ export default function LetterEmail1({ letter, anreden = [] }) {
                   {letter.botschafter.telefon} <br />
                   {letter.botschafter.email}
                 </Text>
+                {letter.botschafter.botcontacts.length > 0 &&
+                  letter.botschafter.botcontacts.map((contact) => {
+                    return (
+                      <Text style={bottext}>
+                        {contact.name} <br />
+                        {contact.funktion} <br />
+                        {contact.telefon} <br />
+                        {contact.email}
+                      </Text>
+                    );
+                  })}
                 <Text style={text}>
                   Für die Vorbereitung der Übergabe senden wir Ihnen anbei
                   einige Informationen sowie eine <strong>Checkliste</strong>.
