@@ -80,7 +80,7 @@ function BotlettersTable({ botschafter }) {
                           <Icon as={HiCalendarDays} />
                           <Text as={"b"}>
                             {letter.terminUebergabe
-                              ? dateFormatter(letter.terminUebergabe)
+                              ? dateFormatter(letter.terminUebergabe, false)
                               : "-"}
                           </Text>
                         </HStack>
