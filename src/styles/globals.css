@@ -13,3 +13,14 @@
 button a {
   color: inherit;
 }
+
+.sticky.left-0 {
+  position: absolute;
+  left: 0;
+  /* background-color: rgba(255, 255, 255, 0.5); */
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}

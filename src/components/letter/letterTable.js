@@ -266,6 +266,7 @@ function LetterTable({ letters }) {
       header: "ID",
       meta: {
         isNumeric: true,
+        className: "sticky left-0",
       },
       cell: ({ row }) => (
         <HStack>
@@ -1120,6 +1121,9 @@ function LetterTable({ letters }) {
                           overflow={"hidden"}
                           whiteSpace={"nowrap"}
                           textOverflow={"ellipsis"}
+                          className={
+                            cell.column.columnDef.meta?.className ?? ""
+                          }
                         >
                           {flexRender(
                             cell.column.columnDef.cell,

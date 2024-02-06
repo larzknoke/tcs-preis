@@ -28,6 +28,8 @@ import {
   HiOutlineHashtag,
   HiOutlineTag,
   HiOutlineUserCircle,
+  HiCalendarDays,
+  HiMiniUserCircle,
 } from "react-icons/hi2";
 import Link from "next/link";
 import { Capatilizer } from "@/lib/utils";
@@ -73,6 +75,16 @@ function BotlettersTable({ botschafter }) {
                         <Icon as={HiOutlineTag} />
                         <Text as={"b"}>{Capatilizer(letter.status)}</Text>
                       </HStack>
+                      <Tooltip label={"Termin Übergabe"}>
+                        <HStack color={"gray.500"} gap={1}>
+                          <Icon as={HiCalendarDays} />
+                          <Text as={"b"}>
+                            {Capatilizer(letter.terminUebergabe)
+                              ? Capatilizer(letter.terminUebergabe)
+                              : "-"}
+                          </Text>
+                        </HStack>
+                      </Tooltip>
                       <HStack>
                         {letter.botschafterConfirm ? (
                           <Tooltip label={"Botschafter bestätigt"}>
@@ -91,7 +103,6 @@ function BotlettersTable({ botschafter }) {
                                 fontSize={"lg"}
                                 as={HiXMark}
                                 color={"red.500"}
-                                mb={1}
                               />
                             </div>
                           </Tooltip>
