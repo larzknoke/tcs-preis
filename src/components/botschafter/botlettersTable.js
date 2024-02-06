@@ -32,7 +32,7 @@ import {
   HiMiniUserCircle,
 } from "react-icons/hi2";
 import Link from "next/link";
-import { Capatilizer } from "@/lib/utils";
+import { Capatilizer, dateFormatter } from "@/lib/utils";
 
 function BotlettersTable({ botschafter }) {
   return (
@@ -79,8 +79,8 @@ function BotlettersTable({ botschafter }) {
                         <HStack color={"gray.500"} gap={1}>
                           <Icon as={HiCalendarDays} />
                           <Text as={"b"}>
-                            {Capatilizer(letter.terminUebergabe)
-                              ? Capatilizer(letter.terminUebergabe)
+                            {letter.terminUebergabe
+                              ? dateFormatter(letter.terminUebergabe)
                               : "-"}
                           </Text>
                         </HStack>
