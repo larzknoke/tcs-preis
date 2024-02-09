@@ -110,6 +110,10 @@ function FilterTable({ letters }) {
         accessorKey: "id",
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
+        meta: {
+          isNumeric: true,
+          className: "sticky left-0",
+        },
       },
       {
         accessorKey: "createdAt",
@@ -344,6 +348,16 @@ function FilterTable({ letters }) {
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
       },
+      {
+        accessorKey: "terminUebergabe",
+        cell: (info) => dateFormatter(info.getValue(), false),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "terminGeld",
+        cell: (info) => dateFormatter(info.getValue(), false),
+        footer: (props) => props.column.id,
+      },
     ],
     []
   );
@@ -517,7 +531,12 @@ function FilterTable({ letters }) {
                     <Tr key={row.id}>
                       {row.getVisibleCells().map((cell) => {
                         return (
-                          <Td key={cell.id}>
+                          <Td
+                            key={cell.id}
+                            className={
+                              cell.column.columnDef.meta?.className ?? ""
+                            }
+                          >
                             {flexRender(
                               cell.column.columnDef.cell,
                               cell.getContext()
