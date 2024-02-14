@@ -358,6 +358,26 @@ function FilterTable({ letters }) {
         cell: (info) => dateFormatter(info.getValue(), false),
         footer: (props) => props.column.id,
       },
+      {
+        accessorKey: "eigenmittel",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "oeffentlicheZuwendungen",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "privateSpenden",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
+      {
+        accessorKey: "bisherigeFoerderung",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+      },
     ],
     []
   );
@@ -671,6 +691,111 @@ function Filter({ column, table }) {
         </>
       );
     case "id":
+      return (
+        <div>
+          <div className="flex space-x-2">
+            <DebouncedInput
+              type="number"
+              min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+              max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+              value={columnFilterValue?.[0] ?? ""}
+              onChange={(value) =>
+                column.setFilterValue((old) => [value, old?.[1]])
+              }
+              placeholder={`Min ${
+                column.getFacetedMinMaxValues()?.[0]
+                  ? `(${column.getFacetedMinMaxValues()?.[0]})`
+                  : ""
+              }`}
+            />
+            <DebouncedInput
+              type="number"
+              min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+              max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+              value={columnFilterValue?.[1] ?? ""}
+              onChange={(value) =>
+                column.setFilterValue((old) => [old?.[0], value])
+              }
+              placeholder={`Max ${
+                column.getFacetedMinMaxValues()?.[1]
+                  ? `(${column.getFacetedMinMaxValues()?.[1]})`
+                  : ""
+              }`}
+            />
+          </div>
+        </div>
+      );
+    case "eigenmittel":
+      return (
+        <div>
+          <div className="flex space-x-2">
+            <DebouncedInput
+              type="number"
+              min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+              max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+              value={columnFilterValue?.[0] ?? ""}
+              onChange={(value) =>
+                column.setFilterValue((old) => [value, old?.[1]])
+              }
+              placeholder={`Min ${
+                column.getFacetedMinMaxValues()?.[0]
+                  ? `(${column.getFacetedMinMaxValues()?.[0]})`
+                  : ""
+              }`}
+            />
+            <DebouncedInput
+              type="number"
+              min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+              max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+              value={columnFilterValue?.[1] ?? ""}
+              onChange={(value) =>
+                column.setFilterValue((old) => [old?.[0], value])
+              }
+              placeholder={`Max ${
+                column.getFacetedMinMaxValues()?.[1]
+                  ? `(${column.getFacetedMinMaxValues()?.[1]})`
+                  : ""
+              }`}
+            />
+          </div>
+        </div>
+      );
+    case "oeffentlicheZuwendungen":
+      return (
+        <div>
+          <div className="flex space-x-2">
+            <DebouncedInput
+              type="number"
+              min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+              max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+              value={columnFilterValue?.[0] ?? ""}
+              onChange={(value) =>
+                column.setFilterValue((old) => [value, old?.[1]])
+              }
+              placeholder={`Min ${
+                column.getFacetedMinMaxValues()?.[0]
+                  ? `(${column.getFacetedMinMaxValues()?.[0]})`
+                  : ""
+              }`}
+            />
+            <DebouncedInput
+              type="number"
+              min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+              max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+              value={columnFilterValue?.[1] ?? ""}
+              onChange={(value) =>
+                column.setFilterValue((old) => [old?.[0], value])
+              }
+              placeholder={`Max ${
+                column.getFacetedMinMaxValues()?.[1]
+                  ? `(${column.getFacetedMinMaxValues()?.[1]})`
+                  : ""
+              }`}
+            />
+          </div>
+        </div>
+      );
+    case "privateSpenden":
       return (
         <div>
           <div className="flex space-x-2">
