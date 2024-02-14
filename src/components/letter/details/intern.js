@@ -23,14 +23,18 @@ import {
   Tr,
   Td,
   Tbody,
+  useToast,
 } from "@chakra-ui/react";
-import { HiOutlinePencilSquare } from "react-icons/hi2";
+import { HiOutlinePencilSquare, HiOutlineTrash } from "react-icons/hi2";
 import { useEffect } from "react";
 import { Checker, dateFormatter } from "@/lib/utils";
 import InternEditModal from "./internEditModal";
 import SocialEditModal from "./socialEditModal";
+import { useRouter } from "next/router";
 
 function InternDetail({ letter }) {
+  const router = useRouter();
+  const toast = useToast();
   const {
     isOpen: internIsOpen,
     onOpen: internOnOpen,
@@ -43,9 +47,42 @@ function InternDetail({ letter }) {
   } = useDisclosure();
   const { onCopy, setValue, hasCopied } = useClipboard();
 
+  async function clearDate(id, typ) {
+    const res = await fetch("/api/letter/clearDate", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, typ }),
+    });
+    if (res.status == 401) {
+      toast({
+        title: "Sie sind nicht berechtigt diese Funktion auszuführen.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else if (res.status != 200) {
+      toast({
+        title: "Ein Fehler ist aufgetreten",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else {
+      const resData = await res.json();
+      toast({
+        title: `Datum gelöscht`,
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+      router.replace(router.asPath);
+    }
+  }
+
   useEffect(() => {
     setValue(letter.emailProjekt);
   }, []);
+
   return (
     <SimpleGrid
       spacing={6}
@@ -117,27 +154,88 @@ function InternDetail({ letter }) {
             </Stat>
             <Stat>
               <StatLabel>Termin Übergabe</StatLabel>
-              <StatNumber>
+              <StatNumber justifyContent={"space-between"} display={"flex"}>
                 {dateFormatter(letter.terminUebergabe, false)}
+                {letter.terminUebergabe && (
+                  <Tooltip label="Termin löschen">
+                    <IconButton
+                      colorScheme="red"
+                      variant={"ghost"}
+                      icon={<HiOutlineTrash />}
+                      mr={"4"}
+                      onClick={() => clearDate(letter.id, "terminUebergabe")}
+                    />
+                  </Tooltip>
+                )}
               </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Überweisung 1.111€</StatLabel>
-              <StatNumber>{dateFormatter(letter.terminGeld, false)}</StatNumber>
+              <StatNumber justifyContent={"space-between"} display={"flex"}>
+                {dateFormatter(letter.terminGeld, false)}
+                {letter.terminGeld && (
+                  <Tooltip label="Termin löschen">
+                    <IconButton
+                      colorScheme="red"
+                      variant={"ghost"}
+                      icon={<HiOutlineTrash />}
+                      mr={"4"}
+                      onClick={() => clearDate(letter.id, "terminGeld")}
+                    />
+                  </Tooltip>
+                )}
+              </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>ZWB 1.111€</StatLabel>
-              <StatNumber>{dateFormatter(letter.zwb1000, false)}</StatNumber>
+              <StatNumber justifyContent={"space-between"} display={"flex"}>
+                {dateFormatter(letter.zwb1000, false)}
+                {letter.zwb1000 && (
+                  <Tooltip label="Termin löschen">
+                    <IconButton
+                      colorScheme="red"
+                      variant={"ghost"}
+                      icon={<HiOutlineTrash />}
+                      mr={"4"}
+                      onClick={() => clearDate(letter.id, "zwb1000")}
+                    />
+                  </Tooltip>
+                )}
+              </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Überweisung 5.000€</StatLabel>
-              <StatNumber>
+              <StatNumber justifyContent={"space-between"} display={"flex"}>
                 {dateFormatter(letter.terminGeld5000, false)}
+                {letter.terminGeld5000 && (
+                  <Tooltip label="Termin löschen">
+                    <IconButton
+                      colorScheme="red"
+                      variant={"ghost"}
+                      icon={<HiOutlineTrash />}
+                      mr={"4"}
+                      onClick={() => clearDate(letter.id, "terminGeld5000")}
+                    />
+                  </Tooltip>
+                )}
               </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>ZWB 5.000€</StatLabel>
-              <StatNumber>{dateFormatter(letter.zwb5000, false)}</StatNumber>
+              <StatNumber justifyContent={"space-between"} display={"flex"}>
+                {dateFormatter(letter.zwb5000, false)}
+                {letter.zwb5000 && (
+                  <Tooltip label="Termin löschen">
+                    <IconButton
+                      colorScheme="red"
+                      variant={"ghost"}
+                      icon={<HiOutlineTrash />}
+                      mr={"4"}
+                      onClick={() => clearDate(letter.id, "zwb5000")}
+                    />
+                  </Tooltip>
+                )}
+              </StatNumber>
             </Stat>
             <Stat>
               <StatLabel>Projekt Email 1</StatLabel>
