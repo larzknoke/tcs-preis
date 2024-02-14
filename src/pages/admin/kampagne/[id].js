@@ -26,6 +26,7 @@ import { dateFormatter } from "@/lib/utils";
 import EditKampagneModal from "@/components/kampagne/editKampagneModal";
 import KampagnenBots from "@/components/kampagne/kampagnenBots";
 import KampagnenBundesland from "@/components/kampagne/kampagnenBundesland";
+import KampagnenTermine from "@/components/kampagne/kampagnenTermine";
 
 function Kampagne({ kampagne, kampagnenBots }) {
   const groupLetters = kampagne.letters.reduce((x, y) => {
@@ -91,6 +92,7 @@ function Kampagne({ kampagne, kampagnenBots }) {
         <TabList>
           <Tab>Botschafter</Tab>
           <Tab>Bundesland</Tab>
+          <Tab>Termine</Tab>
         </TabList>
 
         <TabPanels>
@@ -99,6 +101,9 @@ function Kampagne({ kampagne, kampagnenBots }) {
           </TabPanel>
           <TabPanel px={0} py={6}>
             <KampagnenBundesland groupLetters={groupLetters} />
+          </TabPanel>
+          <TabPanel px={0} py={6}>
+            <KampagnenTermine kampagne={kampagne} />
           </TabPanel>
         </TabPanels>
       </Tabs>
