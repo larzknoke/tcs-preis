@@ -12,16 +12,27 @@ import {
   Icon,
   Tooltip,
   Button,
+  IconButton,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { HiGift, HiUser, HiBanknotes } from "react-icons/hi2";
+import { HiGift, HiUser, HiBanknotes, HiPaperClip } from "react-icons/hi2";
 import { dateFormatter } from "@/lib/utils";
 import { useState } from "react";
+import { exportToExcel } from "react-json-to-excel";
 
-function KampagnenTermine({ kampagnenBots, kampagne }) {
+function KampagnenTermine({ kampagne }) {
   const [sortValue, setSortValue] = useState("terminUebergabe");
   const [ausblenden, setAusblenden] = useState(false);
   const [abgelaufen, setAbgelaufen] = useState(false);
+
+  function handleExport() {
+    const result = kampagne.letters
+      .sort((a, b) => a[sortValue] - b[sortValue])
+      .filter((l) => (ausblenden ? l.terminUebergabe : true))
+      .filter((l) => (abgelaufen ? l.terminUebergabe > Date.now() : true));
+    const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
+    exportToExcel(result, "termin_export_" + date);
+  }
 
   return (
     <Card>
@@ -55,6 +66,13 @@ function KampagnenTermine({ kampagnenBots, kampagne }) {
             <option value="terminUebergabe">Übergabe</option>
             <option value="terminGeld">Geld</option>
           </Select>
+          <Tooltip label="Bewerbungen exportieren">
+            <IconButton
+              onClick={handleExport}
+              icon={<HiPaperClip />}
+              variant={"outline"}
+            />
+          </Tooltip>
         </HStack>
       </CardHeader>
       <CardBody>
