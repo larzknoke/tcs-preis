@@ -131,6 +131,34 @@ function PresseEditModal({ onClose, isOpen, letter }) {
                 </FormControl>
               </GridItem>
               <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.presseFoto}>
+                  <FormLabel>Presse Foto</FormLabel>
+                  <Switch
+                    colorScheme="green"
+                    name="presseFoto"
+                    type="text"
+                    {...register("presseFoto")}
+                  />
+                  <FormErrorMessage>
+                    {errors.presseFoto && errors.presseFoto.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
+                <FormControl isInvalid={errors.presseEV}>
+                  <FormLabel>Presse Einverständnis</FormLabel>
+                  <Switch
+                    colorScheme="green"
+                    name="presseEV"
+                    type="text"
+                    {...register("presseEV")}
+                  />
+                  <FormErrorMessage>
+                    {errors.presseEV && errors.presseEV.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </GridItem>
+              <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.presseText}>
                   <FormLabel display={"flex"} justifyContent={"space-between"}>
                     Pressetext{" "}

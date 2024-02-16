@@ -88,6 +88,18 @@ function PresseDetail({ letter }) {
                 <Checker bool={letter.presseErlaubt} />
               </StatNumber>
             </Stat>
+            <Stat>
+              <StatLabel>Presse Foto</StatLabel>
+              <StatNumber>
+                <Checker bool={letter.presseFoto} />
+              </StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Presse Einverständnis</StatLabel>
+              <StatNumber>
+                <Checker bool={letter.presseEV} />
+              </StatNumber>
+            </Stat>
             <Flex direction={"column"} my={4} gap={2}>
               <Text as={"b"}>Presse Daten:</Text>
               <Stat>

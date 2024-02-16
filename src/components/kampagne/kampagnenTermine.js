@@ -15,7 +15,16 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { HiGift, HiUser, HiBanknotes, HiPaperClip } from "react-icons/hi2";
+import {
+  HiGift,
+  HiUser,
+  HiBanknotes,
+  HiPaperClip,
+  HiCamera,
+  HiCheck,
+  HiXMark,
+  HiShieldCheck,
+} from "react-icons/hi2";
 import { dateFormatter } from "@/lib/utils";
 import { useState } from "react";
 import { exportToExcel } from "react-json-to-excel";
@@ -123,6 +132,26 @@ function KampagnenTermine({ kampagne }) {
                             {letter.botschafter?.name}
                           </Text>
                         </Link>
+                      </Tooltip>
+                      <Tooltip label={"Presse Foto"}>
+                        <Text color={"gray.400"}>
+                          <Icon as={HiCamera} mr={2} />
+                          {letter.presseFoto ? (
+                            <Icon as={HiCheck} color={"green.500"} />
+                          ) : (
+                            <Icon as={HiXMark} color={"red.500"} />
+                          )}
+                        </Text>
+                      </Tooltip>
+                      <Tooltip label={"Presse Einverständnis"}>
+                        <Text color={"gray.400"}>
+                          <Icon as={HiShieldCheck} mr={2} />
+                          {letter.presseEV ? (
+                            <Icon as={HiCheck} color={"green.500"} />
+                          ) : (
+                            <Icon as={HiXMark} color={"red.500"} />
+                          )}
+                        </Text>
                       </Tooltip>
                     </HStack>
                   </Box>

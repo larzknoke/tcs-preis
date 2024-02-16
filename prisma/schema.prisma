@@ -82,6 +82,8 @@ model Letter {
   presseFreigabe                DateTime?
   presseVersendet               DateTime?
   presseErledigt                DateTime?
+  presseFoto                    Boolean?
+  presseEV                      Boolean?
   zwb1000                       DateTime?
   zwb5000                       DateTime?
   originalLetter                Json?
