@@ -184,7 +184,13 @@ export const getServerSideProps = async (ctx) => {
             },
           },
           botschafter: {
-            select: { vorname: true, name: true, id: true },
+            select: {
+              vorname: true,
+              name: true,
+              id: true,
+              firma: true,
+              typ: true,
+            },
           },
         },
       },

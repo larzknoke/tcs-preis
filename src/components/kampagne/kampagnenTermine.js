@@ -36,6 +36,12 @@ function KampagnenTermine({ kampagne }) {
 
   function handleExport() {
     const result = kampagne.letters
+      .map((l) => ({
+        ...l,
+        botschafterName: `${l.botschafter?.vorname} ${l.botschafter?.name}`,
+        botschafterTyp: `${l.botschafter?.typ}`,
+        botschafterFirma: `${l.botschafter?.firma}`,
+      }))
       .sort((a, b) => a[sortValue] - b[sortValue])
       .filter((l) => (ausblenden ? l.terminUebergabe : true))
       .filter((l) => (abgelaufen ? l.terminUebergabe > Date.now() : true));
