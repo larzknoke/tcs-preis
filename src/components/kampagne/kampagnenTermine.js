@@ -29,13 +29,20 @@ import { dateFormatter } from "@/lib/utils";
 import { useState } from "react";
 import { exportToExcel } from "react-json-to-excel";
 
-function KampagnenTermine({ kampagne }) {
+function KampagnenTermine({ kampagne, abgelehntAnzeigen }) {
   const [sortValue, setSortValue] = useState("terminUebergabe");
   const [ausblenden, setAusblenden] = useState(false);
   const [abgelaufen, setAbgelaufen] = useState(false);
 
   function handleExport() {
     const result = kampagne.letters
+      .filter((letter) =>
+        abgelehntAnzeigen
+          ? true
+          : ["1111", "5000", "ausland1111", "ausland5000"].includes(
+              letter.status
+            )
+      )
       .map((l) => ({
         ...l,
         botschafterName: `${l.botschafter?.vorname} ${l.botschafter?.name}`,
@@ -94,6 +101,13 @@ function KampagnenTermine({ kampagne }) {
         <Stack divider={<StackDivider />} spacing="4">
           {kampagne.letters.length > 0 &&
             kampagne.letters
+              .filter((letter) =>
+                abgelehntAnzeigen
+                  ? true
+                  : ["1111", "5000", "ausland1111", "ausland5000"].includes(
+                      letter.status
+                    )
+              )
               .sort((a, b) => a[sortValue] - b[sortValue])
               .filter((l) => (ausblenden ? l.terminUebergabe : true))
               .filter((l) =>

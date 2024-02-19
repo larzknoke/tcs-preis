@@ -20,15 +20,28 @@ import {
   Tab,
   TabPanels,
   TabPanel,
+  Icon,
 } from "@chakra-ui/react";
-import { HiOutlineCog6Tooth } from "react-icons/hi2";
+import { HiOutlineCog6Tooth, HiOutlineCheck, HiXMark } from "react-icons/hi2";
 import { dateFormatter } from "@/lib/utils";
 import EditKampagneModal from "@/components/kampagne/editKampagneModal";
 import KampagnenBots from "@/components/kampagne/kampagnenBots";
 import KampagnenBundesland from "@/components/kampagne/kampagnenBundesland";
 import KampagnenTermine from "@/components/kampagne/kampagnenTermine";
+import { useState, useEffect } from "react";
 
 function Kampagne({ kampagne, kampagnenBots }) {
+  const [abgelehntAnzeigen, setAbgelehntAnzeigen] = useState(false);
+
+  function toggleAbgelehnt() {
+    localStorage.setItem("abgelehntAnzeigen", !abgelehntAnzeigen);
+    setAbgelehntAnzeigen(!abgelehntAnzeigen);
+  }
+
+  useEffect(() => {
+    setAbgelehntAnzeigen(eval(localStorage.getItem("abgelehntAnzeigen")));
+  }, []);
+
   const groupLetters = kampagne.letters.reduce((x, y) => {
     (x[y.bundeslandProjekt ? y.bundeslandProjekt : y.bundeslandTraeger] =
       x[y.bundeslandProjekt ? y.bundeslandProjekt : y.bundeslandTraeger] ||
@@ -55,6 +68,24 @@ function Kampagne({ kampagne, kampagnenBots }) {
           <Heading fontSize={"24"}>{kampagne.name}</Heading>
         </VStack>
         <HStack>
+          <Text fontSize={"sm"} color={"gray.400"} mr={3}>
+            Abgelehnte anzeigen:
+            {abgelehntAnzeigen ? (
+              <IconButton
+                variant={"ghost"}
+                icon={<HiOutlineCheck />}
+                color={"green.700"}
+                onClick={() => toggleAbgelehnt()}
+              />
+            ) : (
+              <IconButton
+                variant={"ghost"}
+                icon={<HiXMark />}
+                color={"red.500"}
+                onClick={() => toggleAbgelehnt()}
+              />
+            )}
+          </Text>
           <Text fontSize={"sm"} color={"gray.400"} mr={3}>
             Erstellt: {dateFormatter(kampagne.createdAt)}
           </Text>
@@ -97,13 +128,23 @@ function Kampagne({ kampagne, kampagnenBots }) {
 
         <TabPanels>
           <TabPanel px={0} py={6}>
-            <KampagnenBots kampagnenBots={kampagnenBots} kampagne={kampagne} />
+            <KampagnenBots
+              kampagnenBots={kampagnenBots}
+              kampagne={kampagne}
+              abgelehntAnzeigen={abgelehntAnzeigen}
+            />
           </TabPanel>
           <TabPanel px={0} py={6}>
-            <KampagnenBundesland groupLetters={groupLetters} />
+            <KampagnenBundesland
+              groupLetters={groupLetters}
+              abgelehntAnzeigen={abgelehntAnzeigen}
+            />
           </TabPanel>
           <TabPanel px={0} py={6}>
-            <KampagnenTermine kampagne={kampagne} />
+            <KampagnenTermine
+              kampagne={kampagne}
+              abgelehntAnzeigen={abgelehntAnzeigen}
+            />
           </TabPanel>
         </TabPanels>
       </Tabs>

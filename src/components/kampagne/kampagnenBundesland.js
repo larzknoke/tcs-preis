@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 
-function KampagnenBundesland({ groupLetters }) {
+function KampagnenBundesland({ groupLetters, abgelehntAnzeigen }) {
   return (
     <Card>
       <CardHeader>
@@ -41,48 +41,65 @@ function KampagnenBundesland({ groupLetters }) {
                         color={"brand.900"}
                         fontWeight={"bold"}
                       >
-                        {`${bundesland} (${letters.length})`}
+                        {`${bundesland} (${
+                          letters.filter((letter) =>
+                            abgelehntAnzeigen
+                              ? true
+                              : [
+                                  "1111",
+                                  "5000",
+                                  "ausland1111",
+                                  "ausland5000",
+                                ].includes(letter.status)
+                          ).length
+                        })`}
                       </Box>
                       <AccordionIcon />
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}>
-                    {letters.map((letter) => {
-                      return (
-                        <Link
-                          href={`/admin/bewerbung/${letter.id}`}
-                          target="_black"
-                          rel="noopener noreferrer"
-                          key={letter.id}
-                        >
-                          <Text
-                            pt="2"
-                            fontSize="sm"
-                            color={
-                              letter.botschafterConfirm
-                                ? "brand.900"
-                                : "red.300"
-                            }
-                            _hover={{
-                              textDecoration: "underline",
-                              color: "gray.900",
-                            }}
+                    {letters
+                      .filter((letter) =>
+                        abgelehntAnzeigen ? true : letter.status != "abgelehnt"
+                      )
+                      .map((letter) => {
+                        return (
+                          <Link
+                            href={`/admin/bewerbung/${letter.id}`}
+                            target="_black"
+                            rel="noopener noreferrer"
+                            key={letter.id}
                           >
-                            {`${letter.id} | ${letter.status} | Träger: ${
-                              letter.bundeslandTraeger
-                            }${
-                              letter.botschafter
-                                ? `| Bot: ${letter.botschafter.vorname} ${letter.botschafter.name}`
-                                : ""
-                            } | Projekt: ${letter.bundeslandProjekt || "-"} | ${
-                              letter.nameProjekt.length > 80
-                                ? letter.nameProjekt.substring(0, 80) + "..."
-                                : letter.nameProjekt
-                            } | ${letter.nameTraeger}  `}
-                          </Text>
-                        </Link>
-                      );
-                    })}
+                            <Text
+                              pt="2"
+                              fontSize="sm"
+                              color={
+                                letter.botschafterConfirm
+                                  ? "brand.900"
+                                  : "red.300"
+                              }
+                              _hover={{
+                                textDecoration: "underline",
+                                color: "gray.900",
+                              }}
+                            >
+                              {`${letter.id} | ${letter.status} | Träger: ${
+                                letter.bundeslandTraeger
+                              }${
+                                letter.botschafter
+                                  ? `| Bot: ${letter.botschafter.vorname} ${letter.botschafter.name}`
+                                  : ""
+                              } | Projekt: ${
+                                letter.bundeslandProjekt || "-"
+                              } | ${
+                                letter.nameProjekt.length > 80
+                                  ? letter.nameProjekt.substring(0, 80) + "..."
+                                  : letter.nameProjekt
+                              } | ${letter.nameTraeger}  `}
+                            </Text>
+                          </Link>
+                        );
+                      })}
                   </AccordionPanel>
                 </AccordionItem>
               );

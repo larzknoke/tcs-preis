@@ -24,7 +24,7 @@ import { dateFormatter } from "@/lib/utils";
 import { useState } from "react";
 import LetterBulkEmailModal from "../botschafter/letterBulkEmailModal";
 
-function KampagnenBots({ kampagnenBots, kampagne }) {
+function KampagnenBots({ kampagnenBots, kampagne, abgelehntAnzeigen }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: letterModalIsOpen,
@@ -144,6 +144,16 @@ function KampagnenBots({ kampagnenBots, kampagne }) {
                       </Heading>
                     </Link>
                     {bot.letters
+                      .filter((letter) =>
+                        abgelehntAnzeigen
+                          ? true
+                          : [
+                              "1111",
+                              "5000",
+                              "ausland1111",
+                              "ausland5000",
+                            ].includes(letter.status)
+                      )
                       .sort(
                         (a, b) => b.botschafterConfirm - a.botschafterConfirm
                       )
