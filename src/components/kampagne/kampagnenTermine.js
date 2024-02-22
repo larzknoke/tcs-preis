@@ -60,7 +60,27 @@ function KampagnenTermine({ kampagne, abgelehntAnzeigen }) {
     <Card>
       <CardHeader>
         <HStack justifyContent={"space-between"}>
-          <Heading size="md">Termin Übersicht</Heading>
+          <Heading size="md">
+            Termin Übersicht{" "}
+            <Text as={"span"}>
+              (
+              {
+                kampagne.letters
+                  .filter((letter) =>
+                    abgelehntAnzeigen
+                      ? true
+                      : ["1111", "5000", "ausland1111", "ausland5000"].includes(
+                          letter.status
+                        )
+                  )
+                  .filter((l) => (ausblenden ? l.terminUebergabe : true))
+                  .filter((l) =>
+                    abgelaufen ? l.terminUebergabe > Date.now() : true
+                  ).length
+              }
+              )
+            </Text>
+          </Heading>
           <Button
             ml={"auto"}
             mr={4}
