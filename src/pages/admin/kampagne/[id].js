@@ -29,6 +29,7 @@ import KampagnenBots from "@/components/kampagne/kampagnenBots";
 import KampagnenBundesland from "@/components/kampagne/kampagnenBundesland";
 import KampagnenTermine from "@/components/kampagne/kampagnenTermine";
 import { useState, useEffect } from "react";
+import KampagnenJury from "@/components/kampagne/kampagnenJury";
 
 function Kampagne({ kampagne, kampagnenBots }) {
   const [abgelehntAnzeigen, setAbgelehntAnzeigen] = useState(false);
@@ -124,6 +125,7 @@ function Kampagne({ kampagne, kampagnenBots }) {
           <Tab>Botschafter</Tab>
           <Tab>Bundesland</Tab>
           <Tab>Termine</Tab>
+          <Tab>Jury</Tab>
         </TabList>
 
         <TabPanels>
@@ -143,6 +145,12 @@ function Kampagne({ kampagne, kampagnenBots }) {
           <TabPanel px={0} py={6}>
             <KampagnenTermine
               kampagne={kampagne}
+              abgelehntAnzeigen={abgelehntAnzeigen}
+            />
+          </TabPanel>
+          <TabPanel px={0} py={6}>
+            <KampagnenJury
+              groupLetters={groupLetters}
               abgelehntAnzeigen={abgelehntAnzeigen}
             />
           </TabPanel>
