@@ -62,6 +62,7 @@ function KampagnenBundesland({ groupLetters, abgelehntAnzeigen }) {
                       .filter((letter) =>
                         abgelehntAnzeigen ? true : letter.status != "abgelehnt"
                       )
+                      .sort((a, b) => a.id - b.id)
                       .map((letter) => {
                         return (
                           <Link
@@ -83,7 +84,7 @@ function KampagnenBundesland({ groupLetters, abgelehntAnzeigen }) {
                                 color: "gray.900",
                               }}
                             >
-                              {`${letter.id} | ${letter.status} | Träger: ${
+                              {`${letter.id} | ${letter.status} | ${
                                 letter.bundeslandTraeger
                               }${
                                 letter.botschafter
@@ -95,7 +96,7 @@ function KampagnenBundesland({ groupLetters, abgelehntAnzeigen }) {
                                 letter.nameProjekt.length > 80
                                   ? letter.nameProjekt.substring(0, 80) + "..."
                                   : letter.nameProjekt
-                              } | ${letter.nameTraeger}  `}
+                              } | Träger: ${letter.nameTraeger}  `}
                             </Text>
                           </Link>
                         );
