@@ -382,7 +382,7 @@ function LetterTable({ letters }) {
       header: "Jury",
       cell: ({ info, row }) => (
         <HStack>
-          <Tooltip label="Jury Vorauswahl">
+          <Tooltip label="Jury-Sitzung">
             <Text>
               {row.original.jury ? (
                 <Icon as={HiOutlineCheck} color={"green.700"} />

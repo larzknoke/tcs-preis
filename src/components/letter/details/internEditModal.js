@@ -126,7 +126,7 @@ function InternEditModal({ onClose, isOpen, letter }) {
               </GridItem>
               <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.jury}>
-                  <FormLabel>Jury Vorauswahl</FormLabel>
+                  <FormLabel>Jury-Sitzung</FormLabel>
                   <Switch
                     colorScheme="green"
                     name="jury"

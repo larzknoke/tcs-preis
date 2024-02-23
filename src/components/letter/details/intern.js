@@ -127,7 +127,7 @@ function InternDetail({ letter }) {
               </StatNumber>
             </Stat>
             <Stat>
-              <StatLabel>Jury Vorauswahl</StatLabel>
+              <StatLabel>Jury-Sitzung</StatLabel>
               <StatNumber>
                 <Checker bool={letter.jury} />
               </StatNumber>
