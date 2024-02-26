@@ -29,6 +29,7 @@ import { useState } from "react";
 import { exportToExcel } from "react-json-to-excel";
 import { PressePDF } from "@/pdf/pressePDF";
 import { pdf } from "@react-pdf/renderer";
+import { LetterBotPDF } from "@/pdf/letterBotPDF";
 
 function Bewerbung({ letter }) {
   const [loading, setLoading] = useState();
@@ -141,6 +142,11 @@ function Bewerbung({ letter }) {
     saveAs(blob, `Presse_Bewerbung${letter.id}.pdf`);
   }
 
+  async function exportPDF() {
+    const blob = await pdf(<LetterBotPDF letter={letter} />).toBlob();
+    saveAs(blob, `Presse_Bewerbung${letter.id}.pdf`);
+  }
+
   return loading ? (
     <Container
       display={"flex"}
@@ -232,6 +238,7 @@ function Bewerbung({ letter }) {
               <MenuItem onClick={() => exportPresse(letter)}>
                 Export Presse
               </MenuItem>
+              <MenuItem onClick={() => exportPDF(letter)}>Export PDF</MenuItem>
               <MenuDivider />
               <MenuItem isDisabled={true}>Bearbeiten</MenuItem>
               <MenuItem isDisabled={true}>Löschen</MenuItem>
