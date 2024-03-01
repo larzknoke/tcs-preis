@@ -21,6 +21,7 @@ import {
   TabPanels,
   TabPanel,
   Icon,
+  MenuDivider,
 } from "@chakra-ui/react";
 import { HiOutlineCog6Tooth, HiOutlineCheck, HiXMark } from "react-icons/hi2";
 import { dateFormatter } from "@/lib/utils";
@@ -30,6 +31,9 @@ import KampagnenBundesland from "@/components/kampagne/kampagnenBundesland";
 import KampagnenTermine from "@/components/kampagne/kampagnenTermine";
 import { useState, useEffect } from "react";
 import KampagnenJury from "@/components/kampagne/kampagnenJury";
+import { LetterPDF } from "@/email/pdf";
+import JSZip from "jszip";
+import { pdf } from "@react-pdf/renderer";
 
 function Kampagne({ kampagne, kampagnenBots }) {
   const [abgelehntAnzeigen, setAbgelehntAnzeigen] = useState(false);
@@ -57,6 +61,32 @@ function Kampagne({ kampagne, kampagnenBots }) {
 
   function statusBadge(status) {
     return status ? "green" : "yellow";
+  }
+
+  async function bulkPdfExport() {
+    const result = kampagne.letters
+      .filter((letter) =>
+        abgelehntAnzeigen
+          ? true
+          : ["1111", "5000", "ausland1111", "ausland5000"].includes(
+              letter.status
+            )
+      )
+      .sort((a, b) => a.id - b.id);
+
+    const zip = new JSZip();
+
+    result.map((letter) => {
+      zip.file(
+        `Bewerbung_${letter.id}.pdf`,
+        pdf(<LetterPDF letter={letter} />).toBlob()
+      );
+    });
+
+    const blob = await zip.generateAsync({ type: "blob" });
+
+    const date = new Date().toLocaleDateString("de-DE").replace(/\./g, "-");
+    saveAs(blob, `Bewerbung_PDF-Export_${date}.zip`);
   }
 
   return (
@@ -108,6 +138,8 @@ function Kampagne({ kampagne, kampagnenBots }) {
               size={"lg"}
             />
             <MenuList>
+              <MenuItem onClick={bulkPdfExport}>PDF Export</MenuItem>
+              <MenuDivider />
               <MenuItem onClick={editOnOpen}>Bearbeiten</MenuItem>
               <EditKampagneModal
                 kampagne={kampagne}
