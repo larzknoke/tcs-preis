@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
     width: "100px",
     margin: 5,
   },
+  bold: {
+    fontWeight: 700,
+  },
 });
 
 Font.register({
@@ -61,46 +64,154 @@ export const LetterPDF = ({ letter }) => (
             letter.createdAt
           )} wurden gespeichert:`}
         </Text>
-        <Text>{`ID: ${letter.id}`}</Text>
-        <Text>{`Erstellt am: ${letter.createdAt}`}</Text>
-        <Text>{`Andere Lizenzpartner: ${letter.andereLizenzpartner}`}</Text>
-        <Text>{`Name Träger: ${letter.nameTraeger}`}</Text>
-        <Text>{`Vorstand Träger: ${letter.vorstandTraeger}`}</Text>
-        <Text>{`Strasse Träger: ${letter.strasseTraeger}`}</Text>
-        <Text>{`PLZ Träger: ${letter.plzTraeger}`}</Text>
-        <Text>{`Ort Träger: ${letter.ortTraeger}`}</Text>
-        <Text>{`Bundesland Träger: ${letter.bundeslandTraeger}`}</Text>
-        <Text>{`Verein: ${letter.vereinTraeger}`}</Text>
-        <Text>{`Organisation Projekt: ${letter.organisationProjekt}`}</Text>
-        <Text>{`Name Projekt ${letter.nameProjekt}`}</Text>
-        <Text>{`Ansprechpartner Projekt: ${letter.ansprechpartnerProjekt}`}</Text>
-        <Text>{`Telefonnummer Projekt: ${letter.telefonnummerProjekt}`}</Text>
-        <Text>{`Mobil Projekt: ${letter.mobilProjekt}`}</Text>
-        <Text>{`Email Projekt: ${letter.emailProjekt}`}</Text>
-        <Text>{`Internet Projekt: ${letter.wwwProjekt}`}</Text>
-        <Text>{`IBAN Projekt: ${letter.ibanProjekt}`}</Text>
-        <Text>{`Konto Name Projekt: ${letter.kontoNameProjekt}`}</Text>
-        <Text>{`Bank Projekt: ${letter.bankNameProjekt}`}</Text>
-        <Text>{`Strasse Projekt: ${letter.strasseProjekt}`}</Text>
-        <Text>{`PLZ Projekt: ${letter.plzProjekt}`}</Text>
-        <Text>{`Ort Projekt: ${letter.ortProjekt}`}</Text>
-        <Text>{`Bundesland Projekt: ${letter.bundeslandProjekt}`}</Text>
-        <Text>{`Wann Projekt: ${letter.wannProjekt}`}</Text>
-        <Text>{`Mitarbeiter Projekt: ${letter.mitarbeiterProjekt}`}</Text>
-        <Text>{`Hauptamtlich Anzahl: ${letter.hauptamtlichAnzahl}`}</Text>
-        <Text>{`Hauptamtlich Stunden: ${letter.hauptamtlichStunden}`}</Text>
-        <Text>{`Ehrenamtlich Anzahl: ${letter.ehrenamtlichAnzahl}`}</Text>
-        <Text>{`Ehrenamtlich Stunden: ${letter.ehrenamtlichStunden}`}</Text>
-        <Text>{`Beschreibung Projekt: ${letter.beschreibungProjekt}`}</Text>
-        <Text>{`Zielsetzung Projekt: ${letter.zielsetzungProjekt}`}</Text>
-        <Text>{`Benachteiligung Projekt: ${letter.benachteiligungProjekt}`}</Text>
-        <Text>{`Umsetzung Projekt: ${letter.umsetzungProjekt}`}</Text>
-        <Text>{`Bisherige Ergebnisse: ${letter.bisherigeErgebnisse}`}</Text>
-        <Text>{`Eigenmittel: ${letter.eigenmittel}`}</Text>
-        <Text>{`ÖffentlicheZuwendungen: ${letter.oeffentlicheZuwendungen}`}</Text>
-        <Text>{`PrivateSpenden: ${letter.privateSpenden}`}</Text>
-        <Text>{`Bisherige Förderung: ${letter.bisherigeFoerderung}`}</Text>
-        <Text>{`Andere Zuwendungen: ${letter.zuwendungAndere}`}</Text>
+        <Text>
+          <Text style={styles.bold}>ID: </Text>
+          {letter.id}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Erstellt am: </Text>{" "}
+          {dateFormatter(letter.createdAt)}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Andere Lizenzpartner: </Text>
+          {letter.andereLizenzpartner}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Name Träger: </Text> {letter.nameTraeger}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Vorstand Träger: </Text>
+          {letter.vorstandTraeger}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Strasse Träger: </Text>
+          {letter.strasseTraeger}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>PLZ Träger: </Text> {letter.plzTraeger}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Ort Träger: </Text> {letter.ortTraeger}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Bundesland Träger: </Text>
+          {letter.bundeslandTraeger}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Verein: </Text> {letter.vereinTraeger}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Organisation Projekt: </Text>
+          {letter.organisationProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Name Projekt</Text> {letter.nameProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Ansprechpartner Projekt: </Text>
+          {letter.ansprechpartnerProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Telefonnummer Projekt: </Text>
+          {letter.telefonnummerProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Mobil Projekt: </Text> {letter.mobilProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Email Projekt: </Text> {letter.emailProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Internet Projekt: </Text>
+          {letter.wwwProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>IBAN Projekt: </Text> {letter.ibanProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Konto Name Projekt: </Text>
+          {letter.kontoNameProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Bank Projekt: </Text>
+          {letter.bankNameProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Strasse Projekt: </Text>
+          {letter.strasseProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>PLZ Projekt: </Text> {letter.plzProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Ort Projekt: </Text> {letter.ortProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Bundesland Projekt: </Text>
+          {letter.bundeslandProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Wann Projekt: </Text> {letter.wannProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Mitarbeiter Projekt: </Text>
+          {letter.mitarbeiterProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Hauptamtlich Anzahl: </Text>
+          {letter.hauptamtlichAnzahl}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Hauptamtlich Stunden: </Text>
+          {letter.hauptamtlichStunden}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Ehrenamtlich Anzahl: </Text>
+          {letter.ehrenamtlichAnzahl}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Ehrenamtlich Stunden: </Text>
+          {letter.ehrenamtlichStunden}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Beschreibung Projekt: </Text>
+          {letter.beschreibungProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Zielsetzung Projekt: </Text>
+          {letter.zielsetzungProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Benachteiligung Projekt: </Text>
+          {letter.benachteiligungProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Umsetzung Projekt: </Text>
+          {letter.umsetzungProjekt}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Bisherige Ergebnisse: </Text>
+          {letter.bisherigeErgebnisse}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Eigenmittel: </Text> {letter.eigenmittel}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>ÖffentlicheZuwendungen: </Text>
+          {letter.oeffentlicheZuwendungen}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>PrivateSpenden: </Text>
+          {letter.privateSpenden}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Bisherige Förderung: </Text>
+          {letter.bisherigeFoerderung}
+        </Text>
+        <Text>
+          <Text style={styles.bold}>Andere Zuwendungen: </Text>
+          {letter.zuwendungAndere}
+        </Text>
       </View>
     </Page>
   </Document>
