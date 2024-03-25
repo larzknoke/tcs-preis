@@ -16,6 +16,7 @@ import {
   useDisclosure,
   Select,
   MenuDivider,
+  Tooltip,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { HiBars3, HiOutlineEnvelope } from "react-icons/hi2";
@@ -130,7 +131,7 @@ function KampagnenBots({ kampagnenBots, kampagne, abgelehntAnzeigen }) {
                         ) : (
                           ""
                         )}
-                        <Text ml={"auto"} color={"brand.900"}>
+                        {/* <Text ml={"auto"} color={"brand.900"}>
                           <Text as={"span"} color={"gray.400"}>
                             Email 1:{" "}
                           </Text>
@@ -140,7 +141,7 @@ function KampagnenBots({ kampagnenBots, kampagne, abgelehntAnzeigen }) {
                             Email 2:{" "}
                           </Text>
                           {bot.botmail2 ? dateFormatter(bot.botmail2) : "--"}
-                        </Text>
+                        </Text> */}
                       </Heading>
                     </Link>
                     {bot.letters
@@ -159,28 +160,106 @@ function KampagnenBots({ kampagnenBots, kampagne, abgelehntAnzeigen }) {
                       )
                       .map((letter) => {
                         return (
-                          <Link
-                            href={`/admin/bewerbung/${letter.id}`}
-                            target="_black"
-                            rel="noopener noreferrer"
-                            key={letter.id}
+                          <HStack
+                            divider={<StackDivider />}
+                            spacing={2}
+                            align="stretch"
+                            pt={2}
+                            fontSize={14}
                           >
-                            <Text
-                              pt="2"
-                              fontSize="sm"
-                              color={
-                                letter.botschafterConfirm
-                                  ? "brand.900"
-                                  : "red.300"
-                              }
-                              _hover={{
-                                textDecoration: "underline",
-                                color: "gray.500",
-                              }}
+                            <Link
+                              href={`/admin/bewerbung/${letter.id}`}
+                              target="_black"
+                              rel="noopener noreferrer"
+                              key={letter.id}
                             >
-                              {`${letter.id} | ${letter.status} | ${letter.bundeslandTraeger} | ${letter.nameProjekt} | ${letter.nameTraeger} `}
+                              <Text
+                                width={"30px"}
+                                color={
+                                  letter.botschafterConfirm
+                                    ? "brand.900"
+                                    : "red.300"
+                                }
+                              >
+                                {letter.id}
+                              </Text>
+                            </Link>
+                            <Text
+                              width={"40px"}
+                              whiteSpace={"nowrap"}
+                              overflow={"hidden"}
+                              textOverflow={"ellipsis"}
+                            >
+                              {letter.status}
                             </Text>
-                          </Link>
+                            <Text
+                              width={"100px"}
+                              whiteSpace={"nowrap"}
+                              overflow={"hidden"}
+                              textOverflow={"ellipsis"}
+                            >
+                              {letter.bundeslandTraeger}
+                            </Text>
+                            <Text width={"75px"}>
+                              <Tooltip label={"Termin Übergabe"}>
+                                {dateFormatter(letter.terminUebergabe, false)}
+                              </Tooltip>
+                            </Text>
+                            <Text width={"75px"}>
+                              <Tooltip label={" Termin Geld"}>
+                                {dateFormatter(letter.terminGeld, false)}
+                              </Tooltip>
+                            </Text>
+                            <Text
+                              width={"450px"}
+                              whiteSpace={"nowrap"}
+                              overflow={"hidden"}
+                              textOverflow={"ellipsis"}
+                            >
+                              {letter.nameProjekt}
+                            </Text>
+                            <Text
+                              width={"450px"}
+                              whiteSpace={"nowrap"}
+                              overflow={"hidden"}
+                              textOverflow={"ellipsis"}
+                            >
+                              {letter.nameTraeger}
+                            </Text>
+                          </HStack>
+
+                          // <Link
+                          //   href={`/admin/bewerbung/${letter.id}`}
+                          //   target="_black"
+                          //   rel="noopener noreferrer"
+                          //   key={letter.id}
+                          // >
+                          //   <Text
+                          //     pt="2"
+                          //     fontSize="sm"
+                          //     color={
+                          //       letter.botschafterConfirm
+                          //         ? "brand.900"
+                          //         : "red.300"
+                          //     }
+                          //     _hover={{
+                          //       textDecoration: "underline",
+                          //       color: "gray.500",
+                          //     }}
+                          //   >
+                          //     {`${letter.id} | ${letter.status} | ${
+                          //       letter.bundeslandTraeger
+                          //     }| ${dateFormatter(
+                          //       letter.terminUebergabe,
+                          //       false
+                          //     )} | ${dateFormatter(
+                          //       letter.terminGeld,
+                          //       false
+                          //     )} | ${letter.nameProjekt} | ${
+                          //       letter.nameTraeger
+                          //     } `}
+                          //   </Text>
+                          // </Link>
                         );
                       })}
                   </Box>
