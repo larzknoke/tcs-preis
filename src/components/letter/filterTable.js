@@ -378,6 +378,12 @@ function FilterTable({ letters }) {
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
       },
+      {
+        accessorKey: "zwb1000",
+        header: "ZWB1111",
+        cell: (info) => dateFormatter(info.getValue(), false),
+        footer: (props) => props.column.id,
+      },
     ],
     []
   );

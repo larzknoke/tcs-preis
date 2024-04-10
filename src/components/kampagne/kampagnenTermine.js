@@ -24,6 +24,7 @@ import {
   HiCheck,
   HiXMark,
   HiShieldCheck,
+  HiOutlineDocumentCheck,
 } from "react-icons/hi2";
 import { dateFormatter } from "@/lib/utils";
 import { useState } from "react";
@@ -191,6 +192,12 @@ function KampagnenTermine({ kampagne, abgelehntAnzeigen }) {
                           ) : (
                             <Icon as={HiXMark} color={"red.500"} />
                           )}
+                        </Text>
+                      </Tooltip>
+                      <Tooltip label={"ZWB1111"}>
+                        <Text color={"gray.400"}>
+                          <Icon as={HiOutlineDocumentCheck} mr={2} />
+                          {dateFormatter(letter.zwb1000, false)}
                         </Text>
                       </Tooltip>
                     </HStack>
