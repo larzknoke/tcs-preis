@@ -232,6 +232,26 @@ export const botschafterSchema = yup.object().shape({
     .required(),
 });
 
+export const inviteSchema = yup.object().shape({
+  teilname: yup.string().required(),
+  spende: yup.boolean(),
+  titel: yup.string(),
+  name: yup.string().required(),
+  vorname: yup.string().required(),
+  unternehmen: yup.string().required(),
+  email: yup.string().email().required(),
+  telefon: yup.string(),
+  begleitung: yup.string(),
+  datenschutz: yup
+    .boolean()
+    .required("Bitte Bestätigen Sie die Datenschutzerklärung")
+    .oneOf([true], "Bitte Bestätigen Sie die Datenschutzerklärung"),
+  datenschutzMedia: yup
+    .boolean()
+    .required("Bitte Bestätigen Sie die Einverständniserklärung")
+    .oneOf([true], "Bitte Bestätigen Sie die Einverständniserklärung"),
+});
+
 export const kampagneSchema = yup.object().shape({
   name: yup.string().required(),
 });

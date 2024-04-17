@@ -183,6 +183,24 @@ model Kampagne {
   letters           Letter[]
 }
 
+model Invite {
+  id                Int       @id @default(autoincrement())
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
+  teilnahme         Boolean?
+  spende            Boolean?
+  spendeBetrag      String?
+  titel             String?
+  name              String?
+  vorname           String?
+  unternehmen       String?
+  email             String?
+  telefon           String?
+  begleitung        String?
+  datenschutz       Boolean?
+  datenschutzMedia  Boolean?
+}
+
 model Account {
   id                 String  @id @default(cuid())
   userId             String  @map("user_id")

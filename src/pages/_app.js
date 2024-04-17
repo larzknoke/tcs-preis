@@ -52,6 +52,28 @@ const theme = extendTheme({
     Form: formStyles,
     Stat: statTheme,
     Alert: alertTheme,
+    Radio: {
+      parts: ["control"],
+      variants: {
+        atTop: {
+          control: {
+            alignSelf: "start",
+            mt: "1",
+          },
+        },
+      },
+    },
+    Checkbox: {
+      parts: ["control"],
+      variants: {
+        atTop: {
+          control: {
+            alignSelf: "start",
+            mt: "1",
+          },
+        },
+      },
+    },
   },
 });
 
