@@ -30,6 +30,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { inviteSchema } from "@/lib/formSchema";
+import { isObjEmpty } from "@/lib/utils";
 
 function NewInvite() {
   const router = useRouter();
@@ -77,14 +78,25 @@ function NewInvite() {
       } else {
         const resData = await res.json();
         console.log(resData);
-        toast({
-          title: `Vielen Dank für Ihre Registrierung!
-                  Sie haben soeben eine Bestätigungs-Mail an ${resData?.result?.email} von uns erhalten.
-                  Bitte bestätigen Sie den dortigen Link, um Ihre Anmeldung abzuschließen.`,
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-        });
+        if (resData?.result?.teilnahme) {
+          toast({
+            title: `Vielen Dank für Ihre Registrierung!
+                    Sie haben soeben eine Bestätigungs-Mail an ${resData?.result?.email} von uns erhalten.
+                    Bitte bestätigen Sie den dortigen Link, um Ihre Anmeldung abzuschließen.`,
+            status: "success",
+            duration: 4000,
+            isClosable: true,
+          });
+        } else {
+          toast({
+            title: `
+              Vielen Dank für Ihre Nachricht. Schade, dass Sie nicht an der 11. Town & Country
+              Stiftungsgala teilnehmen können.`,
+            status: "success",
+            duration: 4000,
+            isClosable: true,
+          });
+        }
         // router.push(`/einladung`);
         setLoading(false);
         reset();
@@ -339,7 +351,6 @@ function NewInvite() {
                 </SimpleGrid>
                 <Alert status="warning">
                   <AlertIcon />
-                  {/* <AlertTitle>Achtung!</AlertTitle> */}
                   <AlertDescription>
                     Bitte beachten Sie: Nach der Anmeldung erhalten Sie eine
                     Bestätigungs-Mail von uns. Bitte bestätigen Sie den dortigen
@@ -350,7 +361,7 @@ function NewInvite() {
                   </AlertDescription>
                 </Alert>
                 <Button
-                  // isDisabled={!isObjEmpty(methods.formState.errors)}
+                  isDisabled={!isObjEmpty(errors)}
                   isLoading={loading}
                   loadingText="bitte warten"
                   size="md"
@@ -362,7 +373,7 @@ function NewInvite() {
                 >
                   Einladung abschicken
                 </Button>
-                {formSuccess && false && (
+                {/* {formSuccess && (
                   <Box
                     sx={{
                       rounded: "md",
@@ -389,14 +400,14 @@ function NewInvite() {
                         Nach Absenden Ihrer Einladung und{" "}
                         <Text as="b">
                           Bestätigung des Ihnen zugesandten Links an{" "}
-                          {/* {confirmEmail} */}
+                          {confirmEmail}
                         </Text>
                         , <br /> erhalten Sie eine automatisierte
                         Bestätigungs-E-Mail.
                       </AlertDescription>
                     </Alert>
                   </Box>
-                )}
+                )} */}
                 {formError && (
                   <Box sx={{ rounded: "md" }}>
                     <Alert

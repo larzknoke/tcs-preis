@@ -3,6 +3,7 @@ import VerifyInvite from "@/email/VerifyInvite";
 import ErrorEmail from "@/email/ErrorEmail";
 import { sendEmail } from "@/lib/email";
 import { render } from "@react-email/render";
+import CancelInviteEmail from "@/email/CancelInviteEmail";
 
 export default async function handle(req, res) {
   console.log("api call");
@@ -15,20 +16,34 @@ export default async function handle(req, res) {
       console.log("result: ", result);
 
       if (result.email) {
-        await sendEmail({
-          to:
-            process.env.NODE_ENV === "development"
-              ? ["info@larsknoke.com"]
-              : result.email,
-          subject:
-            "11. Town & Country Stiftungsgala – bitte Anmeldung bestätigen",
-          html: render(<VerifyInvite invite={result} />),
-        });
+        // *** ZUSAGE ***
+        if (result.teilnahme) {
+          await sendEmail({
+            to:
+              process.env.NODE_ENV === "development"
+                ? ["info@larsknoke.com"]
+                : result.email,
+            subject:
+              "11. Town & Country Stiftungsgala – bitte Anmeldung bestätigen",
+            html: render(<VerifyInvite invite={result} />),
+          });
+        }
+        // *** ABSAGE ***
+        if (!result.teilnahme) {
+          await sendEmail({
+            to:
+              process.env.NODE_ENV === "development"
+                ? ["info@larsknoke.com"]
+                : result.email,
+            subject: "11. Town & Country Stiftungsgala – Absage",
+            html: render(<CancelInviteEmail invite={result} />),
+          });
+        }
       } else {
         await sendEmail({
           to: ["info@larsknoke.com"],
           subject: "TC-Stiftung - Stiftungspreis 2023 - Fehler",
-          html: render(<ErrorEmail letter={result} />),
+          html: render(<ErrorEmail invite={result} />),
         });
       }
 

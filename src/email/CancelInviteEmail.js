@@ -11,14 +11,11 @@ import {
   Text,
 } from "@react-email/components";
 
-export default function ConfirmInviteEmail({ invite }) {
+export default function CancelInviteEmail({ invite }) {
   return (
     <Html>
       <Head />
-      <Preview>
-        Betreff: 11. Town & Country Stiftungsgala – vielen Dank für Ihre
-        Anmeldung
-      </Preview>
+      <Preview>Betreff: 11. Town & Country Stiftungsgala – Absage</Preview>
       <Body style={main}>
         <Container style={container}>
           <Img
@@ -29,7 +26,7 @@ export default function ConfirmInviteEmail({ invite }) {
             priority
           />
 
-          <Text style={title}>Teilnahme bestätigt</Text>
+          <Text style={title}>Absage bestätigt</Text>
 
           <Section style={section}>
             <Text style={text}>
@@ -37,9 +34,8 @@ export default function ConfirmInviteEmail({ invite }) {
               {invite.name},
             </Text>
             <Text style={text}>
-              vielen Dank für Ihre Anmeldung zur 11. Town & Country
-              Stiftungsgala am 21. Juni 2024. <br />
-              Wir freuen uns auf Ihr Kommen!
+              schade, dass Sie nicht zur 11. Town & Country Stiftungsgala am 21.
+              Juni 2024 kommen können.
             </Text>
             <Text style={text}>
               <strong>Wir haben folgende Daten erfasst:</strong>
