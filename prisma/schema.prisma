@@ -199,6 +199,8 @@ model Invite {
   begleitung        String?
   datenschutz       Boolean?
   datenschutzMedia  Boolean?
+  verifyId          String?  @default(cuid()) @unique
+  verified          Boolean? @default(false)
 }
 
 model Account {

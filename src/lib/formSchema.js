@@ -233,7 +233,12 @@ export const botschafterSchema = yup.object().shape({
 });
 
 export const inviteSchema = yup.object().shape({
-  teilname: yup.string().required(),
+  teilnahme: yup
+    .boolean()
+    .transform((value) => {
+      return value == "ja";
+    })
+    .required(),
   spende: yup.boolean(),
   titel: yup.string(),
   name: yup.string().required(),

@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 import {
   Button,
   Flex,
@@ -23,29 +23,29 @@ import {
   Radio,
   Checkbox,
   Tooltip,
+  useToast,
 } from "@chakra-ui/react";
 import { AlertIcon } from "@chakra-ui/react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import useFormPersist from "react-hook-form-persist";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { inviteSchema } from "@/lib/formSchema";
-import { isObjEmpty, topScroller } from "@/lib/utils";
 
 function NewInvite() {
-  // const toast = useToast();
+  const router = useRouter();
+  const toast = useToast();
   const [spende, setSpende] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
   const [formError, setFormError] = useState(false);
   const [errorMsg, setErrorMsg] = useState();
-  const [confirmEmail, setConfirmEmail] = useState("");
-  const [validKampagne, setValidKampagne] = useState(true);
 
   const {
     register,
     handleSubmit,
     control,
     reset,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(inviteSchema),
@@ -53,9 +53,10 @@ function NewInvite() {
 
   async function onSubmit(values) {
     try {
+      console.log(values);
       setLoading(true);
-      const res = await fetch("/api/letter", {
-        method: "PUT",
+      const res = await fetch("/api/invite", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
@@ -66,19 +67,29 @@ function NewInvite() {
           duration: 4000,
           isClosable: true,
         });
+        const error = await res.json();
+        console.log("error", error);
+        if (error.msg) {
+          setErrorMsg(error.msg);
+        }
+        setFormError(true);
         setLoading(false);
       } else {
         const resData = await res.json();
+        console.log(resData);
         toast({
-          title: `Projekt ${resData.nameTraeger} aktualisiert.`,
+          title: `Vielen Dank für Ihre Registrierung!
+                  Sie haben soeben eine Bestätigungs-Mail an ${resData?.result?.email} von uns erhalten.
+                  Bitte bestätigen Sie den dortigen Link, um Ihre Anmeldung abzuschließen.`,
           status: "success",
           duration: 4000,
           isClosable: true,
         });
-        detailsOnClose();
-        router.push(`/admin/bewerbung/${resData.id}`);
+        // router.push(`/einladung`);
         setLoading(false);
-        reset(resData);
+        reset();
+        setValue("datenschutz", null);
+        setValue("teilnahme", null);
       }
     } catch (error) {
       console.log("api fetch error");
@@ -93,16 +104,10 @@ function NewInvite() {
     }
   }
 
-  const handleReset = () => {
-    reset();
-    methods.reset();
-  };
-
   return (
     <>
       <Alert status="warning">
         <AlertIcon />
-        {/* <AlertTitle>Achtung!</AlertTitle> */}
         <AlertDescription>
           Hinweis: Bitte füllen Sie für jede teilnehmende Person eine eigene
           Anmeldung aus. Vielen Dank!
@@ -110,7 +115,7 @@ function NewInvite() {
       </Alert>
       <Card size={"lg"} w={"100%"}>
         <CardBody>
-          <form id="new-letter-form" onSubmit={handleSubmit(onSubmit)}>
+          <form id="new-invite-form" onSubmit={handleSubmit(onSubmit)}>
             <Flex flexDir="column" width="100%">
               <VStack gap={10}>
                 <SimpleGrid spacing={6} columns={12} w={"full"}>
@@ -121,20 +126,16 @@ function NewInvite() {
                         control={control}
                         name="teilnahme"
                         render={({ field }) => (
-                          <RadioGroup
-                            ref={register()}
-                            defaultValue=""
-                            {...field}
-                          >
+                          <RadioGroup ref={register()} {...field}>
                             <VStack alignItems={"flex-start"} maxW={"60%"}>
-                              <Radio value="ja" variant={"atTop"}>
+                              <Radio value={"ja"} variant={"atTop"}>
                                 Ja, ich/wir nehme/n an der Gala zur
                                 Preisausrichtung des 11. Town &amp; Country
                                 Stiftungspreises am Abend des{" "}
                                 <strong>21. Juni 2024 um 17:30 Uhr</strong>{" "}
                                 teil.
                               </Radio>
-                              <Radio value="nein" variant={"atTop"}>
+                              <Radio value={"nein"} variant={"atTop"}>
                                 Nein, ich/wir /bin/sind leider verhindert und
                                 kann/können nicht teilnehmen.
                               </Radio>
@@ -287,7 +288,31 @@ function NewInvite() {
                     </Heading>
                   </GridItem>
                   <GridItem colSpan={12}>
-                    <FormControl isInvalid={errors.spende}>
+                    <FormControl isInvalid={errors.datenschutzMedia}>
+                      <Checkbox
+                        name="datenschutzMedia"
+                        type="checkbox"
+                        {...register("datenschutzMedia")}
+                        spacing={6}
+                        isInvalid={errors.datenschutzMedia}
+                        textAlign={"left"}
+                        variant={"atTop"}
+                      >
+                        Ich bin einverstanden, dass die Town &amp; Country
+                        Stiftung im Rahmen der Veranstaltung Foto-, Film- und
+                        Tonaufnahmen zu Marketing- und Informationszwecken
+                        anfertigt und diese örtlich, zeitlich und inhaltlich
+                        uneingeschränkt zu den vorgenannten Zwecken nutzen
+                        darf.*
+                        <FormErrorMessage>
+                          {errors.datenschutzMedia &&
+                            errors.datenschutzMedia.message}
+                        </FormErrorMessage>
+                      </Checkbox>
+                    </FormControl>
+                  </GridItem>
+                  <GridItem colSpan={12}>
+                    <FormControl isInvalid={errors.datenschutz}>
                       <Checkbox
                         name="datenschutz"
                         type="checkbox"
@@ -311,29 +336,6 @@ function NewInvite() {
                       </Checkbox>
                     </FormControl>
                   </GridItem>
-                  <GridItem colSpan={12}>
-                    <FormControl isInvalid={errors.spende}>
-                      <Checkbox
-                        name="datenschutz"
-                        type="checkbox"
-                        {...register("datenschutz")}
-                        spacing={6}
-                        isInvalid={errors.datenschutz}
-                        textAlign={"left"}
-                        variant={"atTop"}
-                      >
-                        Ich bin einverstanden, dass die Town &amp; Country
-                        Stiftung im Rahmen der Veranstaltung Foto-, Film- und
-                        Tonaufnahmen zu Marketing- und Informationszwecken
-                        anfertigt und diese örtlich, zeitlich und inhaltlich
-                        uneingeschränkt zu den vorgenannten Zwecken nutzen
-                        darf.*
-                        <FormErrorMessage>
-                          {errors.datenschutz && errors.datenschutz.message}
-                        </FormErrorMessage>
-                      </Checkbox>
-                    </FormControl>
-                  </GridItem>
                 </SimpleGrid>
                 <Alert status="warning">
                   <AlertIcon />
@@ -349,8 +351,7 @@ function NewInvite() {
                 </Alert>
                 <Button
                   // isDisabled={!isObjEmpty(methods.formState.errors)}
-                  // isLoading={formState.isSubmitting}
-                  // colorScheme="green"
+                  isLoading={loading}
                   loadingText="bitte warten"
                   size="md"
                   onClick={() => handleSubmit(onSubmit)()}
@@ -361,6 +362,69 @@ function NewInvite() {
                 >
                   Einladung abschicken
                 </Button>
+                {formSuccess && false && (
+                  <Box
+                    sx={{
+                      rounded: "md",
+                    }}
+                  >
+                    <Alert
+                      status="success"
+                      variant="subtle"
+                      flexDirection="column"
+                      alignItems="center"
+                      justifyContent="center"
+                      textAlign="center"
+                      // height="200px"
+                      rounded={"md"}
+                      bg={"brand.900"}
+                      color={"white"}
+                      p={8}
+                    >
+                      <AlertIcon boxSize="40px" mr={0} color={"white"} />
+                      <AlertTitle mt={4} mb={1} fontSize="lg">
+                        Einladung erfolgreich übermittelt
+                      </AlertTitle>
+                      <AlertDescription maxWidth="2xl" mt={2}>
+                        Nach Absenden Ihrer Einladung und{" "}
+                        <Text as="b">
+                          Bestätigung des Ihnen zugesandten Links an{" "}
+                          {/* {confirmEmail} */}
+                        </Text>
+                        , <br /> erhalten Sie eine automatisierte
+                        Bestätigungs-E-Mail.
+                      </AlertDescription>
+                    </Alert>
+                  </Box>
+                )}
+                {formError && (
+                  <Box sx={{ rounded: "md" }}>
+                    <Alert
+                      status="error"
+                      variant="subtle"
+                      flexDirection="column"
+                      alignItems="center"
+                      justifyContent="center"
+                      textAlign="center"
+                      // height="200px"
+                      rounded={"md"}
+                      bg={"red.500"}
+                      color={"white"}
+                      p={8}
+                    >
+                      <AlertIcon boxSize="40px" mr={0} color={"white"} />
+                      <AlertTitle mt={4} mb={1} fontSize="lg">
+                        {errorMsg ? errorMsg : "Ein Fehler ist aufgetreten."}
+                      </AlertTitle>
+                      {!errorMsg && (
+                        <AlertDescription maxWidth="2xl" mt={2}>
+                          Bitte überprüfen Sie Ihre eingaben oder <br />
+                          probieren Sie es zu einem späteren Zeitpunkt nochmal.
+                        </AlertDescription>
+                      )}
+                    </Alert>
+                  </Box>
+                )}
               </VStack>
             </Flex>
           </form>

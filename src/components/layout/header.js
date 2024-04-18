@@ -83,6 +83,15 @@ function Header() {
           >
             Filter
           </Button>
+          <Button
+            as={Link}
+            href="/admin/einladungen"
+            color={"gray.500"}
+            fontWeight={"400"}
+            variant={"ghost"}
+          >
+            Einladungen
+          </Button>
         </HStack>
       )}
       <Spacer />
@@ -131,6 +140,9 @@ function Header() {
                 </MenuItem>
                 <MenuItem as={Link} href="/admin/filter">
                   Filter
+                </MenuItem>
+                <MenuItem as={Link} href="/admin/einladungen">
+                  Einladungen
                 </MenuItem>
                 <MenuDivider />
 
