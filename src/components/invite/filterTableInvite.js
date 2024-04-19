@@ -231,7 +231,7 @@ function FilterTableInvite({ invites }) {
           textAlign={"left"}
           margin={"auto 0"}
         >
-          Einladungen
+          Einladungen{" "}
           <chakra.span color={"gray.400"}>
             {table.getFilteredRowModel().rows.length || "-"} /{" "}
             {tableData.length}
