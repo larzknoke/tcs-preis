@@ -14,6 +14,10 @@ export default async function handle(req, res) {
           process.env.NODE_ENV === "development"
             ? "info@larsknoke.com"
             : invite.email,
+        bcc:
+          process.env.NODE_ENV === "development"
+            ? ""
+            : "stiftungspreis@tc-stiftung.de",
         subject:
           "11. Town & Country Stiftungsgala – vielen Dank für Ihre Anmeldung",
         html: render(<ConfirmInviteEmail invite={invite} />),

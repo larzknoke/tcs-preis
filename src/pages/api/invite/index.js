@@ -12,8 +12,11 @@ export default async function handle(req, res) {
     try {
       const data = req.body;
       console.log("data: ", data);
+
+      const kampagne = await prisma.kampagne.findFirst();
+      data.kampagneId = kampagne ? kampagne.id : null;
+
       const result = await prisma.invite.create({ data: data });
-      console.log("result: ", result);
 
       if (result.email) {
         // *** ZUSAGE ***
@@ -35,6 +38,10 @@ export default async function handle(req, res) {
               process.env.NODE_ENV === "development"
                 ? ["info@larsknoke.com"]
                 : result.email,
+            bcc:
+              process.env.NODE_ENV === "development"
+                ? ""
+                : "stiftungspreis@tc-stiftung.de",
             subject: "11. Town & Country Stiftungsgala – Absage",
             html: render(<CancelInviteEmail invite={result} />),
           });
