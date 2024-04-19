@@ -437,7 +437,6 @@ function FilterTableInvite({ invites }) {
           </Flex>
         </CardBody>
       </Card>
-      <pre>{JSON.stringify(table.getState(), null, 2)}</pre>
     </>
   );
 }
