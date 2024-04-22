@@ -42,6 +42,7 @@ function NewInvite() {
   const [errorMsg, setErrorMsg] = useState();
   const [confirmEmail, setConfirmEmail] = useState();
   const [teilnahmeJa, setTeilnahmeJa] = useState();
+  const [begleitungJa, setBegleitungJa] = useState(false);
 
   const {
     register,
@@ -86,7 +87,7 @@ function NewInvite() {
         } else {
           setTeilnahmeJa(false);
         }
-        // router.push(`/einladung`);
+        // router.push(`/anmeldung`);
         topScroller();
         setLoading(false);
         setFormSuccess(true);
@@ -109,13 +110,6 @@ function NewInvite() {
 
   return (
     <>
-      <Alert status="warning">
-        <AlertIcon />
-        <AlertDescription>
-          Hinweis: Bitte füllen Sie für jede teilnehmende Person eine eigene
-          Anmeldung aus. Vielen Dank!
-        </AlertDescription>
-      </Alert>
       <Card size={"lg"} w={"100%"}>
         <CardBody>
           {!formSuccess && (
@@ -286,17 +280,67 @@ function NewInvite() {
                       </FormControl>
                     </GridItem>
                     <GridItem colSpan={12}>
-                      <FormControl isInvalid={errors.begleitung}>
-                        <FormLabel>Ich werde begleitet von:</FormLabel>
-                        <Input
-                          name="begleitung"
-                          type="text"
-                          {...register("begleitung")}
-                        />
-                        <FormErrorMessage>
-                          {errors.begleitung && errors.begleitung.message}
-                        </FormErrorMessage>
-                      </FormControl>
+                      <Heading
+                        textAlign={"left"}
+                        size={"md"}
+                        color={"gray.500"}
+                      >
+                        Begleiter
+                      </Heading>
+                    </GridItem>
+                    <GridItem colSpan={12}>
+                      <Checkbox
+                        color={"gray.500"}
+                        onChange={(e) => setBegleitungJa(e.target.checked)}
+                      >
+                        Ich komme in Begleitung.
+                      </Checkbox>
+                      {begleitungJa && (
+                        <SimpleGrid mt={3} spacing={6} columns={12} w={"full"}>
+                          <GridItem colSpan={4}>
+                            <FormControl isInvalid={errors.begleitungTitel}>
+                              <FormLabel>Titel</FormLabel>
+                              <Input
+                                name="begleitungTitel"
+                                type="text"
+                                {...register("begleitungTitel")}
+                              />
+                              <FormErrorMessage>
+                                {errors.begleitungTitel &&
+                                  errors.begleitungTitel.message}
+                              </FormErrorMessage>
+                            </FormControl>
+                          </GridItem>
+                          <GridItem colSpan={4}>
+                            <FormControl isInvalid={errors.begleitungVorname}>
+                              <FormLabel>Vorname</FormLabel>
+                              <Input
+                                name="begleitungVorname"
+                                type="text"
+                                {...register("begleitungVorname")}
+                              />
+                              <FormErrorMessage>
+                                {errors.begleitungVorname &&
+                                  errors.begleitungVorname.message}
+                              </FormErrorMessage>
+                            </FormControl>
+                          </GridItem>
+                          <GridItem colSpan={4}>
+                            <FormControl isInvalid={errors.begleitungName}>
+                              <FormLabel>Name</FormLabel>
+                              <Input
+                                name="begleitungName"
+                                type="text"
+                                {...register("begleitungName")}
+                              />
+                              <FormErrorMessage>
+                                {errors.begleitungName &&
+                                  errors.begleitungName.message}
+                              </FormErrorMessage>
+                            </FormControl>
+                          </GridItem>
+                        </SimpleGrid>
+                      )}
                     </GridItem>
                     <GridItem colSpan={12}>
                       <Heading
@@ -380,7 +424,7 @@ function NewInvite() {
                     color={"white"}
                     px={10}
                   >
-                    Einladung abschicken
+                    Anmeldung abschicken
                   </Button>
                 </VStack>
               </Flex>
@@ -403,7 +447,7 @@ function NewInvite() {
               >
                 <AlertIcon boxSize="40px" mr={0} color={"white"} />
                 <AlertTitle mt={4} mb={1} fontSize="lg">
-                  Einladung erfolgreich übermittelt
+                  Anmeldung erfolgreich übermittelt
                 </AlertTitle>
                 {teilnahmeJa ? (
                   <AlertDescription maxWidth="2xl" mt={2}>
@@ -422,7 +466,7 @@ function NewInvite() {
               </Alert>
               <Button
                 ml={"auto"}
-                onClick={() => window.location.assign("/einladung")}
+                onClick={() => window.location.assign("/anmeldung")}
               >
                 Neuen Teilnehmer anmelden
               </Button>

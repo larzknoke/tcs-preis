@@ -41,6 +41,20 @@ export default function ConfirmInviteEmail({ invite }) {
               Stiftungsgala am 21. Juni 2024. <br />
               Wir freuen uns auf Ihr Kommen!
             </Text>
+            {invite.spende && (
+              <Text style={text}>
+                <strong>Spende</strong>
+                <br />
+                Ich/wir leiste/n eine Spende in Höhe von{" "}
+                {invite.spendeBetrag || "-"} €<br />
+                Spendenkonto: <br />
+                Weberbank Berlin, IBAN: DE25 1012 0100 6156 1780 00 <br />
+                Verwendungszweck „Spende Preisverleihung“ online spenden: <br />
+                <a href="https://www.paypal.com/donate/?hosted_button_id=3AZVZQLDWZVWJ">
+                  https://www.paypal.com/donate/?hosted_button_id=3AZVZQLDWZVWJ
+                </a>
+              </Text>
+            )}
             <Text style={text}>
               <strong>Wir haben folgende Daten erfasst:</strong>
             </Text>
@@ -67,7 +81,8 @@ export default function ConfirmInviteEmail({ invite }) {
               {invite.telefon || "-"}
               <br />
               <strong>Begleitung: </strong>
-              {invite.begleitung || "-"}
+              {invite.begleitungTitel || "-"} {invite.begleitungVorname || "-"}{" "}
+              {invite.begleitungName || "-"}{" "}
             </Text>
           </Section>
 

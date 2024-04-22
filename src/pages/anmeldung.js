@@ -7,7 +7,7 @@ import Link from "next/link";
 // import { authOptions } from "./api/auth/[...nextauth]";
 // import prisma from "@/lib/prisma";
 
-function Einladung() {
+function Anmeldung() {
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
       <VStack gap={8} alignItems={"start"}>
@@ -32,7 +32,7 @@ function Einladung() {
   );
 }
 
-export default Einladung;
+export default Anmeldung;
 
 // export const getServerSideProps = async (context) => {
 //   const session = await getServerSession(context.req, context.res, authOptions);

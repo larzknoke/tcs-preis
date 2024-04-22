@@ -16,7 +16,7 @@ export default function VerifyInvite({ invite }) {
     <Html>
       <Head />
       <Preview>
-        11. Town & Country Stiftungsgala – bitte Anmeldung bestätigen
+        11. Town & Country Stiftungsgala – bitte bestätigen Sie Ihre Anmeldung
       </Preview>
       <Body style={main}>
         <Container style={container}>
@@ -50,7 +50,7 @@ export default function VerifyInvite({ invite }) {
               style={button}
               href={
                 process.env.NEXTAUTH_URL +
-                "/einladung/verify?verifyId=" +
+                "/anmeldung/verify?verifyId=" +
                 invite.verifyId
               }
             >
@@ -62,7 +62,7 @@ export default function VerifyInvite({ invite }) {
             </Text>
             <Text style={textbold}>
               {process.env.NEXTAUTH_URL +
-                "/einladung/verify?verifyId=" +
+                "/anmeldung/verify?verifyId=" +
                 invite.verifyId}
             </Text>
           </Section>

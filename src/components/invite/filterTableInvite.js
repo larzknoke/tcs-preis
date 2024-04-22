@@ -178,8 +178,11 @@ function FilterTableInvite({ invites }) {
         filterFn: "equals",
       },
       {
-        accessorKey: "begleitung",
-        cell: (info) => info.getValue(),
+        accessorKey: "begleitungName",
+        cell: ({ info, row }) =>
+          `${row.original.begleitungTitel || "-"} ${
+            row.original.begleitungVorname || "-"
+          } ${row.original.begleitungName || "-"}`,
         footer: (props) => props.column.id,
         filterFn: "equals",
       },
@@ -231,7 +234,7 @@ function FilterTableInvite({ invites }) {
           textAlign={"left"}
           margin={"auto 0"}
         >
-          Einladungen{" "}
+          Anmeldungen{" "}
           <chakra.span color={"gray.400"}>
             {table.getFilteredRowModel().rows.length || "-"} /{" "}
             {tableData.length}

@@ -27,7 +27,7 @@ export default async function handle(req, res) {
                 ? ["info@larsknoke.com"]
                 : result.email,
             subject:
-              "11. Town & Country Stiftungsgala – bitte Anmeldung bestätigen",
+              "11. Town & Country Stiftungsgala – bitte bestätigen Sie Ihre Anmeldung",
             html: render(<VerifyInvite invite={result} />),
           });
         }

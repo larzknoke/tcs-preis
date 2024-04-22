@@ -2,7 +2,7 @@ import { Container, Heading } from "@chakra-ui/react";
 import prisma from "@/lib/prisma";
 import FilterTableInvite from "@/components/invite/filterTableInvite";
 
-function Einladungen({ invites }) {
+function Anmeldungen({ invites }) {
   return (
     <Container display={"flex"} flexDirection={"column"} minW={"100%"}>
       <FilterTableInvite invites={invites} />
@@ -16,4 +16,4 @@ export const getServerSideProps = async () => {
   return { props: { invites } };
 };
 
-export default Einladungen;
+export default Anmeldungen;

@@ -198,6 +198,9 @@ model Invite {
   email             String?
   telefon           String?
   begleitung        String?
+  begleitungTitel   String?
+  begleitungVorname String?
+  begleitungName    String?
   datenschutz       Boolean?
   datenschutzMedia  Boolean?
   verifyId          String?  @default(cuid()) @unique
