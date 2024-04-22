@@ -1,4 +1,5 @@
 import {
+  VStack,
   Table,
   Card,
   CardBody,
@@ -228,18 +229,51 @@ function FilterTableInvite({ invites }) {
   return (
     <>
       <Stack mt={10} mb={6} direction={{ base: "column", md: "row" }}>
-        <Heading
-          color={"gray.700"}
-          size={"md"}
-          textAlign={"left"}
-          margin={"auto 0"}
-        >
-          Anmeldungen{" "}
-          <chakra.span color={"gray.400"}>
-            {table.getFilteredRowModel().rows.length || "-"} /{" "}
-            {tableData.length}
-          </chakra.span>{" "}
-        </Heading>
+        <VStack alignItems={"start"}>
+          <Heading
+            color={"gray.700"}
+            size={"md"}
+            textAlign={"left"}
+            margin={"auto 0"}
+          >
+            Anmeldungen{" "}
+            <chakra.span color={"gray.400"}>
+              {table.getFilteredRowModel().rows.length || "-"} /{" "}
+              {tableData.length}
+            </chakra.span>{" "}
+          </Heading>
+          <Heading
+            color={"gray.700"}
+            size={"sm"}
+            textAlign={"left"}
+            margin={"auto 0"}
+            ml={4}
+            mt={4}
+          >
+            Statistik
+          </Heading>
+          <Table size={"sm"}>
+            <Tr>
+              <Td>Gesamt Anmeldungen</Td>
+              <Td>{invites.length}</Td>
+            </Tr>
+            <Tr>
+              <Td>Bestätige Teilnahme</Td>
+              <Td>
+                {invites.filter((i) => i.teilnahme && i.verified).length}{" "}
+                <chakra.span color="gray.400">
+                  ({invites.filter((i) => i.teilnahme && !i.verified).length})
+                </chakra.span>
+              </Td>
+              <Td>zzgl. Begleitungen</Td>
+              <Td>{invites.filter((i) => i.begleitungName).length}</Td>
+            </Tr>
+            <Tr>
+              <Td>Absagen</Td>
+              <Td>{invites.filter((i) => !i.teilnahme).length}</Td>
+            </Tr>
+          </Table>
+        </VStack>
         <DebouncedInput
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
