@@ -256,30 +256,28 @@ function FilterTableInvite({ invites }) {
             <Tbody>
               <Tr>
                 <Td>Gesamt Anmeldungen</Td>
-                <Td textAlign={"right"}>{invites.length}</Td>
+                <Td isNumeric>{invites.length}</Td>
                 <Td></Td>
                 <Td></Td>
               </Tr>
               <Tr>
                 <Td>Bestätige Teilnahme</Td>
-                <Td textAlign={"right"}>
+                <Td isNumeric>
                   {invites.filter((i) => i.teilnahme && i.verified).length}{" "}
                 </Td>
-                <Td textAlign={"right"}>
+                <Td isNumeric>
                   <chakra.span color="gray.400">
                     ({invites.filter((i) => i.teilnahme && !i.verified).length}){" "}
                   </chakra.span>
                 </Td>
                 <Td>zzgl. Begleitungen</Td>
-                <Td textAlign={"right"}>
+                <Td isNumeric>
                   {invites.filter((i) => i.begleitungName).length}
                 </Td>
               </Tr>
               <Tr>
                 <Td>Absagen</Td>
-                <Td textAlign={"right"}>
-                  {invites.filter((i) => !i.teilnahme).length}
-                </Td>
+                <Td isNumeric>{invites.filter((i) => !i.teilnahme).length}</Td>
                 <Td></Td>
                 <Td></Td>
               </Tr>
