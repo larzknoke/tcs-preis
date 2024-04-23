@@ -272,7 +272,7 @@ function FilterTableInvite({ invites }) {
                 </Td>
                 <Td>zzgl. Begleitungen</Td>
                 <Td isNumeric>
-                  {invites.filter((i) => i.begleitungName).length}
+                  {invites.filter((i) => i.begleitung == "ja").length}
                 </Td>
               </Tr>
               <Tr>
