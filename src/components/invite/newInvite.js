@@ -289,59 +289,77 @@ function NewInvite() {
                       </Heading>
                     </GridItem>
                     <GridItem colSpan={12}>
-                      <Checkbox
+                      {/* <Checkbox
                         color={"gray.500"}
                         onChange={(e) => setBegleitungJa(e.target.checked)}
                       >
                         Ich komme in Begleitung.
-                      </Checkbox>
-                      {begleitungJa && (
-                        <SimpleGrid mt={3} spacing={6} columns={12} w={"full"}>
-                          <GridItem colSpan={4}>
-                            <FormControl isInvalid={errors.begleitungTitel}>
-                              <FormLabel>Titel</FormLabel>
-                              <Input
-                                name="begleitungTitel"
-                                type="text"
-                                {...register("begleitungTitel")}
-                              />
-                              <FormErrorMessage>
-                                {errors.begleitungTitel &&
-                                  errors.begleitungTitel.message}
-                              </FormErrorMessage>
-                            </FormControl>
-                          </GridItem>
-                          <GridItem colSpan={4}>
-                            <FormControl isInvalid={errors.begleitungVorname}>
-                              <FormLabel>Vorname</FormLabel>
-                              <Input
-                                name="begleitungVorname"
-                                type="text"
-                                {...register("begleitungVorname")}
-                              />
-                              <FormErrorMessage>
-                                {errors.begleitungVorname &&
-                                  errors.begleitungVorname.message}
-                              </FormErrorMessage>
-                            </FormControl>
-                          </GridItem>
-                          <GridItem colSpan={4}>
-                            <FormControl isInvalid={errors.begleitungName}>
-                              <FormLabel>Name</FormLabel>
-                              <Input
-                                name="begleitungName"
-                                type="text"
-                                {...register("begleitungName")}
-                              />
-                              <FormErrorMessage>
-                                {errors.begleitungName &&
-                                  errors.begleitungName.message}
-                              </FormErrorMessage>
-                            </FormControl>
-                          </GridItem>
-                        </SimpleGrid>
-                      )}
+                      </Checkbox> */}
+                      <FormControl isInvalid={errors.begleitung}>
+                        <Checkbox
+                          name="begleitung"
+                          type="checkbox"
+                          {...register("begleitung")}
+                          spacing={6}
+                          isInvalid={errors.begleitung}
+                          textAlign={"left"}
+                          variant={"atTop"}
+                          onChange={(e) => setBegleitungJa(e.target.checked)}
+                        >
+                          Ich komme in Begleitung.
+                          <FormErrorMessage>
+                            {errors.begleitung && errors.begleitung.message}
+                          </FormErrorMessage>
+                        </Checkbox>
+                      </FormControl>
                     </GridItem>
+
+                    {begleitungJa && (
+                      <>
+                        <GridItem colSpan={4}>
+                          <FormControl isInvalid={errors.begleitungTitel}>
+                            <FormLabel>Titel</FormLabel>
+                            <Input
+                              name="begleitungTitel"
+                              type="text"
+                              {...register("begleitungTitel")}
+                            />
+                            <FormErrorMessage>
+                              {errors.begleitungTitel &&
+                                errors.begleitungTitel.message}
+                            </FormErrorMessage>
+                          </FormControl>
+                        </GridItem>
+                        <GridItem colSpan={4}>
+                          <FormControl isInvalid={errors.begleitungVorname}>
+                            <FormLabel>Vorname</FormLabel>
+                            <Input
+                              name="begleitungVorname"
+                              type="text"
+                              {...register("begleitungVorname")}
+                            />
+                            <FormErrorMessage>
+                              {errors.begleitungVorname &&
+                                errors.begleitungVorname.message}
+                            </FormErrorMessage>
+                          </FormControl>
+                        </GridItem>
+                        <GridItem colSpan={4}>
+                          <FormControl isInvalid={errors.begleitungName}>
+                            <FormLabel>Name</FormLabel>
+                            <Input
+                              name="begleitungName"
+                              type="text"
+                              {...register("begleitungName")}
+                            />
+                            <FormErrorMessage>
+                              {errors.begleitungName &&
+                                errors.begleitungName.message}
+                            </FormErrorMessage>
+                          </FormControl>
+                        </GridItem>
+                      </>
+                    )}
                     <GridItem colSpan={12}>
                       <Heading
                         textAlign={"left"}

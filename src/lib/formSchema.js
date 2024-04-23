@@ -246,7 +246,9 @@ export const inviteSchema = yup.object().shape({
   unternehmen: yup.string().required(),
   email: yup.string().email().required(),
   telefon: yup.string(),
-  begleitung: yup.string(),
+  begleitung: yup.string().transform((value) => {
+    return value == "true" ? "ja" : "nein";
+  }),
   datenschutz: yup
     .boolean()
     .required("Bitte Bestätigen Sie die Datenschutzerklärung")
