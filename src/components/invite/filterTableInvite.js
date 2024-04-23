@@ -179,6 +179,19 @@ function FilterTableInvite({ invites }) {
         filterFn: "equals",
       },
       {
+        accessorKey: "begleitung",
+        footer: (props) => props.column.id,
+        cell: ({ info, row }) => (
+          <span>
+            {row.original.begleitung == "ja" ? (
+              <Icon as={HiOutlineCheck} color={"green.700"} />
+            ) : (
+              <Icon as={HiOutlineNoSymbol} color={"red.500"} />
+            )}
+          </span>
+        ),
+      },
+      {
         accessorKey: "begleitungName",
         cell: ({ info, row }) =>
           `${row.original.begleitungTitel || "-"} ${
@@ -564,6 +577,30 @@ function Filter({ column, table }) {
                 column.setFilterValue(true);
               } else if (e.target.value == "Nein") {
                 column.setFilterValue(false);
+              }
+            }}
+          >
+            <option value="Alle">Alle</option>
+            <option value="Ja">Ja</option>
+            <option value="Nein">Nein</option>
+          </Select>
+        </>
+      );
+    case "begleitung":
+      return (
+        <>
+          <Select
+            h={"25px"}
+            mt={2}
+            size={"sm"}
+            minW={"90px"}
+            onChange={(e) => {
+              if (e.target.value == "Alle") {
+                column.setFilterValue("");
+              } else if (e.target.value == "Ja") {
+                column.setFilterValue("ja");
+              } else if (e.target.value == "Nein") {
+                column.setFilterValue("nein");
               }
             }}
           >
