@@ -253,25 +253,37 @@ function FilterTableInvite({ invites }) {
             Statistik
           </Heading>
           <Table size={"sm"}>
-            <Tr>
-              <Td>Gesamt Anmeldungen</Td>
-              <Td>{invites.length}</Td>
-            </Tr>
-            <Tr>
-              <Td>Bestätige Teilnahme</Td>
-              <Td>
-                {invites.filter((i) => i.teilnahme && i.verified).length}{" "}
-                <chakra.span color="gray.400">
-                  ({invites.filter((i) => i.teilnahme && !i.verified).length})
-                </chakra.span>
-              </Td>
-              <Td>zzgl. Begleitungen</Td>
-              <Td>{invites.filter((i) => i.begleitungName).length}</Td>
-            </Tr>
-            <Tr>
-              <Td>Absagen</Td>
-              <Td>{invites.filter((i) => !i.teilnahme).length}</Td>
-            </Tr>
+            <Tbody>
+              <Tr>
+                <Td>Gesamt Anmeldungen</Td>
+                <Td textAlign={"right"}>{invites.length}</Td>
+                <Td></Td>
+                <Td></Td>
+              </Tr>
+              <Tr>
+                <Td>Bestätige Teilnahme</Td>
+                <Td textAlign={"right"}>
+                  {invites.filter((i) => i.teilnahme && i.verified).length}{" "}
+                </Td>
+                <Td textAlign={"right"}>
+                  <chakra.span color="gray.400">
+                    ({invites.filter((i) => i.teilnahme && !i.verified).length}){" "}
+                  </chakra.span>
+                </Td>
+                <Td>zzgl. Begleitungen</Td>
+                <Td textAlign={"right"}>
+                  {invites.filter((i) => i.begleitungName).length}
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>Absagen</Td>
+                <Td textAlign={"right"}>
+                  {invites.filter((i) => !i.teilnahme).length}
+                </Td>
+                <Td></Td>
+                <Td></Td>
+              </Tr>
+            </Tbody>
           </Table>
         </VStack>
         <DebouncedInput
