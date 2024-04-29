@@ -41,20 +41,6 @@ export default function ConfirmInviteEmail({ invite }) {
               Stiftungsgala am 21. Juni 2024. <br />
               Wir freuen uns auf Ihr Kommen!
             </Text>
-            {invite.spende && (
-              <Text style={text}>
-                <strong>Spende</strong>
-                <br />
-                Ich/wir leiste/n eine Spende in Höhe von{" "}
-                {invite.spendeBetrag || "-"} €<br />
-                Spendenkonto: <br />
-                Weberbank Berlin, IBAN: DE25 1012 0100 6156 1780 00 <br />
-                Verwendungszweck „Spende Preisverleihung“ online spenden: <br />
-                <a href="https://www.paypal.com/donate/?hosted_button_id=3AZVZQLDWZVWJ">
-                  https://www.paypal.com/donate/?hosted_button_id=3AZVZQLDWZVWJ
-                </a>
-              </Text>
-            )}
             <Text style={text}>
               <strong>Wir haben folgende Daten erfasst:</strong>
             </Text>
@@ -69,7 +55,21 @@ export default function ConfirmInviteEmail({ invite }) {
               {invite.teilnahme ? "Ja" : "Nein"}
               <br />
               <strong>Spende: </strong>
-              {invite.spende ? "Ja" : "Nein"}
+              {invite.spende ? (
+                <Text style={text}>
+                  Ich/wir leiste/n eine Spende in Höhe von{" "}
+                  {invite.spendeBetrag || "-"} €<br />
+                  Spendenkonto: <br />
+                  Weberbank Berlin, IBAN: DE25 1012 0100 6156 1780 00 <br />
+                  Verwendungszweck: <br /> „Spende Preisverleihung“ online
+                  spenden: <br />
+                  <a href="https://www.paypal.com/donate/?hosted_button_id=U5NFSF7NAVGK2">
+                    https://www.paypal.com/donate/?hosted_button_id=U5NFSF7NAVGK2
+                  </a>
+                </Text>
+              ) : (
+                "Nein"
+              )}
               <br />
               <strong>Betrag: </strong>
               {invite.spendeBetrag || "-"}
@@ -127,7 +127,7 @@ const section = {
   padding: "24px",
   border: "solid 1px #dedede",
   borderRadius: "5px",
-  textAlign: "center",
+  textAlign: "left",
   marginBottom: "10px",
 };
 

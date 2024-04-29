@@ -43,6 +43,7 @@ function NewInvite() {
   const [confirmEmail, setConfirmEmail] = useState();
   const [teilnahmeJa, setTeilnahmeJa] = useState();
   const [begleitungJa, setBegleitungJa] = useState(false);
+  const [datenschutzAnzeigen, setDatenschutzAnzeigen] = useState();
 
   const {
     register,
@@ -53,6 +54,7 @@ function NewInvite() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(inviteSchema),
+    mode: "onChange",
   });
 
   async function onSubmit(values) {
@@ -124,7 +126,14 @@ function NewInvite() {
                           control={control}
                           name="teilnahme"
                           render={({ field }) => (
-                            <RadioGroup ref={register()} {...field}>
+                            <RadioGroup
+                              {...field}
+                              onChange={(value) => {
+                                setDatenschutzAnzeigen(value === "ja");
+                                field.onChange(value);
+                              }}
+                              value={field.value}
+                            >
                               <VStack alignItems={"flex-start"} maxW={"60%"}>
                                 <Radio value={"ja"} variant={"atTop"}>
                                   Ja, ich/wir nehme/n an der Gala zur
@@ -165,7 +174,7 @@ function NewInvite() {
                           Betreff: Spende Preisverleihung <br />
                           <Link
                             href={
-                              "https://www.paypal.com/donate/?hosted_button_id=CUTQZHNDY5BQ2"
+                              "https://www.paypal.com/donate/?hosted_button_id=U5NFSF7NAVGK2"
                             }
                             target="_blank"
                           >
@@ -285,7 +294,7 @@ function NewInvite() {
                         size={"md"}
                         color={"gray.500"}
                       >
-                        Begleiter
+                        Begleitung
                       </Heading>
                     </GridItem>
                     <GridItem colSpan={12}>
@@ -360,65 +369,72 @@ function NewInvite() {
                         </GridItem>
                       </>
                     )}
-                    <GridItem colSpan={12}>
-                      <Heading
-                        textAlign={"left"}
-                        size={"md"}
-                        color={"gray.500"}
-                      >
-                        Datenschutz & Einverständniserklärung
-                      </Heading>
-                    </GridItem>
-                    <GridItem colSpan={12}>
-                      <FormControl isInvalid={errors.datenschutzMedia}>
-                        <Checkbox
-                          name="datenschutzMedia"
-                          type="checkbox"
-                          {...register("datenschutzMedia")}
-                          spacing={6}
-                          isInvalid={errors.datenschutzMedia}
-                          textAlign={"left"}
-                          variant={"atTop"}
-                        >
-                          Ich bin einverstanden, dass die Town &amp; Country
-                          Stiftung im Rahmen der Veranstaltung Foto-, Film- und
-                          Tonaufnahmen zu Marketing- und Informationszwecken
-                          anfertigt und diese örtlich, zeitlich und inhaltlich
-                          uneingeschränkt zu den vorgenannten Zwecken nutzen
-                          darf.*
-                          <FormErrorMessage>
-                            {errors.datenschutzMedia &&
-                              errors.datenschutzMedia.message}
-                          </FormErrorMessage>
-                        </Checkbox>
-                      </FormControl>
-                    </GridItem>
-                    <GridItem colSpan={12}>
-                      <FormControl isInvalid={errors.datenschutz}>
-                        <Checkbox
-                          name="datenschutz"
-                          type="checkbox"
-                          {...register("datenschutz")}
-                          spacing={6}
-                          isInvalid={errors.datenschutz}
-                          textAlign={"left"}
-                          variant={"atTop"}
-                        >
-                          Die{" "}
-                          <Link
-                            href={"https://www.tc-stiftung.de/datenschutz/"}
-                            target="_blank"
+                    {datenschutzAnzeigen && (
+                      <>
+                        <GridItem colSpan={12}>
+                          <Heading
+                            textAlign={"left"}
+                            size={"md"}
+                            color={"gray.500"}
                           >
-                            Datenschutzbestimmungen
-                          </Link>{" "}
-                          habe ich zur Kenntnis genommen und akzeptiere diese.
-                          <FormErrorMessage>
-                            {errors.datenschutz && errors.datenschutz.message}
-                          </FormErrorMessage>
-                        </Checkbox>
-                      </FormControl>
-                    </GridItem>
+                            Datenschutz & Einverständniserklärung
+                          </Heading>
+                        </GridItem>
+                        <GridItem colSpan={12}>
+                          <FormControl isInvalid={errors.datenschutzMedia}>
+                            <Checkbox
+                              name="datenschutzMedia"
+                              type="checkbox"
+                              {...register("datenschutzMedia")}
+                              spacing={6}
+                              isInvalid={errors.datenschutzMedia}
+                              textAlign={"left"}
+                              variant={"atTop"}
+                            >
+                              Ich bin einverstanden, dass die Town &amp; Country
+                              Stiftung im Rahmen der Veranstaltung Foto-, Film-
+                              und Tonaufnahmen zu Marketing- und
+                              Informationszwecken anfertigt und diese örtlich,
+                              zeitlich und inhaltlich uneingeschränkt zu den
+                              vorgenannten Zwecken nutzen darf.
+                              <FormErrorMessage>
+                                {errors.datenschutzMedia &&
+                                  errors.datenschutzMedia.message}
+                              </FormErrorMessage>
+                            </Checkbox>
+                          </FormControl>
+                        </GridItem>
+                        <GridItem colSpan={12}>
+                          <FormControl isInvalid={errors.datenschutz}>
+                            <Checkbox
+                              name="datenschutz"
+                              type="checkbox"
+                              {...register("datenschutz")}
+                              spacing={6}
+                              isInvalid={errors.datenschutz}
+                              textAlign={"left"}
+                              variant={"atTop"}
+                            >
+                              Die{" "}
+                              <Link
+                                href={"https://www.tc-stiftung.de/datenschutz/"}
+                                target="_blank"
+                              >
+                                Datenschutzbestimmungen
+                              </Link>{" "}
+                              habe ich zur Kenntnis genommen und akzeptiere
+                              diese.
+                              <FormErrorMessage>
+                                {errors.datenschutz &&
+                                  errors.datenschutz.message}
+                              </FormErrorMessage>
+                            </Checkbox>
+                          </FormControl>
+                        </GridItem>
+                      </>
+                    )}
                   </SimpleGrid>
+
                   <Alert status="warning">
                     <AlertIcon />
                     <AlertDescription>

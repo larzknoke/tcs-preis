@@ -37,20 +37,6 @@ export default function CancelInviteEmail({ invite }) {
               schade, dass Sie nicht zur 11. Town & Country Stiftungsgala am 21.
               Juni 2024 kommen können.
             </Text>
-            {invite.spende && (
-              <Text style={text}>
-                <strong>Spende</strong>
-                <br />
-                Ich/wir leiste/n eine Spende in Höhe von{" "}
-                {invite.spendeBetrag || "-"} €<br />
-                Spendenkonto: <br />
-                Weberbank Berlin, IBAN: DE25 1012 0100 6156 1780 00 <br />
-                Verwendungszweck „Spende Preisverleihung“ online spenden: <br />
-                <a href="https://www.paypal.com/donate/?hosted_button_id=3AZVZQLDWZVWJ">
-                  https://www.paypal.com/donate/?hosted_button_id=3AZVZQLDWZVWJ
-                </a>
-              </Text>
-            )}
             <Text style={text}>
               <strong>Wir haben folgende Daten erfasst:</strong>
             </Text>
@@ -65,7 +51,21 @@ export default function CancelInviteEmail({ invite }) {
               {invite.teilnahme ? "Ja" : "Nein"}
               <br />
               <strong>Spende: </strong>
-              {invite.spende ? "Ja" : "Nein"}
+              {invite.spende ? (
+                <span>
+                  Ich/wir leiste/n eine Spende in Höhe von{" "}
+                  {invite.spendeBetrag || "-"} €<br />
+                  Spendenkonto: <br />
+                  Weberbank Berlin, IBAN: DE25 1012 0100 6156 1780 00 <br />
+                  Verwendungszweck: <br /> „Spende Preisverleihung“ online
+                  spenden: <br />
+                  <a href="https://www.paypal.com/donate/?hosted_button_id=U5NFSF7NAVGK2">
+                    https://www.paypal.com/donate/?hosted_button_id=U5NFSF7NAVGK2
+                  </a>
+                </span>
+              ) : (
+                "Nein"
+              )}
               <br />
               <strong>Betrag: </strong>
               {invite.spendeBetrag || "-"}

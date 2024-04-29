@@ -249,14 +249,22 @@ export const inviteSchema = yup.object().shape({
   begleitung: yup.string().transform((value) => {
     return value == "true" ? "ja" : "nein";
   }),
-  datenschutz: yup
-    .boolean()
-    .required("Bitte Bestätigen Sie die Datenschutzerklärung")
-    .oneOf([true], "Bitte Bestätigen Sie die Datenschutzerklärung"),
-  datenschutzMedia: yup
-    .boolean()
-    .required("Bitte Bestätigen Sie die Einverständniserklärung")
-    .oneOf([true], "Bitte Bestätigen Sie die Einverständniserklärung"),
+  datenschutz: yup.boolean().when("teilnahme", {
+    is: true,
+    then: (schema) => {
+      return schema
+        .required()
+        .oneOf([true], "Bitte Bestätigen Sie die Datenschutzerklärung");
+    },
+  }),
+  datenschutzMedia: yup.boolean().when("teilnahme", {
+    is: true,
+    then: (schema) => {
+      return schema
+        .required()
+        .oneOf([true], "Bitte Bestätigen Sie die Einverständniserklärung");
+    },
+  }),
 });
 
 export const kampagneSchema = yup.object().shape({
