@@ -54,6 +54,15 @@ export default function ConfirmInviteEmail({ invite }) {
               <strong>Teilnahme: </strong>
               {invite.teilnahme ? "Ja" : "Nein"}
               <br />
+              <strong>Email: </strong>
+              {invite.email || "-"}
+              <br />
+              <strong>Telefon: </strong>
+              {invite.telefon || "-"}
+              <br />
+              <strong>Begleitung: </strong>
+              {invite.begleitungTitel || "-"} {invite.begleitungVorname || "-"}{" "}
+              {invite.begleitungName || "-"} <br />
               <strong>Spende: </strong>
               {invite.spende ? (
                 <Text style={text}>
@@ -61,8 +70,9 @@ export default function ConfirmInviteEmail({ invite }) {
                   {invite.spendeBetrag || "-"} €<br />
                   Spendenkonto: <br />
                   Weberbank Berlin, IBAN: DE25 1012 0100 6156 1780 00 <br />
-                  Verwendungszweck: <br /> „Spende Preisverleihung“ online
-                  spenden: <br />
+                  Verwendungszweck: <br /> „Spende Preisverleihung“ <br />
+                  Hier direkt per Kreditkarte oder PayPal spenden:
+                  <br />
                   <a href="https://www.paypal.com/donate/?hosted_button_id=U5NFSF7NAVGK2">
                     https://www.paypal.com/donate/?hosted_button_id=U5NFSF7NAVGK2
                   </a>
@@ -73,16 +83,6 @@ export default function ConfirmInviteEmail({ invite }) {
               <br />
               <strong>Betrag: </strong>
               {invite.spendeBetrag || "-"}
-              <br />
-              <strong>Email: </strong>
-              {invite.email || "-"}
-              <br />
-              <strong>Telefon: </strong>
-              {invite.telefon || "-"}
-              <br />
-              <strong>Begleitung: </strong>
-              {invite.begleitungTitel || "-"} {invite.begleitungVorname || "-"}{" "}
-              {invite.begleitungName || "-"}{" "}
             </Text>
           </Section>
 

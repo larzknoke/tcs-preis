@@ -58,7 +58,7 @@ export default function VerifyInvite({ invite }) {
             </Button>
             <Text style={text}>
               Wenn der Link oben nicht funktioniert kopieren Sie bitte folgende
-              URL in Ihren Browser ein:
+              URL in Ihren Browser:
             </Text>
             <Text style={textbold}>
               {process.env.NEXTAUTH_URL +

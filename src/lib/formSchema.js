@@ -265,6 +265,24 @@ export const inviteSchema = yup.object().shape({
         .oneOf([true], "Bitte Bestätigen Sie die Einverständniserklärung");
     },
   }),
+  begleitungTitel: yup.boolean().when("begleitung", {
+    is: "ja",
+    then: () => {
+      return yup.string().required();
+    },
+  }),
+  begleitungVorname: yup.boolean().when("begleitung", {
+    is: "ja",
+    then: () => {
+      return yup.string().required();
+    },
+  }),
+  begleitungName: yup.boolean().when("begleitung", {
+    is: "ja",
+    then: () => {
+      return yup.string().required();
+    },
+  }),
 });
 
 export const kampagneSchema = yup.object().shape({

@@ -121,7 +121,15 @@ function NewInvite() {
                   <SimpleGrid spacing={6} columns={12} w={"full"}>
                     <GridItem colSpan={12} mb={3}>
                       <FormControl isInvalid={errors.teilnahme}>
-                        <FormLabel>Teilnahme</FormLabel>
+                        <FormLabel>
+                          <Heading
+                            textAlign={"left"}
+                            size={"md"}
+                            color={"brand2.900"}
+                          >
+                            Teilnahme
+                          </Heading>
+                        </FormLabel>
                         <Controller
                           control={control}
                           name="teilnahme"
@@ -134,17 +142,21 @@ function NewInvite() {
                               }}
                               value={field.value}
                             >
-                              <VStack alignItems={"flex-start"} maxW={"60%"}>
+                              <VStack
+                                alignItems={"flex-start"}
+                                maxW={["100%", "60%"]}
+                              >
                                 <Radio value={"ja"} variant={"atTop"}>
-                                  Ja, ich/wir nehme/n an der Gala zur
-                                  Preisausrichtung des 11. Town &amp; Country
-                                  Stiftungspreises am Abend des{" "}
+                                  <strong>Ja</strong>, ich/wir nehme/n an der
+                                  Gala zur Preisausrichtung des 11. Town &amp;
+                                  Country Stiftungspreises am Abend des{" "}
                                   <strong>21. Juni 2024 um 17:30 Uhr</strong>{" "}
                                   teil.
                                 </Radio>
                                 <Radio value={"nein"} variant={"atTop"}>
-                                  Nein, ich/wir /bin/sind leider verhindert und
-                                  kann/können nicht teilnehmen.
+                                  <strong>Nein</strong>, ich/wir /bin/sind
+                                  leider verhindert und kann/können nicht
+                                  teilnehmen.
                                 </Radio>
                               </VStack>
                             </RadioGroup>
@@ -157,7 +169,16 @@ function NewInvite() {
                     </GridItem>
                     <GridItem colSpan={12}>
                       <FormControl isInvalid={errors.spende}>
-                        <FormLabel>Spende</FormLabel>
+                        <FormLabel>
+                          {" "}
+                          <Heading
+                            textAlign={"left"}
+                            size={"md"}
+                            color={"brand2.900"}
+                          >
+                            Spende
+                          </Heading>
+                        </FormLabel>
                         <Checkbox
                           name="spende"
                           type="checkbox"
@@ -172,14 +193,6 @@ function NewInvite() {
                           Town &amp; Country Stiftung. <br />
                           IBAN: DE25 1012 0100 6156 1780 00 | BIC WELADED1WBB |
                           Betreff: Spende Preisverleihung <br />
-                          <Link
-                            href={
-                              "https://www.paypal.com/donate/?hosted_button_id=U5NFSF7NAVGK2"
-                            }
-                            target="_blank"
-                          >
-                            Hier direkt online spenden!
-                          </Link>
                           <FormErrorMessage>
                             {errors.spende && errors.spende.message}
                           </FormErrorMessage>
@@ -187,7 +200,7 @@ function NewInvite() {
                       </FormControl>
                     </GridItem>
                     <GridItem colSpan={12} pl={10}>
-                      <FormControl isInvalid={errors.spendeBetrag}>
+                      <FormControl mb={4} isInvalid={errors.spendeBetrag}>
                         <FormLabel
                           style={{ color: spende ? "#718096" : "#E2E8F0" }}
                         >
@@ -204,17 +217,25 @@ function NewInvite() {
                           {errors.spendeBetrag && errors.spendeBetrag.message}
                         </FormErrorMessage>
                       </FormControl>
+                      <Link
+                        href={
+                          "https://www.paypal.com/donate/?hosted_button_id=U5NFSF7NAVGK2"
+                        }
+                        target="_blank"
+                      >
+                        Hier direkt online spenden!
+                      </Link>
                     </GridItem>
                     <GridItem colSpan={12}>
                       <Heading
                         textAlign={"left"}
                         size={"md"}
-                        color={"gray.500"}
+                        color={"brand2.900"}
                       >
                         Teilnehmerdaten
                       </Heading>
                     </GridItem>
-                    <GridItem colSpan={4}>
+                    <GridItem colSpan={[12, 4]}>
                       <FormControl isInvalid={errors.titel}>
                         <FormLabel>Titel</FormLabel>
                         <Input
@@ -227,7 +248,7 @@ function NewInvite() {
                         </FormErrorMessage>
                       </FormControl>
                     </GridItem>
-                    <GridItem colSpan={4}>
+                    <GridItem colSpan={[12, 4]}>
                       <FormControl isInvalid={errors.vorname}>
                         <FormLabel>Vorname</FormLabel>
                         <Input
@@ -240,7 +261,7 @@ function NewInvite() {
                         </FormErrorMessage>
                       </FormControl>
                     </GridItem>
-                    <GridItem colSpan={4}>
+                    <GridItem colSpan={[12, 4]}>
                       <FormControl isInvalid={errors.name}>
                         <FormLabel>Name</FormLabel>
                         <Input name="name" type="text" {...register("name")} />
@@ -262,7 +283,7 @@ function NewInvite() {
                         </FormErrorMessage>
                       </FormControl>
                     </GridItem>
-                    <GridItem colSpan={6}>
+                    <GridItem colSpan={[12, 6]}>
                       <FormControl isInvalid={errors.email}>
                         <FormLabel>Email</FormLabel>
                         <Input
@@ -275,7 +296,7 @@ function NewInvite() {
                         </FormErrorMessage>
                       </FormControl>
                     </GridItem>
-                    <GridItem colSpan={6}>
+                    <GridItem colSpan={[12, 6]}>
                       <FormControl isInvalid={errors.telefon}>
                         <FormLabel>Telefon</FormLabel>
                         <Input
@@ -292,7 +313,7 @@ function NewInvite() {
                       <Heading
                         textAlign={"left"}
                         size={"md"}
-                        color={"gray.500"}
+                        color={"brand2.900"}
                       >
                         Begleitung
                       </Heading>
@@ -325,7 +346,7 @@ function NewInvite() {
 
                     {begleitungJa && (
                       <>
-                        <GridItem colSpan={4}>
+                        <GridItem colSpan={[12, 4]}>
                           <FormControl isInvalid={errors.begleitungTitel}>
                             <FormLabel>Titel</FormLabel>
                             <Input
@@ -339,7 +360,7 @@ function NewInvite() {
                             </FormErrorMessage>
                           </FormControl>
                         </GridItem>
-                        <GridItem colSpan={4}>
+                        <GridItem colSpan={[12, 4]}>
                           <FormControl isInvalid={errors.begleitungVorname}>
                             <FormLabel>Vorname</FormLabel>
                             <Input
@@ -353,7 +374,7 @@ function NewInvite() {
                             </FormErrorMessage>
                           </FormControl>
                         </GridItem>
-                        <GridItem colSpan={4}>
+                        <GridItem colSpan={[12, 4]}>
                           <FormControl isInvalid={errors.begleitungName}>
                             <FormLabel>Name</FormLabel>
                             <Input
@@ -375,7 +396,7 @@ function NewInvite() {
                           <Heading
                             textAlign={"left"}
                             size={"md"}
-                            color={"gray.500"}
+                            color={"brand2.900"}
                           >
                             Datenschutz & Einverständniserklärung
                           </Heading>
