@@ -54,7 +54,7 @@ export default function ConfirmInviteEmail({ invite }) {
               <strong>Teilnahme: </strong>
               {invite.teilnahme ? "Ja" : "Nein"}
               <br />
-              <strong>Email: </strong>
+              <strong>E-Mail: </strong>
               {invite.email || "-"}
               <br />
               <strong>Telefon: </strong>
