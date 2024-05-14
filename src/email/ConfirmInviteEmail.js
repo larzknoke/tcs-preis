@@ -80,9 +80,6 @@ export default function ConfirmInviteEmail({ invite }) {
               ) : (
                 "Nein"
               )}
-              <br />
-              <strong>Betrag: </strong>
-              {invite.spendeBetrag || "-"}
             </Text>
           </Section>
 

@@ -223,7 +223,7 @@ function NewInvite() {
                         }
                         target="_blank"
                       >
-                        Hier direkt online spenden!
+                        Hier direkt per Kreditkarte oder PayPal spenden.
                       </Link>
                     </GridItem>
                     <GridItem colSpan={12}>
@@ -438,7 +438,9 @@ function NewInvite() {
                             >
                               Die{" "}
                               <Link
-                                href={"https://www.tc-stiftung.de/datenschutz/"}
+                                href={
+                                  "https://www.tc-stiftung.de/datenschutz-gala"
+                                }
                                 target="_blank"
                               >
                                 Datenschutzbestimmungen
