@@ -32,6 +32,10 @@ const theme = extendTheme({
     brand2: {
       900: "#284879",
     },
+    gala: {
+      800: "#026A56",
+      900: "#025C4D",
+    },
   },
   fonts: {
     body: opensans.style.fontFamily,

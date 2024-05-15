@@ -14,16 +14,17 @@ function Anmeldung() {
         <HStack direction={"row"} alignItems={"center"} gap={6}>
           <Link href="/">
             <Image
-              src="/tcs_logo.svg"
-              alt="TCS Logo"
-              width={80}
-              height={24}
+              src="/gala_header.jpg"
+              alt="Gala Anmeldung"
+              width={1120}
+              height={200}
               priority
+              className="rounded"
             />
           </Link>
-          <Heading color={"gray.600"} size={"md"} textAlign={"center"}>
+          {/* <Heading color={"gray.600"} size={"md"} textAlign={"center"}>
             11. Town &amp; Country Stiftungsgala{" "}
-          </Heading>
+          </Heading> */}
         </HStack>
         {/* <NewLetter /> */}
         <NewInvite />

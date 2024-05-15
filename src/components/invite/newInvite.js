@@ -125,7 +125,7 @@ function NewInvite() {
                           <Heading
                             textAlign={"left"}
                             size={"md"}
-                            color={"brand2.900"}
+                            color={"gala.900"}
                           >
                             Teilnahme
                           </Heading>
@@ -174,7 +174,7 @@ function NewInvite() {
                           <Heading
                             textAlign={"left"}
                             size={"md"}
-                            color={"brand2.900"}
+                            color={"gala.900"}
                           >
                             Spende
                           </Heading>
@@ -223,14 +223,16 @@ function NewInvite() {
                         }
                         target="_blank"
                       >
-                        Hier direkt per Kreditkarte oder PayPal spenden.
+                        <Button color={"gala.900"} variant={"outline"}>
+                          Hier direkt per Kreditkarte oder PayPal spenden.
+                        </Button>
                       </Link>
                     </GridItem>
                     <GridItem colSpan={12}>
                       <Heading
                         textAlign={"left"}
                         size={"md"}
-                        color={"brand2.900"}
+                        color={"gala.900"}
                       >
                         Teilnehmerdaten
                       </Heading>
@@ -313,7 +315,7 @@ function NewInvite() {
                       <Heading
                         textAlign={"left"}
                         size={"md"}
-                        color={"brand2.900"}
+                        color={"gala.900"}
                       >
                         Begleitung
                       </Heading>
@@ -396,7 +398,7 @@ function NewInvite() {
                           <Heading
                             textAlign={"left"}
                             size={"md"}
-                            color={"brand2.900"}
+                            color={"gala.900"}
                           >
                             Datenschutz & Einverständniserklärung
                           </Heading>
@@ -476,8 +478,8 @@ function NewInvite() {
                     loadingText="bitte warten"
                     size="md"
                     onClick={() => handleSubmit(onSubmit)()}
-                    bg={"brand.800"}
-                    _hover={{ bg: "brand.900" }}
+                    bg={"gala.800"}
+                    _hover={{ bg: "gala.900" }}
                     color={"white"}
                     px={10}
                   >
