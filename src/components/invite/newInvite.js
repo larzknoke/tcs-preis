@@ -148,7 +148,7 @@ function NewInvite() {
                               >
                                 <Radio value={"ja"} variant={"atTop"}>
                                   <strong>Ja</strong>, ich/wir nehme/n an der
-                                  Gala zur Preisausrichtung des 11. Town &amp;
+                                  Gala zur Preisverleihung des 11. Town &amp;
                                   Country Stiftungspreises am Abend des{" "}
                                   <strong>21. Juni 2024 um 17:30 Uhr</strong>{" "}
                                   teil.
@@ -500,7 +500,7 @@ function NewInvite() {
                 textAlign="center"
                 // height="200px"
                 rounded={"md"}
-                bg={"brand.900"}
+                bg={"gala.900"}
                 color={"white"}
                 p={8}
               >

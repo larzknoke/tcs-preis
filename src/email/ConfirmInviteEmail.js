@@ -63,6 +63,12 @@ export default function ConfirmInviteEmail({ invite }) {
               <strong>Begleitung: </strong>
               {invite.begleitungTitel || "-"} {invite.begleitungVorname || "-"}{" "}
               {invite.begleitungName || "-"} <br />
+              <strong>Datenschutz: </strong>
+              {invite.datenschutz ? "Ja" : "Nein"}
+              <br />
+              <strong>Einverständniserklärung: </strong>
+              {invite.datenschutzMedia ? "Ja" : "Nein"}
+              <br />
               <strong>Spende: </strong>
               {invite.spende ? (
                 <Text style={text}>
