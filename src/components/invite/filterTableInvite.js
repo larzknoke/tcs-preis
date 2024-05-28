@@ -86,6 +86,9 @@ function FilterTableInvite({ invites }) {
   const [tableData, setTableData] = React.useState([...invites]);
   const rerender = React.useReducer(() => ({}), {})[1];
 
+  const [sorting, setSorting] = React.useState([
+    { id: "createdAt", desc: true },
+  ]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -254,10 +257,13 @@ function FilterTableInvite({ invites }) {
       isWithinRange: isWithinRange,
     },
     state: {
+      sorting,
       columnFilters,
       globalFilter,
       columnVisibility,
     },
+    onSortingChange: setSorting,
+
     onColumnVisibilityChange: setColumnVisibility,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
