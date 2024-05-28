@@ -99,7 +99,7 @@ function VerifyInvite() {
             justifyContent="center"
             textAlign="center"
             rounded={"md"}
-            bg={"brand.900"}
+            bg={"gala.900"}
             color={"white"}
             p={8}
           >
