@@ -96,7 +96,23 @@ function FilterTableInvite({ invites }) {
   function handleExport() {
     const result = table.getFilteredRowModel().rows.map((row) => {
       const rowData = row.getVisibleCells().map((cell) => {
-        return { [cell.getContext().column.id]: cell.getValue() };
+        if (cell.getContext().column.id == "teilnahme") {
+          return { [cell.getContext().column.id]: cell.getValue() ? "1" : "0" };
+        } else if (cell.getContext().column.id == "verified") {
+          return { [cell.getContext().column.id]: cell.getValue() ? "1" : "0" };
+        } else if (cell.getContext().column.id == "begleitung") {
+          return {
+            [cell.getContext().column.id]: cell.getValue() == "ja" ? "1" : "0",
+          };
+        } else if (cell.getContext().column.id == "begleitungName") {
+          return {
+            Begleitung: `${row.original.begleitungTitel || ""} ${
+              row.original.begleitungVorname || ""
+            } ${row.original.begleitungName || ""}`,
+          };
+        } else {
+          return { [cell.getContext().column.id]: cell.getValue() };
+        }
       });
       const rows = Object.assign({}, ...rowData);
       return rows;
@@ -179,6 +195,25 @@ function FilterTableInvite({ invites }) {
         filterFn: "equals",
       },
       {
+        accessorKey: "spende",
+        footer: (props) => props.column.id,
+        cell: ({ info, row }) => (
+          <span>
+            {row.original.begleitung == "ja" ? (
+              <Icon as={HiOutlineCheck} color={"green.700"} />
+            ) : (
+              <Icon as={HiOutlineNoSymbol} color={"red.500"} />
+            )}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "spendeBetrag",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+        filterFn: "equals",
+      },
+      {
         accessorKey: "begleitung",
         footer: (props) => props.column.id,
         cell: ({ info, row }) => (
@@ -193,6 +228,15 @@ function FilterTableInvite({ invites }) {
       },
       {
         accessorKey: "begleitungName",
+        cell: ({ info, row }) =>
+          `${row.original.begleitungTitel || "-"} ${
+            row.original.begleitungVorname || "-"
+          } ${row.original.begleitungName || "-"}`,
+        footer: (props) => props.column.id,
+        filterFn: "equals",
+      },
+      {
+        accessorKey: "spende",
         cell: ({ info, row }) =>
           `${row.original.begleitungTitel || "-"} ${
             row.original.begleitungVorname || "-"
@@ -587,6 +631,30 @@ function Filter({ column, table }) {
         </>
       );
     case "begleitung":
+      return (
+        <>
+          <Select
+            h={"25px"}
+            mt={2}
+            size={"sm"}
+            minW={"90px"}
+            onChange={(e) => {
+              if (e.target.value == "Alle") {
+                column.setFilterValue("");
+              } else if (e.target.value == "Ja") {
+                column.setFilterValue("ja");
+              } else if (e.target.value == "Nein") {
+                column.setFilterValue("nein");
+              }
+            }}
+          >
+            <option value="Alle">Alle</option>
+            <option value="Ja">Ja</option>
+            <option value="Nein">Nein</option>
+          </Select>
+        </>
+      );
+    case "spende":
       return (
         <>
           <Select
