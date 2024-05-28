@@ -236,15 +236,6 @@ function FilterTableInvite({ invites }) {
         filterFn: "equals",
       },
       {
-        accessorKey: "spende",
-        cell: ({ info, row }) =>
-          `${row.original.begleitungTitel || "-"} ${
-            row.original.begleitungVorname || "-"
-          } ${row.original.begleitungName || "-"}`,
-        footer: (props) => props.column.id,
-        filterFn: "equals",
-      },
-      {
         accessorKey: "createdAt",
         cell: (info) => dateFormatter(info.getValue(), false),
         footer: (props) => props.column.id,
