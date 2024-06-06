@@ -265,19 +265,19 @@ export const inviteSchema = yup.object().shape({
         .oneOf([true], "Bitte Bestätigen Sie die Einverständniserklärung");
     },
   }),
-  begleitungTitel: yup.boolean().when("begleitung", {
+  begleitungTitel: yup.string().when("begleitung", {
     is: "ja",
     then: () => {
       return yup.string().required();
     },
   }),
-  begleitungVorname: yup.boolean().when("begleitung", {
+  begleitungVorname: yup.string().when("begleitung", {
     is: "ja",
     then: () => {
       return yup.string().required();
     },
   }),
-  begleitungName: yup.boolean().when("begleitung", {
+  begleitungName: yup.string().when("begleitung", {
     is: "ja",
     then: () => {
       return yup.string().required();
