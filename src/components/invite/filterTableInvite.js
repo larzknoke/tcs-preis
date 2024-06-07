@@ -29,6 +29,7 @@ import {
   Divider,
   Select,
   Icon,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import {
@@ -40,6 +41,7 @@ import {
   HiOutlineTableCells,
   HiOutlineCheck,
   HiOutlineNoSymbol,
+  HiOutlineTrash,
 } from "react-icons/hi2";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { exportToExcel } from "react-json-to-excel";
@@ -61,11 +63,13 @@ import {
   ColumnDef,
   flexRender,
   FilterFns,
+  createColumnHelper,
 } from "@tanstack/react-table";
 
 import { TableContainer } from "@chakra-ui/react";
 import { dateFormatter } from "@/lib/utils";
 import fuzzyFilter from "@/lib/fuzzyFilter";
+import InviteDeleteModal from "./inviteDeleteModal";
 
 // const fuzzySort= (rowA, rowB, columnId) => {
 //   let dir = 0
@@ -83,6 +87,11 @@ import fuzzyFilter from "@/lib/fuzzyFilter";
 // }
 
 function FilterTableInvite({ invites }) {
+  const toast = useToast();
+  const [inviteID, setInviteID] = React.useState();
+
+  const columnHelper = createColumnHelper();
+
   const [tableData, setTableData] = React.useState([...invites]);
   const rerender = React.useReducer(() => ({}), {})[1];
 
@@ -95,6 +104,11 @@ function FilterTableInvite({ invites }) {
 
   const btnRef = React.useRef();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
 
   function handleExport() {
     const result = table.getFilteredRowModel().rows.map((row) => {
@@ -124,6 +138,34 @@ function FilterTableInvite({ invites }) {
     exportToExcel(result, "filter_export_" + date);
   }
 
+  function handleDeleteModal(id) {
+    setInviteID(id);
+    onOpenDelete();
+  }
+
+  async function deleteInvite(id) {
+    const resData = await fetch("/api/invite?id=" + id, { method: "DELETE" });
+
+    if (resData.status != 200) {
+      toast({
+        title: "Ein Fehler ist aufgetreten",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else {
+      const newTableData = tableData.filter((data) => data.id !== id);
+      setTableData(newTableData);
+      toast({
+        title: `Anmeldung ${id || ""} gelöscht.`,
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+      onCloseDelete();
+    }
+  }
+
   const columns = React.useMemo(
     () => [
       {
@@ -132,7 +174,7 @@ function FilterTableInvite({ invites }) {
         footer: (props) => props.column.id,
         meta: {
           isNumeric: true,
-          className: "sticky left-0",
+          className: "sticky left-1",
         },
       },
       {
@@ -245,6 +287,22 @@ function FilterTableInvite({ invites }) {
         header: "Erstellt",
         filterFn: "isWithinRange",
       },
+      columnHelper.accessor("controls", {
+        cell: ({ row, info }) => (
+          <HStack>
+            <Tooltip label="Anmeldung löschen" placement="top">
+              <IconButton
+                variant={"ghost"}
+                aria-label="Anmeldung löschen"
+                icon={<HiOutlineTrash />}
+                colorScheme="red"
+                onClick={() => handleDeleteModal(row.original.id)}
+              />
+            </Tooltip>
+          </HStack>
+        ),
+        header: "",
+      }),
     ],
     []
   );
@@ -536,6 +594,12 @@ function FilterTableInvite({ invites }) {
               </select>
             </HStack>
           </Flex>
+          <InviteDeleteModal
+            onClose={onCloseDelete}
+            isOpen={isOpenDelete}
+            inviteID={inviteID}
+            deleteInvite={deleteInvite}
+          />
         </CardBody>
       </Card>
     </>

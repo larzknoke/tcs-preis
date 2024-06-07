@@ -4,9 +4,12 @@ import ErrorEmail from "@/email/ErrorEmail";
 import { sendEmail } from "@/lib/email";
 import { render } from "@react-email/render";
 import CancelInviteEmail from "@/email/CancelInviteEmail";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handle(req, res) {
   console.log("api call");
+  const session = await getServerSession(req, res, authOptions);
 
   if (req.method == "POST") {
     try {
@@ -58,6 +61,22 @@ export default async function handle(req, res) {
     } catch (error) {
       console.log("api error: ", error);
       return res.status(500).json(error);
+    }
+  }
+
+  if (req.method == "DELETE") {
+    if (!session) {
+      return res.status(401).json({ message: "not authorzied" });
+    }
+    const { id } = req.query;
+    try {
+      const result = await prisma.invite.delete({
+        where: { id: parseInt(id) },
+      });
+      return res.status(200).json({ success: true, result });
+    } catch (error) {
+      console.log("file delete error: ", error);
+      return res.status(500).json({ error: error.message, code: error.code });
     }
   }
 
