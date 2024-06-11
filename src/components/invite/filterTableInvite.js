@@ -244,7 +244,7 @@ function FilterTableInvite({ invites }) {
         footer: (props) => props.column.id,
         cell: ({ info, row }) => (
           <span>
-            {row.original.begleitung == "ja" ? (
+            {row.original.spende ? (
               <Icon as={HiOutlineCheck} color={"green.700"} />
             ) : (
               <Icon as={HiOutlineNoSymbol} color={"red.500"} />
@@ -727,9 +727,9 @@ function Filter({ column, table }) {
               if (e.target.value == "Alle") {
                 column.setFilterValue("");
               } else if (e.target.value == "Ja") {
-                column.setFilterValue("ja");
+                column.setFilterValue(true);
               } else if (e.target.value == "Nein") {
-                column.setFilterValue("nein");
+                column.setFilterValue(false);
               }
             }}
           >
