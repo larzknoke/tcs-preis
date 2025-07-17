@@ -1,5 +1,12 @@
 import TeaserText from "@/components/teaser-text";
-import { Container, VStack, Heading, Button, Tooltip } from "@chakra-ui/react";
+import {
+  Container,
+  VStack,
+  Heading,
+  Button,
+  Tooltip,
+  Text,
+} from "@chakra-ui/react";
 import Image from "next/image";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
@@ -18,14 +25,32 @@ export default function Home({ validKampagne }) {
           height={24}
           priority
         />
-        <Heading
-          color={"gray.700"}
-          size={"xl"}
-          textAlign={"center"}
-          mb={{ base: 0, md: 8 }}
-        >
-          11. Town & Country Stiftungspreis
-        </Heading>
+        <VStack spacing={2} alignItems={"center"}>
+          <Heading
+            color={"gray.700"}
+            size={"xl"}
+            textAlign={"center"}
+            mb={{ base: 0, md: 0 }}
+          >
+            12. Town & Country Stiftungspreis <br />
+          </Heading>
+          <Heading
+            color={"gray.500"}
+            size={"lg"}
+            textAlign={"center"}
+            mt={{ base: 0, md: 4 }}
+          >
+            und Sonderpreis:
+          </Heading>
+          <Heading
+            color={"gray.700"}
+            size={"lg"}
+            textAlign={"center"}
+            mb={{ base: 0, md: 8 }}
+          >
+            Jung trifft Alt - Begegnung, die verbindet
+          </Heading>
+        </VStack>
         {validKampagne ? <TeaserText /> : <CloseText />}
 
         {validKampagne && (
