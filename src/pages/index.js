@@ -6,6 +6,9 @@ import {
   Button,
   Tooltip,
   Text,
+  HStack,
+  Center,
+  Divider,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
@@ -54,17 +57,29 @@ export default function Home({ validKampagne }) {
         {validKampagne ? <TeaserText /> : <CloseText />}
 
         {validKampagne && (
-          <Button
-            href="/formular"
-            as={NextLink}
-            rightIcon={<ArrowForwardIcon />}
-            colorScheme="green"
-            form="new-angebot-form"
-            type="submit"
-            minWidth={"250px"}
-          >
-            Zum Formular
-          </Button>
+          <HStack justifyContent={"center"} gap={8} mt={8}>
+            <Button
+              href="/formular"
+              as={NextLink}
+              rightIcon={<ArrowForwardIcon />}
+              colorScheme="green"
+              minWidth={"250px"}
+            >
+              Formular Stiftungspreis 2025
+            </Button>
+            <Center height="50px">
+              <Divider orientation="vertical" />
+            </Center>
+            <Button
+              href="/formular-sonder"
+              as={NextLink}
+              rightIcon={<ArrowForwardIcon />}
+              colorScheme="green"
+              minWidth={"250px"}
+            >
+              Formular Sonderpreis 2025
+            </Button>
+          </HStack>
         )}
       </VStack>
       <CookieBanner />

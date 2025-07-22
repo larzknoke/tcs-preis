@@ -35,18 +35,24 @@ function KampagnenBots({ kampagnenBots, kampagne, abgelehntAnzeigen }) {
   const [sortValue, setSortValue] = useState("name");
 
   let botcontacts = kampagnenBots.map((bot) => bot.botcontacts.length);
-  let contactsum = botcontacts.reduce(function (a, b) {
-    return a + b;
-  });
+  let contactsum = 0;
+  if (botcontacts.length > 0) {
+    contactsum = botcontacts.reduce(function (a, b) {
+      return a + b;
+    });
+  } else {
+    contactsum = 0;
+  }
   return (
     <Card>
       <CardHeader>
         <HStack justifyContent={"space-between"}>
           <Heading size="md">
-            Botschafter mit vorhandenen Bewerbungen ({kampagnenBots.length}
+            Botschafter mit vorhandenen Bewerbungen (
+            {kampagnenBots.length || "0"}
             <Text as={"span"} color={"gray.300"}>
               {" "}
-              + {contactsum} Bot.Ansprechpartner
+              + {contactsum || "0"} Bot.Ansprechpartner
             </Text>
             )
           </Heading>

@@ -5,8 +5,9 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import prisma from "@/lib/prisma";
+import NewLetterSonder from "@/components/sonder/newLetterSonder";
 
-function Formular() {
+function FormularSonder() {
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
       <VStack gap={8} alignItems={"start"}>
@@ -21,16 +22,16 @@ function Formular() {
             />
           </Link>
           <Heading color={"gray.600"} size={"md"} textAlign={"center"}>
-            Bewerbung zum 12. Town & Country Stiftungspreis
+            Bewerbung zum 12. Town & Country Sonderpreis
           </Heading>
         </HStack>
-        <NewLetter />
+        <NewLetterSonder />
       </VStack>
     </Container>
   );
 }
 
-export default Formular;
+export default FormularSonder;
 
 export const getServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);

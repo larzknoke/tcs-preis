@@ -22,7 +22,7 @@ import { useState } from "react";
 import InputMask from "react-input-mask";
 import { HiMiniInformationCircle } from "react-icons/hi2";
 
-function Step2() {
+function Step2Sonder() {
   const {
     register,
     formState: { errors, isSubmitting },
@@ -409,6 +409,7 @@ function Step2() {
                 Zusammenfassung mit ein. Bedenkt bitte auch, dass Eure
                 Projektbeschreibung zur Veröffentlichung im Rahmen der
                 Pressearbeit dient und entsprechend von Euch formuliert ist.
+                <br />
                 Euch stehen max. 1500 Zeichen zur Verfügung.
               </Text>
             </FormLabel>
@@ -428,9 +429,11 @@ function Step2() {
             <FormLabel>
               Zielsetzung des Projektes
               <Text fontSize={"sm"} color={"gray.400"}>
-                In welcher Form wird Unterstützung geleistet und damit die
-                Situation der Kinder und Jugendlichen verbessert? Es stehen Euch
-                max. 500 Zeichen zur Verfügung.
+                In welcher Form wird die nachhaltige Begegnung zwischen Jung und
+                Alt ermöglicht und damit das gemeinsame Interagieren und
+                wechselseitiger Respekt, Vertrauen und Verständnis unterstützt?
+                <br />
+                Es stehen Euch max. 500 Zeichen zur Verfügung.
               </Text>
             </FormLabel>
             <Textarea
@@ -444,7 +447,7 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={4}>
+        {/* <GridItem colSpan={4}>
           <FormControl isInvalid={errors.benachteiligungProjekt}>
             <FormLabel>
               Benachteiligung
@@ -466,14 +469,16 @@ function Step2() {
                 errors.benachteiligungProjekt.message}
             </FormErrorMessage>
           </FormControl>
-        </GridItem>
+        </GridItem> */}
         <GridItem colSpan={4}>
           <FormControl isInvalid={errors.umsetzungProjekt}>
             <FormLabel>
               Projektumsetzung / Projektrealisierung
               <Text fontSize={"sm"} color={"gray.400"}>
-                Wie und für was möchtet Ihr den Förderbetrag einsetzen? Euch
-                stehen max. 500 Zeichen zur Verfügung.
+                Wie und für was möchtet Ihr den Förderbetrag einsetzen?
+                Inwiefern würdet Ihr Euer Projekt mit dem Preisgeld
+                weiterentwickeln? <br />
+                Euch stehen max. 500 Zeichen zur Verfügung.
               </Text>
             </FormLabel>
             <Textarea
@@ -492,7 +497,7 @@ function Step2() {
             <FormLabel>
               Bisherige Ergebnisse
               <Text fontSize={"sm"} color={"gray.400"}>
-                Euch stehen max. 500 Zeichen zur Verfügung.
+                Euch stehen max. 500 Zeichen zur Verfügung.{" "}
               </Text>
             </FormLabel>
             <Textarea
@@ -506,9 +511,51 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
+        <GridItem colSpan={4}>
+          <FormControl isInvalid={errors.nachhaltigkeitProjekt}>
+            <FormLabel>
+              Nachhaltigkeit
+              <Text fontSize={"sm"} color={"gray.400"}>
+                Wie wirkt Euer Projekt über die einzelne Begegnung hinaus? Gibt
+                es Strukturen, die dauerhaft bestehen bleiben? <br />
+                Euch stehen max. 500 Zeichen zur Verfügung.
+              </Text>
+            </FormLabel>
+            <Textarea
+              name="nachhaltigkeitProjekt"
+              type="string"
+              {...register("nachhaltigkeitProjekt")}
+              minH={48}
+            />
+            <FormErrorMessage>
+              {errors.nachhaltigkeitProjekt &&
+                errors.nachhaltigkeitProjekt.message}
+            </FormErrorMessage>
+          </FormControl>
+        </GridItem>
+        <GridItem colSpan={4}>
+          <FormControl isInvalid={errors.uebertragbarkeitProjekt}>
+            <FormLabel>
+              Übertragbarkeit
+              <Text fontSize={"sm"} color={"gray.400"}>
+                Könnte Euer Ansatz auch in anderen Regionen umgesetzt werden?
+              </Text>
+            </FormLabel>
+            <Textarea
+              name="uebertragbarkeitProjekt"
+              type="string"
+              {...register("uebertragbarkeitProjekt")}
+              minH={48}
+            />
+            <FormErrorMessage>
+              {errors.uebertragbarkeitProjekt &&
+                errors.uebertragbarkeitProjekt.message}
+            </FormErrorMessage>
+          </FormControl>
+        </GridItem>
       </SimpleGrid>
     </VStack>
   );
 }
 
-export default Step2;
+export default Step2Sonder;

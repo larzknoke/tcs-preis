@@ -92,10 +92,11 @@ model Letter {
   juryStatus                    String?
   presseText                    String?
   letteremail1                  DateTime?
+  nachhaltigkeitProjekt         String?
+  uebertragbarkeitProjekt       String?
   notes                         Note[]
   files                         File[]
   lettercontacts                Lettercontact[]
-
 }
 
 model Note {
