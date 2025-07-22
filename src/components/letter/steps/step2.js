@@ -409,6 +409,7 @@ function Step2() {
                 Zusammenfassung mit ein. Bedenkt bitte auch, dass Eure
                 Projektbeschreibung zur Veröffentlichung im Rahmen der
                 Pressearbeit dient und entsprechend von Euch formuliert ist.
+                <br />
                 Euch stehen max. 1500 Zeichen zur Verfügung.
               </Text>
             </FormLabel>
@@ -429,8 +430,8 @@ function Step2() {
               Zielsetzung des Projektes
               <Text fontSize={"sm"} color={"gray.400"}>
                 In welcher Form wird Unterstützung geleistet und damit die
-                Situation der Kinder und Jugendlichen verbessert? Es stehen Euch
-                max. 500 Zeichen zur Verfügung.
+                Situation der Kinder und Jugendlichen verbessert? <br />
+                Es stehen Euch max. 500 Zeichen zur Verfügung.
               </Text>
             </FormLabel>
             <Textarea
@@ -451,8 +452,8 @@ function Step2() {
               <Text fontSize={"sm"} color={"gray.400"}>
                 Wie viele benachteiligte Kinder & Jugendliche sind in das
                 Projekt involviert? Welche Altersklassen sind vertreten? In
-                welcher Form äußert sich die Benachteiligung? Es stehen Euch
-                max. 500 Zeichen zur Verfügung.
+                welcher Form äußert sich die Benachteiligung? <br />
+                Es stehen Euch max. 500 Zeichen zur Verfügung.
               </Text>
             </FormLabel>
             <Textarea
@@ -472,8 +473,8 @@ function Step2() {
             <FormLabel>
               Projektumsetzung / Projektrealisierung
               <Text fontSize={"sm"} color={"gray.400"}>
-                Wie und für was möchtet Ihr den Förderbetrag einsetzen? Euch
-                stehen max. 500 Zeichen zur Verfügung.
+                Wie und für was möchtet Ihr den Förderbetrag einsetzen? <br />
+                Euch stehen max. 500 Zeichen zur Verfügung.
               </Text>
             </FormLabel>
             <Textarea
