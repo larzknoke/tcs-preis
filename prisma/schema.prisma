@@ -10,179 +10,177 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Letter {
-  id                Int       @id @default(autoincrement())
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
-  andereLizenzpartner String?
-  nameTraeger       String?
-  vorstandTraeger   String?
-  strasseTraeger    String?
-  plzTraeger        String?
-  ortTraeger        String?
-  bundeslandTraeger String?
-  vereinTraeger     String?
-  organisationProjekt     String?
-  nameProjekt             String?
-  ansprechpartnerProjekt  String?
-  telefonnummerProjekt    String?
-  mobilProjekt            String?
-  emailProjekt            String?
-  wwwProjekt              String?
-  ibanProjekt             String?
-  kontoNameProjekt        String?
-  bankNameProjekt         String?
-  strasseProjekt          String?
-  plzProjekt              String?
-  ortProjekt              String?
-  bundeslandProjekt       String?
-  wannProjekt             String?
-  mitarbeiterProjekt      String?
-  hauptamtlichAnzahl      String?
-  hauptamtlichStunden     String?
-  ehrenamtlichAnzahl      String?
-  ehrenamtlichStunden     String?
-  beschreibungProjekt     String?
-  zielsetzungProjekt      String?
-  benachteiligungProjekt  String?
-  umsetzungProjekt        String?
-  bisherigeErgebnisse     String?
-  eigenmittel             Float?
-  oeffentlicheZuwendungen Float?
-  privateSpenden          Float?
-  bisherigeFoerderung     String?
-  zuwendungAndere         String?
-  checkBeitrag            Boolean?
-  checkVeroeffentlich     Boolean?
-  checkScheck             Boolean?
-  checkDatenschutzBilder  Boolean?
-  checkPersonenbezogen    Boolean?
-  checkDatenschutzerklaerung    Boolean?
-  checkTeilnahmebedingungen     Boolean?
-  checkWahrheit                 Boolean?
-  botschafter                   Botschafter? @relation(fields: [botschafterId], references: [id])
-  botschafterId                 Int?
-  kampagne                      Kampagne? @relation(fields: [kampagneId], references: [id])
-  kampagneId                    Int?
-  status                        String? @default("offen")
-  verifyId                      String?  @default(cuid()) @unique
-  verified                      Boolean? @default(false)
-  checkFreistellung             Boolean? @default(false)
-  terminGeld                    DateTime?
-  terminGeld5000                DateTime?
-  terminUebergabe               DateTime?
-  bildmaterial                  DateTime?
-  socialTCS                     DateTime?
-  socialFremd                   DateTime?
-  socialNotiz                   String?
-  presseErlaubt                 Boolean?
-  presseEinladung               DateTime?
-  presseMitteilung              DateTime?
-  presseFreigabe                DateTime?
-  presseVersendet               DateTime?
-  presseErledigt                DateTime?
-  presseFoto                    Boolean?
-  presseEV                      Boolean?
-  zwb1000                       DateTime?
-  zwb5000                       DateTime?
-  originalLetter                Json?
-  jury                          Boolean? @default(false)
-  botschafterConfirm            Boolean? @default(false)
-  juryStatus                    String?
-  presseText                    String?
-  letteremail1                  DateTime?
-  nachhaltigkeitProjekt         String?
-  uebertragbarkeitProjekt       String?
-  notes                         Note[]
-  files                         File[]
-  lettercontacts                Lettercontact[]
+  id                         Int             @id @default(autoincrement())
+  createdAt                  DateTime        @default(now())
+  updatedAt                  DateTime        @updatedAt @map(name: "updated_at")
+  andereLizenzpartner        String?
+  nameTraeger                String?
+  vorstandTraeger            String?
+  strasseTraeger             String?
+  plzTraeger                 String?
+  ortTraeger                 String?
+  bundeslandTraeger          String?
+  vereinTraeger              String?
+  organisationProjekt        String?
+  nameProjekt                String?
+  ansprechpartnerProjekt     String?
+  telefonnummerProjekt       String?
+  mobilProjekt               String?
+  emailProjekt               String?
+  wwwProjekt                 String?
+  ibanProjekt                String?
+  kontoNameProjekt           String?
+  bankNameProjekt            String?
+  strasseProjekt             String?
+  plzProjekt                 String?
+  ortProjekt                 String?
+  bundeslandProjekt          String?
+  wannProjekt                String?
+  mitarbeiterProjekt         String?
+  hauptamtlichAnzahl         String?
+  hauptamtlichStunden        String?
+  ehrenamtlichAnzahl         String?
+  ehrenamtlichStunden        String?
+  beschreibungProjekt        String?
+  zielsetzungProjekt         String?
+  benachteiligungProjekt     String?
+  umsetzungProjekt           String?
+  bisherigeErgebnisse        String?
+  eigenmittel                Float?
+  oeffentlicheZuwendungen    Float?
+  privateSpenden             Float?
+  bisherigeFoerderung        String?
+  zuwendungAndere            String?
+  checkBeitrag               Boolean?
+  checkVeroeffentlich        Boolean?
+  checkScheck                Boolean?
+  checkDatenschutzBilder     Boolean?
+  checkPersonenbezogen       Boolean?
+  checkDatenschutzerklaerung Boolean?
+  checkTeilnahmebedingungen  Boolean?
+  checkWahrheit              Boolean?
+  botschafter                Botschafter?    @relation(fields: [botschafterId], references: [id])
+  botschafterId              Int?
+  kampagne                   Kampagne?       @relation(fields: [kampagneId], references: [id])
+  kampagneId                 Int?
+  status                     String?         @default("offen")
+  verifyId                   String?         @unique @default(cuid())
+  verified                   Boolean?        @default(false)
+  checkFreistellung          Boolean?        @default(false)
+  terminGeld                 DateTime?
+  terminGeld5000             DateTime?
+  terminUebergabe            DateTime?
+  bildmaterial               DateTime?
+  socialTCS                  DateTime?
+  socialFremd                DateTime?
+  socialNotiz                String?
+  presseErlaubt              Boolean?
+  presseEinladung            DateTime?
+  presseMitteilung           DateTime?
+  presseFreigabe             DateTime?
+  presseVersendet            DateTime?
+  presseErledigt             DateTime?
+  presseFoto                 Boolean?
+  presseEV                   Boolean?
+  zwb1000                    DateTime?
+  zwb5000                    DateTime?
+  originalLetter             Json?
+  jury                       Boolean?        @default(false)
+  botschafterConfirm         Boolean?        @default(false)
+  juryStatus                 String?
+  presseText                 String?
+  letteremail1               DateTime?
+  nachhaltigkeitProjekt      String?
+  uebertragbarkeitProjekt    String?
+  sonderpreis                Boolean?        @default(false)
+  notes                      Note[]
+  files                      File[]
+  lettercontacts             Lettercontact[]
 }
 
 model Note {
-  id                Int       @id @default(autoincrement())
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
-  title             String?
-  content           String?
-  letter            Letter? @relation(fields: [letterId], references: [id])
-  letterId          Int?
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  title     String?
+  content   String?
+  letter    Letter?  @relation(fields: [letterId], references: [id])
+  letterId  Int?
 }
-
 
 model File {
-  id                Int       @id @default(autoincrement())
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
-  title             String?
-  note              String?
-  file              String
-  letter            Letter? @relation(fields: [letterId], references: [id])
-  letterId          Int?
-  typ               String? @default("")
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  title     String?
+  note      String?
+  file      String
+  letter    Letter?  @relation(fields: [letterId], references: [id])
+  letterId  Int?
+  typ       String?  @default("")
 }
 
-
 model Botschafter {
-  id                Int       @id @default(autoincrement())
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
-  name              String?
-  vorname           String?
-  strasse           String?
-  plz               String?
-  ort               String?
-  bundesland        String?
-  primaryId         String?
-  typ               String?
-  anrede            String?
-  firma             String?
-  telefon           String?
-  mobil             String?
-  region            String?
-  email             String?
-  botmail1          DateTime?
-  botmail2          DateTime?
-  letters           Letter[]
-  botcontacts       Botcontact[]
+  id          Int          @id @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt @map(name: "updated_at")
+  name        String?
+  vorname     String?
+  strasse     String?
+  plz         String?
+  ort         String?
+  bundesland  String?
+  primaryId   String?
+  typ         String?
+  anrede      String?
+  firma       String?
+  telefon     String?
+  mobil       String?
+  region      String?
+  email       String?
+  botmail1    DateTime?
+  botmail2    DateTime?
+  letters     Letter[]
+  botcontacts Botcontact[]
 }
 
 model Botcontact {
-  id                Int       @id @default(autoincrement())
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
-  name              String?
-  anrede            String?
-  telefon           String?
-  funktion          String?
-  email             String?
-  notiz             String?
-  botschafter       Botschafter? @relation(fields: [botschafterId], references: [id])
-  botschafterId     Int?
+  id            Int          @id @default(autoincrement())
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt @map(name: "updated_at")
+  name          String?
+  anrede        String?
+  telefon       String?
+  funktion      String?
+  email         String?
+  notiz         String?
+  botschafter   Botschafter? @relation(fields: [botschafterId], references: [id])
+  botschafterId Int?
 }
 
 model Lettercontact {
-  id                Int       @id @default(autoincrement())
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
-  name              String?
-  anrede            String?
-  telefon           String?
-  funktion          String?
-  email             String?
-  notiz             String?
-  letter            Letter? @relation(fields: [letterId], references: [id])
-  letterId          Int?
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  name      String?
+  anrede    String?
+  telefon   String?
+  funktion  String?
+  email     String?
+  notiz     String?
+  letter    Letter?  @relation(fields: [letterId], references: [id])
+  letterId  Int?
 }
 
 model Kampagne {
-  id                Int       @id @default(autoincrement())
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
-  name              String?
-  abgeschlossen     Boolean?   @default(false)
-  letters           Letter[]
-  invites           Invite[]
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt @map(name: "updated_at")
+  name          String?
+  abgeschlossen Boolean? @default(false)
+  letters       Letter[]
+  invites       Invite[]
 }
 
 model Invite {
@@ -204,8 +202,8 @@ model Invite {
   begleitungName    String?
   datenschutz       Boolean?
   datenschutzMedia  Boolean?
-  verifyId          String?  @default(cuid()) @unique
-  verified          Boolean? @default(false)
+  verifyId          String?   @unique @default(cuid())
+  verified          Boolean?  @default(false)
   kampagne          Kampagne? @relation(fields: [kampagneId], references: [id])
   kampagneId        Int?
 }
@@ -226,26 +224,26 @@ model Account {
   oauth_token_secret String?
   oauth_token        String?
 
-  user User @relation(fields:[userId], references:[id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique@map("session_token")
+  sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id")
   expires      DateTime
-  user         User     @relation(fields:[userId], references:[id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id            String       @default(cuid()) @id
+  id            String    @id @default(cuid())
   name          String?
-  email         String?     @unique
+  email         String?   @unique
   password      String?
-  createdAt     DateTime    @default(now()) @map(name: "created_at")
-  updatedAt     DateTime    @updatedAt @map(name: "updated_at")
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
   emailVerified DateTime?
   image         String?
   accounts      Account[]

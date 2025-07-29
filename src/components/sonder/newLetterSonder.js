@@ -138,6 +138,8 @@ function NewLetterSonder() {
         delete values.customFile;
         delete values.customFile2;
 
+        values.sonderpreis = true;
+
         const resLetter = await fetch("/api/letter", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
