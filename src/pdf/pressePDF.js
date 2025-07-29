@@ -72,7 +72,7 @@ export const PressePDF = ({ letter }) => (
                 : "https://stiftungspreis.tc-stiftung.de/logo.png"
             }
           />
-          <Text style={styles.subTitle}>11. Town & Country Stiftungspreis</Text>
+          <Text style={styles.subTitle}>12. Town & Country Stiftungspreis</Text>
         </View>
         <View style={{ marginBottom: 10 }}>
           <Text>{`Bundesland Träger: ${letter.bundeslandTraeger} \n`}</Text>

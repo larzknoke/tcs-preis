@@ -16,7 +16,7 @@ export default function VerifyEmail({ letter }) {
     <Html>
       <Head />
       <Preview>
-        11. Town & Country Stiftungspreis: Bitte bestätigen Sie Ihre Bewerbung
+        12. Town & Country Stiftungspreis: Bitte bestätigen Sie Ihre Bewerbung
       </Preview>
       <Body style={main}>
         <Container style={container}>
@@ -37,7 +37,7 @@ export default function VerifyEmail({ letter }) {
           <Section style={section}>
             <Text style={text}>Sehr geehrte Bewerber:innen,</Text>
             <Text style={text}>
-              vielen Dank für Ihre Bewerbung zum diesjährigen 11. Town &amp;
+              vielen Dank für Ihre Bewerbung zum diesjährigen 12. Town &amp;
               Country Stiftungspreis.
             </Text>
             <Text style={text}>
@@ -67,12 +67,12 @@ export default function VerifyEmail({ letter }) {
           </Section>
           <Text style={text}>
             Mit dem vorstehenden Link bestätigen Sie, dass Sie sich zur
-            Teilnahme am diesjährigen 11. Town &amp; Country Stiftungspreis
+            Teilnahme am diesjährigen 12. Town &amp; Country Stiftungspreis
             beworben haben und aktivieren Ihre Bewerbung.
           </Text>
           <Text style={textbold}>
             Sollten Sie diesen Link nicht bestätigen, kann Ihre Bewerbung zur
-            Teilnahme am 11. Town &amp; Country Stiftungspreis nicht
+            Teilnahme am 12. Town &amp; Country Stiftungspreis nicht
             berücksichtigt werden.
           </Text>
           <Text style={text}>
@@ -98,7 +98,7 @@ export default function VerifyEmail({ letter }) {
               href="https://www.tc-stiftung.de/wp-content/uploads/2023/09/Allg.Teilnahmebedingungen-11.-STP.pdf"
               style={link}
             >
-              Hier finden Sie die Teilnahmebedingungen des 11. Town &amp;
+              Hier finden Sie die Teilnahmebedingungen des 12. Town &amp;
               Country Stiftungspreises
             </Link>
           </Text>

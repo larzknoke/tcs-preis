@@ -78,7 +78,7 @@ export const BotschafterPDF = ({
                 : "https://stiftungspreis.tc-stiftung.de/logo.png"
             }
           />
-          <Text style={styles.subTitle}>11. Town & Country Stiftungspreis</Text>
+          <Text style={styles.subTitle}>12. Town & Country Stiftungspreis</Text>
         </View>
         <Text style={styles.subTitle}>Botschafter</Text>
         <Text style={styles.title}>

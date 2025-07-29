@@ -15,7 +15,7 @@ export default function CancelInviteEmail({ invite }) {
   return (
     <Html>
       <Head />
-      <Preview>Betreff: 11. Town & Country Stiftungsgala – Absage</Preview>
+      <Preview>Betreff: 12. Town & Country Stiftungsgala – Absage</Preview>
       <Body style={main}>
         <Container style={container}>
           <Img
@@ -34,7 +34,7 @@ export default function CancelInviteEmail({ invite }) {
               {invite.name},
             </Text>
             <Text style={text}>
-              schade, dass Sie nicht zur 11. Town & Country Stiftungsgala am 21.
+              schade, dass Sie nicht zur 12. Town & Country Stiftungsgala am 21.
               Juni 2024 kommen können.
             </Text>
             <Text style={text}>

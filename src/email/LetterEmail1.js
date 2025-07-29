@@ -16,7 +16,7 @@ export default function LetterEmail1({ letter, anreden = [] }) {
     <Html>
       <Head />
       <Preview>
-        11. Town & Country Stiftungspreis: Gratulation – und 1.111 Euro für{" "}
+        12. Town & Country Stiftungspreis: Gratulation – und 1.111 Euro für{" "}
         {letter.nameProjekt}
       </Preview>
       <Body style={main}>
@@ -39,7 +39,7 @@ export default function LetterEmail1({ letter, anreden = [] }) {
             <Text style={text}>
               leisten Sie einen wichtigen Beitrag zur Chancengleichheit
               benachteiligter junger Menschen. Daher wurde Ihre Einrichtung von
-              der Town & Country Stiftung im Rahmen des 11. Town & Country
+              der Town & Country Stiftung im Rahmen des 12. Town & Country
               Stiftungspreises ausgewählt: Sie würdigt Ihr wichtiges Engagement
               mit 1.111 Euro Preisgeld – und der zusätzlichen Chance auf den
               Landespreis, dotiert mit weiteren 5.000 Euro.

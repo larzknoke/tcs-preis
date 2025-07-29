@@ -19,7 +19,7 @@ export default async function handle(req, res) {
             ? ""
             : "stiftungspreis@tc-stiftung.de",
         subject:
-          "11. Town & Country Stiftungsgala – vielen Dank für Ihre Anmeldung",
+          "12. Town & Country Stiftungsgala – vielen Dank für Ihre Anmeldung",
         html: render(<ConfirmInviteEmail invite={invite} />),
       });
     } else {

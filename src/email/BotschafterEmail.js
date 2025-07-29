@@ -16,7 +16,7 @@ export default function BotschafterEmail({ botschafter, anreden = [] }) {
     <Html>
       <Head />
       <Preview>
-        Botschafter Übersicht - 11. Town &amp; Country Stiftungspreis
+        Botschafter Übersicht - 12. Town &amp; Country Stiftungspreis
       </Preview>
       <Body style={main}>
         <Container style={container}>

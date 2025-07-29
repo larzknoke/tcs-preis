@@ -82,7 +82,7 @@ export default async function handle(req, res) {
             //   ? "stiftungspreis@tc-stiftung.de"
             //   : letter.emailProjekt,
             // bcc: "stiftungspreis@tc-stiftung.de",
-            subject: `11. Town & Country Stiftungspreis: Gratulation – und 1.111 Euro für ${letter.nameProjekt}`,
+            subject: `12. Town & Country Stiftungspreis: Gratulation – und 1.111 Euro für ${letter.nameProjekt}`,
             html: render(<LetterEmail1 letter={letter} />),
             attachments: attachments,
           });

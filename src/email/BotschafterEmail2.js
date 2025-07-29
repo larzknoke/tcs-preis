@@ -16,7 +16,7 @@ export default function BotschafterEmail2({ botschafter, anreden = [] }) {
     <Html>
       <Head />
       <Preview>
-        11. Town & Country Stiftungspreis – überbringen Sie die gute Nachricht
+        12. Town & Country Stiftungspreis – überbringen Sie die gute Nachricht
         zuerst?
       </Preview>
       <Body style={main}>

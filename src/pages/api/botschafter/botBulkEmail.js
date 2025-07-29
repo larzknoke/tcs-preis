@@ -248,11 +248,11 @@ export default async function handle(req, res) {
             bcc: "stiftungspreis@tc-stiftung.de",
             subject:
               (emailVersion == "1" &&
-                "11. Town & Country Stiftungspreis - Übersicht geförderte Projekte zur Prüfung") ||
+                "12. Town & Country Stiftungspreis - Übersicht geförderte Projekte zur Prüfung") ||
               (emailVersion == "2" &&
-                "11. Town & Country Stiftungspreis – überbringen Sie die gute Nachricht zuerst?") ||
+                "12. Town & Country Stiftungspreis – überbringen Sie die gute Nachricht zuerst?") ||
               (emailVersion == "3" &&
-                "11. Town & Country Stiftungspreis - ???? "),
+                "12. Town & Country Stiftungspreis - ???? "),
             html:
               (emailVersion == "1" &&
                 render(

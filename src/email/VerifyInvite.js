@@ -16,7 +16,7 @@ export default function VerifyInvite({ invite }) {
     <Html>
       <Head />
       <Preview>
-        11. Town & Country Stiftungsgala – bitte bestätigen Sie Ihre Anmeldung
+        12. Town & Country Stiftungsgala – bitte bestätigen Sie Ihre Anmeldung
       </Preview>
       <Body style={main}>
         <Container style={container}>
@@ -36,7 +36,7 @@ export default function VerifyInvite({ invite }) {
               {invite.name},
             </Text>
             <Text style={text}>
-              bitte bestätigen Sie Ihre Teilnahme an der 11. Town & Country
+              bitte bestätigen Sie Ihre Teilnahme an der 12. Town & Country
               Stiftungsgala am 21. Juni 2024 durch einen Klick auf den folgenden
               Link.
             </Text>

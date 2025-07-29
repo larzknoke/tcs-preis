@@ -234,7 +234,7 @@ function NewLetter() {
           <AlertDescription>
             <Text as={"b"}>Achtung!</Text> Aufgrund der hohen Nachfrage wurde
             die Bewerbungsphase bereits vorzeitig beendet. Eine Bewerbung für
-            den 11. Town & Country Stiftungspreis ist nicht mehr möglich.
+            den 12. Town & Country Stiftungspreis ist nicht mehr möglich.
           </AlertDescription>
         </Alert>
       )}

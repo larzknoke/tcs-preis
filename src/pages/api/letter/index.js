@@ -35,7 +35,7 @@ export default async function handle(req, res) {
               ? ["info@larsknoke.com"]
               : result.emailProjekt,
           subject:
-            "11. Town & Country Stiftungspreis: Bitte bestätigen Sie Ihre Bewerbung",
+            "12. Town & Country Stiftungspreis: Bitte bestätigen Sie Ihre Bewerbung",
           html: render(<VerifyEmail letter={result} />),
         });
       } else {

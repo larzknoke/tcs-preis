@@ -16,7 +16,7 @@ export default function ConfirmInviteEmail({ invite }) {
     <Html>
       <Head />
       <Preview>
-        Betreff: 11. Town & Country Stiftungsgala – vielen Dank für Ihre
+        Betreff: 12. Town & Country Stiftungsgala – vielen Dank für Ihre
         Anmeldung
       </Preview>
       <Body style={main}>
@@ -37,7 +37,7 @@ export default function ConfirmInviteEmail({ invite }) {
               {invite.name},
             </Text>
             <Text style={text}>
-              vielen Dank für Ihre Anmeldung zur 11. Town & Country
+              vielen Dank für Ihre Anmeldung zur 12. Town & Country
               Stiftungsgala am 21. Juni 2024. <br />
               Wir freuen uns auf Ihr Kommen!
             </Text>

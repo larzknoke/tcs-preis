@@ -40,7 +40,7 @@ export default async function handle(req, res) {
             : receiver,
         bcc: "stiftungspreis@tc-stiftung.de",
         subject:
-          "11. Town & Country Stiftungspreis, Übersicht geförderte Projekte zur Prüfung",
+          "12. Town & Country Stiftungspreis, Übersicht geförderte Projekte zur Prüfung",
         html: render(
           <BotschafterEmail botschafter={botschafter} anreden={anreden} />
         ),

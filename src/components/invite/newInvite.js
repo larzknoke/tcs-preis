@@ -148,7 +148,7 @@ function NewInvite() {
                               >
                                 <Radio value={"ja"} variant={"atTop"}>
                                   <strong>Ja</strong>, ich/wir nehme/n an der
-                                  Gala zur Preisverleihung des 11. Town &amp;
+                                  Gala zur Preisverleihung des 12. Town &amp;
                                   Country Stiftungspreises am Abend des{" "}
                                   <strong>21. Juni 2024 um 17:30 Uhr</strong>{" "}
                                   teil.
@@ -519,7 +519,7 @@ function NewInvite() {
                 ) : (
                   <AlertDescription maxWidth="2xl" mt={2}>
                     Vielen Dank für Ihre Nachricht. Schade, dass Sie nicht an
-                    der 11. Town & Country Stiftungsgala teilnehmen können.
+                    der 12. Town & Country Stiftungsgala teilnehmen können.
                   </AlertDescription>
                 )}
               </Alert>

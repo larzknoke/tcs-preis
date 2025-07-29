@@ -23,7 +23,7 @@ function Anmeldung() {
             />
           </Link>
           {/* <Heading color={"gray.600"} size={"md"} textAlign={"center"}>
-            11. Town &amp; Country Stiftungsgala{" "}
+            12. Town &amp; Country Stiftungsgala{" "}
           </Heading> */}
         </HStack>
         {/* <NewLetter /> */}

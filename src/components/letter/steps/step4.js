@@ -167,7 +167,7 @@ function Step4() {
               textAlign={"left"}
             >
               Wir willigen ein, dass die von uns im Rahmen der Bewerbung sowie
-              Teilnahme am 11. Town &amp; Country Stiftungspreis übermittelten
+              Teilnahme am 12. Town &amp; Country Stiftungspreis übermittelten
               personenbezogenen Daten im Rahmen des Town &amp; Country
               Stiftungspreises verarbeitet werden. Die Daten werden von der Town
               &amp; Country Stiftung (Hauptstraße 90E, 99820 Hörselberg-Hainich
@@ -177,9 +177,9 @@ function Step4() {
               Partnern der Town &amp; Country Haus Lizenzgeber GmbH sowie den
               von der Town &amp; Country Stiftung mit der Durchführung des Town
               &amp; Country Stiftungspreises beauftragten Dritten ausschließlich
-              im Zusammenhang mit dem 11. Town &amp; Country Stiftungspreis,
+              im Zusammenhang mit dem 12. Town &amp; Country Stiftungspreis,
               insbesondere jedoch für die Öffentlichkeitsarbeit im Zusammenhang
-              mit dem 11. Town &amp; Country Stiftungspreis verwendet.
+              mit dem 12. Town &amp; Country Stiftungspreis verwendet.
               <FormErrorMessage>
                 {errors.checkPersonenbezogen &&
                   errors.checkPersonenbezogen.message}
@@ -231,7 +231,7 @@ function Step4() {
               >
                 hier abrufbaren Teilnahmebedingungen
               </Link>{" "}
-              des 11. Town & Country Stiftungspreises gelesen und erkennen sie
+              des 12. Town & Country Stiftungspreises gelesen und erkennen sie
               als verbindlich an.
               <FormErrorMessage>
                 {errors.checkTeilnahmebedingungen &&

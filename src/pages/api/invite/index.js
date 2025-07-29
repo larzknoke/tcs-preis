@@ -30,7 +30,7 @@ export default async function handle(req, res) {
                 ? ["info@larsknoke.com"]
                 : result.email,
             subject:
-              "11. Town & Country Stiftungsgala – bitte bestätigen Sie Ihre Anmeldung",
+              "12. Town & Country Stiftungsgala – bitte bestätigen Sie Ihre Anmeldung",
             html: render(<VerifyInvite invite={result} />),
           });
         }
@@ -45,7 +45,7 @@ export default async function handle(req, res) {
               process.env.NODE_ENV === "development"
                 ? ""
                 : "stiftungspreis@tc-stiftung.de",
-            subject: "11. Town & Country Stiftungsgala – Absage",
+            subject: "12. Town & Country Stiftungsgala – Absage",
             html: render(<CancelInviteEmail invite={result} />),
           });
         }

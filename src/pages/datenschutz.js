@@ -34,7 +34,7 @@ function Datenschutz() {
         Datenschutzhinweise gem&auml;&szlig; Art. 13 DSGVO
       </Heading>
       <Text>
-        Mit Ihrer Bewerbung und Teilnahme am &bdquo;11. Town &amp; Country
+        Mit Ihrer Bewerbung und Teilnahme am &bdquo;12. Town &amp; Country
         Stiftungspreis&ldquo; sowie der in diesem Zusammenhang
         durchgef&uuml;hrten Veranstaltungen erheben und verarbeiten wir Ihre uns
         mitgeteilten personenbezogenen Daten, auch in Form von Foto-, Ton- und
@@ -67,7 +67,7 @@ function Datenschutz() {
         2. Welche personenbezogenen Daten werden erhoben?&nbsp;
       </Heading>
       <Text>
-        Wenn Sie sich zur Teilnahme am 11. Town &amp; Country Stiftungspreis
+        Wenn Sie sich zur Teilnahme am 12. Town &amp; Country Stiftungspreis
         bewerben, erheben wir von Ihnen folgende Daten:
       </Text>
       <UnorderedList>
@@ -126,9 +126,9 @@ function Datenschutz() {
         3. Rechtsgrundlage und Zweck der Erhebung und Verarbeitung
       </Heading>
       <Text>
-        Ihre uns im Rahmen des 11. Town &amp; Country Stiftungspreise
+        Ihre uns im Rahmen des 12. Town &amp; Country Stiftungspreise
         &uuml;bermittelten Daten werden zum Zweck der Teilnahme sowie der
-        Vergabe der Auszeichnungen und Preisgelder im Rahmen des 11. Town &amp;
+        Vergabe der Auszeichnungen und Preisgelder im Rahmen des 12. Town &amp;
         Country Stiftungspreises verarbeitet. Dar&uuml;ber hinaus werden Ihre
         Daten f&uuml;r die &Ouml;ffentlichkeitsarbeit sowie die
         Berichterstattung &uuml;ber die Arbeit der Town &amp; Country Stiftung,
@@ -214,7 +214,7 @@ function Datenschutz() {
         Bei der Verarbeitung werden die Daten an die mit der
         Stiftungst&auml;tigkeit betrauten Botschafter, insbesondere an die
         Lizenzpartner der Town &amp; Country Haus Lizenzgeber GmbH &ndash;
-        ausschlie&szlig;lich im Zusammenhang mit dem 11. Town &amp; Country
+        ausschlie&szlig;lich im Zusammenhang mit dem 12. Town &amp; Country
         Stiftungspreis, insbesondere der Durchf&uuml;hrung einer symbolischen
         Scheck&uuml;bergabe, weitergegeben.&nbsp;
       </Text>

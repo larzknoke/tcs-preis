@@ -58,7 +58,7 @@ export const LetterPDF = ({ letter }) => (
           style={styles.image}
           src={"https://stiftungspreis.tc-stiftung.de/logo.png"}
         />
-        <Text style={styles.title}>11. Town & Country Stiftungspreis</Text>
+        <Text style={styles.title}>12. Town & Country Stiftungspreis</Text>
         <Text style={styles.subTitle}>
           {`Folgende Daten zu Ihrer Bewerbung vom ${dateFormatter(
             letter.createdAt
