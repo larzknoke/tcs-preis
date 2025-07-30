@@ -18,6 +18,7 @@ export const getServerSideProps = async () => {
     },
     include: {
       botschafter: true,
+      kampagne: true,
     },
   });
   return { props: { letters } };

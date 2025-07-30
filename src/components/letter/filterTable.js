@@ -1,4 +1,5 @@
 import {
+  Spinner,
   Table,
   Card,
   CardBody,
@@ -28,6 +29,8 @@ import {
   Divider,
   Select,
   Icon,
+  Spacer,
+  Center,
 } from "@chakra-ui/react";
 import React from "react";
 import {
@@ -42,6 +45,7 @@ import {
 } from "react-icons/hi2";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { exportToExcel } from "react-json-to-excel";
+import { useState, useMemo, useEffect } from "react";
 
 import {
   Column,
@@ -89,8 +93,44 @@ function FilterTable({ letters }) {
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [columnVisibility, setColumnVisibility] = React.useState({});
 
+  const [selectedKampagneId, setSelectedKampagneId] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   const btnRef = React.useRef();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const kampagnen = useMemo(() => {
+    const unique = new Map();
+    letters.forEach((l) => {
+      if (l.kampagne?.id) {
+        unique.set(l.kampagne.id, {
+          id: l.kampagne.id,
+          name: l.kampagne.name || `Kampagne ${l.kampagne.id}`,
+          createdAt: new Date(l.kampagne.createdAt),
+        });
+      }
+    });
+
+    return Array.from(unique.values()).sort(
+      (a, b) => b.createdAt - a.createdAt // neueste zuerst
+    );
+  }, [letters]);
+
+  // Preselect the newest kampagne
+  useEffect(() => {
+    if (kampagnen.length > 0 && selectedKampagneId === null) {
+      setSelectedKampagneId(kampagnen[0].id);
+    }
+    setLoading(false);
+  }, [kampagnen, selectedKampagneId]);
+
+  useEffect(() => {
+    if (!selectedKampagneId) {
+      setTableData(letters);
+    } else {
+      setTableData(letters.filter((l) => l.kampagneId === selectedKampagneId));
+    }
+  }, [letters, selectedKampagneId]);
 
   function handleExport() {
     const result = table.getFilteredRowModel().rows.map((row) => {
@@ -431,6 +471,20 @@ function FilterTable({ letters }) {
             {tableData.length}
           </chakra.span>{" "}
         </Heading>
+        <Spacer />
+        <Select
+          placeholder="Alle Kampagnen"
+          value={selectedKampagneId}
+          onChange={(e) => setSelectedKampagneId(Number(e.target.value))}
+          maxW="320px"
+          mt={2}
+        >
+          {kampagnen.map((k) => (
+            <option key={k.id} value={k.id}>
+              {k.name}
+            </option>
+          ))}
+        </Select>
         <DebouncedInput
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
@@ -497,85 +551,91 @@ function FilterTable({ letters }) {
       </Stack>
       <Card>
         <CardBody>
-          <TableContainer>
-            <Table>
-              <Thead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <Tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      return (
-                        <Th key={header.id} colSpan={header.colSpan}>
-                          {header.isPlaceholder ? null : (
-                            <>
-                              <div
-                                {...{
-                                  className: header.column.getCanSort()
-                                    ? "cursor-pointer select-none"
-                                    : "",
-                                  onClick:
-                                    header.column.getToggleSortingHandler(),
-                                }}
-                              >
-                                {flexRender(
-                                  header.column.columnDef.header,
-                                  header.getContext()
-                                )}
-                                {{
-                                  asc: (
-                                    <TriangleUpIcon
-                                      aria-label="sorted descending"
-                                      ml={2}
-                                    />
-                                  ),
-                                  desc: (
-                                    <TriangleDownIcon
-                                      aria-label="sorted descending"
-                                      ml={2}
-                                    />
-                                  ),
-                                }[header.column.getIsSorted()] ?? null}
-                              </div>
-                              {header.column.getCanFilter() ? (
-                                <div>
-                                  <Filter
-                                    column={header.column}
-                                    table={table}
-                                  />
-                                </div>
-                              ) : null}
-                            </>
-                          )}
-                        </Th>
-                      );
-                    })}
-                  </Tr>
-                ))}
-              </Thead>
-              <Tbody>
-                {table.getRowModel().rows.map((row) => {
-                  return (
-                    <Tr key={row.id}>
-                      {row.getVisibleCells().map((cell) => {
+          {loading ? (
+            <Center my={4}>
+              <Spinner />
+            </Center>
+          ) : (
+            <TableContainer>
+              <Table>
+                <Thead>
+                  {table.getHeaderGroups().map((headerGroup) => (
+                    <Tr key={headerGroup.id}>
+                      {headerGroup.headers.map((header) => {
                         return (
-                          <Td
-                            key={cell.id}
-                            className={
-                              cell.column.columnDef.meta?.className ?? ""
-                            }
-                          >
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
+                          <Th key={header.id} colSpan={header.colSpan}>
+                            {header.isPlaceholder ? null : (
+                              <>
+                                <div
+                                  {...{
+                                    className: header.column.getCanSort()
+                                      ? "cursor-pointer select-none"
+                                      : "",
+                                    onClick:
+                                      header.column.getToggleSortingHandler(),
+                                  }}
+                                >
+                                  {flexRender(
+                                    header.column.columnDef.header,
+                                    header.getContext()
+                                  )}
+                                  {{
+                                    asc: (
+                                      <TriangleUpIcon
+                                        aria-label="sorted descending"
+                                        ml={2}
+                                      />
+                                    ),
+                                    desc: (
+                                      <TriangleDownIcon
+                                        aria-label="sorted descending"
+                                        ml={2}
+                                      />
+                                    ),
+                                  }[header.column.getIsSorted()] ?? null}
+                                </div>
+                                {header.column.getCanFilter() ? (
+                                  <div>
+                                    <Filter
+                                      column={header.column}
+                                      table={table}
+                                    />
+                                  </div>
+                                ) : null}
+                              </>
                             )}
-                          </Td>
+                          </Th>
                         );
                       })}
                     </Tr>
-                  );
-                })}
-              </Tbody>
-            </Table>
-          </TableContainer>
+                  ))}
+                </Thead>
+                <Tbody>
+                  {table.getRowModel().rows.map((row) => {
+                    return (
+                      <Tr key={row.id}>
+                        {row.getVisibleCells().map((cell) => {
+                          return (
+                            <Td
+                              key={cell.id}
+                              className={
+                                cell.column.columnDef.meta?.className ?? ""
+                              }
+                            >
+                              {flexRender(
+                                cell.column.columnDef.cell,
+                                cell.getContext()
+                              )}
+                            </Td>
+                          );
+                        })}
+                      </Tr>
+                    );
+                  })}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          )}
           <Flex gap={2} mt={6} direction={{ base: "column", md: "row" }}>
             <HStack>
               <IconButton
