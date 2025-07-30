@@ -34,6 +34,13 @@ export const getServerSideProps = async () => {
       kontoNameProjekt: true,
       botschafterId: true,
       kampagneId: true,
+      kampagne: {
+        select: {
+          id: true,
+          name: true,
+          createdAt: true,
+        },
+      },
       andereLizenzpartner: true,
       zuwendungAndere: true,
       status: true,

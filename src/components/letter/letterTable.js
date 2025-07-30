@@ -1,4 +1,5 @@
 import {
+  Center,
   Table,
   Thead,
   Tbody,
@@ -35,6 +36,8 @@ import {
   Divider,
   useToast,
   Spacer,
+  Select,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   HiOutlineFolderOpen,
@@ -80,6 +83,7 @@ import fuzzyFilter from "@/lib/fuzzyFilter";
 import { Capatilizer, dateFormatter } from "@/lib/utils";
 import DateInput from "./dateInput";
 import { exportToExcel } from "react-json-to-excel";
+import { set } from "nprogress";
 
 function LetterTable({ letters }) {
   const router = useRouter();
@@ -87,8 +91,43 @@ function LetterTable({ letters }) {
   const [tableData, setTableData] = useState([...letters]);
   const [sorting, setSorting] = useState([{ id: "id", desc: false }]);
   const [globalFilter, setGlobalFilter] = useState("");
+  const [selectedKampagneId, setSelectedKampagneId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const columnHelper = createColumnHelper();
+
+  const kampagnen = useMemo(() => {
+    const unique = new Map();
+    letters.forEach((l) => {
+      if (l.kampagne?.id) {
+        unique.set(l.kampagne.id, {
+          id: l.kampagne.id,
+          name: l.kampagne.name || `Kampagne ${l.kampagne.id}`,
+          createdAt: new Date(l.kampagne.createdAt),
+        });
+      }
+    });
+
+    return Array.from(unique.values()).sort(
+      (a, b) => b.createdAt - a.createdAt // neueste zuerst
+    );
+  }, [letters]);
+
+  // Preselect the newest kampagne
+  useEffect(() => {
+    if (kampagnen.length > 0 && selectedKampagneId === null) {
+      setSelectedKampagneId(kampagnen[0].id);
+    }
+    setLoading(false);
+  }, [kampagnen, selectedKampagneId]);
+
+  useEffect(() => {
+    if (!selectedKampagneId) {
+      setTableData(letters);
+    } else {
+      setTableData(letters.filter((l) => l.kampagneId === selectedKampagneId));
+    }
+  }, [letters, selectedKampagneId]);
 
   function checkHasEmpty(list) {
     if (list.includes(null) || list.includes("") || list.includes(undefined)) {
@@ -1036,6 +1075,20 @@ function LetterTable({ letters }) {
             {tableData.length}
           </chakra.span>{" "}
         </Heading>
+        <Spacer />
+        <Select
+          placeholder="Alle Kampagnen"
+          value={selectedKampagneId}
+          onChange={(e) => setSelectedKampagneId(Number(e.target.value))}
+          maxW="320px"
+        >
+          {kampagnen.map((k) => (
+            <option key={k.id} value={k.id}>
+              {k.name}
+            </option>
+          ))}
+        </Select>
+
         <DebouncedInput
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
@@ -1064,79 +1117,85 @@ function LetterTable({ letters }) {
       </Stack>
       <Card>
         <CardBody>
-          <TableContainer>
-            <Table>
-              <Thead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <Tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      const meta = header.column.columnDef.meta;
-                      return (
-                        <Th
-                          key={header.id}
-                          onClick={header.column.getToggleSortingHandler()}
-                          isNumeric={meta?.isNumeric}
-                        >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+          {loading ? (
+            <Center my={4}>
+              <Spinner />
+            </Center>
+          ) : (
+            <TableContainer>
+              <Table>
+                <Thead>
+                  {table.getHeaderGroups().map((headerGroup) => (
+                    <Tr key={headerGroup.id}>
+                      {headerGroup.headers.map((header) => {
+                        const meta = header.column.columnDef.meta;
+                        return (
+                          <Th
+                            key={header.id}
+                            onClick={header.column.getToggleSortingHandler()}
+                            isNumeric={meta?.isNumeric}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
 
-                          <chakra.span pl="4">
-                            {header.column.getIsSorted() ? (
-                              header.column.getIsSorted() === "desc" ? (
-                                <TriangleDownIcon aria-label="sorted descending" />
-                              ) : (
-                                <TriangleUpIcon aria-label="sorted ascending" />
-                              )
-                            ) : null}
-                          </chakra.span>
-                        </Th>
-                      );
-                    })}
-                  </Tr>
-                ))}
-              </Thead>
-              <Tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <Tr
-                    key={row.id}
-                    // onClick={() =>
-                    //   router.push(`/admin/bewerbung/${row.getValue("id")}`)
-                    // }
-                    bg={rowColor(row.getValue("status"))}
-                    _hover={{
-                      cursor: "pointer",
-                      backgroundColor: "gray.50",
-                      transitionDuration: "200ms",
-                    }}
-                  >
-                    {row.getVisibleCells().map((cell) => {
-                      const meta = cell.column.columnDef.meta;
-                      return (
-                        <Td
-                          key={cell.id}
-                          isNumeric={meta?.isNumeric}
-                          maxWidth={"500px"}
-                          overflow={"hidden"}
-                          whiteSpace={"nowrap"}
-                          textOverflow={"ellipsis"}
-                          className={
-                            cell.column.columnDef.meta?.className ?? ""
-                          }
-                        >
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </Td>
-                      );
-                    })}
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
+                            <chakra.span pl="4">
+                              {header.column.getIsSorted() ? (
+                                header.column.getIsSorted() === "desc" ? (
+                                  <TriangleDownIcon aria-label="sorted descending" />
+                                ) : (
+                                  <TriangleUpIcon aria-label="sorted ascending" />
+                                )
+                              ) : null}
+                            </chakra.span>
+                          </Th>
+                        );
+                      })}
+                    </Tr>
+                  ))}
+                </Thead>
+                <Tbody>
+                  {table.getRowModel().rows.map((row) => (
+                    <Tr
+                      key={row.id}
+                      // onClick={() =>
+                      //   router.push(`/admin/bewerbung/${row.getValue("id")}`)
+                      // }
+                      bg={rowColor(row.getValue("status"))}
+                      _hover={{
+                        cursor: "pointer",
+                        backgroundColor: "gray.50",
+                        transitionDuration: "200ms",
+                      }}
+                    >
+                      {row.getVisibleCells().map((cell) => {
+                        const meta = cell.column.columnDef.meta;
+                        return (
+                          <Td
+                            key={cell.id}
+                            isNumeric={meta?.isNumeric}
+                            maxWidth={"500px"}
+                            overflow={"hidden"}
+                            whiteSpace={"nowrap"}
+                            textOverflow={"ellipsis"}
+                            className={
+                              cell.column.columnDef.meta?.className ?? ""
+                            }
+                          >
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </Td>
+                        );
+                      })}
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          )}
           <Flex gap={2} mt={6} direction={{ base: "column", md: "row" }}>
             <HStack>
               <IconButton
