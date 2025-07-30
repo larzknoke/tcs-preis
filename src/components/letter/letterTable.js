@@ -92,6 +92,8 @@ function LetterTable({ letters }) {
   const [sorting, setSorting] = useState([{ id: "id", desc: false }]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [selectedKampagneId, setSelectedKampagneId] = useState(null);
+  const [sonderpreisTyp, setSonderpreisTyp] = useState("Alle");
+
   const [loading, setLoading] = useState(true);
 
   const columnHelper = createColumnHelper();
@@ -113,7 +115,7 @@ function LetterTable({ letters }) {
     );
   }, [letters]);
 
-  // Preselect the newest kampagne
+  // SET DEFAULT KAMPAGNE
   useEffect(() => {
     if (kampagnen.length > 0 && selectedKampagneId === null) {
       setSelectedKampagneId(kampagnen[0].id);
@@ -121,13 +123,22 @@ function LetterTable({ letters }) {
     setLoading(false);
   }, [kampagnen, selectedKampagneId]);
 
+  // FILTER FOR KAMPAGNEN + SONDERPREIS
   useEffect(() => {
-    if (!selectedKampagneId) {
-      setTableData(letters);
-    } else {
-      setTableData(letters.filter((l) => l.kampagneId === selectedKampagneId));
+    let filtered = letters;
+
+    if (selectedKampagneId) {
+      filtered = filtered.filter((l) => l.kampagneId === selectedKampagneId);
     }
-  }, [letters, selectedKampagneId]);
+
+    if (sonderpreisTyp === "Sonderpreis") {
+      filtered = filtered.filter((l) => l.sonderpreis === true);
+    } else if (sonderpreisTyp === "Stiftungspreis") {
+      filtered = filtered.filter((l) => l.sonderpreis === false);
+    }
+
+    setTableData(filtered);
+  }, [letters, selectedKampagneId, sonderpreisTyp]);
 
   function checkHasEmpty(list) {
     if (list.includes(null) || list.includes("") || list.includes(undefined)) {
@@ -1076,6 +1087,14 @@ function LetterTable({ letters }) {
           </chakra.span>{" "}
         </Heading>
         <Spacer />
+        <DebouncedInput
+          value={globalFilter ?? ""}
+          onChange={(value) => setGlobalFilter(String(value))}
+          placeholder="Suche..."
+          maxWidth={"450px"}
+          w={"100%"}
+          ml={"auto"}
+        />
         <Select
           placeholder="Alle Kampagnen"
           value={selectedKampagneId}
@@ -1088,15 +1107,15 @@ function LetterTable({ letters }) {
             </option>
           ))}
         </Select>
-
-        <DebouncedInput
-          value={globalFilter ?? ""}
-          onChange={(value) => setGlobalFilter(String(value))}
-          placeholder="Suche..."
-          maxWidth={"450px"}
-          w={"100%"}
-          ml={"auto"}
-        />
+        <Select
+          value={sonderpreisTyp}
+          onChange={(e) => setSonderpreisTyp(e.target.value)}
+          maxW="200px"
+        >
+          <option value="Alle">Alle Preise</option>
+          <option value="Sonderpreis">Sonderpreis</option>
+          <option value="Stiftungspreis">Stiftungspreis</option>
+        </Select>
         <Tooltip label="Nicht bestätige Bewerbungen anzeigen" placement="top">
           <IconButton
             as={Link}

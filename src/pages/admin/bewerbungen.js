@@ -63,6 +63,7 @@ export const getServerSideProps = async () => {
       socialFremd: true,
       socialNotiz: true,
       socialTCS: true,
+      sonderpreis: true,
       presseEinladung: true,
       presseErlaubt: true,
       presseErledigt: true,

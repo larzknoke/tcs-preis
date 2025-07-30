@@ -94,6 +94,8 @@ function FilterTable({ letters }) {
   const [columnVisibility, setColumnVisibility] = React.useState({});
 
   const [selectedKampagneId, setSelectedKampagneId] = useState(null);
+  const [sonderpreisTyp, setSonderpreisTyp] = useState("Alle");
+
   const [loading, setLoading] = useState(true);
 
   const btnRef = React.useRef();
@@ -116,7 +118,7 @@ function FilterTable({ letters }) {
     );
   }, [letters]);
 
-  // Preselect the newest kampagne
+  // SET DEFAULT KAMPAGNE
   useEffect(() => {
     if (kampagnen.length > 0 && selectedKampagneId === null) {
       setSelectedKampagneId(kampagnen[0].id);
@@ -124,13 +126,22 @@ function FilterTable({ letters }) {
     setLoading(false);
   }, [kampagnen, selectedKampagneId]);
 
+  // FILTER FOR KAMPAGNEN + SONDERPREIS
   useEffect(() => {
-    if (!selectedKampagneId) {
-      setTableData(letters);
-    } else {
-      setTableData(letters.filter((l) => l.kampagneId === selectedKampagneId));
+    let filtered = letters;
+
+    if (selectedKampagneId) {
+      filtered = filtered.filter((l) => l.kampagneId === selectedKampagneId);
     }
-  }, [letters, selectedKampagneId]);
+
+    if (sonderpreisTyp === "Sonderpreis") {
+      filtered = filtered.filter((l) => l.sonderpreis === true);
+    } else if (sonderpreisTyp === "Stiftungspreis") {
+      filtered = filtered.filter((l) => l.sonderpreis === false);
+    }
+
+    setTableData(filtered);
+  }, [letters, selectedKampagneId, sonderpreisTyp]);
 
   function handleExport() {
     const result = table.getFilteredRowModel().rows.map((row) => {
@@ -472,6 +483,15 @@ function FilterTable({ letters }) {
           </chakra.span>{" "}
         </Heading>
         <Spacer />
+        <DebouncedInput
+          value={globalFilter ?? ""}
+          onChange={(value) => setGlobalFilter(String(value))}
+          placeholder="Suche..."
+          maxWidth={"450px"}
+          w={"100%"}
+          ml={"auto"}
+          size={"md"}
+        />
         <Select
           placeholder="Alle Kampagnen"
           value={selectedKampagneId}
@@ -485,15 +505,17 @@ function FilterTable({ letters }) {
             </option>
           ))}
         </Select>
-        <DebouncedInput
-          value={globalFilter ?? ""}
-          onChange={(value) => setGlobalFilter(String(value))}
-          placeholder="Suche..."
-          maxWidth={"450px"}
-          w={"100%"}
-          ml={"auto"}
-          size={"md"}
-        />
+        <Select
+          // placeholder="Wähle Typ"
+          value={sonderpreisTyp}
+          onChange={(e) => setSonderpreisTyp(e.target.value)}
+          maxW="200px"
+          mt={2}
+        >
+          <option value="Alle">Alle Preise</option>
+          <option value="Sonderpreis">Sonderpreis</option>
+          <option value="Stiftungspreis">Stiftungspreis</option>
+        </Select>
         <Tooltip label="Bewerbungen exportieren" placement="top">
           <IconButton
             onClick={handleExport}
