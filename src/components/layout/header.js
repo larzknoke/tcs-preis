@@ -20,6 +20,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { HiUser } from "react-icons/hi2";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 function Header() {
   const { data: session } = useSession();
@@ -37,6 +38,15 @@ function Header() {
             variant={"ghost"}
           >
             Bewerbungen
+          </Button>
+          <Button
+            as={Link}
+            href="/admin/filter"
+            color={"gray.500"}
+            fontWeight={"400"}
+            variant={"ghost"}
+          >
+            Filter
           </Button>
           <Button
             as={Link}
@@ -58,33 +68,6 @@ function Header() {
           </Button>
           <Button
             as={Link}
-            href="/formular"
-            color={"gray.500"}
-            fontWeight={"400"}
-            variant={"ghost"}
-          >
-            Formular
-          </Button>
-          <Button
-            as={Link}
-            href="/admin/users"
-            color={"gray.500"}
-            fontWeight={"400"}
-            variant={"ghost"}
-          >
-            Benutzer
-          </Button>
-          <Button
-            as={Link}
-            href="/admin/filter"
-            color={"gray.500"}
-            fontWeight={"400"}
-            variant={"ghost"}
-          >
-            Filter
-          </Button>
-          <Button
-            as={Link}
             href="/admin/anmeldungen"
             color={"gray.500"}
             fontWeight={"400"}
@@ -92,6 +75,43 @@ function Header() {
           >
             Anmeldungen
           </Button>
+          {/* <Button
+            as={Link}
+            href="/formular"
+            color={"gray.500"}
+            fontWeight={"400"}
+            variant={"ghost"}
+          >
+            Formular
+          </Button> */}
+          <Menu>
+            <MenuButton
+              as={Button}
+              variant="ghost"
+              color={"gray.500"}
+              fontWeight={"400"}
+              rightIcon={<ChevronDownIcon />}
+            >
+              Formulare
+            </MenuButton>
+            <MenuList>
+              <MenuItem as={Link} href="/formular">
+                Stiftungspreis
+              </MenuItem>
+              <MenuItem as={Link} href="/formular-sonder">
+                Sonderpreis
+              </MenuItem>
+            </MenuList>
+          </Menu>
+          {/* <Button
+            as={Link}
+            href="/admin/users"
+            color={"gray.500"}
+            fontWeight={"400"}
+            variant={"ghost"}
+          >
+            Benutzer
+          </Button> */}
         </HStack>
       )}
       <Spacer />
