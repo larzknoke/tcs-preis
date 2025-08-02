@@ -216,6 +216,11 @@ function Bewerbung({ letter }) {
               {letter.status}
             </Badge>
           </Tooltip>
+          {letter.sonderpreis && (
+            <Badge variant="outline" colorScheme={"red"} fontSize={"md"} ml={2}>
+              Sonderpreis
+            </Badge>
+          )}
           <StatusModal
             statusOnOpen={statusOnOpen}
             statusOnClose={statusOnClose}

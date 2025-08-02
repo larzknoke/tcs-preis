@@ -30,13 +30,20 @@ import { dateFormatter } from "@/lib/utils";
 import { useState } from "react";
 import { exportToExcel } from "react-json-to-excel";
 
-function KampagnenTermine({ kampagne, abgelehntAnzeigen }) {
+function KampagnenTermine({ kampagne, abgelehntAnzeigen, sonderpreisTyp }) {
   const [sortValue, setSortValue] = useState("terminUebergabe");
   const [ausblenden, setAusblenden] = useState(false);
   const [abgelaufen, setAbgelaufen] = useState(false);
 
   function handleExport() {
     const result = kampagne.letters
+      .filter((letter) =>
+        sonderpreisTyp === "Alle"
+          ? true
+          : sonderpreisTyp === "Sonderpreis"
+          ? letter.sonderpreis === true
+          : letter.sonderpreis === false
+      )
       .filter((letter) =>
         abgelehntAnzeigen
           ? true
@@ -67,6 +74,13 @@ function KampagnenTermine({ kampagne, abgelehntAnzeigen }) {
               (
               {
                 kampagne.letters
+                  .filter((letter) =>
+                    sonderpreisTyp === "Alle"
+                      ? true
+                      : sonderpreisTyp === "Sonderpreis"
+                      ? letter.sonderpreis === true
+                      : letter.sonderpreis === false
+                  )
                   .filter((letter) =>
                     abgelehntAnzeigen
                       ? true
@@ -122,6 +136,13 @@ function KampagnenTermine({ kampagne, abgelehntAnzeigen }) {
         <Stack divider={<StackDivider />} spacing="4">
           {kampagne.letters.length > 0 &&
             kampagne.letters
+              .filter((letter) =>
+                sonderpreisTyp === "Alle"
+                  ? true
+                  : sonderpreisTyp === "Sonderpreis"
+                  ? letter.sonderpreis === true
+                  : letter.sonderpreis === false
+              )
               .filter((letter) =>
                 abgelehntAnzeigen
                   ? true

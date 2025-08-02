@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import {
+  Select,
   Container,
   Divider,
   HStack,
@@ -37,6 +38,8 @@ import { pdf } from "@react-pdf/renderer";
 
 function Kampagne({ kampagne, kampagnenBots }) {
   const [abgelehntAnzeigen, setAbgelehntAnzeigen] = useState(false);
+  const [sonderpreisTyp, setSonderpreisTyp] = useState("Alle");
+  const [filteredLetters, setFilteredLetters] = useState([]);
 
   function toggleAbgelehnt() {
     localStorage.setItem("abgelehntAnzeigen", !abgelehntAnzeigen);
@@ -47,7 +50,28 @@ function Kampagne({ kampagne, kampagnenBots }) {
     setAbgelehntAnzeigen(eval(localStorage.getItem("abgelehntAnzeigen")));
   }, []);
 
-  const groupLetters = kampagne.letters.reduce((x, y) => {
+  useEffect(() => {
+    if (!kampagne?.letters) return;
+
+    const result = kampagne.letters.filter((letter) => {
+      if (sonderpreisTyp === "Alle") return true;
+      if (sonderpreisTyp === "Sonderpreis") return letter.sonderpreis === true;
+      if (sonderpreisTyp === "Stiftungspreis")
+        return letter.sonderpreis === false;
+    });
+
+    setFilteredLetters(result);
+  }, [sonderpreisTyp, kampagne.letters]);
+
+  const filteredKampagnenBots = kampagnenBots.map((bot) => ({
+    ...bot,
+    letters: bot.letters.filter((letter) => {
+      if (sonderpreisTyp === "Alle") return true;
+      return letter.sonderpreis === (sonderpreisTyp === "Sonderpreis");
+    }),
+  }));
+
+  const groupLetters = filteredLetters.reduce((x, y) => {
     (x[y.bundeslandProjekt ? y.bundeslandProjekt : y.bundeslandTraeger] =
       x[y.bundeslandProjekt ? y.bundeslandProjekt : y.bundeslandTraeger] ||
       []).push(y);
@@ -91,15 +115,29 @@ function Kampagne({ kampagne, kampagnenBots }) {
 
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"8xl"}>
-      <HStack justify={"space-between"}>
+      <HStack justify={"space-between"} alignItems={"flex-end"}>
         <VStack alignItems={"start"}>
           <Heading fontSize={"22"} color={"gray.300"} fontWeight={"500"}>
             Kampagne
           </Heading>
           <Heading fontSize={"24"}>{kampagne.name}</Heading>
         </VStack>
-        <HStack>
-          <Text fontSize={"sm"} color={"gray.400"} mr={3}>
+        <HStack gap={4} alignItems={"center"}>
+          <Select
+            value={sonderpreisTyp}
+            onChange={(e) => setSonderpreisTyp(e.target.value)}
+            maxW="200px"
+          >
+            <option value="Alle">Alle Preise</option>
+            <option value="Sonderpreis">Sonderpreis</option>
+            <option value="Stiftungspreis">Stiftungspreis</option>
+          </Select>
+          <Text
+            className=" whitespace-nowrap"
+            fontSize={"sm"}
+            color={"gray.400"}
+            mr={3}
+          >
             Abgelehnte anzeigen:
             {abgelehntAnzeigen ? (
               <IconButton
@@ -117,7 +155,12 @@ function Kampagne({ kampagne, kampagnenBots }) {
               />
             )}
           </Text>
-          <Text fontSize={"sm"} color={"gray.400"} mr={3}>
+          <Text
+            fontSize={"sm"}
+            color={"gray.400"}
+            mr={3}
+            className="whitespace-nowrap"
+          >
             Erstellt: {dateFormatter(kampagne.createdAt)}
           </Text>
           <Tooltip label="Status" placement="top">
@@ -151,7 +194,7 @@ function Kampagne({ kampagne, kampagnenBots }) {
           </Menu>
         </HStack>
       </HStack>
-      <Divider my={4} />
+      <Divider mt={4} mb={8} />
       <Tabs>
         <TabList>
           <Tab>Botschafter</Tab>
@@ -163,7 +206,7 @@ function Kampagne({ kampagne, kampagnenBots }) {
         <TabPanels>
           <TabPanel px={0} py={6}>
             <KampagnenBots
-              kampagnenBots={kampagnenBots}
+              kampagnenBots={filteredKampagnenBots}
               kampagne={kampagne}
               abgelehntAnzeigen={abgelehntAnzeigen}
             />
@@ -178,6 +221,7 @@ function Kampagne({ kampagne, kampagnenBots }) {
             <KampagnenTermine
               kampagne={kampagne}
               abgelehntAnzeigen={abgelehntAnzeigen}
+              sonderpreisTyp={sonderpreisTyp}
             />
           </TabPanel>
           <TabPanel px={0} py={6}>
@@ -256,6 +300,7 @@ export const getServerSideProps = async (ctx) => {
           socialFremd: true,
           socialNotiz: true,
           socialTCS: true,
+          sonderpreis: true,
           presseEinladung: true,
           presseErlaubt: true,
           presseErledigt: true,

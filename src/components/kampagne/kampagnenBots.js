@@ -34,7 +34,9 @@ function KampagnenBots({ kampagnenBots, kampagne, abgelehntAnzeigen }) {
   } = useDisclosure();
   const [sortValue, setSortValue] = useState("name");
 
-  let botcontacts = kampagnenBots.map((bot) => bot.botcontacts.length);
+  let botcontacts = kampagnenBots
+    .filter((bot) => bot.letters.length > 0)
+    .map((bot) => bot.botcontacts.length);
   let contactsum = 0;
   if (botcontacts.length > 0) {
     contactsum = botcontacts.reduce(function (a, b) {
@@ -49,7 +51,8 @@ function KampagnenBots({ kampagnenBots, kampagne, abgelehntAnzeigen }) {
         <HStack justifyContent={"space-between"}>
           <Heading size="md">
             Botschafter mit vorhandenen Bewerbungen (
-            {kampagnenBots.length || "0"}
+            {kampagnenBots.filter((bot) => bot.letters.length > 0).length ||
+              "0"}
             <Text as={"span"} color={"gray.300"}>
               {" "}
               + {contactsum || "0"} Bot.Ansprechpartner
@@ -109,6 +112,7 @@ function KampagnenBots({ kampagnenBots, kampagne, abgelehntAnzeigen }) {
         <Stack divider={<StackDivider />} spacing="4">
           {kampagnenBots.length > 0 &&
             kampagnenBots
+              .filter((bot) => bot.letters.length > 0)
               .sort((a, b) =>
                 a[sortValue]
                   .toLowerCase()
