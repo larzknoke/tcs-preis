@@ -539,6 +539,7 @@ function Step2Sonder() {
               Übertragbarkeit
               <Text fontSize={"sm"} color={"gray.400"}>
                 Könnte Euer Ansatz auch in anderen Regionen umgesetzt werden?
+                Euch stehen max. 500 Zeichen zur Verfügung.{" "}
               </Text>
             </FormLabel>
             <Textarea

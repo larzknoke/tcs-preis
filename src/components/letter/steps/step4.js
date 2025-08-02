@@ -144,8 +144,8 @@ function Step4() {
                 <Text as="sup" mr={1}>
                   1
                 </Text>
-                Hier finden Sie eine Muster-Einwilligungserklärung für
-                Minderjährige für die Preisübergabe
+                Hier findet Ihr eine Muster-Einwilligungserklärung für
+                Minderjährige für die Preisübergabe.
               </Text>
             </HStack>
           </Link>

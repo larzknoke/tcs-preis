@@ -52,14 +52,14 @@ function Step1() {
       <SimpleGrid spacing={6} columns={3} w={"full"}>
         <GridItem colSpan={3}>
           <Heading textAlign={"left"} size={"md"} color={"gray.500"}>
-            Angaben zur internen Zuordnung
+            Angaben zur internen Zuordnung Stiftungspreis
           </Heading>
         </GridItem>
         <GridItem colSpan={3}>
           <FormControl isInvalid={errors.andereLizenzpartner}>
             <FormLabel>
-              Hatten Sie bereits im Vorfeld Kontakt mit einem
-              Stiftungsbotschafter? (falls ja bitte Namen eintragen)
+              Hattet Ihr bereits im Vorfeld Kontakt mit einem
+              Stiftungsbotschafter (falls ja, bitte den Namen eintragen)
             </FormLabel>
             <Input
               name="andereLizenzpartner"

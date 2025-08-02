@@ -121,10 +121,10 @@ function Step3Sonder() {
         <GridItem colSpan={4}>
           <FormControl isInvalid={errors.bisherigeFoerderung}>
             <FormLabel>
-              Bisherige Förderung Ihres Vereins/Organisation durch die Town &
-              Country Stiftung (Wann und welche Zahlungen/Preise haben Sie
-              bislang von der Town & Country Stiftung erhalten, beispielsweise
-              aus vergangenen Stiftungspreisen?)
+              Bisherige Förderung Eures Vereins/Organisation durch die Town
+              &amp; Country Stiftung (Wann und welche Zahlungen/Preise habt ihr
+              bislang von der Town &amp; Country Stiftung erhalten,
+              beispielsweise aus vergangenen Stiftungspreisen?)
             </FormLabel>
             <Input
               name="bisherigeFoerderung"

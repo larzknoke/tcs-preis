@@ -244,6 +244,16 @@ function NewLetterSonder() {
           </AlertDescription>
         </Alert>
       )}
+      {validKampagne && (
+        <Alert status="info">
+          <AlertIcon />
+          {/* <AlertTitle>Achtung!</AlertTitle> */}
+          <AlertDescription>
+            Achtung! Die Bewerbungsphase läuft vom 1. September 2025 bis 31.
+            Oktober 2025.
+          </AlertDescription>
+        </Alert>
+      )}
       <Card size={"lg"} w={"100%"}>
         <CardBody>
           <FormProvider {...methods}>
