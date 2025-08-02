@@ -227,27 +227,25 @@ function NewLetter() {
 
   return (
     <>
-      {!validKampagne && (
+      {/* {!validKampagne && (
         <Alert status="error">
           <AlertIcon />
-          {/* <AlertTitle>Achtung!</AlertTitle> */}
           <AlertDescription>
             <Text as={"b"}>Achtung!</Text> Aufgrund der hohen Nachfrage wurde
             die Bewerbungsphase bereits vorzeitig beendet. Eine Bewerbung für
             den 12. Town & Country Stiftungspreis ist nicht mehr möglich.
           </AlertDescription>
         </Alert>
-      )}
-      {validKampagne && (
-        <Alert status="info">
-          <AlertIcon />
-          {/* <AlertTitle>Achtung!</AlertTitle> */}
-          <AlertDescription>
-            Achtung! Die Bewerbungsphase läuft vom 1. September 2025 bis 31.
-            Oktober 2025.
-          </AlertDescription>
-        </Alert>
-      )}
+      )} */}
+      {/* {validKampagne && ( */}
+      <Alert status="info">
+        <AlertIcon />
+        <AlertDescription>
+          Achtung! Die Bewerbungsphase läuft vom 1. September 2025 bis 31.
+          Oktober 2025.
+        </AlertDescription>
+      </Alert>
+      {/* )} */}
       <Card size={"lg"} w={"100%"}>
         <CardBody>
           <FormProvider {...methods}>
