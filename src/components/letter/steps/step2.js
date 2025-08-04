@@ -507,6 +507,21 @@ function Step2() {
             </FormErrorMessage>
           </FormControl>
         </GridItem>
+        <GridItem colSpan={4}>
+          <FormControl isInvalid={errors.aufmerksamkeit}>
+            <FormLabel>
+              Wie seid Ihr auf den Stiftungspreis aufmerksam geworden?
+            </FormLabel>
+            <Input
+              name="aufmerksamkeit"
+              type="string"
+              {...register("aufmerksamkeit")}
+            />
+            <FormErrorMessage>
+              {errors.aufmerksamkeit && errors.aufmerksamkeit.message}
+            </FormErrorMessage>
+          </FormControl>
+        </GridItem>
       </SimpleGrid>
     </VStack>
   );

@@ -124,10 +124,13 @@ export const formSchema = yup.object().shape(
     ehrenamtlichAnzahl: yup.string(),
     ehrenamtlichStunden: yup.string(),
     beschreibungProjekt: yup.string().max(1500).required(),
-    zielsetzungProjekt: yup.string().max(1500).required(),
-    benachteiligungProjekt: yup.string().max(1500).required(),
-    umsetzungProjekt: yup.string().max(1500).required(),
-    bisherigeErgebnisse: yup.string().max(1500).required(),
+    zielsetzungProjekt: yup.string().max(500).required(),
+    benachteiligungProjekt: yup.string().max(500).required(),
+    umsetzungProjekt: yup.string().max(500).required(),
+    bisherigeErgebnisse: yup.string().max(500).required(),
+    nachhaltigkeitProjekt: yup.string().max(500),
+    uebertragbarkeitProjekt: yup.string().max(500),
+    aufmerksamkeit: yup.string().max(500).required(),
     eigenmittel: yup
       .number()
       .integer()

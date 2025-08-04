@@ -94,6 +94,7 @@ model Letter {
   nachhaltigkeitProjekt      String?
   uebertragbarkeitProjekt    String?
   sonderpreis                Boolean?        @default(false)
+  aufmerksamkeit             String?
   notes                      Note[]
   files                      File[]
   lettercontacts             Lettercontact[]

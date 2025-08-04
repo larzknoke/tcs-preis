@@ -131,7 +131,7 @@ function Step4() {
             </Checkbox>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={4}>
+        {/* <GridItem colSpan={4}>
           <Link
             target="_blank"
             href={
@@ -149,7 +149,7 @@ function Step4() {
               </Text>
             </HStack>
           </Link>
-        </GridItem>
+        </GridItem> */}
         <GridItem colSpan={4}>
           <Heading size={"md"} color={"gray.500"} mt={12}>
             Datenschutzrechtliche Einwilligungserklärung
@@ -201,7 +201,7 @@ function Step4() {
               Wir haben die{" "}
               <Link
                 target="_blank"
-                href="https://www.tc-stiftung.de/wp-content/uploads/2023/09/DatenschutzerklaerungBewerbung-11.-Stiftungspreis.pdf"
+                href="https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_DSErklBew_12_STP.pdf"
               >
                 hier abrufbare Datenschutzerklärung
               </Link>{" "}
@@ -227,7 +227,7 @@ function Step4() {
               Wir haben die{" "}
               <Link
                 target="_blank"
-                href="https://www.tc-stiftung.de/wp-content/uploads/2023/09/Allg.Teilnahmebedingungen-11.-STP.pdf"
+                href="https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_DSErklBew_12_STP.pdf"
               >
                 hier abrufbaren Teilnahmebedingungen
               </Link>{" "}
