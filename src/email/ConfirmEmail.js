@@ -16,7 +16,9 @@ export default function ConfirmEmail({ letter }) {
     <Html>
       <Head />
       <Preview>
-        12. Town &amp; Country Stiftungspreis: Vielen Dank für Ihre Bewerbung
+        12. Town &amp; Country{" "}
+        {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}: Vielen Dank für
+        Ihre Bewerbung
       </Preview>
       <Body style={main}>
         <Container style={container}>
@@ -37,9 +39,9 @@ export default function ConfirmEmail({ letter }) {
           <Section style={section}>
             <Text style={text}>Sehr geehrte Bewerber:innen,</Text>
             <Text style={textbold}>
-              vielen Dank für Ihre Teilnahme am 122. Town &amp; Country
-              Stiftungspreis. Hiermit bestätigen wir Ihnen den Eingang Ihrer
-              Bewerbung.
+              vielen Dank für Ihre Teilnahme am 12. Town &amp; Country
+              {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}. Hiermit
+              bestätigen wir Ihnen den Eingang Ihrer Bewerbung.
             </Text>
             <Text style={text}>
               Für Ihre Unterlagen finden Sie anbei eine Kopie des von Ihnen

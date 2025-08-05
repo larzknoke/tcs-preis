@@ -41,7 +41,7 @@ export default async function handle(req, res) {
       } else {
         await sendEmail({
           to: ["info@larsknoke.com"],
-          subject: "TC-Stiftung - Stiftungspreis 2023 - Fehler",
+          subject: "TC-Stiftung - Stiftungspreis 2025 - Fehler",
           html: render(<ErrorEmail letter={result} />),
         });
       }

@@ -16,7 +16,9 @@ export default function VerifyEmail({ letter }) {
     <Html>
       <Head />
       <Preview>
-        12. Town & Country Stiftungspreis: Bitte bestätigen Sie Ihre Bewerbung
+        12. Town & Country{" "}
+        {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}: Bitte
+        bestätigen Sie Ihre Bewerbung
       </Preview>
       <Body style={main}>
         <Container style={container}>
@@ -38,7 +40,7 @@ export default function VerifyEmail({ letter }) {
             <Text style={text}>Sehr geehrte Bewerber:innen,</Text>
             <Text style={text}>
               vielen Dank für Ihre Bewerbung zum diesjährigen 12. Town &amp;
-              Country Stiftungspreis.
+              Country {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}.
             </Text>
             <Text style={text}>
               Um Ihre Bewerbung zu aktivieren, klicken Sie bitte auf folgenden
@@ -67,12 +69,14 @@ export default function VerifyEmail({ letter }) {
           </Section>
           <Text style={text}>
             Mit dem vorstehenden Link bestätigen Sie, dass Sie sich zur
-            Teilnahme am diesjährigen 12. Town &amp; Country Stiftungspreis
+            Teilnahme am diesjährigen 12. Town &amp; Country{" "}
+            {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}
             beworben haben und aktivieren Ihre Bewerbung.
           </Text>
           <Text style={textbold}>
             Sollten Sie diesen Link nicht bestätigen, kann Ihre Bewerbung zur
-            Teilnahme am 12. Town &amp; Country Stiftungspreis nicht
+            Teilnahme am 12. Town &amp; Country{" "}
+            {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"} nicht
             berücksichtigt werden.
           </Text>
           <Text style={text}>
@@ -88,18 +92,18 @@ export default function VerifyEmail({ letter }) {
 
           <Text style={links}>
             <Link
-              href="https://www.tc-stiftung.de/wp-content/uploads/2023/09/DatenschutzerklaerungBewerbung-11.-Stiftungspreis.pdf"
+              href="https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_DSErklBew_12_STP.pdf"
               style={link}
             >
               Hier finden Sie die Datenschutzerklärung
             </Link>{" "}
             <br />
             <Link
-              href="https://www.tc-stiftung.de/wp-content/uploads/2023/09/Allg.Teilnahmebedingungen-11.-STP.pdf"
+              href="https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_AllgTeilnBed_12.STP_.pdf"
               style={link}
             >
               Hier finden Sie die Teilnahmebedingungen des 12. Town &amp;
-              Country Stiftungspreises
+              Country {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}
             </Link>
           </Text>
 

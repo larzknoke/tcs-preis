@@ -16,7 +16,7 @@ export default function ErrorEmail({ letter }) {
   return (
     <Html>
       <Head />
-      <Preview>TC-Stiftung | Bewerbung 2023</Preview>
+      <Preview>TC-Stiftung | Bewerbung 2025</Preview>
       <Body style={main}>
         <Container style={container}>
           <Img

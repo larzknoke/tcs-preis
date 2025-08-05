@@ -19,7 +19,7 @@ import Step2Sonder from "./steps/step2sonder";
 import Step3Sonder from "./steps/step3sonder";
 import Step4Sonder from "./steps/step4sonder";
 import { useState, useEffect } from "react";
-import { formSchema } from "@/lib/formSchema";
+import { createFormSchema } from "@/lib/formSchema";
 import { isObjEmpty, topScroller } from "@/lib/utils";
 
 const steps = [
@@ -61,7 +61,7 @@ function NewLetterSonder() {
   const methods = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
-    resolver: yupResolver(formSchema),
+    resolver: yupResolver(createFormSchema({ isSonderpreis: true })),
     criteriaMode: "all",
     defaultValues: {
       freistellungsbescheidTraeger: null,

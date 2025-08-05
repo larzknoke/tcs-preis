@@ -16,7 +16,7 @@ export default function ConfirmStiftungEmail({ letter }) {
   return (
     <Html>
       <Head />
-      <Preview>TC-Stiftung | Bewerbung 2023</Preview>
+      <Preview>TC-Stiftung | Bewerbung 2025</Preview>
       <Body style={main}>
         <Container style={container}>
           <Img
@@ -29,7 +29,11 @@ export default function ConfirmStiftungEmail({ letter }) {
 
           <Text style={title}>
             Eingang Bewerbung: <br />
-            <strong>ID: {letter.id}</strong> <br />
+            <strong>
+              ID: {letter.id} /{" "}
+              {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}
+            </strong>{" "}
+            <br />
             <strong>{letter.nameTraeger}</strong> <br />
             <strong>{letter.nameProjekt}</strong>
           </Text>

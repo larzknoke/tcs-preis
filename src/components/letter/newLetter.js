@@ -19,7 +19,7 @@ import Step2 from "./steps/step2";
 import Step3 from "./steps/step3";
 import Step4 from "./steps/step4";
 import { useState, useEffect } from "react";
-import { formSchema } from "@/lib/formSchema";
+import { createFormSchema } from "@/lib/formSchema";
 import { isObjEmpty, topScroller } from "@/lib/utils";
 
 const steps = [
@@ -61,7 +61,7 @@ function NewLetter() {
   const methods = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
-    resolver: yupResolver(formSchema),
+    resolver: yupResolver(createFormSchema({ isSonderpreis: false })),
     criteriaMode: "all",
     defaultValues: {
       freistellungsbescheidTraeger: null,
