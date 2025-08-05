@@ -28,7 +28,11 @@ const steps = [
     description: "Angaben zum Träger/Dachverband",
     content: <Step1 />,
   },
-  { label: "Projekt", description: "Angaben zum Projekt", content: <Step2 /> },
+  {
+    label: "Stiftungspreis",
+    description: "Angaben zum Projekt",
+    content: <Step2 />,
+  },
   {
     label: "Finanzierung",
     description: "Finanzierungskonzept",

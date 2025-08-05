@@ -29,7 +29,7 @@ const steps = [
     content: <Step1Sonder />,
   },
   {
-    label: "Projekt",
+    label: "Sonderpreis",
     description: "Angaben zum Projekt",
     content: <Step2Sonder />,
   },

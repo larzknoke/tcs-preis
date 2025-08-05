@@ -122,7 +122,7 @@ function Step3Sonder() {
           <FormControl isInvalid={errors.bisherigeFoerderung}>
             <FormLabel>
               Bisherige Förderung Eures Vereins/Organisation durch die Town
-              &amp; Country Stiftung (Wann und welche Zahlungen/Preise habt ihr
+              &amp; Country Stiftung (Wann und welche Zahlungen/Preise habt Ihr
               bislang von der Town &amp; Country Stiftung erhalten,
               beispielsweise aus vergangenen Stiftungspreisen?)
             </FormLabel>
