@@ -94,7 +94,7 @@ function EditKampagneModal({ editIsOpen, editOnClose, kampagne }) {
                   </FormControl>
                 </GridItem>
                 <GridItem colSpan={3}>
-                  <FormControl isInvalid={errors.abgeschlosssen}>
+                  <FormControl isInvalid={errors.abgeschlossen}>
                     <FormLabel htmlFor="abgeschlossen" mb="0">
                       Abgeschlossen
                     </FormLabel>
@@ -103,10 +103,27 @@ function EditKampagneModal({ editIsOpen, editOnClose, kampagne }) {
                       colorScheme="green"
                       {...register("abgeschlossen")}
                       name="abgeschlossen"
-                      isChecked={kampagne.abgeschlosssen}
+                      // isChecked={kampagne.abgeschlossen}
                     />
                     <FormErrorMessage>
-                      {errors.abgeschlosssen && errors.abgeschlosssen.message}
+                      {errors.abgeschlossen && errors.abgeschlossen.message}
+                    </FormErrorMessage>
+                  </FormControl>
+                </GridItem>
+                <GridItem colSpan={3}>
+                  <FormControl isInvalid={errors.aktiv}>
+                    <FormLabel htmlFor="aktiv" mb="0">
+                      Aktiv
+                    </FormLabel>
+                    <Switch
+                      id="aktiv"
+                      colorScheme="green"
+                      {...register("aktiv")}
+                      name="aktiv"
+                      // isChecked={kampagne.aktiv}
+                    />
+                    <FormErrorMessage>
+                      {errors.aktiv && errors.aktiv.message}
                     </FormErrorMessage>
                   </FormControl>
                 </GridItem>

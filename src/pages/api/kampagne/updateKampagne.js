@@ -21,6 +21,7 @@ export default async function handle(req, res) {
       data: {
         name: data.name,
         abgeschlossen: data.abgeschlossen,
+        aktiv: data.aktiv,
       },
     });
     console.log("result: ", result);

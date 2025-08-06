@@ -72,10 +72,24 @@ const columns = [
       </Tooltip>
     ),
   }),
+  columnHelper.accessor("aktiv", {
+    header: "Aktiv",
+    cell: (info) => (
+      <Tooltip label={info.getValue()} placement="top">
+        <span>
+          {info.getValue() ? (
+            <Icon as={HiOutlineCheck} color={"green.900"} />
+          ) : (
+            <Icon as={HiOutlineNoSymbol} color={"red.500"} />
+          )}
+        </span>
+      </Tooltip>
+    ),
+  }),
   columnHelper.accessor("controls", {
     cell: ({ row, info }) => (
       <>
-        <Tooltip label="kampagne einsehen" placement="top">
+        <Tooltip label="Kampagne einsehen" placement="top">
           <IconButton
             as={Link}
             variant={"ghost"}

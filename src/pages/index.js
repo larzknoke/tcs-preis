@@ -16,8 +16,10 @@ import NextLink from "next/link";
 import CookieBanner from "@/components/layout/cookie";
 import CloseText from "@/components/close-text";
 import prisma from "@/lib/prisma";
+import { useSession } from "next-auth/react";
 
 export default function Home({ validKampagne }) {
+  const { data: session } = useSession();
   return (
     <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
       <VStack gap={8}>
@@ -54,33 +56,34 @@ export default function Home({ validKampagne }) {
             Jung trifft Alt - Begegnung, die verbindet
           </Heading>
         </VStack>
-        {validKampagne ? <TeaserText /> : <CloseText />}
+        {validKampagne || session ? <TeaserText /> : <CloseText />}
 
-        {validKampagne && (
-          <HStack justifyContent={"center"} gap={8} mt={8}>
-            <Button
-              href="/formular"
-              as={NextLink}
-              rightIcon={<ArrowForwardIcon />}
-              colorScheme="green"
-              minWidth={"250px"}
-            >
-              Formular Stiftungspreis 2025
-            </Button>
-            <Center height="50px">
-              <Divider orientation="vertical" />
-            </Center>
-            <Button
-              href="/formular-sonder"
-              as={NextLink}
-              rightIcon={<ArrowForwardIcon />}
-              colorScheme="green"
-              minWidth={"250px"}
-            >
-              Formular Sonderpreis 2025
-            </Button>
-          </HStack>
-        )}
+        {validKampagne ||
+          (session && (
+            <HStack justifyContent={"center"} gap={8} mt={8}>
+              <Button
+                href="/formular"
+                as={NextLink}
+                rightIcon={<ArrowForwardIcon />}
+                colorScheme="green"
+                minWidth={"250px"}
+              >
+                Formular Stiftungspreis 2025
+              </Button>
+              <Center height="50px">
+                <Divider orientation="vertical" />
+              </Center>
+              <Button
+                href="/formular-sonder"
+                as={NextLink}
+                rightIcon={<ArrowForwardIcon />}
+                colorScheme="green"
+                minWidth={"250px"}
+              >
+                Formular Sonderpreis 2025
+              </Button>
+            </HStack>
+          ))}
       </VStack>
       <CookieBanner />
     </Container>
@@ -91,6 +94,7 @@ export const getServerSideProps = async () => {
   const kampagnes = await prisma.kampagne.findMany({
     where: {
       abgeschlossen: false,
+      aktiv: true,
     },
   });
   const validKampagne = Object.keys(kampagnes).length > 0;

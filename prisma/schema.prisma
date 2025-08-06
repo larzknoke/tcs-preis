@@ -180,6 +180,7 @@ model Kampagne {
   updatedAt     DateTime @updatedAt @map(name: "updated_at")
   name          String?
   abgeschlossen Boolean? @default(false)
+  aktiv         Boolean? @default(false)
   letters       Letter[]
   invites       Invite[]
 }

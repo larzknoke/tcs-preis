@@ -172,6 +172,15 @@ function Kampagne({ kampagne, kampagnenBots }) {
               {kampagne.abgeschlossen ? "Abgeschlossen" : "Offen"}
             </Badge>
           </Tooltip>
+          <Tooltip label="Status" placement="top">
+            <Badge
+              variant="outline"
+              colorScheme={statusBadge(kampagne.aktiv)}
+              fontSize={"md"}
+            >
+              {kampagne.aktiv ? "Aktiv" : "Inaktiv"}
+            </Badge>
+          </Tooltip>
           <Menu>
             <MenuButton
               as={IconButton}

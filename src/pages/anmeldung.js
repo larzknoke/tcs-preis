@@ -35,23 +35,30 @@ function Anmeldung() {
 
 export default Anmeldung;
 
-// export const getServerSideProps = async (context) => {
-//   const session = await getServerSession(context.req, context.res, authOptions);
-//   console.log("formular session", session);
-//   const kampagnes = await prisma.kampagne.findMany({
-//     where: {
-//       abgeschlossen: false,
-//     },
-//   });
-//   const validKampagne = Object.keys(kampagnes).length > 0;
-//   console.log("validKampagne: ", validKampagne);
-//   if (!session && !validKampagne) {
-//     return {
-//       redirect: {
-//         destination: "/",
-//         permanent: false,
-//       },
-//     };
-//   }
-//   return { props: {} };
-// };
+export const getServerSideProps = async (context) => {
+  // const session = await getServerSession(context.req, context.res, authOptions);
+  // console.log("formular session", session);
+  // const kampagnes = await prisma.kampagne.findMany({
+  //   where: {
+  //     abgeschlossen: false,
+  //   },
+  // });
+  // const validKampagne = Object.keys(kampagnes).length > 0;
+  // console.log("validKampagne: ", validKampagne);
+  // if (!session && !validKampagne) {
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
+  return {
+    redirect: {
+      destination: "/",
+      permanent: false,
+    },
+  };
+
+  return { props: {} };
+};

@@ -38,6 +38,7 @@ export const getServerSideProps = async (context) => {
   const kampagnes = await prisma.kampagne.findMany({
     where: {
       abgeschlossen: false,
+      aktiv: true,
     },
   });
   const validKampagne = Object.keys(kampagnes).length > 0;
