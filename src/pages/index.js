@@ -41,7 +41,7 @@ export default function Home({ validKampagne }) {
           </Heading>
           <Heading
             color={"gray.500"}
-            size={"lg"}
+            size={"xl"}
             textAlign={"center"}
             mt={{ base: 0, md: 4 }}
           >
@@ -53,11 +53,9 @@ export default function Home({ validKampagne }) {
             textAlign={"center"}
             mb={{ base: 0, md: 8 }}
           >
-            Jung trifft Alt - Begegnung, die verbindet
+            „Jung trifft Alt – Begegnung, die verbindet“
           </Heading>
         </VStack>
-        {validKampagne || session ? <TeaserText /> : <CloseText />}
-
         {validKampagne ||
           (session && (
             <HStack justifyContent={"center"} gap={8} mt={8}>
@@ -84,6 +82,8 @@ export default function Home({ validKampagne }) {
               </Button>
             </HStack>
           ))}
+
+        {validKampagne || session ? <TeaserText /> : <CloseText />}
       </VStack>
       <CookieBanner />
     </Container>

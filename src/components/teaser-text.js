@@ -24,72 +24,72 @@ function TeaserText() {
           </Heading>
           <OrderedList spacing={6} color={"gray.500"}>
             <ListItem>
-              Das Bewerbungsverfahren beginnt am 02. Oktober 2023 und endet am
-              30. November 2023 um 24:00 Uhr.
+              Das Bewerbungsverfahren beginnt am 1. September 2025 und endet 31.
+              Oktober 2025 um 24:00 Uhr.
             </ListItem>
             <ListItem>
-              Es ist lediglich eine Bewerbung pro gemeinnützige
-              Organisation/Einrichtung zulässig. Sofern mehrere Bewerbungen von
-              ein- und derselben (bspw. unter einem Dachverband tätigen)
-              Organisation/Vereinigung eingereicht werden, wird die zeitlich
-              zuerst eingegangene Bewerbung gewertet.
+              Es ist eine Bewerbung pro gemeinnützige Organisation/Einrichtung
+              zulässig. Sofern mehrere Bewerbungen von ein- und derselben (bspw.
+              unter einem Dachverband tätigen) Organisation/ Vereinigung
+              eingereicht werden, wird die zetlich zuerst eingegangene Bewerbung
+              berücksichtigt.
             </ListItem>
             <ListItem>
-              Vereine/Organisationen, die in den letzten drei
-              aufeinanderfolgenden Jahren (2020, 2021, 2022) von der Stiftung
-              jeweils eine Zuwendung erhalten haben, werden von einer Förderung
-              in 2023 ausgeschlossen.
+              Vereine/ Organistaionen, die in den letzten drei
+              aufeinanderfolgenden Jahren (2021, 2022, 2023) eine Zuwendung
+              erhalten haben, sind von der Förderung in 2025 ausgeschlossen.
             </ListItem>
             <ListItem>
-              Bitte verwenden Sie einen aktuellen Browser, anderenfalls besteht
-              die Möglichkeit, dass Ihre Bewerbung nicht zugestellt werden kann.
+              Bitte verwendet einen aktuellen Browser, andernfalls besteht die
+              Möglichkeit, das Eure Bewerbung nicht übermittelt werden kann.
             </ListItem>
             <ListItem>
-              Das Zwischenspeichern Ihrer Angaben ist lediglich bei Benutzung
+              Das Zwischenspeichern Eurer Angaben ist nur bei Benutzung
               desselben Geräts und Browsers möglich.
             </ListItem>
             <ListItem>
-              Der gültige Freistellungsbescheid des für Sie zuständigen
-              Finanzamtes ist Bestandteil Ihrer Bewerbung und daher zwingend
-              beizufügen. Die hochzuladende Datei darf eine Größe von 10 MB
-              nicht überschreiten.
+              Der gültige Freistellungsbescheid des für Euch zuständigen
+              Finanzamtes ist Bestandteil Eurer Bewerbung und daher der
+              Bewerbung unbedingt beizufügen. Die Datei darf eine Dateigröße von
+              10 MB nicht überschreiten.
             </ListItem>
             <ListItem>
-              Fotos oder andere Dateien, die Sie als Datei hochladen, dürfen
-              insgesamt eine Größe von 10 MB nicht überschreiten (die Datei des
-              Freistellungsbescheides ist hier inbegriffen).
+              Fotos oder ander Dateien, die ihr hochladet, dürfen eine
+              Dateigröße von insgesamt 10 MB nicht überschreiten. (Die Datei des
+              Freistellungsbescheids zählt hier dazu
             </ListItem>
             <ListItem>
-              Nach Absenden Ihrer Bewerbung und{" "}
-              <Text as="b">Bestätigung des Ihnen zugesandten Links</Text>,
-              erhalten Sie eine automatisierte Bestätigungs-E-Mail. Die
-              Bestätigungs-E-Mail stellt noch keine Erklärung dar, dass die
-              Bewerbung berücksichtigungsfähig ist, sie dient lediglich Ihrer
-              Information über die technisch erfolgte Übermittlung der
-              Bewerbung. <br /> Weitere Eingangsbestätigungen erhalten Sie
-              nicht. Ihre Bewerbung kann nur berücksichtigt werden, wenn alle
-              Unterlagen vollständig und ordnungsgemäß eingereicht werden.
+              Nach Absenden Eurer Bewerbung und der Bestätigung des zugesandten
+              Links, erhaltet Ihr eine automatische Bestätigungs-E-Mail. Diese
+              Bestätigunsg-E-Mail stellt keine Erklärung dar, dass Eure
+              Bewerbung berücksichtigt wird; sie dient Euch als
+              Eingangsbestätigung der technischen erfolgten Übermittlung Eurer
+              Bewerbung.{" "}
+              <Text className="mt-2">
+                {" "}
+                Eure Bewerbung kann nur berücksichtigt werden, wenn alle
+                Unterlagen vollständig und ordnungsgemäß eingereicht wurden.
+              </Text>
             </ListItem>
             <ListItem>
-              Aus allen eingehenden Bewerbungen werden 300 Anträge, die die
-              Bewerbungskriterien erfüllen, ausgewählt und erhalten eine
-              Förderung in Höhe von EUR 1.111. Die Auswahlentscheidung trifft
-              die Stiftung.
+              Aus allen eingereichten Bewerbungen werden 300 Projekte für die
+              Förderung in Höhe von 1.000 € ausgewählt. Die Auswahlentscheidung
+              liegt bei der Stiftung.
             </ListItem>
           </OrderedList>
           <Text color={"gray.500"} mt={"8"}>
-            Gern steht Ihnen das Team der Town & Country Stiftung für weitere
-            Fragen unter der Rufnummer 0361 / 644 789 14 oder per E-Mail:{" "}
+            Gern steht Euch das Team der Town & Country Stiftung bei Fragen
+            unter der Rufnummer 0361/644 789 14 oder per E-Mail{" "}
             <a href="mailto:stiftungspreis@tc-stiftung.de">
               stiftungspreis@tc-stiftung.de
             </a>{" "}
             zur Verfügung.
           </Text>
           <Text color={"gray.500"} as={"b"} mt={"8"}>
-            Wir freuen uns auf Ihre Bewerbung und wünschen Ihnen viel Erfolg!
+            Wir freuen uns auf Eure Bewerbung und wünschen Euch viel Erfolg!{" "}
           </Text>
           <Text as={"b"} color={"gray.500"}>
-            Ihre Town &amp; Country Stiftung
+            Eure Town &amp; Country Stiftung
           </Text>
         </VStack>
       </CardBody>{" "}
