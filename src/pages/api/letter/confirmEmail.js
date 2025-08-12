@@ -17,8 +17,9 @@ export default async function handle(req, res) {
           process.env.NODE_ENV === "development"
             ? "info@larsknoke.com"
             : letter.emailProjekt,
-        subject:
-          "12. Town & Country Stiftungspreis: Vielen Dank für Ihre Bewerbung",
+        subject: letter.sonderpreis
+          ? "Sonderpreis Town & Country Stiftung: Vielen Dank für Eure Bewerbung"
+          : "12. Town & Country Stiftungspreis: Vielen Dank für Eure Bewerbung",
         html: render(<ConfirmEmail letter={letter} />),
         attachments: [
           {
@@ -32,7 +33,9 @@ export default async function handle(req, res) {
           process.env.NODE_ENV === "development"
             ? "info@larsknoke.com"
             : ["stiftungspreis@tc-stiftung.de", "info@larsknoke.com"],
-        subject: `12. Stiftungspreis - Neue Bewerbung | ${letter.id} | ${letter.nameTraeger}`,
+        subject: `${
+          letter.sonderpreis ? "Sonderpreis" : "12. Stiftungspreis"
+        } - Neue Bewerbung | ${letter.id} | ${letter.nameTraeger}`,
         html: render(<ConfirmStiftungEmail letter={letter} />),
         attachments: [
           {

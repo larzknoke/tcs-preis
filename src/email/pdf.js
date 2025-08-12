@@ -58,9 +58,13 @@ export const LetterPDF = ({ letter }) => (
           style={styles.image}
           src={"https://stiftungspreis.tc-stiftung.de/logo.png"}
         />
-        <Text style={styles.title}>12. Town & Country Stiftungspreis</Text>
+        <Text style={styles.title}>
+          {letter.sonderpreis
+            ? "Sonderpreis Town & Country Stiftung"
+            : "12. Town & Country Stiftungspreis"}
+        </Text>
         <Text style={styles.subTitle}>
-          {`Folgende Daten zu Ihrer Bewerbung vom ${dateFormatter(
+          {`Folgende Daten zu Eurer Bewerbung vom ${dateFormatter(
             letter.createdAt
           )} wurden gespeichert:`}
         </Text>
@@ -193,6 +197,18 @@ export const LetterPDF = ({ letter }) => (
           <Text style={styles.bold}>Bisherige Ergebnisse: </Text>
           {letter.bisherigeErgebnisse}
         </Text>
+        {letter.sonderpreis && (
+          <Text>
+            <Text style={styles.bold}>Nachhaltigkeit: </Text>
+            {letter.nachhaltigkeitProjekt}
+          </Text>
+        )}
+        {letter.sonderpreis && (
+          <Text>
+            <Text style={styles.bold}>Übertragbarkeit: </Text>
+            {letter.uebertragbarkeitProjekt}
+          </Text>
+        )}
         <Text>
           <Text style={styles.bold}>Eigenmittel: </Text> {letter.eigenmittel}
         </Text>

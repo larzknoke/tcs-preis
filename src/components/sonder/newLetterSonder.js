@@ -71,7 +71,7 @@ function NewLetterSonder() {
 
   const { watch, setValue } = methods;
 
-  useFormPersist("bewerbungs-daten", {
+  useFormPersist("bewerbungs-daten-sonder", {
     watch,
     setValue,
     storage: typeof window !== "undefined" ? window.localStorage : "",
@@ -213,7 +213,7 @@ function NewLetterSonder() {
           });
 
           if (typeof window !== "undefined") {
-            window.localStorage.removeItem("bewerbungs-daten");
+            window.localStorage.removeItem("bewerbungs-daten-sonder");
           }
           methods.reset();
           setFormSuccess(true);

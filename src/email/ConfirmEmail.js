@@ -16,9 +16,10 @@ export default function ConfirmEmail({ letter }) {
     <Html>
       <Head />
       <Preview>
-        12. Town &amp; Country{" "}
-        {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}: Vielen Dank für
-        Ihre Bewerbung
+        {letter.sonderpreis
+          ? "Sonderpreis Town & Country Stiftung"
+          : "12. Town & Country Stiftungspreis"}
+        : Vielen Dank für Eure Bewerbung
       </Preview>
       <Body style={main}>
         <Container style={container}>
@@ -37,25 +38,27 @@ export default function ConfirmEmail({ letter }) {
           </Text>
 
           <Section style={section}>
-            <Text style={text}>Sehr geehrte Bewerber:innen,</Text>
+            <Text style={text}>Liebe Bewerber:innen,</Text>
             <Text style={textbold}>
-              vielen Dank für Ihre Teilnahme am 12. Town &amp; Country
-              {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}. Hiermit
-              bestätigen wir Ihnen den Eingang Ihrer Bewerbung.
+              vielen Dank für Eure Teilnahme am
+              {letter.sonderpreis
+                ? "Sonderpreis des 12. Town & Country Stiftungspreises."
+                : "12. Town & Country Stiftungspreis."}
+              . Hiermit bestätigen wir Euch den Eingang Eurer Bewerbung.
             </Text>
             <Text style={text}>
-              Für Ihre Unterlagen finden Sie anbei eine Kopie des von Ihnen
+              Für Eure Unterlagen findet Ihr anbei eine Kopie des von Euch
               eingereichten Formulars.
             </Text>
             <Text style={text}>
-              Die Bekanntgabe der Preisträger erfolgt ab Februar 2024 auf
+              Die Bekanntgabe der Preisträger erfolgt ab Februar 2026 auf
               unserer Webseite.
             </Text>
           </Section>
 
           <Text>
             <strong>
-              Ihr Team der <br /> Town &amp; Country Stiftung
+              Euer Team der <br /> Town &amp; Country Stiftung
             </strong>{" "}
             <br />
             Anger 55/56, <br />

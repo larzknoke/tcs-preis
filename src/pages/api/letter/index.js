@@ -34,8 +34,9 @@ export default async function handle(req, res) {
             process.env.NODE_ENV === "development"
               ? ["info@larsknoke.com"]
               : result.emailProjekt,
-          subject:
-            "12. Town & Country Stiftungspreis: Bitte bestätigen Sie Ihre Bewerbung",
+          subject: result.sonderpreis
+            ? "Town & Country Stiftungs-Sonderpreis: Bitte bestätigt Eure Bewerbung"
+            : "12. Town & Country Stiftungspreis: Bitte bestätigt Eure Bewerbung",
           html: render(<VerifyEmail letter={result} />),
         });
       } else {

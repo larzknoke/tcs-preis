@@ -153,6 +153,24 @@ function BeschreibungDetail({ letter }) {
                 {letter.bisherigeErgebnisse}
               </StatNumber>
             </Stat>
+            <Stat>
+              <StatLabel>Nachhaltigkeit</StatLabel>
+              <StatNumber fontSize={15}>
+                {letter.nachhaltigkeitProjekt || "-"}
+              </StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Übertragbarkeit</StatLabel>
+              <StatNumber fontSize={15}>
+                {letter.uebertragbarkeitProjekt || "-"}
+              </StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Aufmerksamkeit</StatLabel>
+              <StatNumber fontSize={15}>
+                {letter.aufmerksamkeit || "-"}
+              </StatNumber>
+            </Stat>
           </Stack>
         </CardBody>
       </Card>

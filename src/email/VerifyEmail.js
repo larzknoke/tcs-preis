@@ -16,9 +16,10 @@ export default function VerifyEmail({ letter }) {
     <Html>
       <Head />
       <Preview>
-        12. Town & Country{" "}
-        {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}: Bitte
-        bestätigen Sie Ihre Bewerbung
+        {letter.sonderpreis
+          ? "Town & Country Stiftungs-Sonderpreis:"
+          : "12. Town & Country Stiftungspreis:"}
+        : Bitte bestätigt Eure Bewerbung
       </Preview>
       <Body style={main}>
         <Container style={container}>
@@ -37,14 +38,16 @@ export default function VerifyEmail({ letter }) {
           </Text>
 
           <Section style={section}>
-            <Text style={text}>Sehr geehrte Bewerber:innen,</Text>
+            <Text style={text}>Liebe Bewerber:innen,</Text>
             <Text style={text}>
-              vielen Dank für Ihre Bewerbung zum diesjährigen 12. Town &amp;
-              Country {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}.
+              vielen Dank für Eure Bewerbung zum diesjährigen{" "}
+              {letter.sonderpreis
+                ? "Stiftungs-Sonderpreis."
+                : "12. Town & Country Stiftungspreis."}
+              .
             </Text>
             <Text style={text}>
-              Um Ihre Bewerbung zu aktivieren, klicken Sie bitte auf folgenden
-              Link:
+              Um Eure Bewerbung zu aktivieren, klickt bitte auf folgenden Link:
             </Text>
 
             <Button
@@ -58,8 +61,8 @@ export default function VerifyEmail({ letter }) {
               <Text style={buttonText}>Bewerbung bestätigen</Text>
             </Button>
             <Text style={text}>
-              Wenn der Link oben nicht funktioniert kopieren Sie bitte folgende
-              URL in Ihren Browser:
+              Wenn der Link oben nicht funktioniert kopiere bitte folgende URL
+              in den Browser:
             </Text>
             <Text style={textbold}>
               {process.env.NEXTAUTH_URL +
@@ -68,48 +71,62 @@ export default function VerifyEmail({ letter }) {
             </Text>
           </Section>
           <Text style={text}>
-            Mit dem vorstehenden Link bestätigen Sie, dass Sie sich zur
-            Teilnahme am diesjährigen 12. Town &amp; Country{" "}
-            {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}
-            beworben haben und aktivieren Ihre Bewerbung.
+            Mit Klicken des Links bestätigt Ihr, dass Ihr Euch zur Teilnahme am
+            diesjährigen
+            {letter.sonderpreis
+              ? "Town & Country Stiftungs-Sonderpreis "
+              : "12. Town &amp; Country Stiftungspreis "}
+            beworben habt.
           </Text>
           <Text style={textbold}>
-            Sollten Sie diesen Link nicht bestätigen, kann Ihre Bewerbung zur
-            Teilnahme am 12. Town &amp; Country{" "}
-            {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"} nicht
-            berücksichtigt werden.
+            Solltet Ihr diesen Link nicht bestätigen, kann Eure Bewerbung zur
+            Teilnahme am
+            {letter.sonderpreis
+              ? "Stiftungs-Sonderpreis "
+              : "12. Town & CountryStiftungspreis "}
+            nicht berücksichtigt werden.
           </Text>
           <Text style={text}>
-            Falls es sich bei Ihrer Bewerbung um ein Versehen handelt oder Sie
-            Ihre Bewerbung zurückziehen möchten, müssen Sie nicht reagieren. Sie
-            werden keine weiteren E-Mails von uns erhalten.
+            Falls es sich bei Eurer Bewerbung um ein Versehen handelt oder Ihr
+            Eure Bewerbung zurückziehen möchtet, müsst Ihr nicht reagieren. Ihr
+            werdet keine weiteren E-Mails von uns erhalten.
           </Text>
           <Text style={text}>
-            Mit den untenstehenden Links informieren wir Sie nochmals über die
-            geltenden Teilnahmebedingungen und die Datenschutzerklärung, die Sie
-            als verbindlich anerkannt haben.
+            Mit den untenstehenden Links informieren wir Euch nochmals über die
+            geltenden Teilnahmebedingungen und die Datenschutzerklärung, die Ihr
+            als verbindlich anerkannt habt.
           </Text>
 
           <Text style={links}>
             <Link
-              href="https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_DSErklBew_12_STP.pdf"
+              href={
+                letter.sonderpreis
+                  ? "https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_DSErklBew_SP.pdf"
+                  : "https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_DSErklBew_12_STP.pdf"
+              }
               style={link}
             >
-              Hier finden Sie die Datenschutzerklärung
+              Hier findet Ihr die Datenschutzerklärung
             </Link>{" "}
             <br />
             <Link
-              href="https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_AllgTeilnBed_12.STP_.pdf"
+              href={
+                letter.sonderpreis
+                  ? "https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_AllgTeilnBed_SP.pdf"
+                  : "https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_AllgTeilnBed_12.STP_.pdf"
+              }
               style={link}
             >
-              Hier finden Sie die Teilnahmebedingungen des 12. Town &amp;
-              Country {letter.sonderpreis ? "Sonderpreis" : "Stiftungspreis"}
+              Hier findet Ihr die Teilnahmebedingungen des{" "}
+              {letter.sonderpreis
+                ? "Stiftungs-Sonderpreises"
+                : "12. Town & Country Stiftungspreises"}
             </Link>
           </Text>
 
           <Text>
             <strong>
-              Ihr Team der <br /> Town &amp; Country Stiftung
+              Euer Team der <br /> Town &amp; Country Stiftung
             </strong>{" "}
             <br />
             Anger 55/56, <br />
