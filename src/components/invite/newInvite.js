@@ -552,8 +552,8 @@ function NewInvite() {
                 </AlertTitle>
                 {!errorMsg && (
                   <AlertDescription maxWidth="2xl" mt={2}>
-                    Bitte überprüfen Sie Ihre eingaben oder <br />
-                    probieren Sie es zu einem späteren Zeitpunkt nochmal.
+                    Bitte überprüft Eure Eingaben oder <br />
+                    probiert es zu einem späteren Zeitpunkt erneut.
                   </AlertDescription>
                 )}
               </Alert>

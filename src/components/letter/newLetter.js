@@ -348,8 +348,8 @@ function NewLetter() {
                       </AlertTitle>
                       {!errorMsg && (
                         <AlertDescription maxWidth="2xl" mt={2}>
-                          Bitte überprüfen Sie Ihre eingaben oder <br />
-                          probieren Sie es zu einem späteren Zeitpunkt nochmal.
+                          Bitte überprüft Eure Eingaben oder <br />
+                          probiert es zu einem späteren Zeitpunkt erneut.
                         </AlertDescription>
                       )}
                     </Alert>
@@ -405,7 +405,7 @@ function NewLetter() {
                     <AlertTitle>Formular unvollständig!</AlertTitle>
                     <AlertDescription>
                       Einige Felder sind nicht korrekt ausgefüllt. Bitte
-                      überprüfen Sie das Formular.
+                      überprüft Eure Eingaben.
                     </AlertDescription>
                   </Alert>
                 )}
