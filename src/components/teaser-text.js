@@ -24,24 +24,24 @@ function TeaserText() {
           </Heading>
           <OrderedList spacing={6} color={"gray.500"}>
             <ListItem>
-              Das Bewerbungsverfahren beginnt am 1. September 2025 und endet 31.
-              Oktober 2025 um 24:00 Uhr.
+              Das Bewerbungsverfahren beginnt am 1. September 2025 und endet am
+              31. Oktober 2025 um 24:00 Uhr.
             </ListItem>
             <ListItem>
               Es ist eine Bewerbung pro gemeinnützige Organisation/Einrichtung
-              zulässig. Sofern mehrere Bewerbungen von ein- und derselben (bspw.
+              zulässig. Sofern mehrere Bewerbungen von ein und derselben (z.B.
               unter einem Dachverband tätigen) Organisation/ Vereinigung
-              eingereicht werden, wird die zetlich zuerst eingegangene Bewerbung
-              berücksichtigt.
+              eingereicht werden, wird die zeitlich zuerst eingegangene
+              Bewerbung berücksichtigt.
             </ListItem>
             <ListItem>
-              Vereine/ Organistaionen, die in den letzten drei
+              Vereine/ Organisationen, die in den letzten drei
               aufeinanderfolgenden Jahren (2021, 2022, 2023) eine Zuwendung
               erhalten haben, sind von der Förderung in 2025 ausgeschlossen.
             </ListItem>
             <ListItem>
               Bitte verwendet einen aktuellen Browser, andernfalls besteht die
-              Möglichkeit, das Eure Bewerbung nicht übermittelt werden kann.
+              Möglichkeit, dass Eure Bewerbung nicht übermittelt werden kann.
             </ListItem>
             <ListItem>
               Das Zwischenspeichern Eurer Angaben ist nur bei Benutzung
@@ -49,22 +49,22 @@ function TeaserText() {
             </ListItem>
             <ListItem>
               Der gültige Freistellungsbescheid des für Euch zuständigen
-              Finanzamtes ist Bestandteil Eurer Bewerbung und daher der
-              Bewerbung unbedingt beizufügen. Die Datei darf eine Dateigröße von
-              10 MB nicht überschreiten.
+              Finanzamtes ist Bestandteil Eurer Bewerbung und daher unbedingt
+              der Bewerbung beizufügen. Die Datei darf eine Dateigröße von 10 MB
+              nicht überschreiten.
             </ListItem>
             <ListItem>
-              Fotos oder ander Dateien, die ihr hochladet, dürfen eine
+              Fotos oder andere Dateien, die Ihr hochladet, dürfen eine
               Dateigröße von insgesamt 10 MB nicht überschreiten. (Die Datei des
-              Freistellungsbescheids zählt hier dazu
+              Freistellungsbescheids zählt hier dazu.)
             </ListItem>
             <ListItem>
               Nach Absenden Eurer Bewerbung und der Bestätigung des zugesandten
               Links, erhaltet Ihr eine automatische Bestätigungs-E-Mail. Diese
-              Bestätigunsg-E-Mail stellt keine Erklärung dar, dass Eure
+              Bestätigungs-E-Mail stellt keine Erklärung dar, dass Eure
               Bewerbung berücksichtigt wird; sie dient Euch als
-              Eingangsbestätigung der technischen erfolgten Übermittlung Eurer
-              Bewerbung.{" "}
+              Eingangsbestätigung der technisch erfolgten Übermittlung Eurer
+              Bewerbung.
               <Text className="mt-2">
                 {" "}
                 Eure Bewerbung kann nur berücksichtigt werden, wenn alle
