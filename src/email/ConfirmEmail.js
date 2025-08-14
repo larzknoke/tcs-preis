@@ -40,10 +40,10 @@ export default function ConfirmEmail({ letter }) {
           <Section style={section}>
             <Text style={text}>Liebe Bewerber:innen,</Text>
             <Text style={textbold}>
-              vielen Dank für Eure Teilnahme am
+              vielen Dank für Eure Teilnahme am{" "}
               {letter.sonderpreis
-                ? "Sonderpreis des 12. Town & Country Stiftungspreises."
-                : "12. Town & Country Stiftungspreis."}
+                ? "Sonderpreis des 12. Town & Country Stiftungspreises"
+                : "12. Town & Country Stiftungspreis"}
               . Hiermit bestätigen wir Euch den Eingang Eurer Bewerbung.
             </Text>
             <Text style={text}>

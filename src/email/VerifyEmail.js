@@ -42,8 +42,8 @@ export default function VerifyEmail({ letter }) {
             <Text style={text}>
               vielen Dank für Eure Bewerbung zum diesjährigen{" "}
               {letter.sonderpreis
-                ? "Stiftungs-Sonderpreis."
-                : "12. Town & Country Stiftungspreis."}
+                ? "Stiftungs-Sonderpreis"
+                : "12. Town & Country Stiftungspreis"}
               .
             </Text>
             <Text style={text}>
@@ -72,18 +72,18 @@ export default function VerifyEmail({ letter }) {
           </Section>
           <Text style={text}>
             Mit Klicken des Links bestätigt Ihr, dass Ihr Euch zur Teilnahme am
-            diesjährigen
+            diesjährigen{" "}
             {letter.sonderpreis
               ? "Town & Country Stiftungs-Sonderpreis "
-              : "12. Town &amp; Country Stiftungspreis "}
+              : "12. Town & Country Stiftungspreis "}
             beworben habt.
           </Text>
           <Text style={textbold}>
             Solltet Ihr diesen Link nicht bestätigen, kann Eure Bewerbung zur
-            Teilnahme am
+            Teilnahme am{" "}
             {letter.sonderpreis
               ? "Stiftungs-Sonderpreis "
-              : "12. Town & CountryStiftungspreis "}
+              : "12. Town & Country Stiftungspreis "}
             nicht berücksichtigt werden.
           </Text>
           <Text style={text}>
