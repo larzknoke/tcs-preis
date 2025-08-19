@@ -9,6 +9,8 @@ import {
   HStack,
   Center,
   Divider,
+  Flex,
+  Hide,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
@@ -32,7 +34,7 @@ export default function Home({ validKampagne }) {
         />
         <VStack spacing={2} alignItems={"center"}>
           <Heading
-            color={"gray.700"}
+            color={"brand2.900"}
             size={"xl"}
             textAlign={"center"}
             mb={{ base: 0, md: 0 }}
@@ -40,47 +42,58 @@ export default function Home({ validKampagne }) {
             12. Town & Country Stiftungspreis <br />
           </Heading>
           <Heading
-            color={"gray.500"}
-            size={"xl"}
+            color={"brand.900"}
+            size={"lg"}
             textAlign={"center"}
             mt={{ base: 0, md: 4 }}
           >
             und Sonderpreis:
           </Heading>
           <Heading
-            color={"gray.700"}
-            size={"lg"}
+            color={"brand.900"}
+            size={"md"}
             textAlign={"center"}
             mb={{ base: 0, md: 8 }}
+            className="italic"
           >
             „Jung trifft Alt – Begegnung, die verbindet“
           </Heading>
         </VStack>
         {validKampagne ||
           (session && (
-            <HStack justifyContent={"center"} gap={8} mt={8}>
+            <Flex
+              my={{ base: 4, md: 4 }}
+              gap={{ base: 6, md: 10 }}
+              direction={{ base: "column", md: "row" }}
+            >
               <Button
                 href="/formular"
                 as={NextLink}
                 rightIcon={<ArrowForwardIcon />}
-                colorScheme="green"
+                colorScheme="white"
                 minWidth={"250px"}
+                bg={"brand2.900"}
+                _hover={{ bg: "brand2.800" }}
               >
-                Formular Stiftungspreis 2025
+                Bewerbung Stiftungspreis
               </Button>
-              <Center height="50px">
-                <Divider orientation="vertical" />
-              </Center>
+              <Hide below="md">
+                <Center height="45px">
+                  <Divider orientation="vertical" />
+                </Center>
+              </Hide>
               <Button
                 href="/formular-sonder"
                 as={NextLink}
                 rightIcon={<ArrowForwardIcon />}
-                colorScheme="green"
+                colorScheme="white"
+                bg={"brand.900"}
+                _hover={{ bg: "brand.800" }}
                 minWidth={"250px"}
               >
-                Formular Sonderpreis 2025
+                Bewerbung Sonderpreis
               </Button>
-            </HStack>
+            </Flex>
           ))}
 
         {validKampagne || session ? <TeaserText /> : <CloseText />}
