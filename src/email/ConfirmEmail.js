@@ -44,11 +44,11 @@ export default function ConfirmEmail({ letter }) {
               {letter.sonderpreis
                 ? "Sonderpreis des 12. Town & Country Stiftungspreises"
                 : "12. Town & Country Stiftungspreis"}
-              . Hiermit bestätigen wir Euch den Eingang Eurer Bewerbung.
+              . Hiermit bestätigen wir den Eingang Eurer Bewerbung.
             </Text>
             <Text style={text}>
-              Für Eure Unterlagen findet Ihr anbei eine Kopie des von Euch
-              eingereichten Formulars.
+              Für Eure Unterlagen findet Ihr anbei die Kopie Eures
+              Bewerbungsformulars.
             </Text>
             <Text style={text}>
               Die Bekanntgabe der Preisträger erfolgt ab Februar 2026 auf
@@ -61,7 +61,7 @@ export default function ConfirmEmail({ letter }) {
               Euer Team der <br /> Town &amp; Country Stiftung
             </strong>{" "}
             <br />
-            Anger 55/56, <br />
+            Anger 55/56 <br />
             99084 Erfurt <br />
             Tel. 0361 644 789-14 <br />
             stiftungspreis@tc-stiftung.de <br />

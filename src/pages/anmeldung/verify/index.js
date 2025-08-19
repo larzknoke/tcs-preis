@@ -125,7 +125,7 @@ function VerifyInvite() {
           <CardBody>
             <VStack gap={6} p={6}>
               <Heading size={"md"} color={"red.600"}>
-                Bestätigungs Fehler
+                Bestätigungsfehler
               </Heading>
               <Text>
                 Der Verifizierungs-Link wurde entweder schon bestätigt und ist

@@ -319,12 +319,11 @@ function NewLetterSonder() {
                         Formular erfolgreich übermittelt
                       </AlertTitle>
                       <AlertDescription maxWidth="2xl" mt={2}>
-                        Nach Absenden Ihrer Bewerbung und{" "}
+                        Nach Absenden Eurer Bewerbung und{" "}
                         <Text as="b">
-                          Bestätigung des Ihnen zugesandten Links an{" "}
-                          {confirmEmail}
+                          Bestätigung des zugesandten Links an {confirmEmail}
                         </Text>
-                        , <br /> erhalten Sie eine automatisierte
+                        , <br /> erhaltet Ihr eine automatisierte
                         Bestätigungs-E-Mail.
                       </AlertDescription>
                     </Alert>

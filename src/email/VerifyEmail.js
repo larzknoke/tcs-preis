@@ -40,14 +40,18 @@ export default function VerifyEmail({ letter }) {
           <Section style={section}>
             <Text style={text}>Liebe Bewerber:innen,</Text>
             <Text style={text}>
-              vielen Dank für Eure Bewerbung zum diesjährigen{" "}
+              vielen Dank für Eure Teilnahme am{" "}
               {letter.sonderpreis
                 ? "Stiftungs-Sonderpreis"
                 : "12. Town & Country Stiftungspreis"}
               .
             </Text>
             <Text style={text}>
-              Um Eure Bewerbung zu aktivieren, klickt bitte auf folgenden Link:
+              Mit Klicken des Links bestätigt Ihr Eure Teilnahme am{" "}
+              {letter.sonderpreis
+                ? "Stiftungs-Sonderpreis"
+                : "12. Town & Country Stiftungspreis"}
+              .
             </Text>
 
             <Button
@@ -61,8 +65,8 @@ export default function VerifyEmail({ letter }) {
               <Text style={buttonText}>Bewerbung bestätigen</Text>
             </Button>
             <Text style={text}>
-              Wenn der Link oben nicht funktioniert kopiere bitte folgende URL
-              in den Browser:
+              Sollte der Link oben nicht funktionieren, bitte folgende URL in
+              den Browser kopieren:
             </Text>
             <Text style={textbold}>
               {process.env.NEXTAUTH_URL +
@@ -70,20 +74,12 @@ export default function VerifyEmail({ letter }) {
                 letter.verifyId}
             </Text>
           </Section>
-          <Text style={text}>
-            Mit Klicken des Links bestätigt Ihr, dass Ihr Euch zur Teilnahme am
-            diesjährigen{" "}
-            {letter.sonderpreis
-              ? "Town & Country Stiftungs-Sonderpreis "
-              : "12. Town & Country Stiftungspreis "}
-            beworben habt.
-          </Text>
           <Text style={textbold}>
             Solltet Ihr diesen Link nicht bestätigen, kann Eure Bewerbung zur
             Teilnahme am{" "}
             {letter.sonderpreis
-              ? "Stiftungs-Sonderpreis "
-              : "12. Town & Country Stiftungspreis "}
+              ? "Stiftungs-Sonderpreis"
+              : "12. Town & Country Stiftungspreis"}{" "}
             nicht berücksichtigt werden.
           </Text>
           <Text style={text}>
@@ -129,7 +125,7 @@ export default function VerifyEmail({ letter }) {
               Euer Team der <br /> Town &amp; Country Stiftung
             </strong>{" "}
             <br />
-            Anger 55/56, <br />
+            Anger 55/56 <br />
             99084 Erfurt <br />
             Tel. 0361 644 789-14 <br />
             stiftungspreis@tc-stiftung.de <br />

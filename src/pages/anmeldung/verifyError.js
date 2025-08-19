@@ -20,13 +20,13 @@ function VerifyError() {
         <CardBody>
           <VStack gap={6} p={6}>
             <Heading size={"md"} color={"red.600"}>
-              Bestätigungs Fehler
+              Bestätigungsfehler
             </Heading>
             <Text>
               Der Verifizierungs-Link wurde entweder schon bestätigt und ist nun
               ungültig oder ein Fehler ist aufgetreten.
             </Text>
-            <Text>Bitte kontaktieren Sie die Town & Country Stiftung.</Text>
+            <Text>Bitte kontaktiert die Town & Country Stiftung:</Text>
           </VStack>
         </CardBody>
       </Card>

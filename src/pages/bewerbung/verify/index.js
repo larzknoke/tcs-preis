@@ -113,7 +113,7 @@ function VerifyLetter() {
               </Text>
               <Text>{dateFormatter(letterData?.createdAt)}</Text>
               <Text fontWeight={"700"} mt={4}>
-                Sie erhalten zusätzlich eine Bestätigungs-Email.
+                Ihr erhaltet zusätzlich eine Bestätigungsmail.
               </Text>
             </AlertDescription>
           </Alert>
@@ -124,7 +124,7 @@ function VerifyLetter() {
           <CardBody>
             <VStack gap={6} p={6}>
               <Heading size={"md"} color={"red.600"}>
-                Bestätigungs Fehler
+                Bestätigungsfehler
               </Heading>
               <Text>
                 Der Verifizierungs-Link wurde entweder schon bestätigt und ist
