@@ -59,42 +59,41 @@ export default function Home({ validKampagne }) {
             „Jung trifft Alt – Begegnung, die verbindet“
           </Heading>
         </VStack>
-        {validKampagne ||
-          (session && (
-            <Flex
-              my={{ base: 4, md: 4 }}
-              gap={{ base: 6, md: 10 }}
-              direction={{ base: "column", md: "row" }}
+        {(validKampagne || session) && (
+          <Flex
+            my={{ base: 4, md: 4 }}
+            gap={{ base: 6, md: 10 }}
+            direction={{ base: "column", md: "row" }}
+          >
+            <Button
+              href="/formular"
+              as={NextLink}
+              rightIcon={<ArrowForwardIcon />}
+              colorScheme="white"
+              minWidth={"250px"}
+              bg={"brand2.900"}
+              _hover={{ bg: "brand2.800" }}
             >
-              <Button
-                href="/formular"
-                as={NextLink}
-                rightIcon={<ArrowForwardIcon />}
-                colorScheme="white"
-                minWidth={"250px"}
-                bg={"brand2.900"}
-                _hover={{ bg: "brand2.800" }}
-              >
-                Bewerbung Stiftungspreis
-              </Button>
-              <Hide below="md">
-                <Center height="45px">
-                  <Divider orientation="vertical" />
-                </Center>
-              </Hide>
-              <Button
-                href="/formular-sonder"
-                as={NextLink}
-                rightIcon={<ArrowForwardIcon />}
-                colorScheme="white"
-                bg={"brand.900"}
-                _hover={{ bg: "brand.800" }}
-                minWidth={"250px"}
-              >
-                Bewerbung Sonderpreis
-              </Button>
-            </Flex>
-          ))}
+              Bewerbung Stiftungspreis
+            </Button>
+            <Hide below="md">
+              <Center height="45px">
+                <Divider orientation="vertical" />
+              </Center>
+            </Hide>
+            <Button
+              href="/formular-sonder"
+              as={NextLink}
+              rightIcon={<ArrowForwardIcon />}
+              colorScheme="white"
+              bg={"brand.900"}
+              _hover={{ bg: "brand.800" }}
+              minWidth={"250px"}
+            >
+              Bewerbung Sonderpreis
+            </Button>
+          </Flex>
+        )}
 
         {validKampagne || session ? <TeaserText /> : <CloseText />}
       </VStack>
