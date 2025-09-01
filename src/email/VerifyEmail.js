@@ -109,7 +109,7 @@ export default function VerifyEmail({ letter }) {
               href={
                 letter.sonderpreis
                   ? "https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_AllgTeilnBed_SP.pdf"
-                  : "https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_AllgTeilnBed_12.STP_.pdf"
+                  : "https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_AllgTeilnBed_12.STP_-1.pdf"
               }
               style={link}
             >

@@ -227,7 +227,7 @@ function Step4() {
               Wir haben die{" "}
               <Link
                 target="_blank"
-                href="https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_DSErklBew_12_STP.pdf"
+                href="https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_AllgTeilnBed_12.STP_-1.pdf"
               >
                 hier abrufbaren Teilnahmebedingungen
               </Link>{" "}
