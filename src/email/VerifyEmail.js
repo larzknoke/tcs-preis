@@ -97,7 +97,7 @@ export default function VerifyEmail({ letter }) {
             <Link
               href={
                 letter.sonderpreis
-                  ? "https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_DSErklBew_SP.pdf"
+                  ? "https://www.tc-stiftung.de/wp-content/uploads/2025/09/2025_DSErklBew_SP.pdf"
                   : "https://www.tc-stiftung.de/wp-content/uploads/2025/08/2025_DSErklBew_12_STP.pdf"
               }
               style={link}

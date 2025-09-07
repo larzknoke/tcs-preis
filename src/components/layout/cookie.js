@@ -61,6 +61,14 @@ function CookieBanner() {
                 Nähere Informationen zu Cookies finden Sie in unserer
                 <Link href="/datenschutz"> Datenschutzerklärung</Link>.
               </Text>
+              <Link
+                className="text-left self-start"
+                target="_blank"
+                href="/2025_DSErklBew_12.STP_SP.pdf"
+              >
+                {" "}
+                Datenschutzhinweise gemäß Art. 13 DSGVO
+              </Link>
             </VStack>
           </ModalBody>
 
