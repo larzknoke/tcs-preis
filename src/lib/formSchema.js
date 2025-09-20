@@ -159,14 +159,14 @@ export function createFormSchema({ isSonderpreis = false } = {}) {
       zuwendungAndere: yup.string().required(),
       bisherigeFoerderung: yup.string().required(),
       // checkBeitrag: yup.boolean().required(),
-      checkBeitrag: yup
-        .boolean()
-        .required("Bitte Bestätigen Sie die Einverständniserklärung")
-        .oneOf([true], "Bitte Bestätigen Sie die Einverständniserklärung"),
-      checkVeroeffentlich: yup
-        .boolean()
-        .required("Bitte Bestätigen Sie die Einverständniserklärung")
-        .oneOf([true], "Bitte Bestätigen Sie die Einverständniserklärung"),
+      // checkBeitrag: yup
+      //   .boolean()
+      //   .required("Bitte Bestätigen Sie die Einverständniserklärung")
+      //   .oneOf([true], "Bitte Bestätigen Sie die Einverständniserklärung"),
+      // checkVeroeffentlich: yup
+      //   .boolean()
+      //   .required("Bitte Bestätigen Sie die Einverständniserklärung")
+      //   .oneOf([true], "Bitte Bestätigen Sie die Einverständniserklärung"),
       checkScheck: yup
         .boolean()
         .required("Bitte Bestätigen Sie die Einverständniserklärung")
@@ -175,41 +175,31 @@ export function createFormSchema({ isSonderpreis = false } = {}) {
         .boolean()
         .required("Bitte Bestätigen Sie die Einverständniserklärung")
         .oneOf([true], "Bitte Bestätigen Sie die Einverständniserklärung"),
-      checkPersonenbezogen: yup
-        .boolean()
-        .required(
-          "Bitte Bestätigen Sie die Datenschutzrechtliche Einwilligungserklärung"
-        )
-        .oneOf(
-          [true],
-          "Bitte Bestätigen Sie die Datenschutzrechtliche Einwilligungserklärung"
-        ),
+      // checkPersonenbezogen: yup
+      //   .boolean()
+      //   .required(
+      //     "Bitte Bestätigen Sie die Datenschutzrechtliche Einwilligungserklärung"
+      //   )
+      //   .oneOf(
+      //     [true],
+      //     "Bitte Bestätigen Sie die Datenschutzrechtliche Einwilligungserklärung"
+      //   ),
       checkDatenschutzerklaerung: yup
         .boolean()
-        .required(
-          "Bitte Bestätigen Sie die Datenschutzrechtliche Einwilligungserklärung"
-        )
-        .oneOf(
-          [true],
-          "Bitte Bestätigen Sie die Datenschutzrechtliche Einwilligungserklärung"
-        ),
+        .required("Bitte Bestätigen Sie die Datenschutzerkärung")
+        .oneOf([true], "Bitte Bestätigen Sie die Datenschutzerkärung"),
       checkTeilnahmebedingungen: yup
         .boolean()
-        .required(
-          "Bitte Bestätigen Sie die Datenschutzrechtliche Einwilligungserklärung"
-        )
-        .oneOf(
-          [true],
-          "Bitte Bestätigen Sie die Datenschutzrechtliche Einwilligungserklärung"
-        ),
+        .required("Bitte Bestätigen Sie die Teilnahmebedingungen")
+        .oneOf([true], "Bitte Bestätigen Sie die Teilnahmebedingungen"),
       checkWahrheit: yup
         .boolean()
         .required(
-          "Bitte Bestätigen Sie die Datenschutzrechtliche Einwilligungserklärung"
+          "Bitte Bestätigen Sie, dass die Angaben der Wahrheit entsprechen"
         )
         .oneOf(
           [true],
-          "Bitte Bestätigen Sie die Datenschutzrechtliche Einwilligungserklärung"
+          "Bitte Bestätigen Sie, dass die Angaben der Wahrheit entsprechen"
         ),
     },
     [["telefonnummerProjekt", "mobilProjekt"]]

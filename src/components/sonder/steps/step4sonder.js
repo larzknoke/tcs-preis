@@ -34,50 +34,36 @@ function Step4Sonder() {
       <SimpleGrid spacing={6} columns={4} w={"full"}>
         <GridItem colSpan={4}>
           <Heading size={"md"} color={"gray.500"}>
-            Einverständniserklärung
+            Datenschutzrechtliche Einverständniserklärung
           </Heading>
         </GridItem>
         <GridItem colSpan={4}>
-          <FormControl isInvalid={errors.checkBeitrag}>
+          <FormControl isInvalid={errors.checkDatenschutzBilder}>
             <Checkbox
-              name="checkBeitrag"
+              name="checkDatenschutzBilder"
               type="checkbox"
-              {...register("checkBeitrag")}
+              {...register("checkDatenschutzBilder", {
+                required: "Pflichtfeld",
+              })}
               spacing={6}
-              isInvalid={errors.checkBeitrag}
               textAlign={"left"}
             >
               Wir sind damit einverstanden, dass unsere Bewerbung oder Teile
               davon, insbesondere Foto-, Film- und Tonaufnahmen zum Zwecke der
               Öffentlichkeitsarbeit der Town & Country Stiftung, deren Presse-
               und Medienagentur, deren Botschaftern, Vertrags- und
-              Kooperationspartnern sowie von regionaler und überregionaler
+              Kooperationspartnern sowie von regionaler und überregionaler
               Presse vervielfältigt, verbreitet, öffentlich wiedergegeben und
-              ggf. für diese Zwecke bearbeitet werden.
+              ggf. für diese Zwecke bearbeitet werden. Diese
+              Einverständniserklärung umfasst insbesondere die Veröffentlichung
+              der Angaben zu unserer als gemeinnützig anerkannten Einrichtung,
+              zum Projekt, zu eingereichten Fotos, zu Fotos von einer
+              Scheckübergabe im Rahmen des Town & Country Stiftungspreises sowie
+              eventuellen Foto-, Film- und Tonaufnahmen im Rahmen der Town &
+              Country Stiftungsgala.
               <FormErrorMessage>
-                {errors.checkBeitrag && errors.checkBeitrag.message}
-              </FormErrorMessage>
-            </Checkbox>
-          </FormControl>
-        </GridItem>
-        <GridItem colSpan={4}>
-          <FormControl isInvalid={errors.checkVeroeffentlich}>
-            <Checkbox
-              name="checkVeroeffentlich"
-              type="checkbox"
-              {...register("checkVeroeffentlich")}
-              spacing={6}
-              textAlign={"left"}
-            >
-              Vor diesem Hintergrund stimmen wir der Veröffentlichung der
-              Angaben zu unserer als gemeinnützig anerkannten Einrichtung, zum
-              Projekt, zu eingereichten Fotos, zu Fotos von einer Scheckübergabe
-              im Rahmen des Town & Country Stiftungspreises sowie eventuellen
-              Foto-, Film-und Tonaufnahmen im Rahmen der Town & Country
-              Stiftungsgala zu.
-              <FormErrorMessage>
-                {errors.checkVeroeffentlich &&
-                  errors.checkVeroeffentlich.message}
+                {errors.checkDatenschutzBilder &&
+                  errors.checkDatenschutzBilder.message}
               </FormErrorMessage>
             </Checkbox>
           </FormControl>
@@ -93,75 +79,21 @@ function Step4Sonder() {
               spacing={6}
               textAlign={"left"}
             >
-              Bitte bestätigen Sie die Einverständniserklärung. Wir verpflichten
-              uns, dafür Sorge zu tragen, dass die im Rahmen einer
-              Scheckübergabe zu erstellenden Foto-, Film- und Tonaufnahmen
-              entsprechend den datenschutzrechtlichen Vorschriften erstellt und
-              der Town & Country Stiftung sowie deren mit der
-              Öffentlichkeitsarbeit betrauten Vertragspartnern zur Verfügung
-              gestellt werden.
+              Wir verpflichten uns, dafür Sorge zu tragen, dass die im Rahmen
+              einer Scheckübergabe zu erstellenden Foto-, Film- und Tonaufnahmen
+              nach den datenschutzrechtlichen Vorschriften erstellt und der Town
+              & Country Stiftung sowie deren mit der Öffentlichkeitsarbeit
+              betrauten Vertragspartnern dementsprechend zur Verfügung gestellt
+              werden. Wir werden die Town & Country Stiftung im Falle eines
+              Widerrufs der Einverständniserklärung eines Betroffenen bzgl.
+              dieser Aufnahmen unverzüglich informieren.
               <FormErrorMessage>
                 {errors.checkScheck && errors.checkScheck.message}
               </FormErrorMessage>
             </Checkbox>
           </FormControl>
         </GridItem>
-        <GridItem colSpan={4}>
-          <FormControl isInvalid={errors.checkDatenschutzBilder}>
-            <Checkbox
-              name="checkDatenschutzBilder"
-              type="checkbox"
-              {...register("checkDatenschutzBilder", {
-                required: "Pflichtfeld",
-              })}
-              spacing={6}
-              textAlign={"left"}
-            >
-              Die datenschutzrechtlichen Einwilligungserklärungen der dort
-              abgebildeten Personen, insbesondere der dort abgebildeten Kinder,
-              werden wir entsprechend den geltenden Bestimmungen einholen. Über
-              den Widerruf bzw. den Widerspruch eines auf den Foto-, Film- und
-              Tonaufnahmen aufgeführten Betroffenen werden wir die Town &
-              Country Stiftung unverzüglich informieren.
-              <FormErrorMessage>
-                {errors.checkDatenschutzBilder &&
-                  errors.checkDatenschutzBilder.message}
-              </FormErrorMessage>
-            </Checkbox>
-          </FormControl>
-        </GridItem>
-        <GridItem colSpan={4}>
-          <FormControl isInvalid={errors.checkPersonenbezogen}>
-            <Checkbox
-              name="checkPersonenbezogen"
-              type="checkbox"
-              {...register("checkPersonenbezogen", {
-                required: "Pflichtfeld",
-              })}
-              spacing={6}
-              textAlign={"left"}
-            >
-              Wir willigen ein, dass die von uns im Rahmen der Bewerbung sowie
-              Teilnahme am 12. Town & Country Stiftungspreis übermittelten
-              personenbezogenen Daten im Rahmen des Town & Country
-              Stiftungspreises verarbeitet werden. Die Daten werden von der Town
-              & Country Stiftung (Hauptstraße 90E, 99820 Hörselberg-Hainich OT
-              Behringen), den Botschaftern der Town & Country Stiftung, der Town
-              & Country Haus Lizenzgeber GmbH (Hauptstraße 90E, 99820
-              Hörselberg-Hainich OT Behringen), den Lizenz- und Franchise-
-              Partnern der Town & Country Haus Lizenzgeber GmbH sowie den von
-              der Town & Country Stiftung mit der Durchführung des Town &
-              Country Stiftungspreises beauftragten Dritten ausschließlich im
-              Zusammenhang mit dem 12. Town & Country Stiftungspreis,
-              insbesondere jedoch für die Öffentlichkeitsarbeit im Zusammenhang
-              mit dem 12. Town & Country Stiftungspreis verwendet.
-              <FormErrorMessage>
-                {errors.checkPersonenbezogen &&
-                  errors.checkPersonenbezogen.message}
-              </FormErrorMessage>
-            </Checkbox>
-          </FormControl>
-        </GridItem>
+
         {/* <GridItem colSpan={4}>
           <Link
             target="_blank"
@@ -183,9 +115,10 @@ function Step4Sonder() {
         </GridItem> */}
         <GridItem colSpan={4}>
           <Heading size={"md"} color={"gray.500"} mt={12}>
-            Datenschutzrechtliche Einwilligungserklärung
+            Bestätigung
           </Heading>
         </GridItem>
+
         <GridItem colSpan={4}>
           <FormControl isInvalid={errors.checkDatenschutzerklaerung}>
             <Checkbox
@@ -230,8 +163,8 @@ function Step4Sonder() {
               >
                 hier abrufbaren Teilnahmebedingungen
               </Link>{" "}
-              des 12. Town & Country Stiftungspreises gelesen und erkennen sie
-              als verbindlich an.
+              des 12. Town & Country Sonderpreis gelesen und erkennen sie als
+              verbindlich an.
               <FormErrorMessage>
                 {errors.checkTeilnahmebedingungen &&
                   errors.checkTeilnahmebedingungen.message}
