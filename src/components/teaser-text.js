@@ -40,8 +40,9 @@ function TeaserText() {
               erhalten haben, sind von der Förderung in 2025 ausgeschlossen.
             </ListItem>
             <ListItem>
-              Bitte verwendet einen aktuellen Browser, andernfalls besteht die
-              Möglichkeit, dass Eure Bewerbung nicht übermittelt werden kann.
+              Bitte verwendet eine aktuelle Browser-Version, andernfalls besteht
+              die Möglichkeit, dass Eure Bewerbung nicht übermittelt werden
+              kann.
             </ListItem>
             <ListItem>
               Das Zwischenspeichern Eurer Angaben ist nur bei Benutzung
