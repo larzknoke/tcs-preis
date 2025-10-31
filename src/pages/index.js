@@ -59,7 +59,7 @@ export default function Home({ validKampagne }) {
             „Jung trifft Alt – Begegnung, die verbindet“
           </Heading>
         </VStack>
-        {(validKampagne || session || false) && (
+        {false && (
           <Flex
             my={{ base: 4, md: 4 }}
             gap={{ base: 6, md: 10 }}
@@ -95,7 +95,7 @@ export default function Home({ validKampagne }) {
           </Flex>
         )}
 
-        {validKampagne || session || false ? <TeaserText /> : <CloseText />}
+        {false ? <TeaserText /> : <CloseText />}
       </VStack>
       <CookieBanner />
     </Container>
