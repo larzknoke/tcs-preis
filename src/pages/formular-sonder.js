@@ -42,8 +42,7 @@ export const getServerSideProps = async (context) => {
       aktiv: true,
     },
   });
-  // const validKampagne = Object.keys(kampagnes).length > 0;
-  const validKampagne = false;
+  const validKampagne = Object.keys(kampagnes).length > 0;
   console.log("validKampagne: ", validKampagne);
   if (!session && !validKampagne) {
     return {
