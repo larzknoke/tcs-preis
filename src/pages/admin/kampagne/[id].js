@@ -247,12 +247,17 @@ function Kampagne({ kampagne, kampagnenBots }) {
 
 export const getServerSideProps = async (ctx) => {
   const { id } = ctx.params;
+
+  // Fetch the kampagne with its associated letters
   const kampagne = await prisma.kampagne.findFirstOrThrow({
     where: {
       id: parseInt(id),
     },
     include: {
       letters: {
+        where: {
+          kampagneId: parseInt(id), // Ensure only letters from the current kampagne are fetched
+        },
         include: {
           lettercontacts: true,
           botschafter: true,
@@ -260,6 +265,8 @@ export const getServerSideProps = async (ctx) => {
       },
     },
   });
+
+  // Fetch the botschafter associated with the kampagne
   const kampagnenBots = await prisma.botschafter.findMany({
     where: {
       letters: {
@@ -268,6 +275,9 @@ export const getServerSideProps = async (ctx) => {
     },
     include: {
       letters: {
+        where: {
+          kampagneId: parseInt(id), // Ensure only letters from the current kampagne are fetched
+        },
         select: {
           id: true,
           nameTraeger: true,
@@ -338,6 +348,7 @@ export const getServerSideProps = async (ctx) => {
       botcontacts: true,
     },
   });
+
   return { props: { kampagne, kampagnenBots } };
 };
 
