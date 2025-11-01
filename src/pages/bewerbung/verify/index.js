@@ -127,8 +127,9 @@ function VerifyLetter() {
                 Bestätigungsfehler
               </Heading>
               <Text>
-                Der Verifizierungs-Link wurde entweder schon bestätigt und ist
-                nun ungültig oder ein Fehler ist aufgetreten.
+                Der Verifizierungslink ist leider nicht mehr gültig.
+                Möglicherweise wurde er bereits bestätigt, die Bewerbungsphase
+                ist beendet oder es ist ein Fehler aufgetreten.
               </Text>
               <Text textAlign={"center"}>
                 Bitte kontaktieren Sie die Town & Country Stiftung: <br />
