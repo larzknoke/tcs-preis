@@ -218,11 +218,25 @@ export const getServerSideProps = async (ctx) => {
           },
           include: {
             lettercontacts: true,
+            kampagne: {
+              select: {
+                id: true,
+                name: true,
+                createdAt: true, // Include createdAt for sorting
+              },
+            },
           },
         },
         botcontacts: true,
       },
     });
+
+    // Sort letters by kampagne.createdAt in ascending order
+    botschafter.letters.sort((a, b) => {
+      if (!a.kampagne || !b.kampagne) return 0; // Handle cases where kampagne is null
+      return new Date(b.kampagne.createdAt) - new Date(a.kampagne.createdAt);
+    });
+
     return { props: { botschafter } };
   } catch (error) {
     console.log("error", error);

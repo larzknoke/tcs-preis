@@ -109,6 +109,7 @@ function BotlettersTable({ botschafter }) {
                         )}
                       </HStack>
                     </HStack>
+
                     <VStack alignItems={"start"} w={"100%"} gap={1}>
                       <Text as={"b"} color={"gray.500"}>
                         Kontakt:
@@ -179,6 +180,12 @@ function BotlettersTable({ botschafter }) {
                             );
                           })}
                       </VStack>
+                      <HStack color={"gray.400"} gap={1}>
+                        <Text as={"b"} color={"gray.500"}>
+                          Kampagne:{" "}
+                        </Text>
+                        <Text>{letter.kampagne.name || "-"}</Text>
+                      </HStack>
                     </VStack>
                   </VStack>
                 </HStack>
