@@ -171,6 +171,7 @@ function KampagnenBots({ kampagnenBots, kampagne, abgelehntAnzeigen }) {
                       .map((letter) => {
                         return (
                           <HStack
+                            key={letter.id}
                             divider={<StackDivider />}
                             spacing={2}
                             align="stretch"
