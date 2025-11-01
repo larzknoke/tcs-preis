@@ -37,6 +37,8 @@ function EditKampagneModal({ editIsOpen, editOnClose, kampagne }) {
   const toast = useToast();
 
   async function onSubmit(values) {
+    //remove letters from kampagne object to avoid sending too much data
+    delete values.letters;
     try {
       const res = await fetch(`/api/kampagne/updateKampagne`, {
         method: "PUT",
