@@ -17,6 +17,7 @@ export default async function handle(req, res) {
       const kampagne = await prisma.kampagne.findFirst({
         where: {
           abgeschlossen: false,
+          aktiv: true,
         },
       });
       if (!session && !kampagne) {
