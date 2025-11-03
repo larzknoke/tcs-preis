@@ -120,13 +120,13 @@ function VerifyLetter() {
         </Box>
       )}
       {letterError && !letterData?.verified && (
-        <Card my={16}>
+        <Card my={16} px={{ base: 2, md: 100 }}>
           <CardBody>
             <VStack gap={6} p={6}>
               <Heading size={"md"} color={"red.600"}>
                 Bestätigungsfehler
               </Heading>
-              <Text>
+              <Text textAlign={"center"}>
                 Der Verifizierungslink ist leider nicht mehr gültig.
                 Möglicherweise wurde er bereits bestätigt, die Bewerbungsphase
                 ist beendet oder es ist ein Fehler aufgetreten.

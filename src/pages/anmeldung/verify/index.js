@@ -121,13 +121,13 @@ function VerifyInvite() {
         </Box>
       )}
       {inviteError && !inviteData?.verified && (
-        <Card my={16}>
+        <Card my={16} px={{ base: 2, md: 100 }}>
           <CardBody>
             <VStack gap={6} p={6}>
               <Heading size={"md"} color={"red.600"}>
                 Bestätigungsfehler
               </Heading>
-              <Text>
+              <Text textAlign={"center"}>
                 Der Verifizierungs-Link wurde entweder schon bestätigt und ist
                 nun ungültig oder ein Fehler ist aufgetreten.
               </Text>
