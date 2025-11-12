@@ -86,6 +86,20 @@ const columns = [
       </Tooltip>
     ),
   }),
+  columnHelper.accessor("anmeldungAktiv", {
+    header: "Anmeldung Aktiv",
+    cell: (info) => (
+      <Tooltip label={info.getValue()} placement="top">
+        <span>
+          {info.getValue() ? (
+            <Icon as={HiOutlineCheck} color={"green.900"} />
+          ) : (
+            <Icon as={HiOutlineNoSymbol} color={"red.500"} />
+          )}
+        </span>
+      </Tooltip>
+    ),
+  }),
   columnHelper.accessor("controls", {
     cell: ({ row, info }) => (
       <>

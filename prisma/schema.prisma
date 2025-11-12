@@ -175,14 +175,15 @@ model Lettercontact {
 }
 
 model Kampagne {
-  id            Int      @id @default(autoincrement())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt @map(name: "updated_at")
-  name          String?
-  abgeschlossen Boolean? @default(false)
-  aktiv         Boolean? @default(false)
-  letters       Letter[]
-  invites       Invite[]
+  id             Int      @id @default(autoincrement())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt @map(name: "updated_at")
+  name           String?
+  abgeschlossen  Boolean? @default(false)
+  aktiv          Boolean? @default(false)
+  anmeldungAktiv Boolean? @default(false)
+  letters        Letter[]
+  invites        Invite[]
 }
 
 model Invite {

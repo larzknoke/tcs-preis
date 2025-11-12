@@ -129,6 +129,22 @@ function EditKampagneModal({ editIsOpen, editOnClose, kampagne }) {
                     </FormErrorMessage>
                   </FormControl>
                 </GridItem>
+                <GridItem colSpan={3}>
+                  <FormControl isInvalid={errors.anmeldungAktiv}>
+                    <FormLabel htmlFor="anmeldungAktiv" mb="0">
+                      Anmeldung Aktiv
+                    </FormLabel>
+                    <Switch
+                      id="anmeldungAktiv"
+                      colorScheme="green"
+                      {...register("anmeldungAktiv")}
+                      name="anmeldungAktiv"
+                    />
+                    <FormErrorMessage>
+                      {errors.anmeldungAktiv && errors.anmeldungAktiv.message}
+                    </FormErrorMessage>
+                  </FormControl>
+                </GridItem>
               </SimpleGrid>
             </form>
           </ModalBody>

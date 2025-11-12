@@ -163,7 +163,7 @@ function Kampagne({ kampagne, kampagnenBots }) {
           >
             Erstellt: {dateFormatter(kampagne.createdAt)}
           </Text>
-          <Tooltip label="Status" placement="top">
+          <Tooltip label="Abgeschlossen" placement="top">
             <Badge
               variant="outline"
               colorScheme={statusBadge(kampagne.abgeschlossen)}
@@ -172,13 +172,22 @@ function Kampagne({ kampagne, kampagnenBots }) {
               {kampagne.abgeschlossen ? "Abgeschlossen" : "Offen"}
             </Badge>
           </Tooltip>
-          <Tooltip label="Status" placement="top">
+          <Tooltip label="Kampagne" placement="top">
             <Badge
               variant="outline"
               colorScheme={statusBadge(kampagne.aktiv)}
               fontSize={"md"}
             >
               {kampagne.aktiv ? "Aktiv" : "Inaktiv"}
+            </Badge>
+          </Tooltip>
+          <Tooltip label="Anmeldung" placement="top">
+            <Badge
+              variant="outline"
+              colorScheme={statusBadge(kampagne.anmeldungAktiv)}
+              fontSize={"md"}
+            >
+              {kampagne.anmeldungAktiv ? "Anm. Aktiv" : " Anm. Inaktiv"}
             </Badge>
           </Tooltip>
           <Menu>

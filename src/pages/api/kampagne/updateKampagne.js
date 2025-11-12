@@ -22,6 +22,7 @@ export default async function handle(req, res) {
         name: data.name,
         abgeschlossen: data.abgeschlossen,
         aktiv: data.aktiv,
+        anmeldungAktiv: data.anmeldungAktiv,
       },
     });
     console.log("result: ", result);

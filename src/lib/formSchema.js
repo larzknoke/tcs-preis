@@ -290,6 +290,9 @@ export const inviteSchema = yup.object().shape({
 
 export const kampagneSchema = yup.object().shape({
   name: yup.string().required(),
+  abgeschlossen: yup.boolean(),
+  aktiv: yup.boolean(),
+  anmeldungAktiv: yup.boolean(),
 });
 
 export const noteSchema = yup.object().shape({
