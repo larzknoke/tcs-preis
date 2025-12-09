@@ -192,7 +192,7 @@ function NewInvite() {
                           Ich/wir leisten eine Spende auf das Spendenkonto der
                           Town &amp; Country Stiftung. <br />
                           IBAN: DE25 1012 0100 6156 1780 00 | BIC WELADED1WBB |
-                          Betreff: Spende Preisverleihung <br />
+                          Betreff: Stiftungspreis <br />
                           <FormErrorMessage>
                             {errors.spende && errors.spende.message}
                           </FormErrorMessage>
@@ -287,7 +287,7 @@ function NewInvite() {
                     </GridItem>
                     <GridItem colSpan={[12, 6]}>
                       <FormControl isInvalid={errors.email}>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>E-Mail</FormLabel>
                         <Input
                           name="email"
                           type="text"

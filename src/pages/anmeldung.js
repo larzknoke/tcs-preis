@@ -14,8 +14,8 @@ function Anmeldung() {
         <HStack direction={"row"} alignItems={"center"} gap={6}>
           <Link href="/">
             <Image
-              src="/gala_header.jpg"
-              alt="Gala Anmeldung"
+              src="/Anmeldung_Gala_Header_2025.jpg"
+              alt="Gala Anmeldung Header"
               width={1120}
               height={200}
               priority
