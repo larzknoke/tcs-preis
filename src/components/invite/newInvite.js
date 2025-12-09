@@ -147,15 +147,14 @@ function NewInvite() {
                                 maxW={["100%", "60%"]}
                               >
                                 <Radio value={"ja"} variant={"atTop"}>
-                                  <strong>Ja</strong>, ich/wir nehme/n an der
-                                  Gala zur Preisverleihung des 12. Town &amp;
+                                  <strong>Ja</strong>, ich nehme an der
+                                  Stiftungsgala anlässlich des 12. Town &
                                   Country Stiftungspreises am Abend des{" "}
-                                  <strong>21. Juni 2024 um 17:30 Uhr</strong>{" "}
+                                  <strong>9. Mai 2026 um 17:30 Uhr</strong>{" "}
                                   teil.
                                 </Radio>
                                 <Radio value={"nein"} variant={"atTop"}>
-                                  <strong>Nein</strong>, ich/wir /bin/sind
-                                  leider verhindert und kann/können nicht
+                                  <strong>Nein</strong>, ich kann leider nicht
                                   teilnehmen.
                                 </Radio>
                               </VStack>
@@ -166,67 +165,6 @@ function NewInvite() {
                           {errors.teilnahme && errors.teilnahme.message}
                         </FormErrorMessage>
                       </FormControl>
-                    </GridItem>
-                    <GridItem colSpan={12}>
-                      <FormControl isInvalid={errors.spende}>
-                        <FormLabel>
-                          {" "}
-                          <Heading
-                            textAlign={"left"}
-                            size={"md"}
-                            color={"gala.900"}
-                          >
-                            Spende
-                          </Heading>
-                        </FormLabel>
-                        <Checkbox
-                          name="spende"
-                          type="checkbox"
-                          {...register("spende")}
-                          spacing={6}
-                          isInvalid={errors.spende}
-                          textAlign={"left"}
-                          variant={"atTop"}
-                          onChange={(e) => setSpende(e.target.checked)}
-                        >
-                          Ich/wir leisten eine Spende auf das Spendenkonto der
-                          Town &amp; Country Stiftung. <br />
-                          IBAN: DE25 1012 0100 6156 1780 00 | BIC WELADED1WBB |
-                          Betreff: Stiftungspreis <br />
-                          <FormErrorMessage>
-                            {errors.spende && errors.spende.message}
-                          </FormErrorMessage>
-                        </Checkbox>
-                      </FormControl>
-                    </GridItem>
-                    <GridItem colSpan={12} pl={10}>
-                      <FormControl mb={4} isInvalid={errors.spendeBetrag}>
-                        <FormLabel
-                          style={{ color: spende ? "#718096" : "#E2E8F0" }}
-                        >
-                          Betrag
-                        </FormLabel>
-                        <Input
-                          isDisabled={!spende}
-                          name="spendeBetrag"
-                          type="text"
-                          {...register("spendeBetrag")}
-                          maxW={"350px"}
-                        />
-                        <FormErrorMessage>
-                          {errors.spendeBetrag && errors.spendeBetrag.message}
-                        </FormErrorMessage>
-                      </FormControl>
-                      <Link
-                        href={
-                          "https://www.paypal.com/donate/?hosted_button_id=U5NFSF7NAVGK2"
-                        }
-                        target="_blank"
-                      >
-                        <Button color={"gala.900"} variant={"outline"}>
-                          Hier direkt per Kreditkarte oder PayPal spenden.
-                        </Button>
-                      </Link>
                     </GridItem>
                     <GridItem colSpan={12}>
                       <Heading
@@ -345,7 +283,6 @@ function NewInvite() {
                         </Checkbox>
                       </FormControl>
                     </GridItem>
-
                     {begleitungJa && (
                       <>
                         <GridItem colSpan={[12, 4]}>
@@ -392,6 +329,68 @@ function NewInvite() {
                         </GridItem>
                       </>
                     )}
+                    <GridItem colSpan={12}>
+                      <FormControl isInvalid={errors.spende}>
+                        <FormLabel>
+                          {" "}
+                          <Heading
+                            textAlign={"left"}
+                            size={"md"}
+                            color={"gala.900"}
+                          >
+                            Spende
+                          </Heading>
+                        </FormLabel>
+                        <Checkbox
+                          name="spende"
+                          type="checkbox"
+                          {...register("spende")}
+                          spacing={6}
+                          isInvalid={errors.spende}
+                          textAlign={"left"}
+                          variant={"atTop"}
+                          onChange={(e) => setSpende(e.target.checked)}
+                        >
+                          Ich/ wir leisten eine Spende auf das Spendenkonto der
+                          Town & Country Stiftung. <br />
+                          IBAN: DE25 1012 0100 6156 1780 00 | BIC WELADED1WBB |
+                          Betreff: Stiftungspreis <br />
+                          <FormErrorMessage>
+                            {errors.spende && errors.spende.message}
+                          </FormErrorMessage>
+                        </Checkbox>
+                      </FormControl>
+                    </GridItem>
+                    <GridItem colSpan={12} pl={10}>
+                      <FormControl mb={4} isInvalid={errors.spendeBetrag}>
+                        <FormLabel
+                          style={{ color: spende ? "#718096" : "#E2E8F0" }}
+                        >
+                          Betrag
+                        </FormLabel>
+                        <Input
+                          isDisabled={!spende}
+                          name="spendeBetrag"
+                          type="text"
+                          {...register("spendeBetrag")}
+                          maxW={"350px"}
+                        />
+                        <FormErrorMessage>
+                          {errors.spendeBetrag && errors.spendeBetrag.message}
+                        </FormErrorMessage>
+                      </FormControl>
+                      <Link
+                        href={
+                          "https://www.paypal.com/donate/?hosted_button_id=U5NFSF7NAVGK2"
+                        }
+                        target="_blank"
+                      >
+                        <Button color={"gala.900"} variant={"outline"}>
+                          Hier direkt per Kreditkarte oder PayPal spenden.
+                        </Button>
+                      </Link>
+                    </GridItem>
+
                     {datenschutzAnzeigen && (
                       <>
                         <GridItem colSpan={12}>
@@ -441,7 +440,7 @@ function NewInvite() {
                               Die{" "}
                               <Link
                                 href={
-                                  "https://www.tc-stiftung.de/datenschutz-gala"
+                                  "https://stiftungsgala.tc-stiftung.de/datenschutz-gala"
                                 }
                                 target="_blank"
                               >
