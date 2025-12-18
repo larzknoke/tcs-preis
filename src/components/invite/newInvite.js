@@ -44,6 +44,7 @@ function NewInvite() {
   const [teilnahmeJa, setTeilnahmeJa] = useState();
   const [begleitungJa, setBegleitungJa] = useState(false);
   const [datenschutzAnzeigen, setDatenschutzAnzeigen] = useState();
+  const [teilnahmeValue, setTeilnahmeValue] = useState();
 
   const {
     register,
@@ -138,6 +139,7 @@ function NewInvite() {
                               {...field}
                               onChange={(value) => {
                                 setDatenschutzAnzeigen(value === "ja");
+                                setTeilnahmeValue(value);
                                 field.onChange(value);
                               }}
                               value={field.value}
@@ -482,7 +484,9 @@ function NewInvite() {
                     color={"white"}
                     px={10}
                   >
-                    Anmeldung abschicken
+                    {teilnahmeValue === "nein"
+                      ? "Abmeldung abschicken"
+                      : "Anmeldung abschicken"}
                   </Button>
                 </VStack>
               </Flex>
