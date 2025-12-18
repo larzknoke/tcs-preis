@@ -236,27 +236,6 @@ function Datenschutz() {
         0361-573112900. <br /> Wir empfehlen, eine Beschwerde zunächst immer an
         unseren datenschutzrechtlichen Verantwortlichen zu richten.
       </Text>
-      <Heading size={"md"}>5. Daten&uuml;bermittlung an Drittstaaten</Heading>
-      <Text>
-        Im Rahmen unserer Geschäftsbeziehungen können ihre personenbezogenen
-        Daten an Drittgesellschaften weitergegeben oder offengelegt werden.
-        Diese können sich auch außerhalb der Europäischen Union (EU) oder des
-        Europäischen Wirtschaftsraums (EWR), also in Drittländern befinden. Eine
-        solche Verarbeitung im Rahmen der Inanspruchnahme von Diensten Dritter
-        oder der Offenlegung bzw. Übermittlung von Daten an Dritte, erfolgt nur,
-        wenn es zur Erfüllung von vorvertraglichen oder vertraglichen Pflichten,
-        auf Grundlage Ihrer Einwilligung, auf Grund einer rechtlichen
-        Verpflichtung oder auf Grundlage unserer berechtigten Interessen
-        geschieht. Vorbehaltlich gesetzlicher oder vertraglicher Erlaubnisse
-        verarbeiten wir oder lassen wir die Daten in einem Drittland nur beim
-        Vorliegen der besonderen Voraussetzungen der Art. 44 ff. DSGVO
-        verarbeiten, das heißt, die Verarbeitung erfolgt auf Grundlage
-        besonderer Garantien, wie der offiziell anerkannten Feststellung eines
-        der EU entsprechenden Datenschutzniveaus, zum Beispiel durch
-        Zertifizierung des Unternehmens nach dem „EU-U.S.-Data Privacy
-        Framework“ oder unter Beachtung offiziell anerkannter spezieller
-        vertraglicher Verpflichtung („Standardvertragsklausel“).
-      </Text>
       <Heading size={"md"}> 9. Keine Pflicht zur Bereitstellung</Heading>
       <Text>
         Die Bereitstellung der vorgenannten Daten zu den in diesen Hinweisen
