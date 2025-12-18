@@ -11,7 +11,9 @@ function Anmeldungen({ invites }) {
 }
 
 export const getServerSideProps = async () => {
-  const invites = await prisma.invite.findMany();
+  const invites = await prisma.invite.findMany({
+    include: { kampagne: true },
+  });
   console.log(invites);
   return { props: { invites } };
 };

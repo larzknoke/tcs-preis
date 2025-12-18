@@ -102,6 +102,44 @@ function FilterTableInvite({ invites }) {
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [columnVisibility, setColumnVisibility] = React.useState({});
 
+  const [selectedKampagneId, setSelectedKampagneId] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+
+  const kampagnen = React.useMemo(() => {
+    const unique = new Map();
+    invites.forEach((i) => {
+      if (i.kampagne?.id) {
+        unique.set(i.kampagne.id, {
+          id: i.kampagne.id,
+          name: i.kampagne.name || `Kampagne ${i.kampagne.id}`,
+          createdAt: new Date(i.kampagne.createdAt),
+        });
+      }
+    });
+    return Array.from(unique.values()).sort(
+      (a, b) => b.createdAt - a.createdAt
+    );
+  }, [invites]);
+
+  // SET DEFAULT KAMPAGNE
+  React.useEffect(() => {
+    if (kampagnen.length > 0 && selectedKampagneId === null) {
+      setSelectedKampagneId(kampagnen[0].id);
+    }
+    setLoading(false);
+  }, [kampagnen, selectedKampagneId]);
+
+  // FILTER FOR KAMPAGNEN
+  React.useEffect(() => {
+    let filtered = invites;
+
+    if (selectedKampagneId) {
+      filtered = filtered.filter((i) => i.kampagneId === selectedKampagneId);
+    }
+
+    setTableData(filtered);
+  }, [invites, selectedKampagneId]);
+
   const btnRef = React.useRef();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -368,28 +406,28 @@ function FilterTableInvite({ invites }) {
             <Tbody>
               <Tr>
                 <Td>Gesamt Anmeldungen</Td>
-                <Td isNumeric>{invites.length}</Td>
+                <Td isNumeric>{tableData.length}</Td>
                 <Td></Td>
                 <Td></Td>
               </Tr>
               <Tr>
                 <Td>Bestätige Teilnahme</Td>
                 <Td isNumeric>
-                  {invites.filter((i) => i.teilnahme && i.verified).length}{" "}
+                  {tableData.filter((i) => i.teilnahme && i.verified).length}{" "}
                 </Td>
                 <Td isNumeric>
                   <chakra.span color="gray.400">
-                    ({invites.filter((i) => i.teilnahme && !i.verified).length}){" "}
+                    ({tableData.filter((i) => i.teilnahme && !i.verified).length}){" "}
                   </chakra.span>
                 </Td>
                 <Td>zzgl. Begleitungen</Td>
                 <Td isNumeric>
-                  {invites.filter((i) => i.begleitung == "ja").length}
+                  {tableData.filter((i) => i.begleitung == "ja").length}
                 </Td>
               </Tr>
               <Tr>
                 <Td>Absagen</Td>
-                <Td isNumeric>{invites.filter((i) => !i.teilnahme).length}</Td>
+                <Td isNumeric>{tableData.filter((i) => !i.teilnahme).length}</Td>
                 <Td></Td>
                 <Td></Td>
               </Tr>
@@ -405,6 +443,19 @@ function FilterTableInvite({ invites }) {
           ml={"auto"}
           size={"md"}
         />
+        <Select
+          placeholder="Alle Kampagnen"
+          value={selectedKampagneId}
+          onChange={(e) => setSelectedKampagneId(Number(e.target.value))}
+          maxW="320px"
+          mt={2}
+        >
+          {kampagnen.map((k) => (
+            <option key={k.id} value={k.id}>
+              {k.name}
+            </option>
+          ))}
+        </Select>
         <Tooltip label="Bewerbungen exportieren" placement="top">
           <IconButton
             onClick={handleExport}
