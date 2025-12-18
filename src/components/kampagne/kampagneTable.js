@@ -73,7 +73,7 @@ const columns = [
     ),
   }),
   columnHelper.accessor("aktiv", {
-    header: "Aktiv",
+    header: "Bewerbung Aktiv",
     cell: (info) => (
       <Tooltip label={info.getValue()} placement="top">
         <span>
