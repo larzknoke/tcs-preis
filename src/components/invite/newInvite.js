@@ -528,12 +528,12 @@ function NewInvite() {
                   </AlertDescription>
                 )}
               </Alert>
-              <Button
+              {/* <Button
                 ml={"auto"}
                 onClick={() => window.location.assign("/anmeldung")}
               >
                 Neuen Teilnehmer anmelden
-              </Button>
+              </Button> */}
             </VStack>
           )}
           {formError && (
