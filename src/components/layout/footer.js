@@ -17,13 +17,13 @@ function Footer() {
           height={24}
           priority
         />
-        <Text color={"gray.400"}>
+        <Text color={"gray.500"}>
           Town & Country Stiftung <br />
           bürgerlichen Rechts
           <br /> Anger 55/56
           <br /> 99084 Erfurt
         </Text>
-        <Text color={"gray.400"}>
+        <Text color={"gray.500"}>
           Telefon: 03 61 / 644 78 914 <br />
           Telefax: 03 61 / 644 78 915 <br />
           <a href="mailto:stiftungspreis@tc-stiftung.de">
@@ -32,7 +32,7 @@ function Footer() {
           <br />
           <a href="https://www.tc-stiftung.de">www.tc-stiftung.de</a>
         </Text>
-        <Text color={"gray.400"}>
+        <Text color={"gray.500"}>
           Vorstand: <br />
           Christian Treumann (Vorsitzender) <br />
           Sylvia Wagner <br />
