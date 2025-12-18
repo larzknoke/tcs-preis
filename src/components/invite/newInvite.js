@@ -24,6 +24,7 @@ import {
   Checkbox,
   Tooltip,
   useToast,
+  chakra,
 } from "@chakra-ui/react";
 import { AlertIcon } from "@chakra-ui/react";
 import { useForm, Controller } from "react-hook-form";
@@ -401,7 +402,7 @@ function NewInvite() {
                             size={"md"}
                             color={"gala.900"}
                           >
-                            Datenschutz & Einverständniserklärung
+                            Datenschutzhinweise & Einverständnis
                           </Heading>
                         </GridItem>
                         <GridItem colSpan={12}>
@@ -419,8 +420,8 @@ function NewInvite() {
                               Stiftung im Rahmen der Veranstaltung Foto-, Film-
                               und Tonaufnahmen zu Marketing- und
                               Informationszwecken anfertigt und diese örtlich,
-                              zeitlich und inhaltlich uneingeschränkt zu den
-                              vorgenannten Zwecken nutzen darf.
+                              zeitlich und inhaltlich zu den vorgenannten
+                              Zwecken nutzen darf.
                               <FormErrorMessage>
                                 {errors.datenschutzMedia &&
                                   errors.datenschutzMedia.message}
@@ -446,7 +447,12 @@ function NewInvite() {
                                 }
                                 target="_blank"
                               >
-                                Datenschutzbestimmungen
+                                <chakra.span
+                                  color={"gala.900"}
+                                  fontWeight={"semibold"}
+                                >
+                                  Datenschutzbestimmungen
+                                </chakra.span>
                               </Link>{" "}
                               habe ich zur Kenntnis genommen und akzeptiere
                               diese.
@@ -461,7 +467,7 @@ function NewInvite() {
                     )}
                   </SimpleGrid>
 
-                  <Alert status="warning">
+                  {/* <Alert status="warning">
                     <AlertIcon />
                     <AlertDescription>
                       Bitte beachten Sie: Nach der Anmeldung erhalten Sie eine
@@ -472,7 +478,7 @@ function NewInvite() {
                         abgeschlossen.
                       </strong>
                     </AlertDescription>
-                  </Alert>
+                  </Alert> */}
                   <Button
                     isDisabled={!isObjEmpty(errors)}
                     isLoading={loading}
