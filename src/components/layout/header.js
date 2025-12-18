@@ -125,15 +125,35 @@ function Header() {
         >
           Impressum
         </Button>
-        <Button
-          as={Link}
-          href={"/datenschutz"}
-          color={"gray.500"}
-          fontWeight={"400"}
-          variant={"ghost"}
-        >
-          Datenschutz
-        </Button>
+        <Menu>
+          <MenuButton
+            as={Button}
+            variant="ghost"
+            color={"gray.500"}
+            fontWeight={"400"}
+            rightIcon={<ChevronDownIcon />}
+          >
+            Datenschutz
+          </MenuButton>
+          <MenuList>
+            <MenuItem
+              as={Link}
+              href="/datenschutz"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Stiftungspreis
+            </MenuItem>
+            <MenuItem
+              as={Link}
+              href="/datenschutz-gala"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Stiftungsgala
+            </MenuItem>
+          </MenuList>
+        </Menu>
         {session ? (
           <HStack spacing={"6"}>
             <Menu>
