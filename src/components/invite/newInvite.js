@@ -509,7 +509,9 @@ function NewInvite() {
               >
                 <AlertIcon boxSize="40px" mr={0} color={"white"} />
                 <AlertTitle mt={4} mb={1} fontSize="lg">
-                  Anmeldung erfolgreich übermittelt
+                  {teilnahmeJa
+                    ? "Anmeldung erfolgreich übermittelt"
+                    : "Abmeldung erfolgreich übermittelt"}
                 </AlertTitle>
                 {teilnahmeJa ? (
                   <AlertDescription maxWidth="2xl" mt={2}>
