@@ -388,7 +388,14 @@ function NewInvite() {
                         }
                         target="_blank"
                       >
-                        <Button color={"gala.900"} variant={"outline"}>
+                        <Button
+                          color={"gala.900"}
+                          variant={"outline"}
+                          whiteSpace={"normal"}
+                          minHeight={{ base: "50px", md: "inherit" }}
+                          lineHeight={{ base: "20px", md: "inherit" }}
+                          size={{ base: "sm", md: "md" }}
+                        >
                           Hier direkt per Kreditkarte oder PayPal spenden.
                         </Button>
                       </Link>
