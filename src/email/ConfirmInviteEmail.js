@@ -38,7 +38,7 @@ export default function ConfirmInviteEmail({ invite }) {
             </Text>
             <Text style={text}>
               vielen Dank für Ihre Anmeldung zur 12. Town & Country
-              Stiftungsgala am 21. Juni 2024. <br />
+              Stiftungsgala am 09. Mai 2026. <br />
               Wir freuen uns auf Ihr Kommen!
             </Text>
             <Text style={text}>

@@ -34,8 +34,8 @@ export default function CancelInviteEmail({ invite }) {
               {invite.name},
             </Text>
             <Text style={text}>
-              schade, dass Sie nicht zur 12. Town & Country Stiftungsgala am 21.
-              Juni 2024 kommen können.
+              schade, dass Sie nicht zur 12. Town & Country Stiftungsgala am 09.
+              Mai 2026 kommen können.
             </Text>
             <Text style={text}>
               <strong>Wir haben folgende Daten erfasst:</strong>
