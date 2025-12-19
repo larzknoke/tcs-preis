@@ -271,7 +271,7 @@ export const inviteSchema = yup.object().shape({
   begleitungTitel: yup.string().when("begleitung", {
     is: "ja",
     then: () => {
-      return yup.string().required();
+      return yup.string();
     },
   }),
   begleitungVorname: yup.string().when("begleitung", {
