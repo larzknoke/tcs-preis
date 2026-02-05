@@ -154,7 +154,7 @@ function Header() {
             </MenuItem>
           </MenuList>
         </Menu>
-        {session ? (
+        {/* {session ? (
           <HStack spacing={"6"}>
             <Menu>
               <MenuButton>
@@ -200,7 +200,7 @@ function Header() {
               </Button>
             )}
           </Link>
-        )}
+        )} */}
       </HStack>
     </Flex>
   );

@@ -7,7 +7,7 @@ export default async function handle(req, res) {
     await handlePOST(res, req);
   } else {
     throw new Error(
-      `The HTTP ${req.method} method is not supported at this route.`
+      `The HTTP ${req.method} method is not supported at this route.`,
     );
   }
 }
@@ -20,7 +20,7 @@ const hashPassword = (password) => {
 async function handlePOST(res, req) {
   try {
     const user = await prisma.user.findUnique({
-      where: { email: req.body.username },
+      where: { email: req.body.email },
       select: {
         id: true,
         name: true,

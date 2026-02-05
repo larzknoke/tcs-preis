@@ -36,7 +36,7 @@ export const authOptions = {
             body: Object.entries(credentials)
               .map((e) => e.join("="))
               .join("&"),
-          }
+          },
         )
           .then((res) => res.json())
           .catch((err) => {
@@ -55,7 +55,7 @@ export const authOptions = {
   ],
   session: { strategy: "jwt" },
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/login",
     signOut: "/auth/signout",
   },
 };
