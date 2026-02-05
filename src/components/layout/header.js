@@ -154,7 +154,7 @@ function Header() {
             </MenuItem>
           </MenuList>
         </Menu>
-        {/* {session ? (
+        {session && (
           <HStack spacing={"6"}>
             <Menu>
               <MenuButton>
@@ -190,17 +190,7 @@ function Header() {
               </MenuList>
             </Menu>
           </HStack>
-        ) : (
-          <Link href={"/api/auth/signin"}>
-            {isMobile ? (
-              <IconButton color={"gray.500"} mr={2} icon={<HiUser />} />
-            ) : (
-              <Button color={"gray.500"} fontWeight={"400"}>
-                Login
-              </Button>
-            )}
-          </Link>
-        )} */}
+        )}
       </HStack>
     </Flex>
   );
