@@ -529,10 +529,11 @@ function NewInvite() {
                 {teilnahmeJa ? (
                   <AlertDescription maxWidth="2xl" mt={2}>
                     Vielen Dank für Ihre Registrierung! <br />
-                    Sie haben soeben eine Bestätigungs-Mail an{" "}
-                    <strong>{confirmEmail}</strong> von uns erhalten. <br />
-                    Bitte bestätigen Sie den dortigen Link, um Ihre Anmeldung
-                    abzuschließen.
+                    Ihre Anmeldung ist erfolgreich abgeschlossen. Eine
+                    Bestätigungs-Mail wurde an <strong>
+                      {confirmEmail}
+                    </strong>{" "}
+                    gesendet.
                   </AlertDescription>
                 ) : (
                   <AlertDescription maxWidth="2xl" mt={2}>

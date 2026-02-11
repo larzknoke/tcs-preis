@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import VerifyInvite from "@/email/VerifyInvite";
+import ConfirmInviteEmail from "@/email/ConfirmInviteEmail";
 import ErrorEmail from "@/email/ErrorEmail";
 import { sendEmail } from "@/lib/email";
 import { render } from "@react-email/render";
@@ -23,7 +23,13 @@ export default async function handle(req, res) {
       });
       data.kampagneId = kampagne ? kampagne.id : null;
 
-      const result = await prisma.invite.create({ data: data });
+      const result = await prisma.invite.create({
+        data: {
+          ...data,
+          verified: true,
+          verifyId: null,
+        },
+      });
 
       if (result.email) {
         // *** ZUSAGE ***
@@ -31,16 +37,20 @@ export default async function handle(req, res) {
           const dtstamp =
             new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
           const uid = `stiftungspreis@tc-stiftung.de`;
-          const icalContent = `BEGIN:VCALENDAR\nMETHOD:PUBLISH\nPRODID:-//Town & Country Stiftung//tcs-preis//EN\nVERSION:2.0\nBEGIN:VEVENT\nDESCRIPTION:Stiftungsgala des 12. Town & Country Stiftungspreises\nDTEND;TZID=Europe/Berlin:20260509T220000\nDTSTAMP:${dtstamp}\nDTSTART;TZID=Europe/Berlin:20260509T173000\nSEQUENCE:0\nSUMMARY:Stiftungsgala des 12. Town & Country Stiftungspreises\nUID:${uid}\nEND:VEVENT\nBEGIN:VTIMEZONE\nTZID:Europe/Berlin\nX-LIC-LOCATION:Europe/Berlin\nEND:VTIMEZONE\nEND:VCALENDAR`;
+          const icalContent = `BEGIN:VCALENDAR\nMETHOD:PUBLISH\nPRODID:-//Town & Country Stiftung//tcs-preis//EN\nVERSION:2.0\nBEGIN:VEVENT\nDESCRIPTION:Stiftungsgala zum 12. Town & Country Stiftungspreis in der Zentralheize Erfurt\nLOCATION:Zentralheize Erfurt\nDTEND;TZID=Europe/Berlin:20260509T230000\nDTSTAMP:${dtstamp}\nDTSTART;TZID=Europe/Berlin:20260509T173000\nSEQUENCE:0\nSUMMARY:Stiftungsgala zum 12. Town & Country Stiftungspreis in der Zentralheize Erfurt\nUID:${uid}\nEND:VEVENT\nBEGIN:VTIMEZONE\nTZID:Europe/Berlin\nX-LIC-LOCATION:Europe/Berlin\nEND:VTIMEZONE\nEND:VCALENDAR`;
 
           await sendEmail({
             to:
               process.env.NODE_ENV === "development"
                 ? ["info@larsknoke.com"]
                 : result.email,
+            bcc:
+              process.env.NODE_ENV === "development"
+                ? ""
+                : "stiftungspreis@tc-stiftung.de",
             subject:
-              "12. Town & Country Stiftungsgala – bitte bestätigen Sie Ihre Anmeldung",
-            html: render(<VerifyInvite invite={result} />),
+              "12. Town & Country Stiftungsgala – vielen Dank für Ihre Anmeldung",
+            html: render(<ConfirmInviteEmail invite={result} />),
             attachments: [
               {
                 filename: "stiftungsgala-2026.ics",
