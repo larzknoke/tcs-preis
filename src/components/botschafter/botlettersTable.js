@@ -15,6 +15,7 @@ import {
   AlertIcon,
   AlertDescription,
   VStack,
+  Select,
 } from "@chakra-ui/react";
 import {
   HiOutlineCheckCircle,
@@ -33,24 +34,94 @@ import {
 } from "react-icons/hi2";
 import Link from "next/link";
 import { Capatilizer, dateFormatter } from "@/lib/utils";
+import { useEffect, useMemo, useState } from "react";
 
 function BotlettersTable({ botschafter }) {
+  const letters = botschafter?.letters || [];
+  const [selectedKampagneId, setSelectedKampagneId] = useState(null);
+  const [sonderpreisTyp, setSonderpreisTyp] = useState("Alle");
+
+  const kampagnen = useMemo(() => {
+    const unique = new Map();
+    letters.forEach((l) => {
+      if (l.kampagne?.id) {
+        unique.set(l.kampagne.id, {
+          id: l.kampagne.id,
+          name: l.kampagne.name || `Kampagne ${l.kampagne.id}`,
+          createdAt: new Date(l.kampagne.createdAt),
+        });
+      }
+    });
+
+    return Array.from(unique.values()).sort(
+      (a, b) => b.createdAt - a.createdAt,
+    );
+  }, [letters]);
+
+  useEffect(() => {
+    if (kampagnen.length > 0 && selectedKampagneId === null) {
+      setSelectedKampagneId(kampagnen[0].id);
+    }
+  }, [kampagnen, selectedKampagneId]);
+
+  const filteredLetters = useMemo(() => {
+    let filtered = letters;
+
+    if (selectedKampagneId) {
+      filtered = filtered.filter((l) => l.kampagneId === selectedKampagneId);
+    }
+
+    if (sonderpreisTyp === "Sonderpreis") {
+      filtered = filtered.filter((l) => l.sonderpreis === true);
+    } else if (sonderpreisTyp === "Stiftungspreis") {
+      filtered = filtered.filter((l) => l.sonderpreis === false);
+    }
+
+    return filtered;
+  }, [letters, selectedKampagneId, sonderpreisTyp]);
+
   return (
     <Card>
       <CardHeader>
-        <Heading
-          size="sm"
-          color="gray.500"
-          fontWeight={"600"}
-          textTransform={"uppercase"}
-        >
-          Verknüpfte Projekte
-        </Heading>
+        <HStack justify="space-between" flexWrap="nowrap" gap={3}>
+          <Heading
+            size="sm"
+            color="gray.500"
+            fontWeight={"600"}
+            textTransform={"uppercase"}
+            whiteSpace={"nowrap"}
+          >
+            Verknüpfte Projekte
+          </Heading>
+          <HStack gap={3} flexWrap="wrap" justify="flex-end" w="100%">
+            <Select
+              placeholder="Alle Kampagnen"
+              value={selectedKampagneId}
+              onChange={(e) => setSelectedKampagneId(Number(e.target.value))}
+              maxW="330px"
+            >
+              {kampagnen.map((k) => (
+                <option key={k.id} value={k.id}>
+                  {k.name}
+                </option>
+              ))}
+            </Select>
+            <Select
+              value={sonderpreisTyp}
+              onChange={(e) => setSonderpreisTyp(e.target.value)}
+              maxW="200px"
+            >
+              <option value="Alle">Alle Preise</option>
+              <option value="Sonderpreis">Sonderpreis</option>
+              <option value="Stiftungspreis">Stiftungspreis</option>
+            </Select>
+          </HStack>
+        </HStack>
       </CardHeader>
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
-          {botschafter.letters.length > 0 ? (
-            botschafter.letters.map((letter) => {
+          {filteredLetters.length > 0 ? (
+            filteredLetters.map((letter) => {
               return (
                 <HStack justify={"space-between"} key={letter.id}>
                   <VStack alignItems={"self-start"} w={"100%"}>
@@ -185,6 +256,12 @@ function BotlettersTable({ botschafter }) {
                           Kampagne:{" "}
                         </Text>
                         <Text>{letter.kampagne.name || "-"}</Text>
+                      </HStack>
+                      <HStack color={"gray.400"} gap={1}>
+                        <Text as={"b"} color={"gray.500"}>
+                          Sonderpreis:{" "}
+                        </Text>
+                        <Text>{letter.sonderpreis ? "Ja" : "Nein"}</Text>
                       </HStack>
                     </VStack>
                   </VStack>
