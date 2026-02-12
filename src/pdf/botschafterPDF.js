@@ -137,9 +137,9 @@ export const BotschafterPDF = ({
               .filter(
                 (letter) =>
                   ["1111", "5000", "ausland1111", "ausland5000"].includes(
-                    letter.status
+                    letter.status,
                   ) &&
-                  (letter.botschafterConfirm || allLetter)
+                  (letter.botschafterConfirm || allLetter),
               )
               .map((letter) => {
                 return (
@@ -159,6 +159,12 @@ export const BotschafterPDF = ({
                       <Text style={{ fontWeight: 600 }}>
                         Bundesland:{" "}
                         {letter.bundeslandTraeger || letter.bundeslandProjekt}
+                      </Text>
+                    </View>
+                    <View style={styles.row}>
+                      <Text style={{ marginBottom: 5 }}>
+                        Kampagne: {letter.kampagne?.name || "-"} | Sonderpreis:{" "}
+                        {letter.sonderpreis ? "Ja" : "Nein"}
                       </Text>
                     </View>
                     <View style={styles.row}>

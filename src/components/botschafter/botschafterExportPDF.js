@@ -78,8 +78,8 @@ function BotschafterExportPDFModal({ onClose, onOpen, isOpen }) {
               bot={bot}
               zusatzAngaben={false}
               freitext={freitext}
-            />
-          ).toBlob()
+            />,
+          ).toBlob(),
         );
       });
 

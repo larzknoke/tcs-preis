@@ -30,8 +30,33 @@ function BotschafterExportSinglePDFModal({
   const router = useRouter();
   const toast = useToast();
   const [loading, setLoading] = useState(false);
+  const [kampagneSelect, setKampagneSelect] = useState([]);
+  const [kampagneSelected, setKampagneSelected] = useState(null);
   const [freitext, setFreitext] = useState("");
   const [allLetter, setAllLetter] = useState(false);
+
+  async function kampagneForSelect() {
+    const res = await fetch("/api/kampagne", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    const selectData = await data.map((kampagne) => {
+      return {
+        value: kampagne.id,
+        label: `${kampagne.name}`,
+      };
+    });
+    setKampagneSelect(selectData);
+    const firstOpen = data.find((kampagne) => !kampagne.abgeschlossen);
+    if (firstOpen) {
+      setKampagneSelected(firstOpen.id);
+    }
+  }
+
+  useEffect(() => {
+    if (isOpen) kampagneForSelect();
+  }, [isOpen]);
 
   async function onSubmit() {
     setLoading(true);
@@ -46,20 +71,30 @@ function BotschafterExportSinglePDFModal({
       isClosable: true,
     });
 
+    const botForExport = kampagneSelected
+      ? {
+          ...botschafter,
+          letters: (botschafter.letters || []).filter(
+            (letter) => letter.kampagneId === kampagneSelected,
+          ),
+        }
+      : botschafter;
+
     const blob = await pdf(
       <BotschafterPDF
-        bot={botschafter}
+        bot={botForExport}
         zusatzAngaben={false}
         allLetter={allLetter}
         freitext={freitext}
-      />
+      />,
     ).toBlob();
     saveAs(
       blob,
-      `Botschafter_${botschafter.vorname}_${botschafter.name}_${botschafter.id}.pdf`
+      `Botschafter_${botschafter.vorname}_${botschafter.name}_${botschafter.id}.pdf`,
     );
     setFreitext("");
     setAllLetter(false);
+    setKampagneSelected(null);
   }
 
   return (
@@ -70,6 +105,19 @@ function BotschafterExportSinglePDFModal({
         <ModalCloseButton />
         <ModalBody>
           <VStack spacing={6} my={4}>
+            <FormControl>
+              <FormLabel>Kampagne</FormLabel>
+              <Select
+                name="kampagne"
+                options={kampagneSelect}
+                placeholder="Kampagne auswählen..."
+                closeMenuOnSelect={true}
+                onChange={(e) => setKampagneSelected(e.value)}
+                value={kampagneSelect.find(
+                  (option) => option.value === kampagneSelected,
+                )}
+              />
+            </FormControl>
             <FormControl>
               <FormLabel>Freitext</FormLabel>
               <Textarea
