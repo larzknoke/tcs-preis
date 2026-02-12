@@ -5,14 +5,30 @@ export default async function handle(req, res) {
 
   if (req.method == "POST") {
     try {
+      const kampagneId = req.body.kampagneId
+        ? parseInt(req.body.kampagneId, 10)
+        : null;
+      const lettersWhere = {
+        verified: true,
+        ...(kampagneId ? { kampagneId: kampagneId } : {}),
+      };
+
       const result = await prisma.botschafter.findMany({
-        where: {
-          letters: {
-            some: { kampagneId: req.body.kampagneId, verified: true },
-          },
-        },
+        where: kampagneId
+          ? {
+              letters: {
+                some: lettersWhere,
+              },
+            }
+          : undefined,
         include: {
-          letters: true,
+          letters: {
+            where: lettersWhere,
+            include: {
+              kampagne: true,
+              lettercontacts: true,
+            },
+          },
           botcontacts: true,
         },
       });
