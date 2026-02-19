@@ -1,4 +1,3 @@
-import TeaserText from "@/components/teaser-text";
 import {
   Container,
   VStack,
@@ -11,6 +10,8 @@ import {
   Stack,
   Checkbox,
   useToast,
+  Card,
+  CardBody,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { PasswordField } from "@/components/passwordField";
@@ -73,44 +74,40 @@ export default function Login() {
             height={24}
             priority
           />
-          <Box
-            py={{ base: "0", sm: "8" }}
-            px={{ base: "4", sm: "10" }}
-            bg={{ base: "transparent", sm: "bg.surface" }}
-            boxShadow={{ base: "none", sm: "md" }}
-            borderRadius={{ base: "none", sm: "xl" }}
-          >
-            <form onSubmit={handleSubmit}>
-              <Stack spacing="6">
-                <Stack spacing="5">
-                  <FormControl isRequired>
-                    <FormLabel htmlFor="email">Email</FormLabel>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </FormControl>
-                  <PasswordField
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </Stack>
-                <HStack justify="space-between">
-                  <Checkbox defaultChecked size={"sm"}>
-                    Anmeldung merken
-                  </Checkbox>
-                  <Link href="/auth/forgot">Password vergessen?</Link>
-                </HStack>
+          <Card p={{ base: 2, md: 4 }}>
+            <CardBody>
+              <form onSubmit={handleSubmit}>
                 <Stack spacing="6">
-                  <Button type="submit" isLoading={isLoading}>
-                    Anmelden
-                  </Button>
+                  <Stack spacing="5">
+                    <FormControl isRequired>
+                      <FormLabel htmlFor="email">Email</FormLabel>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </FormControl>
+                    <PasswordField
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </Stack>
+                  <HStack justify="space-between">
+                    <Checkbox defaultChecked size={"sm"}>
+                      Anmeldung merken
+                    </Checkbox>
+                    <Link href="/auth/forgot">Password vergessen?</Link>
+                  </HStack>
+                  <Stack spacing="6">
+                    <Button type="submit" isLoading={isLoading}>
+                      Anmelden
+                    </Button>
+                  </Stack>
                 </Stack>
-              </Stack>
-            </form>
-          </Box>
+              </form>
+            </CardBody>
+          </Card>
         </VStack>
       </Container>
     </main>

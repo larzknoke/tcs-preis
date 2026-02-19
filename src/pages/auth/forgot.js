@@ -11,6 +11,9 @@ import {
   VStack,
   HStack,
   Image,
+  Card,
+  CardBody,
+  Container,
   Link as ChakraLink,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
@@ -46,19 +49,8 @@ export default function ForgotPage() {
   }
 
   return (
-    <Stack
-      // minH={"100vh"}
-      justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
-    >
-      <Stack
-        spacing={8}
-        mx={"auto"}
-        w={{ base: "full", md: "lg" }}
-        maxW={"lg"}
-        py={12}
-        px={6}
-      >
+    <Container display={"flex"} flexDirection={"column"} maxWidth={"6xl"}>
+      <Stack spacing={8} mx={"auto"}>
         <Stack align={"center"}>
           <Image
             src="/tcs_logo.svg"
@@ -74,59 +66,56 @@ export default function ForgotPage() {
             Zurücksetzen.
           </Text>
         </Stack>
-        <Box
-          rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
-          boxShadow={"lg"}
-          p={8}
-        >
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <VStack spacing={4}>
-              <FormControl id="email" isRequired>
-                <FormLabel>E-Mail</FormLabel>
-                <Input type="email" {...register("email")}></Input>
-              </FormControl>
-              {status && (
-                <Text textAlign={"center"} fontWeight={"bold"}>
-                  {status}
-                </Text>
-              )}
-
-              <Stack spacing={6} pt={4} w="full">
-                <Button
-                  colorScheme="white"
-                  isLoading={isSubmitting}
-                  type="submit"
-                  bg={"brand.900"}
-                  _hover={{ bg: "brand.800" }}
-                  w={"full"}
-                >
-                  Reset-Link anfordern
-                </Button>
-                <Text
-                  as={NextLink}
-                  href="/login"
-                  color={"gray.900"}
-                  textAlign={"center"}
-                  w={"full"}
-                >
-                  Zurück zum Login
-                </Text>
-                {resetUrl && (
-                  <Box>
-                    <Text fontSize="sm">
-                      DEV Reset-URL (nur in Entwicklung sichtbar):
-                    </Text>
-                    <Text fontSize="xs" wordBreak="break-all">
-                      {resetUrl}
-                    </Text>
-                  </Box>
+        <Card p={{ base: 2, md: 8 }}>
+          <CardBody>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <VStack spacing={4}>
+                <FormControl id="email" isRequired>
+                  <FormLabel>E-Mail</FormLabel>
+                  <Input type="email" {...register("email")}></Input>
+                </FormControl>
+                {status && (
+                  <Text textAlign={"center"} fontWeight={"bold"}>
+                    {status}
+                  </Text>
                 )}
-              </Stack>
-            </VStack>
-          </form>
-        </Box>
+
+                <Stack spacing={6} pt={4} w="full">
+                  <Button
+                    colorScheme="white"
+                    isLoading={isSubmitting}
+                    type="submit"
+                    bg={"brand.900"}
+                    _hover={{ bg: "brand.800" }}
+                    w={"full"}
+                  >
+                    Reset-Link anfordern
+                  </Button>
+                  <Text
+                    as={NextLink}
+                    href="/login"
+                    color={"gray.900"}
+                    textAlign={"center"}
+                    w={"full"}
+                  >
+                    Zurück zum Login
+                  </Text>
+                  {resetUrl && (
+                    <Box>
+                      <Text fontSize="sm">
+                        DEV Reset-URL (nur in Entwicklung sichtbar):
+                      </Text>
+                      <Text fontSize="xs" wordBreak="break-all">
+                        {resetUrl}
+                      </Text>
+                    </Box>
+                  )}
+                </Stack>
+              </VStack>
+            </form>
+          </CardBody>
+        </Card>
       </Stack>
-    </Stack>
+    </Container>
   );
 }
