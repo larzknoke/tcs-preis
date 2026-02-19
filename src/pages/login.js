@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { PasswordField } from "@/components/passwordField";
+import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -100,9 +101,7 @@ export default function Login() {
                   <Checkbox defaultChecked size={"sm"}>
                     Anmeldung merken
                   </Checkbox>
-                  <Button variant="text" size="sm">
-                    Passwort vergessen?
-                  </Button>
+                  <Link href="/auth/forgot">Password vergessen?</Link>
                 </HStack>
                 <Stack spacing="6">
                   <Button type="submit" isLoading={isLoading}>

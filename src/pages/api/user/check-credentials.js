@@ -3,24 +3,16 @@ import sha256 from "crypto-js/sha256";
 import { omit } from "lodash";
 
 export default async function handle(req, res) {
-  if (req.method === "POST") {
-    await handlePOST(res, req);
-  } else {
-    throw new Error(
-      `The HTTP ${req.method} method is not supported at this route.`,
-    );
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return res
+      .status(405)
+      .end(`The HTTP ${req.method} method is not supported at this route.`);
   }
-}
 
-const hashPassword = (password) => {
-  return sha256(password).toString();
-};
-
-// POST /api/user
-async function handlePOST(res, req) {
   try {
     const user = await prisma.user.findUnique({
-      where: { email: req.body.email },
+      where: { email: req.body?.email },
       select: {
         id: true,
         name: true,
@@ -29,12 +21,18 @@ async function handlePOST(res, req) {
         password: true,
       },
     });
-    if (user && user.password == hashPassword(req.body.password)) {
+
+    const hashPassword = (password) => sha256(password).toString();
+
+    if (user && user.password === hashPassword(req.body?.password)) {
       console.log("user: ", user);
-      res.json(omit(user, "password"));
+      return res.json(omit(user, "password"));
     }
+
+    // Always send a response for invalid credentials to avoid request hang
+    return res.status(401).json({ error: "Invalid credentials" });
   } catch (error) {
     console.log("error: ", error);
-    res.status(400).end("Invalid credentials");
+    return res.status(500).json({ error: "Server error" });
   }
 }

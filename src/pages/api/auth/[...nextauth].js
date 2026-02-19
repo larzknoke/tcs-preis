@@ -25,29 +25,36 @@ export const authOptions = {
       },
       authorize: async (credentials, req) => {
         console.log("credentials: ", credentials);
-        const user = await fetch(
-          `${process.env.NEXTAUTH_URL}/api/user/check-credentials`,
-          {
+        try {
+          const url = `${process.env.NEXTAUTH_URL || "http://localhost:3000"}/api/user/check-credentials`;
+          const body = new URLSearchParams();
+          body.append("email", credentials?.email || "");
+          body.append("password", credentials?.password || "");
+
+          const res = await fetch(url, {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
               accept: "application/json",
             },
-            body: Object.entries(credentials)
-              .map((e) => e.join("="))
-              .join("&"),
-          },
-        )
-          .then((res) => res.json())
-          .catch((err) => {
-            return null;
+            body: body.toString(),
           });
 
-        if (user) {
-          console.log("user: ", user);
-          return user;
-        } else {
-          console.log("no user");
+          if (!res.ok) {
+            const errBody = await res.json().catch(() => null);
+            console.log("auth failed", res.status, errBody);
+            return null;
+          }
+
+          const user = await res.json();
+          if (user && !user.error) {
+            console.log("user: ", user);
+            return user;
+          }
+          console.log("no user", user);
+          return null;
+        } catch (err) {
+          console.log("auth error: ", err);
           return null;
         }
       },
