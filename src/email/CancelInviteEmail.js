@@ -12,6 +12,26 @@ import {
 } from "@react-email/components";
 
 export default function CancelInviteEmail({ invite }) {
+  const hasSpende =
+    invite?.spende === true ||
+    invite?.spende === "true" ||
+    invite?.spende === "ja" ||
+    invite?.spende === "1";
+  const begleitungName = [
+    invite?.begleitungTitel,
+    invite?.begleitungVorname,
+    invite?.begleitungName,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .trim();
+  const hasBegleitung =
+    invite?.begleitung === "ja" ||
+    invite?.begleitung === true ||
+    invite?.begleitung === "true" ||
+    invite?.begleitung === "1" ||
+    Boolean(begleitungName);
+
   return (
     <Html>
       <Head />
@@ -51,7 +71,7 @@ export default function CancelInviteEmail({ invite }) {
               {invite.teilnahme ? "Ja" : "Nein"}
               <br />
               <strong>Spende: </strong>
-              {invite.spende ? (
+              {hasSpende ? (
                 <span>
                   Ich/wir leiste/n eine Spende in Höhe von{" "}
                   {invite.spendeBetrag || "-"} €<br />
@@ -77,8 +97,14 @@ export default function CancelInviteEmail({ invite }) {
               {invite.telefon || "-"}
               <br />
               <strong>Begleitung: </strong>
-              {invite.begleitungTitel || "-"} {invite.begleitungVorname || "-"}{" "}
-              {invite.begleitungName || "-"}{" "}
+              {hasBegleitung ? "Ja" : "Nein"}
+              <br />
+              {hasBegleitung && (
+                <>
+                  <strong>Begleitperson: </strong>
+                  {begleitungName || "-"}
+                </>
+              )}
             </Text>
           </Section>
 

@@ -46,18 +46,47 @@ function ProjektEditModal({ onClose, isOpen, letter }) {
           value: letter?.bundeslandProjekt,
           label: letter?.bundeslandProjekt,
         }
-      : ""
+      : "",
   );
 
   async function onSubmit(values) {
-    delete values.lettercontacts;
     try {
+      const payload = {
+        id: letter.id,
+        expectedUpdatedAt: letter.updatedAt,
+        organisationProjekt: values.organisationProjekt || null,
+        nameProjekt: values.nameProjekt || null,
+        ansprechpartnerProjekt: values.ansprechpartnerProjekt || null,
+        emailProjekt: values.emailProjekt || null,
+        wwwProjekt: values.wwwProjekt || null,
+        telefonnummerProjekt: values.telefonnummerProjekt || null,
+        mobilProjekt: values.mobilProjekt || null,
+        strasseProjekt: values.strasseProjekt || null,
+        plzProjekt: values.plzProjekt || null,
+        ortProjekt: values.ortProjekt || null,
+        bundeslandProjekt: values.bundeslandProjekt || null,
+      };
+
       setLoading(true);
       const res = await fetch("/api/letter", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       });
+
+      if (res.status == 409) {
+        toast({
+          title: "Konflikt erkannt",
+          description:
+            "Die Bewerbung wurde parallel geaendert. Bitte Seite neu laden und erneut speichern.",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+        });
+        setLoading(false);
+        return;
+      }
+
       if (res.status != 200) {
         toast({
           title: "Ein Fehler ist aufgetreten",
@@ -75,7 +104,7 @@ function ProjektEditModal({ onClose, isOpen, letter }) {
           isClosable: true,
         });
         onClose();
-        router.push(`/admin/bewerbung/${resData.id}`);
+        router.replace(router.asPath);
         setLoading(false);
         reset(resData);
       }
@@ -89,6 +118,7 @@ function ProjektEditModal({ onClose, isOpen, letter }) {
         duration: 4000,
         isClosable: true,
       });
+      setLoading(false);
     }
   }
 

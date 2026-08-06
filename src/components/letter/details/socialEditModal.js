@@ -46,21 +46,42 @@ function SocialEditModal({ onClose, isOpen, letter }) {
   });
 
   const [dateSocialTCS, setDateSocialTCS] = useState(
-    letter.socialTCS || undefined
+    letter.socialTCS || undefined,
   );
   const [dateSocialFremd, setDateSocialFremd] = useState(
-    letter.socialFremd || undefined
+    letter.socialFremd || undefined,
   );
 
   async function onSubmit(values) {
-    delete values.lettercontacts;
     try {
+      const payload = {
+        id: letter.id,
+        expectedUpdatedAt: letter.updatedAt,
+        socialTCS: values.socialTCS || null,
+        socialFremd: values.socialFremd || null,
+        socialNotiz: values.socialNotiz || null,
+      };
+
       setLoading(true);
       const res = await fetch("/api/letter", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       });
+
+      if (res.status == 409) {
+        toast({
+          title: "Konflikt erkannt",
+          description:
+            "Die Bewerbung wurde parallel geaendert. Bitte Seite neu laden und erneut speichern.",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+        });
+        setLoading(false);
+        return;
+      }
+
       if (res.status != 200) {
         toast({
           title: "Ein Fehler ist aufgetreten",
@@ -78,7 +99,7 @@ function SocialEditModal({ onClose, isOpen, letter }) {
           isClosable: true,
         });
         onClose();
-        router.push(`/admin/bewerbung/${resData.id}`);
+        router.replace(router.asPath);
         setLoading(false);
         reset(resData);
       }
@@ -92,6 +113,7 @@ function SocialEditModal({ onClose, isOpen, letter }) {
         duration: 4000,
         isClosable: true,
       });
+      setLoading(false);
     }
   }
 
@@ -102,7 +124,7 @@ function SocialEditModal({ onClose, isOpen, letter }) {
         <ModalHeader>Social Media bearbeiten</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <form id="edit-beschreibung-form" onSubmit={handleSubmit(onSubmit)}>
+          <form id="edit-social-form" onSubmit={handleSubmit(onSubmit)}>
             <SimpleGrid spacing={6} columns={4} w={"full"}>
               <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.socialTCS}>
@@ -223,7 +245,7 @@ function SocialEditModal({ onClose, isOpen, letter }) {
             size={"md"}
             variant="outline"
             colorScheme="green"
-            form="edit-beschreibung-form"
+            form="edit-social-form"
             type="submit"
             isLoading={loading}
           >

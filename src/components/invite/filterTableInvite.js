@@ -86,6 +86,27 @@ import InviteDeleteModal from "./inviteDeleteModal";
 //   return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir
 // }
 
+function hasInviteSpende(invite) {
+  return (
+    invite?.spende === true ||
+    invite?.spende === "true" ||
+    invite?.spende === "ja" ||
+    invite?.spende === "1"
+  );
+}
+
+function hasInviteBegleitung(invite) {
+  return (
+    invite?.begleitung === "ja" ||
+    invite?.begleitung === true ||
+    invite?.begleitung === "true" ||
+    invite?.begleitung === "1" ||
+    Boolean(invite?.begleitungTitel) ||
+    Boolean(invite?.begleitungVorname) ||
+    Boolean(invite?.begleitungName)
+  );
+}
+
 function FilterTableInvite({ invites }) {
   const toast = useToast();
   const [inviteID, setInviteID] = React.useState();
@@ -117,7 +138,7 @@ function FilterTableInvite({ invites }) {
       }
     });
     return Array.from(unique.values()).sort(
-      (a, b) => b.createdAt - a.createdAt
+      (a, b) => b.createdAt - a.createdAt,
     );
   }, [invites]);
 
@@ -155,9 +176,17 @@ function FilterTableInvite({ invites }) {
           return { [cell.getContext().column.id]: cell.getValue() ? "1" : "0" };
         } else if (cell.getContext().column.id == "verified") {
           return { [cell.getContext().column.id]: cell.getValue() ? "1" : "0" };
+        } else if (cell.getContext().column.id == "spende") {
+          return {
+            [cell.getContext().column.id]: hasInviteSpende(row.original)
+              ? "1"
+              : "0",
+          };
         } else if (cell.getContext().column.id == "begleitung") {
           return {
-            [cell.getContext().column.id]: cell.getValue() == "ja" ? "1" : "0",
+            [cell.getContext().column.id]: hasInviteBegleitung(row.original)
+              ? "1"
+              : "0",
           };
         } else if (cell.getContext().column.id == "begleitungName") {
           return {
@@ -282,7 +311,7 @@ function FilterTableInvite({ invites }) {
         footer: (props) => props.column.id,
         cell: ({ info, row }) => (
           <span>
-            {row.original.spende ? (
+            {hasInviteSpende(row.original) ? (
               <Icon as={HiOutlineCheck} color={"green.700"} />
             ) : (
               <Icon as={HiOutlineNoSymbol} color={"red.500"} />
@@ -301,7 +330,7 @@ function FilterTableInvite({ invites }) {
         footer: (props) => props.column.id,
         cell: ({ info, row }) => (
           <span>
-            {row.original.begleitung == "ja" ? (
+            {hasInviteBegleitung(row.original) ? (
               <Icon as={HiOutlineCheck} color={"green.700"} />
             ) : (
               <Icon as={HiOutlineNoSymbol} color={"red.500"} />
@@ -342,7 +371,7 @@ function FilterTableInvite({ invites }) {
         header: "",
       }),
     ],
-    []
+    [],
   );
 
   const table = useReactTable({
@@ -413,11 +442,15 @@ function FilterTableInvite({ invites }) {
               <Tr>
                 <Td>Bestätige Teilnahme</Td>
                 <Td isNumeric>
-                  {tableData.filter((i) => i.teilnahme && i.verified).length}{" "}
+                  {
+                    tableData.filter((i) => i.teilnahme && i.verified).length
+                  }{" "}
                 </Td>
                 <Td isNumeric>
                   <chakra.span color="gray.400">
-                    ({tableData.filter((i) => i.teilnahme && !i.verified).length}){" "}
+                    (
+                    {tableData.filter((i) => i.teilnahme && !i.verified).length}
+                    ){" "}
                   </chakra.span>
                 </Td>
                 <Td>zzgl. Begleitungen</Td>
@@ -427,7 +460,9 @@ function FilterTableInvite({ invites }) {
               </Tr>
               <Tr>
                 <Td>Absagen</Td>
-                <Td isNumeric>{tableData.filter((i) => !i.teilnahme).length}</Td>
+                <Td isNumeric>
+                  {tableData.filter((i) => !i.teilnahme).length}
+                </Td>
                 <Td></Td>
                 <Td></Td>
               </Tr>
@@ -534,7 +569,7 @@ function FilterTableInvite({ invites }) {
                               >
                                 {flexRender(
                                   header.column.columnDef.header,
-                                  header.getContext()
+                                  header.getContext(),
                                 )}
                                 {{
                                   asc: (
@@ -581,7 +616,7 @@ function FilterTableInvite({ invites }) {
                           >
                             {flexRender(
                               cell.column.columnDef.cell,
-                              cell.getContext()
+                              cell.getContext(),
                             )}
                           </Td>
                         );
@@ -669,7 +704,7 @@ function Filter({ column, table }) {
       typeof firstValue === "number"
         ? []
         : Array.from(column.getFacetedUniqueValues().keys()).sort(),
-    [column.getFacetedUniqueValues()]
+    [column.getFacetedUniqueValues()],
   );
 
   switch (column.id) {

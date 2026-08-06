@@ -69,6 +69,7 @@ import {
 import { TableContainer } from "@chakra-ui/react";
 import { dateFormatter } from "@/lib/utils";
 import fuzzyFilter from "@/lib/fuzzyFilter";
+import { rankItem, compareItems } from "@tanstack/match-sorter-utils";
 
 // const fuzzySort= (rowA, rowB, columnId) => {
 //   let dir = 0
@@ -114,7 +115,7 @@ function FilterTable({ letters }) {
     });
 
     return Array.from(unique.values()).sort(
-      (a, b) => b.createdAt - a.createdAt // neueste zuerst
+      (a, b) => b.createdAt - a.createdAt, // neueste zuerst
     );
   }, [letters]);
 
@@ -436,11 +437,69 @@ function FilterTable({ letters }) {
         footer: (props) => props.column.id,
       },
     ],
-    []
+    [],
   );
 
+  const columnAccessorKeys = useMemo(
+    () => columns.map((column) => column.accessorKey).filter(Boolean),
+    [columns],
+  );
+
+  const rankedTableData = useMemo(() => {
+    const query = globalFilter?.trim();
+
+    if (!query) {
+      return tableData;
+    }
+
+    const getValueByAccessor = (row, accessorKey) => {
+      return accessorKey
+        .split(".")
+        .reduce((acc, segment) => acc?.[segment], row);
+    };
+
+    const getBestRank = (row) => {
+      let bestRank = null;
+
+      columnAccessorKeys.forEach((accessorKey) => {
+        const rawValue = getValueByAccessor(row, accessorKey);
+
+        if (rawValue === null || rawValue === undefined || rawValue === "") {
+          return;
+        }
+
+        const itemRank = rankItem(String(rawValue), query);
+
+        if (!bestRank || compareItems(itemRank, bestRank) < 0) {
+          bestRank = itemRank;
+        }
+      });
+
+      return bestRank;
+    };
+
+    return [...tableData].sort((rowA, rowB) => {
+      const rankA = getBestRank(rowA);
+      const rankB = getBestRank(rowB);
+
+      if (rankA && rankB) {
+        const rankDirection = compareItems(rankA, rankB);
+        if (rankDirection !== 0) {
+          return rankDirection;
+        }
+      } else if (rankA && !rankB) {
+        return -1;
+      } else if (!rankA && rankB) {
+        return 1;
+      }
+
+      // Stable fallback so equal ranks are deterministic.
+      return new Date(rowB.createdAt) - new Date(rowA.createdAt);
+    });
+  }, [tableData, globalFilter, columnAccessorKeys]);
+
   const table = useReactTable({
-    data: tableData,
+    data: rankedTableData,
     columns,
     filterFns: {
       fuzzy: fuzzyFilter,
@@ -466,6 +525,10 @@ function FilterTable({ letters }) {
     debugHeaders: false,
     debugColumns: false,
   });
+
+  useEffect(() => {
+    table.setPageIndex(0);
+  }, [globalFilter, columnFilters, selectedKampagneId, sonderpreisTyp, table]);
 
   return (
     <>
@@ -599,7 +662,7 @@ function FilterTable({ letters }) {
                                 >
                                   {flexRender(
                                     header.column.columnDef.header,
-                                    header.getContext()
+                                    header.getContext(),
                                   )}
                                   {{
                                     asc: (
@@ -646,7 +709,7 @@ function FilterTable({ letters }) {
                             >
                               {flexRender(
                                 cell.column.columnDef.cell,
-                                cell.getContext()
+                                cell.getContext(),
                               )}
                             </Td>
                           );
@@ -729,7 +792,7 @@ function Filter({ column, table }) {
       typeof firstValue === "number"
         ? []
         : Array.from(column.getFacetedUniqueValues().keys()).sort(),
-    [column.getFacetedUniqueValues()]
+    [column.getFacetedUniqueValues()],
   );
 
   switch (column.id) {
