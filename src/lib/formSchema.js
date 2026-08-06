@@ -99,10 +99,11 @@ export function createFormSchema({ isSonderpreis = false } = {}) {
       wwwProjekt: yup.string(),
       ibanProjekt: yup
         .string()
-        .matches(/^DE[0-9]{20}$/gm, "Bitte eine gültige IBAN eingeben")
         .transform((value) => {
-          return value.replaceAll(" ", "");
+          if (typeof value !== "string") return value;
+          return value.toUpperCase().replace(/\s+/g, "");
         })
+        .matches(/^DE[0-9]{20}$/, "Bitte eine gültige IBAN eingeben")
         .required(),
       kontoNameProjekt: yup.string().required(),
       bankNameProjekt: yup.string().required(),

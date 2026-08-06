@@ -45,6 +45,148 @@ const steps = [
   },
 ];
 
+const fieldStepMap = {
+  andereLizenzpartner: 0,
+  nameTraeger: 0,
+  vorstandTraeger: 0,
+  strasseTraeger: 0,
+  plzTraeger: 0,
+  ortTraeger: 0,
+  bundeslandTraeger: 0,
+  vereinTraeger: 0,
+  freistellungsbescheidTraeger: 0,
+  freistellungsbescheidTraeger2: 0,
+  organisationProjekt: 1,
+  nameProjekt: 1,
+  ansprechpartnerProjekt: 1,
+  telefonnummerProjekt: 1,
+  mobilProjekt: 1,
+  emailProjekt: 1,
+  emailBestaetigungProjekt: 1,
+  wwwProjekt: 1,
+  ibanProjekt: 1,
+  kontoNameProjekt: 1,
+  bankNameProjekt: 1,
+  strasseProjekt: 1,
+  plzProjekt: 1,
+  ortProjekt: 1,
+  bundeslandProjekt: 1,
+  wannProjekt: 1,
+  mitarbeiterProjekt: 1,
+  hauptamtlichAnzahl: 1,
+  hauptamtlichStunden: 1,
+  ehrenamtlichAnzahl: 1,
+  ehrenamtlichStunden: 1,
+  beschreibungProjekt: 1,
+  zielsetzungProjekt: 1,
+  benachteiligungProjekt: 1,
+  umsetzungProjekt: 1,
+  bisherigeErgebnisse: 1,
+  aufmerksamkeit: 1,
+  eigenmittel: 2,
+  oeffentlicheZuwendungen: 2,
+  privateSpenden: 2,
+  zuwendungAndere: 2,
+  bisherigeFoerderung: 2,
+  customFile: 2,
+  customFile2: 2,
+  checkScheck: 3,
+  checkDatenschutzBilder: 3,
+  checkDatenschutzerklaerung: 3,
+  checkTeilnahmebedingungen: 3,
+  checkWahrheit: 3,
+};
+
+const fieldLabelMap = {
+  andereLizenzpartner: "Kontakt mit Stiftungsbotschafter",
+  nameTraeger: "Name und Rechtsform des Trägers",
+  vorstandTraeger: "Name des Vorstands/Geschäftsführers",
+  strasseTraeger: "Straße und Hausnummer (Träger)",
+  plzTraeger: "PLZ (Traeger)",
+  ortTraeger: "Ort (Träger)",
+  bundeslandTraeger: "Bundesland (Träger)",
+  vereinTraeger: "Gemeinnützig anerkannt",
+  freistellungsbescheidTraeger: "Freistellungsbescheid",
+  freistellungsbescheidTraeger2: "Freistellungsbescheid 2",
+  organisationProjekt: "Organisation/Einrichtung",
+  nameProjekt: "Name des Projektes",
+  ansprechpartnerProjekt: "Ansprechpartner",
+  telefonnummerProjekt: "Telefonnummer",
+  mobilProjekt: "Mobilfunknummer",
+  emailProjekt: "E-Mail",
+  emailBestaetigungProjekt: "E-Mail-Bestätigung",
+  wwwProjekt: "Website/Facebook/Instagram",
+  ibanProjekt: "IBAN",
+  kontoNameProjekt: "Kontoinhaber",
+  bankNameProjekt: "Bank/Kreditinstitut",
+  strasseProjekt: "Straße und Hausnummer (Projektadresse)",
+  plzProjekt: "PLZ (Projektadresse)",
+  ortProjekt: "Ort (Projektadresse)",
+  bundeslandProjekt: "Bundesland (Projektadresse)",
+  wannProjekt: "Seit wann besteht das Projekt?",
+  mitarbeiterProjekt: "Mitarbeiter am Projekt",
+  hauptamtlichAnzahl: "Hauptamtlich tätig",
+  hauptamtlichStunden: "Gesamtstunden pro Woche (hauptamtlich)",
+  ehrenamtlichAnzahl: "Ehrenamtlich tätig",
+  ehrenamtlichStunden: "Gesamtstunden pro Woche (ehrenamtlich)",
+  beschreibungProjekt: "Projektbeschreibung",
+  zielsetzungProjekt: "Zielsetzung des Projektes",
+  benachteiligungProjekt: "Benachteiligung",
+  umsetzungProjekt: "Projektumsetzung",
+  bisherigeErgebnisse: "Bisherige Ergebnisse",
+  aufmerksamkeit: "Wie seid Ihr auf den Stiftungspreis aufmerksam geworden?",
+  eigenmittel: "Eigenmittel",
+  oeffentlicheZuwendungen: "Öffentliche Zuwendungen",
+  privateSpenden: "Private Spenden",
+  zuwendungAndere: "Zuwendungen durch andere Organisationen",
+  bisherigeFoerderung: "Bisherige Förderung",
+  customFile: "Weitere Datei 1",
+  customFile2: "Weitere Datei 2",
+  checkScheck: "Einverständnis Scheckübergabe",
+  checkDatenschutzBilder: "Einverstaendnis Foto/Film/Ton",
+  checkDatenschutzerklaerung: "Datenschutzerklärung",
+  checkTeilnahmebedingungen: "Teilnahmebedingungen",
+  checkWahrheit: "Bestätigung der Richtigkeit",
+};
+
+function getFirstErrorField(errors) {
+  return Object.keys(errors || {})[0];
+}
+
+function getFirstErrorMessage(errors) {
+  const firstField = getFirstErrorField(errors);
+  if (!firstField) return null;
+  const firstError = errors[firstField];
+  if (!firstError) return null;
+  return firstError.message || null;
+}
+
+function getErrorEntries(errors) {
+  const entries = Object.entries(errors || {})
+    .map(([field, entry]) => {
+      const message = entry?.message;
+      if (typeof message !== "string" || message.trim().length === 0) {
+        return null;
+      }
+      return {
+        field,
+        label: fieldLabelMap[field] || field,
+        message,
+      };
+    })
+    .filter(Boolean);
+
+  const seen = new Set();
+  const deduped = entries.filter((entry) => {
+    const key = `${entry.field}::${entry.message}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  return deduped;
+}
+
 function NewLetter() {
   // const toast = useToast();
   const { nextStep, prevStep, reset, activeStep, setStep } = useSteps({
@@ -70,6 +212,15 @@ function NewLetter() {
   });
 
   const { watch, setValue } = methods;
+  const errorEntries = getErrorEntries(methods.formState.errors);
+
+  const moveToErrorStep = (fieldName) => {
+    const step = fieldStepMap[fieldName];
+    if (typeof step === "number") {
+      setStep(step);
+      topScroller();
+    }
+  };
 
   useFormPersist("bewerbungs-daten", {
     watch,
@@ -103,6 +254,7 @@ function NewLetter() {
 
     delete values.emailBestaetigungProjekt;
     try {
+      let submittedSuccessfully = false;
       // ***********
       // COLLECT ALL FILES FROM FORM AND PREPARE FOR UPLOAD
       // ***********
@@ -144,10 +296,37 @@ function NewLetter() {
           body: JSON.stringify(values),
         });
         if (resLetter.status != 200) {
-          const error = await resLetter.json();
+          let error = {};
+          try {
+            error = await resLetter.json();
+          } catch (_e) {
+            error = {};
+          }
           console.log("error", error);
-          if (error.msg) {
-            setErrorMsg(error.msg);
+
+          if (error.fieldErrors && typeof error.fieldErrors === "object") {
+            Object.entries(error.fieldErrors).forEach(([name, message]) => {
+              methods.setError(name, {
+                type: "server",
+                message,
+              });
+            });
+
+            const firstField = getFirstErrorField(error.fieldErrors);
+            if (firstField) {
+              moveToErrorStep(firstField);
+            }
+
+            const firstServerErrorMessage = error.fieldErrors[firstField];
+            if (firstServerErrorMessage) {
+              setErrorMsg(firstServerErrorMessage);
+            }
+          }
+
+          if (!error.fieldErrors) {
+            setErrorMsg(
+              error.msg || error.message || "Ein Fehler ist aufgetreten.",
+            );
           }
           setFormError(true);
         } else {
@@ -195,12 +374,7 @@ function NewLetter() {
                 body: JSON.stringify(formData),
               });
               if (res.status != 200) {
-                toast({
-                  title: "Ein Fehler ist beim Upload aufgetreten",
-                  status: "error",
-                  duration: 4000,
-                  isClosable: true,
-                });
+                console.log("Datei-Metadaten konnten nicht gespeichert werden");
               } else {
                 const resFile = await res.json();
               }
@@ -215,12 +389,38 @@ function NewLetter() {
           }
           methods.reset();
           setFormSuccess(true);
+          submittedSuccessfully = true;
         }
       }
-      nextStep();
+
+      if (!isLastStep) {
+        nextStep();
+      }
+
+      if (isLastStep && submittedSuccessfully) {
+        nextStep();
+      }
     } catch (error) {
       console.log("api fetch error");
       console.error("ErrorNewLetter:", error);
+      setFormError(true);
+      setErrorMsg(
+        "Ein technischer Fehler ist aufgetreten. Bitte erneut versuchen.",
+      );
+    }
+  }
+
+  function onInvalid(errors) {
+    setFormSuccess(false);
+    setFormError(true);
+    const firstErrorMessage = getFirstErrorMessage(errors);
+    setErrorMsg(
+      firstErrorMessage || "Einige Felder sind nicht korrekt ausgefüllt.",
+    );
+
+    const firstField = getFirstErrorField(errors);
+    if (firstField) {
+      moveToErrorStep(firstField);
     }
   }
 
@@ -255,7 +455,7 @@ function NewLetter() {
           <FormProvider {...methods}>
             <form
               id="new-letter-form"
-              onSubmit={methods.handleSubmit(onSubmit)}
+              onSubmit={methods.handleSubmit(onSubmit, onInvalid)}
             >
               <Flex flexDir="column" width="100%">
                 <Steps
@@ -383,11 +583,10 @@ function NewLetter() {
                       )}
                       {isLastStep && (
                         <Button
-                          isDisabled={!isObjEmpty(methods.formState.errors)}
                           isLoading={methods.formState.isSubmitting}
                           loadingText="bitte warten"
                           size="md"
-                          onClick={() => methods.handleSubmit(onSubmit)()}
+                          type="submit"
                           bg={isLastStep ? "brand.800" : "gray.400"}
                           _hover={{ bg: isLastStep ? "brand.900" : "gray.500" }}
                           color={"white"}
@@ -404,7 +603,23 @@ function NewLetter() {
                     <AlertTitle>Formular unvollständig!</AlertTitle>
                     <AlertDescription>
                       Einige Felder sind nicht korrekt ausgefüllt. Bitte
-                      überprüft Eure Eingaben.
+                      überprüft Eure Eingaben. Ihr werdet automatisch zum
+                      betroffenen Abschnitt geführt.
+                      {errorEntries.length > 0 && (
+                        <Box mt={3}>
+                          <Text as="b" display="block" mb={1}>
+                            Diese Felder sind noch nicht korrekt:
+                          </Text>
+                          {errorEntries.map((entry, index) => (
+                            <Text key={`${entry.field}-${index}`}>
+                              <Text as="span" fontWeight="bold">
+                                {`${index + 1}. ${entry.label}`}
+                              </Text>
+                              {`: ${entry.message}`}
+                            </Text>
+                          ))}
+                        </Box>
+                      )}
                     </AlertDescription>
                   </Alert>
                 )}
