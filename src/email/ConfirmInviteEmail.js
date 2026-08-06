@@ -12,6 +12,26 @@ import {
 } from "@react-email/components";
 
 export default function ConfirmInviteEmail({ invite }) {
+  const hasSpende =
+    invite?.spende === true ||
+    invite?.spende === "true" ||
+    invite?.spende === "ja" ||
+    invite?.spende === "1";
+  const begleitungName = [
+    invite?.begleitungTitel,
+    invite?.begleitungVorname,
+    invite?.begleitungName,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .trim();
+  const hasBegleitung =
+    invite?.begleitung === "ja" ||
+    invite?.begleitung === true ||
+    invite?.begleitung === "true" ||
+    invite?.begleitung === "1" ||
+    Boolean(begleitungName);
+
   return (
     <Html>
       <Head />
@@ -60,8 +80,15 @@ export default function ConfirmInviteEmail({ invite }) {
               {invite.telefon || "-"}
               <br />
               <strong>Begleitung: </strong>
-              {invite.begleitungTitel || "-"} {invite.begleitungVorname || "-"}{" "}
-              {invite.begleitungName || "-"} <br />
+              {hasBegleitung ? "Ja" : "Nein"}
+              <br />
+              {hasBegleitung && (
+                <>
+                  <strong>Begleitperson: </strong>
+                  {begleitungName || "-"}
+                  <br />
+                </>
+              )}
               <strong>Datenschutz: </strong>
               {invite.datenschutz ? "Ja" : "Nein"}
               <br />
@@ -69,7 +96,7 @@ export default function ConfirmInviteEmail({ invite }) {
               {invite.datenschutzMedia ? "Ja" : "Nein"}
               <br />
               <strong>Spende: </strong>
-              {invite.spende ? (
+              {hasSpende ? (
                 <Text style={text}>
                   Ich/wir leiste/n eine Spende in Höhe von{" "}
                   {invite.spendeBetrag || "-"} €<br />

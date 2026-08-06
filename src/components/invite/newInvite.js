@@ -96,8 +96,14 @@ function NewInvite() {
         setLoading(false);
         setFormSuccess(true);
         reset();
+        setSpende(false);
+        setBegleitungJa(false);
+        setDatenschutzAnzeigen(false);
+        setTeilnahmeValue(null);
         setValue("datenschutz", null);
         setValue("teilnahme", null);
+        setValue("spende", false);
+        setValue("begleitung", "nein");
       }
     } catch (error) {
       console.log("api fetch error");
@@ -109,6 +115,7 @@ function NewInvite() {
         duration: 4000,
         isClosable: true,
       });
+      setLoading(false);
     }
   }
 
@@ -272,12 +279,13 @@ function NewInvite() {
                         <Checkbox
                           name="begleitung"
                           type="checkbox"
-                          {...register("begleitung")}
+                          {...register("begleitung", {
+                            onChange: (e) => setBegleitungJa(e.target.checked),
+                          })}
                           spacing={6}
                           isInvalid={errors.begleitung}
                           textAlign={"left"}
                           variant={"atTop"}
-                          onChange={(e) => setBegleitungJa(e.target.checked)}
                         >
                           Ich komme in Begleitung.
                           <FormErrorMessage>
@@ -347,12 +355,13 @@ function NewInvite() {
                         <Checkbox
                           name="spende"
                           type="checkbox"
-                          {...register("spende")}
+                          {...register("spende", {
+                            onChange: (e) => setSpende(e.target.checked),
+                          })}
                           spacing={6}
                           isInvalid={errors.spende}
                           textAlign={"left"}
                           variant={"atTop"}
-                          onChange={(e) => setSpende(e.target.checked)}
                         >
                           Ich/ wir leisten eine Spende auf das Spendenkonto der
                           Town & Country Stiftung. <br />

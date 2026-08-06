@@ -195,14 +195,14 @@ export function createFormSchema({ isSonderpreis = false } = {}) {
       checkWahrheit: yup
         .boolean()
         .required(
-          "Bitte Bestätigen Sie, dass die Angaben der Wahrheit entsprechen"
+          "Bitte Bestätigen Sie, dass die Angaben der Wahrheit entsprechen",
         )
         .oneOf(
           [true],
-          "Bitte Bestätigen Sie, dass die Angaben der Wahrheit entsprechen"
+          "Bitte Bestätigen Sie, dass die Angaben der Wahrheit entsprechen",
         ),
     },
-    [["telefonnummerProjekt", "mobilProjekt"]]
+    [["telefonnummerProjekt", "mobilProjekt"]],
   );
 }
 
@@ -242,15 +242,27 @@ export const inviteSchema = yup.object().shape({
       return value == "ja";
     })
     .required(),
-  spende: yup.boolean(),
+  spende: yup.boolean().transform((value, originalValue) => {
+    return (
+      originalValue === true ||
+      originalValue === "true" ||
+      originalValue === "ja" ||
+      originalValue === "1"
+    );
+  }),
   titel: yup.string(),
   name: yup.string().required(),
   vorname: yup.string().required(),
   unternehmen: yup.string().required(),
   email: yup.string().email().required(),
   telefon: yup.string(),
-  begleitung: yup.string().transform((value) => {
-    return value == "true" ? "ja" : "nein";
+  begleitung: yup.string().transform((value, originalValue) => {
+    return originalValue === true ||
+      originalValue === "true" ||
+      originalValue === "ja" ||
+      originalValue === "1"
+      ? "ja"
+      : "nein";
   }),
   datenschutz: yup.boolean().when("teilnahme", {
     is: true,
