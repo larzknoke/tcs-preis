@@ -16,6 +16,9 @@ export const getServerSideProps = async () => {
     where: {
       verified: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     include: {
       botschafter: true,
       kampagne: true,
