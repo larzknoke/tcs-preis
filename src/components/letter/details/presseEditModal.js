@@ -33,19 +33,19 @@ function PresseEditModal({ onClose, isOpen, letter }) {
   const [count, setCount] = useState(0);
 
   const [datePresseEinladung, setDatePresseEinladung] = useState(
-    letter.presseEinladung || undefined
+    letter.presseEinladung || undefined,
   );
   const [datePresseMitteilung, setDatePresseMitteilung] = useState(
-    letter.presseMitteilung || undefined
+    letter.presseMitteilung || undefined,
   );
   const [datePresseFreigabe, setDatePresseFreigabe] = useState(
-    letter.presseFreigabe || undefined
+    letter.presseFreigabe || undefined,
   );
   const [datePresseVersendet, setDatePresseVersendet] = useState(
-    letter.presseVersendet || undefined
+    letter.presseVersendet || undefined,
   );
   const [datePresseErledigt, setDatePresseErledigt] = useState(
-    letter.presseErledigt || undefined
+    letter.presseErledigt || undefined,
   );
 
   const {
@@ -65,14 +65,41 @@ function PresseEditModal({ onClose, isOpen, letter }) {
   }, [letter.presseText]);
 
   async function onSubmit(values) {
-    delete values.lettercontacts;
     try {
+      const payload = {
+        id: letter.id,
+        expectedUpdatedAt: letter.updatedAt,
+        presseErlaubt: values.presseErlaubt,
+        presseFoto: values.presseFoto,
+        presseEV: values.presseEV,
+        presseText: values.presseText || null,
+        presseEinladung: values.presseEinladung || null,
+        presseMitteilung: values.presseMitteilung || null,
+        presseFreigabe: values.presseFreigabe || null,
+        presseVersendet: values.presseVersendet || null,
+        presseErledigt: values.presseErledigt || null,
+      };
+
       setLoading(true);
       const res = await fetch("/api/letter", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       });
+
+      if (res.status == 409) {
+        toast({
+          title: "Konflikt erkannt",
+          description:
+            "Die Bewerbung wurde parallel geaendert. Bitte Seite neu laden und erneut speichern.",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+        });
+        setLoading(false);
+        return;
+      }
+
       if (res.status != 200) {
         toast({
           title: "Ein Fehler ist aufgetreten",
@@ -90,7 +117,7 @@ function PresseEditModal({ onClose, isOpen, letter }) {
           isClosable: true,
         });
         onClose();
-        router.push(`/admin/bewerbung/${resData.id}`);
+        router.replace(router.asPath);
         setLoading(false);
         reset(resData);
       }
@@ -104,6 +131,7 @@ function PresseEditModal({ onClose, isOpen, letter }) {
         duration: 4000,
         isClosable: true,
       });
+      setLoading(false);
     }
   }
 
@@ -114,7 +142,7 @@ function PresseEditModal({ onClose, isOpen, letter }) {
         <ModalHeader>Presse bearbeiten</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <form id="edit-beschreibung-form" onSubmit={handleSubmit(onSubmit)}>
+          <form id="edit-presse-form" onSubmit={handleSubmit(onSubmit)}>
             <SimpleGrid spacing={6} columns={4} w={"full"}>
               <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.presseErlaubt}>
@@ -420,7 +448,7 @@ function PresseEditModal({ onClose, isOpen, letter }) {
             size={"md"}
             variant="outline"
             colorScheme="green"
-            form="edit-beschreibung-form"
+            form="edit-presse-form"
             type="submit"
             isLoading={loading}
           >

@@ -48,18 +48,46 @@ function FinanzEditModal({ onClose, isOpen, letter }) {
           value: letter?.bundeslandTraeger,
           label: letter?.bundeslandTraeger,
         }
-      : ""
+      : "",
   );
 
   async function onSubmit(values) {
-    delete values.lettercontacts;
     try {
+      const payload = {
+        id: letter.id,
+        expectedUpdatedAt: letter.updatedAt,
+        eigenmittel: Number.isNaN(values.eigenmittel)
+          ? null
+          : values.eigenmittel,
+        oeffentlicheZuwendungen: Number.isNaN(values.oeffentlicheZuwendungen)
+          ? null
+          : values.oeffentlicheZuwendungen,
+        privateSpenden: Number.isNaN(values.privateSpenden)
+          ? null
+          : values.privateSpenden,
+        bisherigeFoerderung: values.bisherigeFoerderung || null,
+      };
+
       setLoading(true);
       const res = await fetch("/api/letter", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       });
+
+      if (res.status == 409) {
+        toast({
+          title: "Konflikt erkannt",
+          description:
+            "Die Bewerbung wurde parallel geaendert. Bitte Seite neu laden und erneut speichern.",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+        });
+        setLoading(false);
+        return;
+      }
+
       if (res.status != 200) {
         toast({
           title: "Ein Fehler ist aufgetreten",
@@ -77,7 +105,7 @@ function FinanzEditModal({ onClose, isOpen, letter }) {
           isClosable: true,
         });
         onClose();
-        router.push(`/admin/bewerbung/${resData.id}`);
+        router.replace(router.asPath);
         setLoading(false);
         reset(resData);
       }
@@ -91,6 +119,7 @@ function FinanzEditModal({ onClose, isOpen, letter }) {
         duration: 4000,
         isClosable: true,
       });
+      setLoading(false);
     }
   }
 
@@ -101,7 +130,7 @@ function FinanzEditModal({ onClose, isOpen, letter }) {
         <ModalHeader>Finanzierung bearbeiten</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <form id="edit-beschreibung-form" onSubmit={handleSubmit(onSubmit)}>
+          <form id="edit-finanz-form" onSubmit={handleSubmit(onSubmit)}>
             <SimpleGrid spacing={6} columns={4} w={"full"}>
               <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.eigenmittel}>
@@ -181,7 +210,7 @@ function FinanzEditModal({ onClose, isOpen, letter }) {
             size={"md"}
             variant="outline"
             colorScheme="green"
-            form="edit-beschreibung-form"
+            form="edit-finanz-form"
             type="submit"
             isLoading={loading}
           >

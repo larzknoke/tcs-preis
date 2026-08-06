@@ -56,20 +56,56 @@ export default async function handle(req, res) {
   }
   if (req.method == "PUT") {
     try {
-      const data = req.body;
+      const body = req.body || {};
+      const id = parseInt(body.id, 10);
+      const expectedUpdatedAt = body.expectedUpdatedAt;
+
+      if (!id) {
+        return res.status(400).json({ message: "invalid id" });
+      }
+
+      const data = { ...body };
       [
+        "id",
+        "expectedUpdatedAt",
         "notes",
         "files",
         "botschafterId",
         "kampagneId",
         "botschafter",
         "kampagne",
+        "lettercontacts",
+        "createdAt",
+        "updatedAt",
       ].forEach((k) => delete data[k]);
 
-      const result = await prisma.letter.update({
-        where: { id: parseInt(data.id) },
+      Object.keys(data).forEach((key) => {
+        if (typeof data[key] === "undefined") {
+          delete data[key];
+        }
+      });
+
+      if (Object.keys(data).length === 0) {
+        return res.status(400).json({ message: "no updatable fields" });
+      }
+
+      const where = expectedUpdatedAt
+        ? { id, updatedAt: new Date(expectedUpdatedAt) }
+        : { id };
+
+      const updated = await prisma.letter.updateMany({
+        where,
         data: { ...data, updatedAt: new Date() },
       });
+
+      if (updated.count === 0) {
+        return res.status(409).json({
+          message:
+            "Konflikt: Datensatz wurde zwischenzeitlich geaendert. Bitte neu laden.",
+        });
+      }
+
+      const result = await prisma.letter.findUnique({ where: { id } });
       return res.status(200).json(result);
     } catch (error) {
       console.log("api error: ", error);

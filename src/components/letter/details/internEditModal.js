@@ -47,24 +47,50 @@ function InternEditModal({ onClose, isOpen, letter }) {
   const [dateBild, setDateBild] = useState(letter.bildmaterial || undefined);
   const [dateGeld, setDateGeld] = useState(letter.terminGeld || undefined);
   const [dateGeld5000, setDateGeld5000] = useState(
-    letter.terminGeld5000 || undefined
+    letter.terminGeld5000 || undefined,
   );
   const [dateZWB1000, setDateZWB1000] = useState(letter.zwb1000 || undefined);
   const [dateZWB5000, setDateZWB5000] = useState(letter.zwb5000 || undefined);
   const [dateUebergabe, setDateUebergabe] = useState(
-    letter.terminUebergabe || undefined
+    letter.terminUebergabe || undefined,
   );
 
   async function onSubmit(values) {
-    delete values.lettercontacts;
     try {
+      const payload = {
+        id: letter.id,
+        expectedUpdatedAt: letter.updatedAt,
+        checkFreistellung: values.checkFreistellung,
+        jury: values.jury,
+        juryStatus: values.juryStatus || null,
+        bildmaterial: values.bildmaterial || null,
+        terminUebergabe: values.terminUebergabe || null,
+        terminGeld: values.terminGeld || null,
+        zwb1000: values.zwb1000 || null,
+        terminGeld5000: values.terminGeld5000 || null,
+        zwb5000: values.zwb5000 || null,
+      };
+
       setLoading(true);
-      console.log("values: ", values);
       const res = await fetch("/api/letter", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       });
+
+      if (res.status == 409) {
+        toast({
+          title: "Konflikt erkannt",
+          description:
+            "Die Bewerbung wurde parallel geaendert. Bitte Seite neu laden und erneut speichern.",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+        });
+        setLoading(false);
+        return;
+      }
+
       if (res.status != 200) {
         toast({
           title: "Ein Fehler ist aufgetreten",
@@ -75,7 +101,6 @@ function InternEditModal({ onClose, isOpen, letter }) {
         setLoading(false);
       } else {
         const resData = await res.json();
-        console.log("resData: ", resData);
         toast({
           title: `Projekt ${resData.nameTraeger} aktualisiert.`,
           status: "success",
@@ -83,7 +108,7 @@ function InternEditModal({ onClose, isOpen, letter }) {
           isClosable: true,
         });
         onClose();
-        router.push(`/admin/bewerbung/${resData.id}`);
+        router.replace(router.asPath);
         setLoading(false);
         reset(resData);
       }
@@ -97,6 +122,7 @@ function InternEditModal({ onClose, isOpen, letter }) {
         duration: 4000,
         isClosable: true,
       });
+      setLoading(false);
     }
   }
 
@@ -107,7 +133,7 @@ function InternEditModal({ onClose, isOpen, letter }) {
         <ModalHeader>Interne Daten bearbeiten</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <form id="edit-beschreibung-form" onSubmit={handleSubmit(onSubmit)}>
+          <form id="edit-intern-form" onSubmit={handleSubmit(onSubmit)}>
             <SimpleGrid spacing={6} columns={4} w={"full"}>
               <GridItem colSpan={4}>
                 <FormControl isInvalid={errors.checkFreistellung}>
@@ -436,7 +462,7 @@ function InternEditModal({ onClose, isOpen, letter }) {
             size={"md"}
             variant="outline"
             colorScheme="green"
-            form="edit-beschreibung-form"
+            form="edit-intern-form"
             type="submit"
             isLoading={loading}
           >
